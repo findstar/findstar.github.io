@@ -35,6 +35,9 @@ layout: default
                     {% endif %}
                 </footer><!-- .entry-footer -->
             </article><!-- .post -->
+            {% if site.disqus %}
+            {% include disqus.html %}
+            {% endif %}
             <div class="author-box">
                 <div class="author-info">
                     <div class="author-avatar" style="background-image: url({{ site.author_image }})"><span class="screen-reader-text">{{ site.author_name }}'s Picture</span></div>
@@ -73,9 +76,7 @@ layout: default
                 </div><!-- .nav-next -->
                 {% endif %}
             </nav><!-- .post-navigation -->
-            {% if site.disqus %}
-                {% include disqus.html %}
-            {% endif %}
+
         </main><!-- .site-main -->
         {% include sidebar.html %}
     </div><!-- .inner -->
