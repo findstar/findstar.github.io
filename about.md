@@ -1,16 +1,14 @@
 ---
 layout: page
 title: About this blog
-description: An optional about page for BlogInn Jekyll theme
+description: 남들 보다 느려도 여유있기를 좋아하는. 재미난걸 좋아하고, 멘땅에 헤딩을 피하지 않는. 배우는걸 즐기는 개발자. 
 banner_image: aboutPage.jpg
 ---
 
-**John Doe** is a Senior Art Director from [Vilnius](https://en.wikipedia.org/wiki/Vilnius), Lithuania. After graduating from The College of Visual Arts with a degree in Communication Design, he worked for three small graphic design shops where he honed his design style and sensibility.
+**J.S Ahn** 남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터. 
 
-His work has been recognized by Communication Arts, Print, How, ID, IdN, AIGA, Effie, Archive, Graphis, AdFed and Rockport. Graphic Design USA named him a person to watch in 2015.
+새로운걸 배우고 공부하는걸 좋아하지만, 더디게 나아가는 평범한 개발자. @findstar 
 
->The world always seems brighter when you’ve just made something that wasn’t there before. <cite>Neil Gaiman</cite>
+>I want to fix the pothole that's right in front of me before I fall in. <cite>Linus Torvalds</cite>
 
-As a hobby, John Doe authors the most influential design blog in Lithuania with over 100,000 page views a month. He lives in Vilnius with his beautiful wife, two boys and one girl.
-
-*Thank You for reading!*
+*치열하지 않아도 괜찮아.*

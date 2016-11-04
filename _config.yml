@@ -42,7 +42,7 @@ author_name: "J.S Ahn"
 author_bio: "Software Developer, I love code."
 author_url:  "http://findstar.pe.kr"
 author_location: "South Korea"
-author_image: /images/authorimage.png
+author_image: /images/authorimage.jpg
 
 # Sidebar Add banner
 banner_url: "https://laravel.kr"
