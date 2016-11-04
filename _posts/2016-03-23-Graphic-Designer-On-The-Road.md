@@ -2,7 +2,7 @@
 layout: post
 title:  "Graphic Designer On The Road"
 date:   2016-03-23
-banner_image: road.jpg
+banner_image: Desk.jpg
 tags: [web design, blogging]
 ---
 
