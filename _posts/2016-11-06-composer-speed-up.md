@@ -6,7 +6,7 @@ date:   2016-11-06
 banner_image: composer-boost.jpg
 tags: [tips, composer, speedup]
 ---
-PHP 의 의존성 관리도구인 [컴포저](https://getcomposer.org/) 를 사용할 때, `composer install` 이나 `composer update` 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 `composer speed up` 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.
+PHP 의 의존성 관리도구인 [컴포저](https://getcomposer.org/ "컴포저(composer) 공식 사이트") 를 사용할 때, `composer install` 이나 `composer update` 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 `composer speed up` 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.
  
 몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자. 
 
@@ -16,7 +16,7 @@ PHP 의 의존성 관리도구인 [컴포저](https://getcomposer.org/) 를 사�
 
 ## Prestissimo Plugin 설치하기 
 
-[prestissimo](https://github.com/hirak/prestissimo)는 컴포저의 global 플러그인중 하나로 컴포저의 다양한 의존성 패키지들을 병령로 다운받을 수 있게 해주는 녀석이다. 
+[prestissimo](https://github.com/hirak/prestissimo "prestissimo github 프로젝트 페이지")는 컴포저의 global 플러그인중 하나로 컴포저의 다양한 의존성 패키지들을 병령로 다운받을 수 있게 해주는 녀석이다. 
 
 내부적으로 curl multi 옵션을 통해서 의존성 패키지들을 다운받도록 해서 속도 향상에 큰 기여를 하는 방식이다. 컴포저를 자주 사용한다면 설치하지 않을 이유가 없다! 
 
@@ -40,7 +40,7 @@ composer update 또는 composer install 시에  *–prepfer-dist* 사용하면 �
 
 php-xdebug 가 활성화 되어 있으면 컴포저의 속도가 느리다. 초기에는 이를 알수가 없었는데 최근에는 컴포저 자체에서 경고를 보여주는 것 같다. 
 
-만약 php 설정이 cli 와 구분되어 있다면 cli 모드에서는 xdebug 를 활성화 시키지 않도록 하자.
+만약 php 설정이 cli 와 구분되어 있다면 cli 모드에서는 xdebug 를 활성화 시키지 않도록 하자.                   
 
 ## dns lookup 줄이기
 
@@ -51,7 +51,7 @@ php-xdebug 가 활성화 되어 있으면 컴포저의 속도가 느리다. 초�
 
 ### 참고
 
- - [컴포저 한글 매뉴얼](http://xpressengine.github.io/Composer-korean-docs/doc/03-cli.md/#install)
- - [composer manual](https://getcomposer.org/doc/03-cli.md#install)
- - [prestissimo plugin](https://github.com/hirak/prestissimo)
- - [xdebug disable warning](https://getcomposer.org/doc/03-cli.md#composer-disable-xdebug-warn)
+ - [컴포저 한글 매뉴얼](http://xpressengine.github.io/Composer-korean-docs/doc/03-cli.md/#install "컴포저 한글 매뉴얼")
+ - [composer manual](https://getcomposer.org/doc/03-cli.md#install "composer 매뉴얼 cli 부분")
+ - [prestissimo plugin](https://github.com/hirak/prestissimo "prestissimo 프로젝트 페이지")
+ - [xdebug disable warning](https://getcomposer.org/doc/03-cli.md#composer-disable-xdebug-warn "composer 매뉴얼 xdebug 부분")
