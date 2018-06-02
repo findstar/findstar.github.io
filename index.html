@@ -8,13 +8,19 @@ pagination:
 <section class="list">
     {% if site.posts.size == 0 %}
         <p class="text-center">Nothing published yet!</p>
-    {% else %}
+    {% elsif paginator %}
         {% for post in paginator.posts %}
                 {% if post.hidden != true %}
                     {% include blog-post-blogin.html %}
                 {% endif %}
         {% endfor %}
         {% include pagination.html%}
+    {% else %}
+        {% for post in site.posts %}
+            {% if post.hidden != true %}
+                {% include blog-post-blogin.html %}
+            {% endif %}
+        {% endfor %}
     {% endif %}
 </section>
 
