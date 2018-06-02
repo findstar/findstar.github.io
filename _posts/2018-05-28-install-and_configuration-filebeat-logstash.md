@@ -4,22 +4,23 @@ title:  "logstash와 filebeat 설정하기"
 date:   2018-05-28
 banner_image: "elastic/logstash_filebeats.png"
 tags: [elastic, logstash, filebeat, install]
+group: blog
 ---
 
 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.
 
 <!--more-->
 
-* 먼저 서버는 다음과 같이 구성되어 있다.
-  - ElasticSearch 클러스터가 별도로 존재
-  - LogStash 1대
-  - 다수의 웹서버에 각각 Filebeat 를 설치.
+### 먼저 서버 구성은 다음과 같다.
+- ElasticSearch 클러스터가 별도로 존재
+- LogStash 1대
+- 다수의 웹서버에 각각 Filebeat 를 설치.
 
-{% include image_caption.html imageurl="/images/posts/elastic/system_stack.png" title="시스템 구성도" %}
+{% include image_full.html imageurl="/images/posts/elastic/system_stack.png" title="시스템 구성도" border="true" %}
 
-### filebeat
+## filebeat
 
-#### filebeat 설치
+### filebeat 설치
 
 1. filebeat 를 yum을 통해서 설치
 
@@ -48,9 +49,9 @@ type=rpm-md
 yum install filebeat
 ```
 
-#### filebeat 설정
+### filebeat 설정
 
-* filebeat 에서는 json 형태로 logstash 에게 데이터를 전달하고, 이때 `message` 필드에 수집한 로그 파일의 데이터가 담겨진다.
+filebeat 에서는 json 형태로 logstash 에게 데이터를 전달하고, 이때 `message` 필드에 수집한 로그 파일의 데이터가 담겨진다.
 수집하려는 log file 의 유형에 따라서 [community beats](https://www.elastic.co/guide/en/beats/libbeat/current/community-beats.html)를 사용할 수도 있지만,
 나의 경우에는 Custom pattern의 로그 파일을 수집할 예정이라 logstash에서 pasring 하는 형태를 선택했다. (직접 beat를 만들 수도 있다.[링크](https://www.elastic.co/blog/build-your-own-beat), 언어는 golang.)
 
@@ -87,19 +88,19 @@ output.logstash:
 
 * 수집할 log를 정의하고 `fields` 를 추가하였다. 추가한 `fields`는 logstash에 변수로 전달된다. 필요한 경우 여러개를 추가 할 수 있다.
 
-#### filebeat 실행
+### filebeat 실행
 
 ```
 service filebeat start
 ```
 
-#### filebeat 데몬 로그 확인
+### filebeat 데몬 로그 확인
 
 ```
 tail -f /var/log/filebeat/filebeat
 ```
 
-#### filebeat 에서 file 을 다시 읽어 들어야 하는 경우
+### filebeat 에서 file 을 다시 읽어 들어야 하는 경우
 
 * filebeat 는 파일을 어디까지 읽어 들였는지 메타 정보를 `/var/lib/filebeat/registry` 파일에 기록하고 있다.
 
@@ -109,13 +110,13 @@ tail -f /var/log/filebeat/filebeat
 echo "[]" > /var/lib/filebeat/registry
 ```
 
-### logstash
+## logstash
 
-#### logstash 설치
+### logstash 설치
 
 * logstash 는 Java 가 준비된 환경에서 [Download Link](https://www.elastic.co/downloads/logstash)에서 다운받아서 설치했다.
 
-#### logstash plugin 설치
+### logstash plugin 설치
 
 * 사용할 필터중에서 bundle 로 제공되지 않는 alter 설치
 
@@ -126,7 +127,7 @@ Installing logstash-filter-alter
 Installation successful
 ```
 
-#### logstash 에 filter 설정
+### logstash 에 filter 설정
 
 * grok, mutate, json, geoip, alter 필터를 설정했고 filebeat 에서 fields 로 넘겨받은 index_name을 사용했다.
 
@@ -174,19 +175,19 @@ Installation successful
 ```
 
 
-#### logstash 실행
+### logstash 실행
 
 ```
 nohup logstash/bin/logstash -f logstash.conf > /var/log/logstash/logstash.out
 ```
 
 
-#### elasticsearch 확인
+### elasticsearch 확인
 
 * 인덱스와 데이터가 제대로 들어오는지 확인하면 된다.
 
 
-#### 참고
+### 참고
   - https://www.elastic.co/guide/en/beats/filebeat/current/setup-repositories.html
   - http://yongho1037.tistory.com/709
   - http://dgkim5360.tistory.com/entry/managing-multiple-heterogeneous-inputs-on-filebeat-and-logstash

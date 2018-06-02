@@ -5,6 +5,7 @@ description: "SSH connect to multiple server by itermocil"
 date:   2017-01-03
 banner_image: itermocil.png
 tags: [ssh, iterm, macro]
+group: blog
 ---
 
 얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.

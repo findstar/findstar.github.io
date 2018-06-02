@@ -4,6 +4,7 @@ title:  "Ansible AWX 를 설치해보기"
 date:   2018-04-04
 banner_image: ansible-awx/ansible-awx.png
 tags: [ansible, awx, installation, ansible tower]
+group: blog
 ---
 
 ansible을 팀에서 사용하면서, 몇가지 `이런게 있었으면` 하는 점이 있었는데, 그 중하나가 바로 `GUI 환경`이다.

@@ -4,6 +4,7 @@ title:  "Spring Boot 매뉴얼 뽀개기 1"
 date:   2018-05-02
 banner_image: spring-boot-490x257.png
 tags: [study, spring boot]
+group: blog
 ---
 
 관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
