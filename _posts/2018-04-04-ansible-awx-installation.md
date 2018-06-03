@@ -2,7 +2,7 @@
 layout: post
 title:  "Ansible AWX 를 설치해보기"
 date:   2018-04-04
-banner_image: ansible-awx/ansible-awx.png
+image: "/images/posts/ansible-awx/ansible-awx.png"
 tags: [ansible, awx, installation, ansible tower]
 group: blog
 ---

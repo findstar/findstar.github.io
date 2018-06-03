@@ -3,7 +3,7 @@ layout: post
 title:  "블로그 플랫폼 이전 - 글쓰기에 도전하기"
 date:   2016-11-04
 description: "blog migration from wordpress to jekyll"
-banner_image: road.jpg
+image: "/images/posts/road.jpg"
 tags: [blog, developer, Jekyll]
 group: blog
 ---

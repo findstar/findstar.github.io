@@ -3,7 +3,7 @@ layout: post
 title:  "컴포저의 속도를 올리는 방법"
 description: "composer speed up"
 date:   2016-11-06
-banner_image: composer-boost.jpg
+image: "/images/posts/composer-boost.jpg"
 tags: [tips, composer, speedup]
 group: blog
 ---

@@ -2,10 +2,10 @@
 layout: post
 title:  "Review: A Week With the Apple Watch"
 date:   2016-03-22
-banner_image: Apple-Watch.jpg
+image: "/images/posts/Apple-Watch.jpg"
 tags: [minimal, tech, industrial design]
 ---
-The **Apple Watch** is a smartwatch developed by [Apple Inc](http://www.apple.com/). It incorporates fitness tracking and health-oriented capabilities as well as integration with iOS and other Apple products and services. The device is available in four variants: Apple Watch Sport, Apple Watch, Apple Watch Hermès, and Apple Watch Edition. The Watch is distinguished by different combinations of cases and first or third party interchangeable bands. Apple Watch relies on a wirelessly connected iPhone to perform many of its default functions such as calling and texting. It is compatible with the iPhone 5 or later models running iOS 8.2 or later, through the use of Bluetooth or Wi-Fi. 
+The **Apple Watch** is a smartwatch developed by [Apple Inc](http://www.apple.com/). It incorporates fitness tracking and health-oriented capabilities as well as integration with iOS and other Apple products and services. The device is available in four variants: Apple Watch Sport, Apple Watch, Apple Watch Hermès, and Apple Watch Edition. The Watch is distinguished by different combinations of cases and first or third party interchangeable bands. Apple Watch relies on a wirelessly connected iPhone to perform many of its default functions such as calling and texting. It is compatible with the iPhone 5 or later models running iOS 8.2 or later, through the use of Bluetooth or Wi-Fi.
 
 <!--more-->
 

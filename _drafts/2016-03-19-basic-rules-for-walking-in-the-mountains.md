@@ -2,7 +2,7 @@
 layout: post
 title:  "Basic Rules For Walking In The Mountains"
 date:   2016-03-19
-banner_image: Mountain.jpg
+image: "/images/posts/Mountain.jpg"
 tags: [travel, photography]
 ---
 

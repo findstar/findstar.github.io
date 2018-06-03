@@ -2,7 +2,7 @@
 layout: post
 title:  "Spring Boot 매뉴얼 뽀개기 1"
 date:   2018-05-02
-banner_image: spring-boot-490x257.png
+image: "/images/posts/spring-boot-490x257.png"
 tags: [study, spring boot]
 group: blog
 ---

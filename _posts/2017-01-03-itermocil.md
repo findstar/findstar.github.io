@@ -3,7 +3,7 @@ layout: post
 title:  "itermocil을 사용해서 다수의 서버에 SSH 접속하기"
 description: "SSH connect to multiple server by itermocil"
 date:   2017-01-03
-banner_image: itermocil.png
+image: "/images/posts/itermocil.png"
 tags: [ssh, iterm, macro]
 group: blog
 ---

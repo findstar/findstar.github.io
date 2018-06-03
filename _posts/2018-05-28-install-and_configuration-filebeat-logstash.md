@@ -2,7 +2,7 @@
 layout: post
 title:  "logstash와 filebeat 설정하기"
 date:   2018-05-28
-banner_image: "elastic/logstash_filebeats.png"
+image: "/images/posts/elastic/logstash_filebeats.png"
 tags: [elastic, logstash, filebeat, install]
 group: blog
 ---
