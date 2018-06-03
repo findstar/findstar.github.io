@@ -6,6 +6,9 @@ author-id: findstar
 # twitter summary info
 description: "I want to fix the pothole that's right in front of me before I fall in."
 
+# seo
+lang: ko_KR
+
 # if it's an external image, update below for true
 # better with square images
 external-image: false
