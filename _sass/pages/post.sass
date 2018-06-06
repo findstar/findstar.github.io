@@ -110,8 +110,10 @@
     position: relative
 
 .post-thumbnail
-    > img
+    img
         width: 100%
+        height: auto
+        vertical-align: middle
 
 .entry-title
     background-color: $picton-blue
@@ -315,3 +317,18 @@ a.archive-top-link
     padding-left: 15px
     padding-right: 15px
     margin: 15px auto
+
+
+@media only screen and (max-width: 640px)
+    .entry-title
+        font-size: 28px
+        padding: 20px 15px 15px 20px
+
+
+@media only screen and (max-width: 480px)
+    h3, .entry-title
+        font-size: 20px
+    .entry-title
+        margin-top: 30px
+        max-width: none
+        padding: 10px 15px
