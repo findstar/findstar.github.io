@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>Home - Soo Story</title>
+    <title>Ansible AWX 를 설치해보기 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/">
+    <link rel="canonical" href="https://findstar.pe.kr/2018/04/04/ansible-awx-installation/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -47,19 +47,21 @@
 
 
 
-    <link href="https://findstar.pe.kr/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
-    <link href="https://findstar.pe.kr/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
-
 
 <meta name="generator" content="Hugo 0.42.1" />
 
-<meta property="og:title" content="Home" />
-<meta property="og:description" content="Software Developer, I love code." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://findstar.pe.kr/" />
+<meta property="og:title" content="Ansible AWX 를 설치해보기" />
+<meta property="og:description" content="ansible을 팀에서 사용하면서, 몇가지 이런게 있었으면 하는 점이 있었는데, 그 중하나가 바로 GUI 환경이다.
+물론 CLI 콘솔 상에서 playbook을 실행하는데는 아무 문제가 없고 잘 사용하고 있지만, GUI에서도 보기 쉽게 playbook을 실행하고 또한 누가 언제 playbook을 실행했는지 기록되면 좋겠다는 바램이 있었다.
+Ansible Tower는 이러한 바램을 해소시켜 줄 수 있는 대안이라고 생각이 되지만, 라이센스 비용이 비싸기로 유명(?) 해서, 포기하고 있었는데.
+Redhat에서 Ansible Tower 의 오픈소스 버전으로 Ansible AWX를 발표했다! (대인배&hellip;Redhat.)
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://findstar.pe.kr/2018/04/04/ansible-awx-installation/" />
 
 
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="/images/posts/ansible-awx/ansible-awx.png" />
 
 
 
@@ -72,40 +74,11 @@
 <div class="wrapper-large">
     
         
-            <div class="page home">
+            <div class="page blog">
         
     
 
     
-<header class="header-home animated">
-    <a class="link" href="https://findstar.pe.kr/about">
-        <img class="selfie" alt="J.S Ahn" src="https://findstar.pe.kr/images/profile.jpg" />
-    </a>
-
-    <h1 class="title">Soo Story</h1>
-    <h2 class="description">Thoughts, stories and ideas.</h2>
-    <div class="social-links">
-
-
-    
-    <a class="link" data-title="facebook" href="https://facebook.com/findstar" target="_blank">
-        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
-    </a>
-    
-    <a class="link" data-title="twitter" href="https://twitter.com/findstar/" target="_blank">
-        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-    </a>
-    
-    <a class="link" data-title="github" href="https://github.com/findstar/" target="_blank">
-        <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-    </a>
-    
-
-
-</div>
-
-</header>
-
 
 <nav class="nav">
     
@@ -131,206 +104,447 @@
 
     
 
-<section class="list">
+
+
+<h1 class="title">Ansible AWX 를 설치해보기</h1>
+
+<span class="date">
+        <time datetime="2018-04-04">2018-04-04</time>
+</span>
 
 
 
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index" rel="bookmark" title="Permanent Link to /2018/06/03/change-alias-on-elasticsearch-index">ElasticSearch 에서 Index Alias 변경하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-03">2018-06-03</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="6월-3일-일-til">6월 3일 (일) TIL</h1>
+<div class="post-tags">
+    <i class="fa fa-tags" title="태그"></i>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#ansible">ansible</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#awx">awx</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#installation">installation</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#ansible%20tower">ansible tower</a>
+    
+</div>
 
-<p>ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.</p>
 
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#index%20alias" title="Pages tagged index alias" rel="tag">index alias</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/elastic/logstash_filebeats.png" alt="logstash와 filebeat 설정하기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash" rel="bookmark" title="Permanent Link to /2018/05/28/install-and_configuration-filebeat-logstash">logstash와 filebeat 설정하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-28">2018-05-28</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#logstash" title="Pages tagged logstash" rel="tag">logstash</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#filebeat" title="Pages tagged filebeat" rel="tag">filebeat</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#install" title="Pages tagged install" rel="tag">install</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl" rel="bookmark" title="Permanent Link to /2018/05/13/upload-file-on-curl">CURL 에서 파일 업로드 하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-13">2018-05-13</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="5월-13일-수-til">5월 13일 (수) TIL</h1>
-
-<p>작성한 API를 테스트 하기 위해서 <a href="https://www.getpostman.com/">Postman</a> 이나 <a href="https://paw.cloud/">Paw</a>를 주로 사용하는데,
-CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 <code>CURL</code>을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#curl" title="Pages tagged curl" rel="tag">curl</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#file%20upload" title="Pages tagged file upload" rel="tag">file upload</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2018/05/02/start-spring-boot-1/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/spring-boot-490x257.png" alt="Spring Boot 매뉴얼 뽀개기 1 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/02/start-spring-boot-1" rel="bookmark" title="Permanent Link to /2018/05/02/start-spring-boot-1">Spring Boot 매뉴얼 뽀개기 1</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-02">2018-05-02</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
-Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 <em>&ldquo;Spring Boot 매뉴얼 뽀개기!&rdquo;</em> 라고 스터디 제목을 정했다. (과연..)</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/02/start-spring-boot-1/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#study" title="Pages tagged study" rel="tag">study</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#spring%20boot" title="Pages tagged spring boot" rel="tag">spring boot</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2018/04/04/ansible-awx-installation/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/ansible-awx/ansible-awx.png" alt="Ansible AWX 를 설치해보기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/04/04/ansible-awx-installation" rel="bookmark" title="Permanent Link to /2018/04/04/ansible-awx-installation">Ansible AWX 를 설치해보기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-04-04">2018-04-04</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>ansible을 팀에서 사용하면서, 몇가지 <code>이런게 있었으면</code> 하는 점이 있었는데, 그 중하나가 바로 <code>GUI 환경</code>이다.
+<p>ansible을 팀에서 사용하면서, 몇가지 <code>이런게 있었으면</code> 하는 점이 있었는데, 그 중하나가 바로 <code>GUI 환경</code>이다.
 물론 CLI 콘솔 상에서 playbook을 실행하는데는 아무 문제가 없고 잘 사용하고 있지만, GUI에서도 보기 쉽게 playbook을 실행하고 또한 누가 언제 playbook을 실행했는지 기록되면 좋겠다는 바램이 있었다.
 <code>Ansible Tower</code>는 이러한 바램을 해소시켜 줄 수 있는 대안이라고 생각이 되지만, 라이센스 비용이 비싸기로 유명(?) 해서, 포기하고 있었는데.
 Redhat에서 <a href="https://www.ansible.com/products/awx-project">Ansible Tower 의 오픈소스 버전으로 Ansible AWX를 발표했다!</a> (대인배&hellip;Redhat.)</p>
 
 <p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/04/04/ansible-awx-installation/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ansible" title="Pages tagged ansible" rel="tag">ansible</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#awx" title="Pages tagged awx" rel="tag">awx</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#installation" title="Pages tagged installation" rel="tag">installation</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ansible%20tower" title="Pages tagged ansible tower" rel="tag">ansible tower</a>
-            
-            </div>
-        </footer>
-        
-    </article>
 
-<div class="pagination">
-    
-        <span class="previous hidden">«</span>
-    
+<p>AWX(Towner의 오픈소스 버전)는 stanalone으로 구동하며, job(playbook) 에 대한 수행 history, 사용자별 권한제어, GUI, 스케줄링을 통한 실행 기능등을 제공한다.</p>
 
-    <span class="page_number ">page 1 of 4</span>
+<ul>
+<li>접근 권한 제어
 
+<dl>
+<dd>사용자 및 팀을 구성하고 권한을 설정하여 엑세스를 제한할 수 있다.</dd>
+</dl></li>
+<li>스케줄링
+
+<dl>
+<dd>작업 일정을 예약하고 반복 옵션을 설정할 수 있다 .</dd>
+</dl></li>
+<li>가시성
+
+<dl>
+<dd>동작중인 job 과 job의 상태, 내역을 확인할 수 있다.</dd>
+</dl></li>
+<li>인벤토리
+
+<dl>
+<dd>대상 서버들의 구성 및 dynamic inventory 를 사용하여 클라우드에서 동적으로 생성되고 삭제되는 서버들의 list를 관리할 수 있다.</dd>
+</dl></li>
+</ul>
+
+<p>단일 시스템으로 구동되는데 사용된 기술은 다음과 같다
+ - Django
+ - Angular JS 1.*
+ - Pgsql
+ - RabbitMQ
+ - memcached</p>
+
+<p>초기 발표 때 부터 <a href="https://github.com/ansible/awx">Github Repo</a>를 보면서 버전업과 이슈들을 살펴보았는데, 초기에는 install guide가 부실해서 삽질이 많았다.
+1.0.3 부터 docker를 통한 설치가 좀 더 간편해졌기 때문에, 이 버전부터는 그냥 docker 구성으로 설치를 진행했다.
+AWX에서는 완성된 <code>docker-compose.yml</code> 파일을 제공해주지 않기 때문에,
+각종 설정을 구성하고, 자체적으로 제공되는 playbook을 실행하면 docker-compose 파일이 생성되는 구조이다. 다음은 <code>Centos 7.4</code> 에서 AWX의 설치 과정을 기록한 것이다.</p>
+
+<ul>
+<li><p>필요한 package 설치</p>
+
+<pre><code>$ sudo yum -y install epel-release
+$ sudo yum -y install git gettext ansible docker nodejs npm gcc-c++ bzip2
+$ sudo yum -y install python-docker-py
+</code></pre></li>
+
+<li><p>docker 데몬 시작</p>
+
+<pre><code>$ sudo systemctl start docker
+$ sudo systemctl enable docker
+</code></pre></li>
+
+<li><p>awx clone</p>
+
+<pre><code>$ git clone https://github.com/ansible/awx.git
+$ cd awx/installer/
+</code></pre></li>
+
+<li><p>inventory 편집 (핵심!!!)</p>
+
+<ul>
+<li>설치하려는 환경이 proxy를 통해서 외부에 엑세스 한다면 : <code>host_port</code>, <code>http_proxy</code>, <code>https_proxy</code>, <code>no_proxy</code>  설정을 자체 환경에 맞게 변경한다.</li>
+<li><code>postgres_data_dir</code> 위치 변경 : 초기에 <code>/tmp</code> 로 잡혀 있는데 이를 그대로 두고 설치하면, 처음에는 잘 뜨지만, OS 가 임시디렉토리를 정리해버리면 DB Data가 날아가 작업한 데이터를 잃어버리는 사태가..</li>
+<li><code>use_docker_compose=true</code> : installer playbook 을 실행하여 나의 환경에 맞춰진 docker-compose.yml 파일을 생성하는것을 enable 하는 옵션. 이후에는 docker-compose를 통해서 컨테이너를 제어하자.</li>
+<li><code>docker_compose_dir=/var/lib/awx</code> : docker-compose를 사용하기로 했다면, <code>docker-compose.yml</code> 파일이 생성될 디렉토리를 지정해야한다.</li>
+<li><code>dockerhub_version</code> : docker hub 에서 받아올 awx 버전이다. latest 으로 지정되어 있는데. 아직은 안정화가 덜되어 있는것 같아서 가갑적 태그를 지정해서 쓴다. (현재 최신은 <a href="https://hub.docker.com/r/ansible/awx_web/tags/">Docker Hub</a>에서 확인)</li>
+</ul></li>
+
+<li><p>다음은 내가 설정한 내역이다.</p>
+
+<pre><code>dockerhub_version=1.0.4.83
+postgres_data_dir=/var/awx/pgdocker
+use_docker_compose=true
+docker_compose_dir=/var/lib/awx
+</code></pre></li>
+
+<li><p>이제 playbook을 실행해서 AWX를 설치한다.</p>
+
+<pre><code>ansible-playbook -i inventory install.yml
+</code></pre></li>
+
+<li><p>docker_compose_dir 로 이동해보면 <code>docker-compose.yml</code> 파일이 생성되었다.</p>
+
+<pre><code>docker-compose up -d
+</code></pre></li>
+
+<li><p>이제 웹 브라우저로 접근해보자
+{% include image_caption.html imageurl=&ldquo;/images/posts/ansible-awx/awx_welcome_screen.png&rdquo; title=&ldquo;welcome awx&rdquo; caption=&ldquo;welcome&rdquo; %}</p></li>
+
+<li><p>초기 접속 계정은 <code>admin/password</code> 이다.
+{% include image_caption.html imageurl=&ldquo;/images/posts/ansible-awx/awx-main-dashboard.png&rdquo; title=&ldquo;awx dashboard&rdquo; caption=&ldquo;dashboard&rdquo; %}</p></li>
+</ul>
+
+<p>여기까지하면, AWX는 설치가 완료된것이다. 이제 project를 설정해보자.</p>
+
+<ul>
+<li>credential 추가</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th align="center">설정값</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td align="center">Ansible Control Node Credential</td>
+</tr>
+
+<tr>
+<td>description</td>
+<td align="center">playbook 을 실행하기 위해서 control node 에 접속하기 위한 credential</td>
+</tr>
+
+<tr>
+<td>organization</td>
+<td align="center">Default</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td align="center">machine</td>
+</tr>
+
+<tr>
+<td>username</td>
+<td align="center">ssh 계정명</td>
+</tr>
+
+<tr>
+<td>password</td>
+<td align="center">ssh 패스워드</td>
+</tr>
+
+<tr>
+<td>PRIVILEGE ESCALATION</td>
+<td align="center">sudo</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>project 추가</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th align="center">설정값</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td align="center">Project Name</td>
+</tr>
+
+<tr>
+<td>description</td>
+<td align="center">프로젝트 설명</td>
+</tr>
+
+<tr>
+<td>organization</td>
+<td align="center">Default</td>
+</tr>
+
+<tr>
+<td>SCM type</td>
+<td align="center">git</td>
+</tr>
+
+<tr>
+<td>SCM Url</td>
+<td align="center">ansible playbook github repo 주소</td>
+</tr>
+
+<tr>
+<td>SCM Branch</td>
+<td align="center"></td>
+</tr>
+
+<tr>
+<td>SCM Update Options</td>
+<td align="center">Clean, Update on Launch 체크</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>inventory 추가</li>
+</ul>
+
+<p>ansible 을 CLI 에서 다룰 때는 hosts 파일을 지정하면 되었지만, awx 에서는 target node들을 db로 관리한다. 따라서 연결된 SCM 에서 hosts 파일을 읽어 오거나 (매번 playbook 이 실행되기 전에 hosts 내역을 업데이트 한다)/dynamic inventory(클라우드와 같이 target node 들이 유연하게 생성/삭제되어 변경되는 경우)/ 또는 수동으로 직접 관리할 수 있다..</p>
+
+<ul>
+<li>job template 추가</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th align="center">설정값</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td align="center">실행할 playbook 의 제목</td>
+</tr>
+
+<tr>
+<td>description</td>
+<td align="center">실행할 playbook 의 설명</td>
+</tr>
+
+<tr>
+<td>job type</td>
+<td align="center">run  (check 인경우에는 dry run 만 수행)</td>
+</tr>
+
+<tr>
+<td>inventory</td>
+<td align="center">UI 상에서 추가한 inventory 연결</td>
+</tr>
+
+<tr>
+<td>project</td>
+<td align="center">Project Name</td>
+</tr>
+
+<tr>
+<td>playbook</td>
+<td align="center">프로젝트에 연결된 SCM(git)에서 playbook 리스트를 자동으로 불러와 그 중 하나를 선택한다.</td>
+</tr>
+
+<tr>
+<td>machen Credential</td>
+<td align="center">Ansible Control Node Credential : playbook 을 실행하기 위한 control node 에 접속하기 위한 계정정보</td>
+</tr>
+
+<tr>
+<td>Options</td>
+<td align="center">Enable Privilges Escalation (sudo 필요시 체크)</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>run job template</li>
+</ul>
+
+<p>template 에서 등록한 job을 run(로켓 모양 아이콘 클릭) 하면 된다. 이렇게 되면 jobs 메뉴에 실행 이력이 추가된다.</p>
+
+<pre><code>Identity added: /tmp/awx_40_wPmxLi/credential_6 (/tmp/awx_40_wPmxLi/credential_6)
+Using /etc/ansible/ansible.cfg as config file
+
+
+PLAY [all] *********************************************************************
+
+TASK [delete project directory before update] **********************************
+skipping: [localhost]
+
+TASK [check repo using git] ****************************************************
+skipping: [localhost]
+
+TASK [update project using git] ************************************************
+changed: [localhost]
+
+TASK [Set the git repository version] ******************************************
+ok: [localhost]
+
+TASK [update project using hg] *************************************************
+skipping: [localhost]
+
+TASK [Set the hg repository version] *******************************************
+skipping: [localhost]
+
+TASK [parse hg version string properly] ****************************************
+skipping: [localhost]
+
+TASK [update project using svn] ************************************************
+skipping: [localhost]
+
+TASK [Set the svn repository version] ******************************************
+skipping: [localhost]
+
+TASK [parse subversion version string properly] ********************************
+skipping: [localhost]
+
+TASK [Ensure the project directory is present] *********************************
+skipping: [localhost]
+
+TASK [Fetch Insights Playbook(s)] **********************************************
+skipping: [localhost]
+
+TASK [Save Insights Version] ***************************************************
+skipping: [localhost]
+
+TASK [Repository Version] ******************************************************
+ok: [localhost] =&gt; {
+    &quot;msg&quot;: &quot;Repository Version fafb252e642065bff7dfa4349adeade7e085825d&quot;
+}
+
+TASK [Write Repository Version] ************************************************
+changed: [localhost]
+
+PLAY [all] *********************************************************************
+
+TASK [detect requirements.yml] *************************************************
+skipping: [localhost]
+
+TASK [fetch galaxy roles from requirements.yml] ********************************
+skipping: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0
+
+</code></pre>
+
+<p>이제 필요한 만큼 job template(playbook)을 연결하고 실행하면 된다.
+요약하자면, awx clone =&gt; inventory 파일 설정 =&gt; docker-compose up 이다.
+보다 자세한 설치는 <a href="https://github.com/ansible/awx/blob/devel/INSTALL.md">install 가이드</a>를 확인하자.
+다음에는 Kubernetes 에서 설치해봐야 겠다.</p>
+
+<h4 id="추가-사항">추가 사항</h4>
+
+<ul>
+<li><p>dynamic inventory 설정</p>
+
+<dl>
+<dd>AWS or GCP or OpenStack 과 같이 인스턴스가 dynamic 하게 생성/삭제되는 경우에 target node를 특정할 수 없다. 이런경우 Cloud insfra 에서 지원되는 API를 통해서 inventory target node(hosts)를 질의해오는 방법이 있는데 이를 dynamic inventory라고 한다.</dd>
+</dl></li>
+
+<li><p>AWX 는 standalone 으로 API 서버로 동작이 가능하다. 따라서 jenkins 나 다른 툴/시스템에서 API를 호출하여 job template을 실행할 수 있다. <a href="https://github.com/ansible/tower-cli">https://github.com/ansible/tower-cli</a> 를 참고.</p></li>
+</ul>
+
+<h3 id="참고">참고</h3>
+
+<ul>
+<li>예제 - <a href="https://github.com/ansible/ansible-examples">https://github.com/ansible/ansible-examples</a></li>
+<li>Best priatices - <a href="http://docs.ansible.com/ansible/latest/playbooks_best_practices.html">http://docs.ansible.com/ansible/latest/playbooks_best_practices.html</a></li>
+<li>Ansible Essential - <a href="https://www.ansible.com/blog/ansible-best-practices-essentials">https://www.ansible.com/blog/ansible-best-practices-essentials</a></li>
+<li>AWX 사용 - <a href="https://steemit.com/utopian-io/@adson/ansible-open-sources-ansible-tower-with-awx">https://steemit.com/utopian-io/@adson/ansible-open-sources-ansible-tower-with-awx</a></li>
+</ul>
+
+<div class="blog-navigation">
     
-    <a href="https://findstar.pe.kr/page/2/" class="next">»</a>
+        <a class="prev" href="https://findstar.pe.kr/2018/05/02/start-spring-boot-1/">&laquo; Spring Boot 매뉴얼 뽀개기 1</a>
+    
+    
+        <a class="next" href="https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/">ElasticSearch 에서 null 과 empty string 의 차이 &raquo;</a>
     
 </div>
 
+
+
+
+
+<section class="author">
+<div class="toleft">
+        <img class="selfie" src="https://findstar.pe.kr/images/profile.jpg" alt="J.S Ahn" alt="author selfie">
+</div>
+
+<div class="toright">
+<h4 class="name">J.S Ahn</h4>
+<p class="bio">Software Developer, I love code.</p>
+
+<div class="share">
+    
+    
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f04%2f04%2fansible-awx-installation%2f - Ansible%20AWX%20%eb%a5%bc%20%ec%84%a4%ec%b9%98%ed%95%b4%eb%b3%b4%ea%b8%b0 by @findstar">
+    <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+</a>
+
+    <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+    </a>
+</div>
+</div>
 </section>
+
+<section class="disqus">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+var disqus_config = function () {
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/04\/04\/ansible-awx-installation\/';
+        this.page.identifier = '\/2018\/04\/04\/ansible-awx-installation';
+};
+var disqus_shortname = 'findstar';
+var disqus_developer = 0;
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 
     <footer class="footer-main">

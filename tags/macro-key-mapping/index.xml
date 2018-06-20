@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Macro Key Mapping on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/macro-key-mapping/</link>
+    <description>Recent content in Macro Key Mapping on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 03 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/macro-key-mapping/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PHPStorm 에서 매크로 단축키를 지정하는 방법</title>
+      <link>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</guid>
+      <description>&lt;h1 id=&#34;1월-03일-수-til&#34;&gt;1월 03일 (수) TIL&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;참고 매뉴얼 : &lt;a href=&#34;https://www.jetbrains.com/help/idea/recording-macros.html&#34;&gt;Jetbrains Recording Macros&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;
+
+&lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;{% include image_caption.html imageurl=&amp;ldquo;/images/posts/til/2018-01-03/phpstorm_edit_window.png&amp;rdquo; title=&amp;ldquo;phpstorm edit widdow&amp;rdquo; %}&lt;/p&gt;
+
+&lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
+
+&lt;p&gt;{% include image_caption.html imageurl=&amp;ldquo;/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&amp;rdquo; title=&amp;ldquo;phpstorm start macro recording&amp;rdquo; %}&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

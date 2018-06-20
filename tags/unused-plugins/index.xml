@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unused Plugins on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/unused-plugins/</link>
+    <description>Recent content in Unused Plugins on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/unused-plugins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PHPStorm에서 사용하지 않는 플러그인 비활성화 시키기.</title>
+      <link>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</guid>
+      <description>&lt;h1 id=&#34;1월-04일-목-til&#34;&gt;1월 04일 (목) TIL&lt;/h1&gt;
+
+&lt;p&gt;phpstorm이 조금 버벅거리면서 느린 느낌이 들었다. 내 경우에는, JavaScript 와 php 가 같이 들어 있는 템플릿 파일을 수정하거나, 마크다운MD 파일을 수정할 때 그런 증상들이 심해졌다.
+일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

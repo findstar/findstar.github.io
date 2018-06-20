@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Query Dsl on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/query-dsl/</link>
+    <description>Recent content in Query Dsl on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 19 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/query-dsl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</title>
+      <link>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</link>
+      <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</guid>
+      <description>&lt;h1 id=&#34;1월-19일-금-til&#34;&gt;1월 19일 (금) TIL&lt;/h1&gt;
+
+&lt;p&gt;작성한 ElasticSearch 쿼리를 테스트 해보다가 정확하게 이해하지 못한 상태고 작성하고 있는 키워드를 발견했다.
+작성한 쿼리에는 &lt;code&gt;term&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt;, &lt;code&gt;match_phrase&lt;/code&gt;가 무분별하게 사용되고 있었는데, 다시금 문서를 확인해보고, 잊어먹기 전에 정리해봤다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 에서 wildcard 쿼리에 대한 이해</title>
+      <link>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</link>
+      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</guid>
+      <description>&lt;h1 id=&#34;1월-17일-수-til&#34;&gt;1월 17일 (수) TIL&lt;/h1&gt;
+
+&lt;p&gt;ElasticSearch 에서 쿼리를 작성하던 중 wildcard 쿼리의 결과가 내가 생각했던 것 과는 달라서 내용을 정리해본다.
+&lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html&#34;&gt;wildcard query&lt;/a&gt;를 작성할 때 기대한 것은
+RDBMS 의 like &amp;lsquo;%keyword%&amp;rsquo; 와 같은 형태가 가능할 것으로 기대했는데, 막상 쿼리 결과를 확인해 보니 원하는 형태가 아니었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

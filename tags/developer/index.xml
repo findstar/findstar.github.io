@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Developer on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/developer/</link>
+    <description>Recent content in Developer on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 04 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/developer/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>블로그 플랫폼 이전 - 글쓰기에 도전하기</title>
+      <link>https://findstar.pe.kr/2016/11/04/start-new-blog/</link>
+      <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
+      <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

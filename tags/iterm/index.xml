@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iterm on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/iterm/</link>
+    <description>Recent content in Iterm on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 03 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/iterm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>itermocil을 사용해서 다수의 서버에 SSH 접속하기</title>
+      <link>https://findstar.pe.kr/2017/01/03/itermocil/</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2017/01/03/itermocil/</guid>
+      <description>&lt;p&gt;얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

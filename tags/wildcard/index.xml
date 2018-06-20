@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wildcard on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/wildcard/</link>
+    <description>Recent content in Wildcard on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 17 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/wildcard/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ElasticSearch 에서 wildcard 쿼리에 대한 이해</title>
+      <link>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</link>
+      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</guid>
+      <description>&lt;h1 id=&#34;1월-17일-수-til&#34;&gt;1월 17일 (수) TIL&lt;/h1&gt;
+
+&lt;p&gt;ElasticSearch 에서 쿼리를 작성하던 중 wildcard 쿼리의 결과가 내가 생각했던 것 과는 달라서 내용을 정리해본다.
+&lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html&#34;&gt;wildcard query&lt;/a&gt;를 작성할 때 기대한 것은
+RDBMS 의 like &amp;lsquo;%keyword%&amp;rsquo; 와 같은 형태가 가능할 것으로 기대했는데, 막상 쿼리 결과를 확인해 보니 원하는 형태가 아니었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

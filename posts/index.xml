@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Soo Story</title>
+    <link>https://findstar.pe.kr/posts/</link>
+    <description>Recent content in Posts on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 28 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>logstash와 filebeat 설정하기</title>
+      <link>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</link>
+      <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</guid>
+      <description>&lt;p&gt;Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot 매뉴얼 뽀개기 1</title>
+      <link>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</link>
+      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
+      <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
+Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;rdquo;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ansible AWX 를 설치해보기</title>
+      <link>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
+      <description>&lt;p&gt;ansible을 팀에서 사용하면서, 몇가지 &lt;code&gt;이런게 있었으면&lt;/code&gt; 하는 점이 있었는데, 그 중하나가 바로 &lt;code&gt;GUI 환경&lt;/code&gt;이다.
+물론 CLI 콘솔 상에서 playbook을 실행하는데는 아무 문제가 없고 잘 사용하고 있지만, GUI에서도 보기 쉽게 playbook을 실행하고 또한 누가 언제 playbook을 실행했는지 기록되면 좋겠다는 바램이 있었다.
+&lt;code&gt;Ansible Tower&lt;/code&gt;는 이러한 바램을 해소시켜 줄 수 있는 대안이라고 생각이 되지만, 라이센스 비용이 비싸기로 유명(?) 해서, 포기하고 있었는데.
+Redhat에서 &lt;a href=&#34;https://www.ansible.com/products/awx-project&#34;&gt;Ansible Tower 의 오픈소스 버전으로 Ansible AWX를 발표했다!&lt;/a&gt; (대인배&amp;hellip;Redhat.)&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>itermocil을 사용해서 다수의 서버에 SSH 접속하기</title>
+      <link>https://findstar.pe.kr/2017/01/03/itermocil/</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2017/01/03/itermocil/</guid>
+      <description>&lt;p&gt;얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>apache 2.4에서 달라진 기능 2가지</title>
+      <link>https://findstar.pe.kr/2016/11/08/apache_2.4_custom_error_log_access_constrol</link>
+      <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2016/11/08/apache_2.4_custom_error_log_access_constrol</guid>
+      <description>&lt;p&gt;apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>컴포저의 속도를 올리는 방법</title>
+      <link>https://findstar.pe.kr/2016/11/06/composer-speed-up/</link>
+      <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2016/11/06/composer-speed-up/</guid>
+      <description>&lt;p&gt;PHP 의 의존성 관리도구인 &lt;a href=&#34;https://getcomposer.org/ &amp;quot;컴포저(composer&#34;&gt;컴포저&lt;/a&gt; 공식 사이트&amp;rdquo;) 를 사용할 때, &lt;code&gt;composer install&lt;/code&gt; 이나 &lt;code&gt;composer update&lt;/code&gt; 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 &lt;code&gt;composer speed up&lt;/code&gt; 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>블로그 플랫폼 이전 - 글쓰기에 도전하기</title>
+      <link>https://findstar.pe.kr/2016/11/04/start-new-blog/</link>
+      <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
+      <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
