@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</loc>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</loc>
     <lastmod>2018-06-03T00:00:00+00:00</lastmod>
   </url>
@@ -201,7 +206,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-06-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -253,6 +258,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/limit_req_zone/</loc>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/logstash/</loc>
     <lastmod>2018-05-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -289,6 +300,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/nginx/</loc>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/null/</loc>
     <lastmod>2018-01-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -306,13 +323,19 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-05-28T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://findstar.pe.kr/tags/query-dsl/</loc>
     <lastmod>2018-01-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/rate-litmiting/</loc>
+    <lastmod>2018-06-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
