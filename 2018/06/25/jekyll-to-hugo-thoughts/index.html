@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>Home - Soo Story</title>
+    <title>jekyll 에서 hugo 로 전환한 소감 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/">
+    <link rel="canonical" href="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -47,16 +47,15 @@
 
 
 
-    <link href="https://findstar.pe.kr/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
-    <link href="https://findstar.pe.kr/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
-
 
 <meta name="generator" content="Hugo 0.42.1" />
 
-<meta property="og:title" content="Home" />
-<meta property="og:description" content="Software Developer, I love code." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://findstar.pe.kr/" />
+<meta property="og:title" content="jekyll 에서 hugo 로 전환한 소감" />
+<meta property="og:description" content="사용하던 github pages 기반 툴을 jekyll 에서 hugo 로 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/" />
 
 
     <meta property="og:image" content="" />
@@ -72,40 +71,11 @@
 <div class="wrapper-large">
     
         
-            <div class="page home">
+            <div class="page blog">
         
     
 
     
-<header class="header-home animated">
-    <a class="link" href="https://findstar.pe.kr/about">
-        <img class="selfie" alt="J.S Ahn" src="https://findstar.pe.kr/images/profile.jpg" />
-    </a>
-
-    <h1 class="title">Soo Story</h1>
-    <h2 class="description">Thoughts, stories and ideas.</h2>
-    <div class="social-links">
-
-
-    
-    <a class="link" data-title="facebook" href="https://facebook.com/findstar" target="_blank">
-        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
-    </a>
-    
-    <a class="link" data-title="twitter" href="https://twitter.com/findstar/" target="_blank">
-        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-    </a>
-    
-    <a class="link" data-title="github" href="https://github.com/findstar/" target="_blank">
-        <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-    </a>
-    
-
-
-</div>
-
-</header>
-
 
 <nav class="nav">
     
@@ -131,198 +101,147 @@
 
     
 
-<section class="list">
+
+
+<h1 class="title">jekyll 에서 hugo 로 전환한 소감</h1>
+
+<span class="date">
+        <time datetime="2018-06-25">2018-06-25</time>
+</span>
 
 
 
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts" rel="bookmark" title="Permanent Link to /2018/06/25/jekyll-to-hugo-thoughts">jekyll 에서 hugo 로 전환한 소감</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-25">2018-06-25</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>사용하던 github pages 기반 툴을 <code>jekyll</code> 에서 <code>hugo</code> 로 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#hugo" title="Pages tagged hugo" rel="tag">hugo</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#jekyll%20to%20hugo" title="Pages tagged jekyll to hugo" rel="tag">jekyll to hugo</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#migration" title="Pages tagged migration" rel="tag">migration</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting" rel="bookmark" title="Permanent Link to /2018/06/24/nginx-rate-limiting">nginx reverse proxy로 동일 IP 중복 요청 제한</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-24">2018-06-24</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 <code>limit_req</code> 모듈을 적용해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#nginx" title="Pages tagged nginx" rel="tag">nginx</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#rate%20litmiting" title="Pages tagged rate litmiting" rel="tag">rate litmiting</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#limit_req_zone" title="Pages tagged limit_req_zone" rel="tag">limit_req_zone</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index" rel="bookmark" title="Permanent Link to /2018/06/03/change-alias-on-elasticsearch-index">ElasticSearch 에서 Index Alias 변경하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-03">2018-06-03</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="6월-3일-일-til">6월 3일 (일) TIL</h1>
-
-<p>ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#index%20alias" title="Pages tagged index alias" rel="tag">index alias</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/elastic/logstash_filebeats.png" alt="logstash와 filebeat 설정하기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash" rel="bookmark" title="Permanent Link to /2018/05/28/install-and_configuration-filebeat-logstash">logstash와 filebeat 설정하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-28">2018-05-28</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#logstash" title="Pages tagged logstash" rel="tag">logstash</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#filebeat" title="Pages tagged filebeat" rel="tag">filebeat</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#install" title="Pages tagged install" rel="tag">install</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl" rel="bookmark" title="Permanent Link to /2018/05/13/upload-file-on-curl">CURL 에서 파일 업로드 하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-13">2018-05-13</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="5월-13일-수-til">5월 13일 (수) TIL</h1>
-
-<p>작성한 API를 테스트 하기 위해서 <a href="https://www.getpostman.com/">Postman</a> 이나 <a href="https://paw.cloud/">Paw</a>를 주로 사용하는데,
-CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 <code>CURL</code>을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#curl" title="Pages tagged curl" rel="tag">curl</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#file%20upload" title="Pages tagged file upload" rel="tag">file upload</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-<div class="pagination">
+<div class="post-tags">
+    <i class="fa fa-tags" title="태그"></i>
     
-        <span class="previous hidden">«</span>
+        <a class="item" href="https://findstar.pe.kr/tags/#hugo">hugo</a>
     
-
-    <span class="page_number ">page 1 of 4</span>
-
+        <a class="item" href="https://findstar.pe.kr/tags/#jekyll%20to%20hugo">jekyll to hugo</a>
     
-    <a href="https://findstar.pe.kr/page/2/" class="next">»</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#migration">migration</a>
     
 </div>
 
+
+<p>사용하던 github pages 기반 툴을 <code>jekyll</code> 에서 <code>hugo</code> 로 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.</p>
+
+<p></p>
+
+<h1 id="hugo-전환-프로젝트">hugo 전환 프로젝트</h1>
+
+<h2 id="list-템플릿-구성하기">list 템플릿 구성하기</h2>
+
+<ul>
+<li>[완료] index home 템플릿</li>
+<li>pagination</li>
+<li>til 템플릿</li>
+</ul>
+
+<h2 id="single-템플릿-구성하기">single 템플릿 구성하기</h2>
+
+<ul>
+<li>[완료] about 과 같은 일반 page 템플릿</li>
+<li>post 템플릿
+
+<ul>
+<li>next</li>
+<li>prev</li>
+</ul></li>
+</ul>
+
+<h2 id="완료-공통-템플릿-구성하기">[완료] 공통 템플릿 구성하기</h2>
+
+<h2 id="완료-이미지-asset-디렉토리-연결">[완료] 이미지 asset 디렉토리 연결</h2>
+
+<h2 id="완료-css-regeneration">[완료] css regeneration</h2>
+
+<h2 id="완료-퍼머링크-변경하는-옵션-찾기">[완료] 퍼머링크 변경하는 옵션 찾기</h2>
+
+<ul>
+<li>url 옵션을 사용하면 되지만, slash trailling 으로 인해서 그냥 alias 만 걸기로..</li>
+</ul>
+
+<h2 id="완료-summary-를-통한-more-button">[완료] summary 를 통한 more button</h2>
+
+<h2 id="완료-tag-archive-연결">[완료] tag archive 연결..</h2>
+
+<ul>
+<li>sort 역으로는 안되나&hellip;
+<br /></li>
+</ul>
+
+<h2 id="완료-연결">[완료] 연결.</h2>
+
+<h2 id="완료-related-post">[완료] related post.</h2>
+
+<h2 id="rss-링크-제너레이션">RSS 링크 제너레이션</h2>
+
+<h2 id="완료-image-include">[완료] image include</h2>
+
+<h2 id="custom-pagination">custom pagination</h2>
+
+<ul>
+<li>except (type 으로 구분한다)</li>
+<li>page url (:num 형태로 구성이 불가능..)</li>
+</ul>
+
+<div class="blog-navigation">
+    
+    <a class="prev"></a>
+    
+    
+        <a class="next" href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/">nginx reverse proxy로 동일 IP 중복 요청 제한 &raquo;</a>
+    
+</div>
+
+
+
+
+
+<section class="author">
+<div class="toleft">
+        <img class="selfie" src="https://findstar.pe.kr/images/profile.jpg" alt="J.S Ahn" alt="author selfie">
+</div>
+
+<div class="toright">
+<h4 class="name">J.S Ahn</h4>
+<p class="bio">Software Developer, I love code.</p>
+
+<div class="share">
+    
+    
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f06%2f25%2fjekyll-to-hugo-thoughts%2f - jekyll%20%ec%97%90%ec%84%9c%20hugo%20%eb%a1%9c%20%ec%a0%84%ed%99%98%ed%95%9c%20%ec%86%8c%ea%b0%90 by @findstar">
+    <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+</a>
+
+    <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+    </a>
+</div>
+</div>
 </section>
+
+<section class="disqus">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+var disqus_config = function () {
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/06\/25\/jekyll-to-hugo-thoughts\/';
+        this.page.identifier = '\/2018\/06\/25\/jekyll-to-hugo-thoughts';
+};
+var disqus_shortname = 'findstar';
+var disqus_developer = 0;
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 
     <footer class="footer-main">

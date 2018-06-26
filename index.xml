@@ -6,10 +6,28 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 24 Jun 2018 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 25 Jun 2018 00:00:00 +0000</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>jekyll 에서 hugo 로 전환한 소감</title>
+            <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
+            <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
+            <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>hugo</tag>
+            
+            <tag>jekyll to hugo</tag>
+            
+            <tag>migration</tag>
+            
+        </item>
         
         <item>
             <title>nginx reverse proxy로 동일 IP 중복 요청 제한</title>
@@ -281,11 +299,17 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
 
-&lt;p&gt;{% include image_caption.html imageurl=&amp;ldquo;/images/posts/til/2018-01-03/phpstorm_edit_window.png&amp;rdquo; title=&amp;ldquo;phpstorm edit widdow&amp;rdquo; %}&lt;/p&gt;
+&lt;figure class=&#34;full-width caption&#34; &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;&#34;/&gt;
+    
+&lt;/figure&gt;
 
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
 
-&lt;p&gt;{% include image_caption.html imageurl=&amp;ldquo;/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&amp;rdquo; title=&amp;ldquo;phpstorm start macro recording&amp;rdquo; %}&lt;/p&gt;
+&lt;figure class=&#34;full-width caption&#34; &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;&#34;/&gt;
+    
+&lt;/figure&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
             

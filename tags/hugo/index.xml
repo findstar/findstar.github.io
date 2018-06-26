@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/hugo/</link>
+    <description>Recent content in Hugo on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 25 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jekyll 에서 hugo 로 전환한 소감</title>
+      <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
+      <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
+      <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
