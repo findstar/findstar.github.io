@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</loc>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</loc>
     <lastmod>2018-06-25T00:00:00+00:00</lastmod>
   </url>
@@ -169,7 +174,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/elasticsearch/</loc>
-    <lastmod>2018-06-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -211,7 +216,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-06-25T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
   </url>
   
   <url>
@@ -299,6 +304,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/mapping/</loc>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/match/</loc>
     <lastmod>2018-01-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -346,7 +357,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-06-25T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -400,6 +411,12 @@
   
   <url>
     <loc>https://findstar.pe.kr/style-guide/</loc>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/template/</loc>
+    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

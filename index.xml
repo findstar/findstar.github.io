@@ -6,10 +6,28 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Mon, 25 Jun 2018 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 29 Jun 2018 20:53:20 +0000</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>ElasticSearch 에서 template 을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</link>
+            <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</guid>
+            <description>&lt;p&gt;ElasticSearch를 로그 분석용으로 사용할 때 인덱스의 &lt;code&gt;mapping&lt;/code&gt;은 &lt;code&gt;template&lt;/code&gt;을 사용해서 생성되도록 설정하면 편리하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>ElasticSearch</tag>
+            
+            <tag>template</tag>
+            
+            <tag>mapping</tag>
+            
+        </item>
         
         <item>
             <title>jekyll 에서 hugo 로 전환한 소감</title>

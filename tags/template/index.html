@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>Home - Soo Story</title>
+    <title>Template - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/">
+    <link rel="canonical" href="https://findstar.pe.kr/tags/template/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -47,16 +47,16 @@
 
 
 
-    <link href="https://findstar.pe.kr/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
-    <link href="https://findstar.pe.kr/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
+    <link href="https://findstar.pe.kr/tags/template/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
+    <link href="https://findstar.pe.kr/tags/template/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
 
 
 <meta name="generator" content="Hugo 0.42.1" />
 
-<meta property="og:title" content="Home" />
+<meta property="og:title" content="Template" />
 <meta property="og:description" content="Software Developer, I love code." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://findstar.pe.kr/" />
+<meta property="og:url" content="https://findstar.pe.kr/tags/template/" />
 
 
     <meta property="og:image" content="" />
@@ -72,40 +72,11 @@
 <div class="wrapper-large">
     
         
-            <div class="page home">
+            <div class="page ">
         
     
 
     
-<header class="header-home animated">
-    <a class="link" href="https://findstar.pe.kr/about">
-        <img class="selfie" alt="J.S Ahn" src="https://findstar.pe.kr/images/profile.jpg" />
-    </a>
-
-    <h1 class="title">Soo Story</h1>
-    <h2 class="description">Thoughts, stories and ideas.</h2>
-    <div class="social-links">
-
-
-    
-    <a class="link" data-title="facebook" href="https://facebook.com/findstar" target="_blank">
-        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
-    </a>
-    
-    <a class="link" data-title="twitter" href="https://twitter.com/findstar/" target="_blank">
-        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-    </a>
-    
-    <a class="link" data-title="github" href="https://github.com/findstar/" target="_blank">
-        <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-    </a>
-    
-
-
-</div>
-
-</header>
-
 
 <nav class="nav">
     
@@ -131,228 +102,8 @@
 
     
 
-<section class="list">
 
 
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/" rel="bookmark" title="Permanent Link to /til/2018-01-02-local-test-for-fluentd-output/">Fluentd 를 로컬에서 테스트 해보는 방법</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-02">2018-01-02</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-02일-화-til">1월 02일 (화) TIL</h1>
-
-<ul>
-<li><a href="https://www.fluentd.org/">Fluentd</a></li>
-</ul>
-
-<p>fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.
-<code>/etc/td-agent/td-agent.conf</code> 가 다음과 같을 때:</p>
-
-<pre><code>&lt;source&gt;
-.....
-.....
-.....
-&lt;/source&gt;
-
-# 결과 값에 hostname 을 추가로 덧붙임.
-&lt;filter accesslog&gt;
-  @type record_transformer
-  &lt;record&gt;
-    source &quot;#{Socket.gethostname}&quot;
-    path ${record[&quot;host&quot;]}
-  &lt;/record&gt;
-&lt;/filter&gt;
-
-# Local 에서 테스트 해볼 때 사용할 수 있는 match
-&lt;match accesslogs&gt;
- type stdout
-&lt;/match&gt;
-</code></pre>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#fluentd" title="Pages tagged fluentd" rel="tag">fluentd</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2017/01/03/itermocil/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/itermocil.png" alt="itermocil을 사용해서 다수의 서버에 SSH 접속하기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2017/01/03/itermocil" rel="bookmark" title="Permanent Link to /2017/01/03/itermocil">itermocil을 사용해서 다수의 서버에 SSH 접속하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2017-01-03">2017-01-03</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2017/01/03/itermocil/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ssh" title="Pages tagged ssh" rel="tag">ssh</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#iterm" title="Pages tagged iterm" rel="tag">iterm</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#macro" title="Pages tagged macro" rel="tag">macro</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2016/11/08/apache_2.4_custom_error_log_access_constrol" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/apache2.4.jpg" alt="apache 2.4에서 달라진 기능 2가지 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2016/11/08/apache_2.4_custom_error_log_access_constrol" rel="bookmark" title="Permanent Link to /2016/11/08/apache_2.4_custom_error_log_access_constrol">apache 2.4에서 달라진 기능 2가지</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2016-11-08">2016-11-08</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2016/11/08/apache_2.4_custom_error_log_access_constrol" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#apache2.4" title="Pages tagged apache2.4" rel="tag">apache2.4</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#customLog" title="Pages tagged customLog" rel="tag">customLog</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#errorLogFormat" title="Pages tagged errorLogFormat" rel="tag">errorLogFormat</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#accessControl" title="Pages tagged accessControl" rel="tag">accessControl</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2016/11/06/composer-speed-up/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/composer-boost.jpg" alt="컴포저의 속도를 올리는 방법 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2016/11/06/composer-speed-up" rel="bookmark" title="Permanent Link to /2016/11/06/composer-speed-up">컴포저의 속도를 올리는 방법</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2016-11-06">2016-11-06</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>PHP 의 의존성 관리도구인 <a href="https://getcomposer.org/ &quot;컴포저(composer">컴포저</a> 공식 사이트&rdquo;) 를 사용할 때, <code>composer install</code> 이나 <code>composer update</code> 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 <code>composer speed up</code> 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.</p>
-
-<p>몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2016/11/06/composer-speed-up/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#tips" title="Pages tagged tips" rel="tag">tips</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#composer" title="Pages tagged composer" rel="tag">composer</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#speedup" title="Pages tagged speedup" rel="tag">speedup</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2016/11/04/start-new-blog/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/road.jpg" alt="블로그 플랫폼 이전 - 글쓰기에 도전하기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2016/11/04/start-new-blog" rel="bookmark" title="Permanent Link to /2016/11/04/start-new-blog">블로그 플랫폼 이전 - 글쓰기에 도전하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2016-11-04">2016-11-04</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.
-</p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2016/11/04/start-new-blog/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#blog" title="Pages tagged blog" rel="tag">blog</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#developer" title="Pages tagged developer" rel="tag">developer</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#Jekyll" title="Pages tagged Jekyll" rel="tag">Jekyll</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-<div class="pagination">
-    
-        <a href="https://findstar.pe.kr/page/3/" class="previous">«</a>
-    
-
-    <span class="page_number ">page 4 of 4</span>
-
-    
-    <span class="next hidden">»</span>
-    
-</div>
-
-</section>
 
 
     <footer class="footer-main">
