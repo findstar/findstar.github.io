@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</loc>
+    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</loc>
     <lastmod>2018-06-29T20:53:20+00:00</lastmod>
   </url>
@@ -174,7 +179,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/elasticsearch/</loc>
-    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -216,7 +221,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
   </url>
   
   <url>
@@ -357,7 +362,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-06-29T20:53:20+00:00</lastmod>
+    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -370,6 +375,12 @@
   <url>
     <loc>https://findstar.pe.kr/tags/rate-litmiting/</loc>
     <lastmod>2018-06-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/reindex/</loc>
+    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
     <priority>0</priority>
   </url>
   

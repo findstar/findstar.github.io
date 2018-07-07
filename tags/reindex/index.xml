@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reindex on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/reindex/</link>
+    <description>Recent content in Reindex on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 06 Jul 2018 22:14:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/reindex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
+      <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
+      <pubDate>Fri, 06 Jul 2018 22:14:53 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
+      <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

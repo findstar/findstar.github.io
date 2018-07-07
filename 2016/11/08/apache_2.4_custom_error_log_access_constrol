@@ -48,7 +48,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.42.1" />
+<meta name="generator" content="Hugo 0.42.2" />
 
 <meta property="og:title" content="apache 2.4에서 달라진 기능 2가지" />
 <meta property="og:description" content="apache 2.4 changes errorLogFormat and access control" />

@@ -6,10 +6,26 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Fri, 29 Jun 2018 20:53:20 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 06 Jul 2018 22:14:53 +0000</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
+            <pubDate>Fri, 06 Jul 2018 22:14:53 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
+            <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>ElasticSearch</tag>
+            
+            <tag>reindex</tag>
+            
+        </item>
         
         <item>
             <title>ElasticSearch 에서 template 을 활용하는 방법</title>
