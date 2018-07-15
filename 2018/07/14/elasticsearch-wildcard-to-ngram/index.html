@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>ElasticSearch 에서 reindex 을 활용하는 방법 - Soo Story</title>
+    <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/">
+    <link rel="canonical" href="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -50,12 +50,13 @@
 
 <meta name="generator" content="Hugo 0.42.2" />
 
-<meta property="og:title" content="ElasticSearch 에서 reindex 을 활용하는 방법" />
-<meta property="og:description" content="그럴 것 같지 않지만, ElasticSearch 에서는 reindex를 수행할 일이 많이 발생한다. reindex를 실행할때 사용할 수 있는 옵션을 확인해 보았다.
+<meta property="og:title" content="ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법" />
+<meta property="og:description" content="ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 like &quot;%keyword%&quot; 와 같은 쿼리를 대체하기 위해서 wildcard 를 사용하는 경우를 몇번 목격하였다.
+이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 ngram 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/" />
+<meta property="og:url" content="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/" />
 
 
     <meta property="og:image" content="" />
@@ -103,10 +104,10 @@
 
 
 
-<h1 class="title">ElasticSearch 에서 reindex 을 활용하는 방법</h1>
+<h1 class="title">ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</h1>
 
 <span class="date">
-        <time datetime="2018-07-07">2018-07-07</time>
+        <time datetime="2018-07-14">2018-07-14</time>
 </span>
 
 
@@ -116,165 +117,432 @@
     
         <a class="item" href="https://findstar.pe.kr/tags/#elasticsearch">ElasticSearch</a>
     
-        <a class="item" href="https://findstar.pe.kr/tags/#reindex">reindex</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#wildcard">wildcard</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#ngram">ngram</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#partial-matching">Partial Matching</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#match_phrase">match_phrase</a>
     
 </div>
 
 
-<p>그럴 것 같지 않지만, ElasticSearch 에서는 <code>reindex</code>를 수행할 일이 많이 발생한다. <code>reindex</code>를 실행할때 사용할 수 있는 옵션을 확인해 보았다.</p>
+<p>ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 <code>like &quot;%keyword%&quot;</code> 와 같은 쿼리를 대체하기 위해서 <code>wildcard</code> 를 사용하는 경우를 몇번 목격하였다.
+이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 <code>ngram</code> 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.</p>
 
 <p></p>
 
-<p>ElasticSearch 를 사용하면서</p>
+<h2 id="콘텐츠-검색의-경우">콘텐츠 검색의 경우</h2>
 
-<ul>
-<li>인덱스의 mapping 을 수정해야 하거나,</li>
-<li>이전 버전 (2.X, 5.X - Rolling upgrade 를 사용한 버전 업그레이드를 지원하지 않는 ES) 에서 최신 버전으로 마이그레이션 해야 할 때,</li>
-<li>index의 이름 변경이 필요할 때 (rename) - 이경우는 주로 <code>alias</code> 를 잘 활용하지 않을 때 발생한다.</li>
-</ul>
+<p>시의 내용을 DB 와 ElasticSearch 에 저장하고 쿼리를 통해서 원하는 시의 본문 전체 내용을 찾는 방법을 가정해 보자. 저장된 내용은 <strong>김소월의 진달래꽃</strong> 을 예시로 가정해봤다.</p>
 
-<p><code>reindex</code>를 실행할 일은 생각보다 자주 발생한다.</p>
+<pre><code>진달래꽃
 
-<p><code>reindex</code> 란 말 그대로 인덱싱을 새로 한다는 의미이다. 기존에 존재하는 index 에서 새로운 index로 데이터를 새롭게 색인하는 것을 의미한다.</p>
+나 보기가 역겨워
+가실 때에는
+말없이 고이 보내 드리우리다
 
-<p>나의 경우에는 쿼리를 추가하는 과정에서 과정에서 aggregation 을 수행해야 하는데, mapping이 잘못 설정 되어 있다던가,
-이전 데이터의 마이그레이션 과정에서 source 필드 일부를 제외해야 하거나 하는 등의 케이스에서 <code>reindex</code> 가 필요했다.</p>
+영변에 약산
+진달래꽃
+아름 따다 가실 길에 뿌리우리다
 
-<h3 id="기본적인-reindex-실행하기">기본적인 <code>reindex</code> 실행하기</h3>
+가시는 걸음 걸음
+놓인 그 꽃을
+사뿐히 즈려밟고 가시옵소서
 
-<p>다음은 가장 기본적인 <code>reindex</code> 실행방법이다. source 에 기존의 index, dest 에 새롭게 인덱싱할 index 이름을 지정한다.</p>
-
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
-  &quot;source&quot;: {
-    &quot;index&quot;: &quot;old-index-name&quot;
-  },
-  &quot;dest&quot;: {
-      &quot;index&quot;: &quot;new-index-name&quot;
-  }
-}`
-
+나 보기가 역겨워
+가실 때에는
+죽어도 아니 눈물 흘리우리다
 </code></pre>
 
-<p>이렇게 하면 데이터의 양에 따라서 시간이 걸리긴 하지만 정상적으로 완료되면 아래와 같은 응답을 확인할 수 있다.</p>
+<h3 id="rdbms-의-경우">RDBMS 의 경우</h3>
+
+<p>먼저 RDBMS 의 <code>like &quot;%keyword%&quot;</code> 쿼리를 생각해 보자, <code>걸음</code> 이라는 텍스트가 포함되어 있는 row 를 찾으려면 아래처럼 쿼리를 하게 되겠다.
+이런 쿼리를 사용하는 순간 full text searching 을 하기 때문에 가급적이면 사용을 지양해야할 쿼리이긴 하지만, 어쩔 수 없이 사용한다고 가정하자.</p>
+
+<pre><code>SELECT * FROM poems WHERE contents LIKE '%걸음%'
+</code></pre>
+
+<pre><code>id | contents
+1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+</code></pre>
+
+<h3 id="elasticsearch-의-경우">ElasticSearch 의 경우</h3>
+
+<p>RDBMS 에서 처럼 full text searching 이 가능할것으로 기대하고, <code>wildcard</code> 쿼리를 사용해보자.</p>
+
+<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+{
+  &quot;query&quot; : {
+      &quot;bool&quot;: {
+        &quot;must&quot;: {
+          &quot;wildcard&quot;: {
+            &quot;contents&quot;: &quot;*걸음*&quot;
+          }
+        }
+      }
+  }
+}'
+</code></pre>
+
+<p>결과는 아래와 같은 형태가 된다.</p>
 
 <pre><code>{
-  &quot;took&quot; : 147,   // 소요된 시간 (ms)
-  &quot;timed_out&quot;: false, // timeout 이 발생했는지 여부
-  &quot;created&quot;: 120, // 새롭게 생성된 document 의 갯수
-  &quot;updated&quot;: 0,
-  &quot;deleted&quot;: 0,
-  &quot;batches&quot;: 1,
-  &quot;version_conflicts&quot;: 0,
-  &quot;noops&quot;: 0,
-  &quot;retries&quot;: {
-    &quot;bulk&quot;: 0,
-    &quot;search&quot;: 0
+  &quot;took&quot;: 230,
+  &quot;timed_out&quot;: false,
+  &quot;_shards&quot;: {
+    &quot;total&quot;: 1,
+    &quot;successful&quot;: 1,
+    &quot;skipped&quot;: 0,
+    &quot;failed&quot;: 0
   },
-  &quot;throttled_millis&quot;: 0,
-  &quot;requests_per_second&quot;: -1.0,
-  &quot;throttled_until_millis&quot;: 0,
-  &quot;total&quot;: 120, // 전체 처리된 document 갯수
-  &quot;failures&quot; : [ ]
+  &quot;hits&quot;: {
+    &quot;total&quot;: 1,
+    &quot;max_score&quot;: null,
+    &quot;hits&quot;: [
+      {
+        &quot;_index&quot;: &quot;index-name&quot;,
+        &quot;_type&quot;: &quot;poems&quot;,
+        &quot;_id&quot;: &quot;1-1&quot;,
+        &quot;_score&quot;: null,
+        &quot;_source&quot;: {
+          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+        }
+      }
+    ]
+  }
 }
 </code></pre>
 
-<h3 id="다른-es-클러스터의-데이터를-reindex-하기">다른 ES 클러스터의 데이터를 <code>reindex</code> 하기</h3>
+<p>원하는대로 <strong>진달래꽃</strong>을 잘 찾았다. 그럼 이번에는 키워드를 바꿔서 <code>나 보기가 역겨워</code>라는 문장에서 <code>기가</code> 라는 단어를 기준으로 검색해 보자.</p>
 
-<p>경우에 따라서는 신규 클러스터를 운영해야 해서, 크러스터 내부에서 새롭게 <code>reindex</code> 하는게 아니라, <code>remote</code> 의 ES 클러스터의 데이터를 <code>reindex</code> 해야 될 수도 있다.
-이럴 때에는 &ldquo;source&rdquo; 에 &ldquo;remote&rdquo; 를 지정하면 된다.</p>
+<ul>
+<li>RDBMS</li>
+</ul>
 
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
-  &quot;source&quot;: {
-    &quot;index&quot;: &quot;old-index-name&quot;,
-    &quot;remote&quot;: {
-      &quot;host&quot;: &quot;http://my-old-es-cluster-host:9200&quot;,
-      &quot;username&quot;: &quot;user&quot;,
-      &quot;password&quot;: &quot;pass&quot;
-    },
-  },
-  &quot;dest&quot;: {
-      &quot;index&quot;: &quot;new-index-name&quot;
-  }
-}`
+<pre><code>SELECT * FROM poems WHERE contents LIKE '%기가%'
+</code></pre>
 
+<p>여전히 아래와 같이 잘 찾는다.</p>
+
+<pre><code>id | contents
+1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
 </code></pre>
 
 <ul>
-<li>&ldquo;remote&rdquo; 의 index 를 <code>reindex</code> 하고자 한다면, 기존 클러스터의 host 가 whitelist 에 추가되어 있어야 한다. (elasticsearch.yml)</li>
+<li>ElasticSearch</li>
 </ul>
 
-<pre><code>reindex.remote.whitelist: &quot;otherhost:9200, another:9200, 127.0.10.*:9200, localhost:*&quot;
+<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+{
+  &quot;query&quot; : {
+      &quot;bool&quot;: {
+        &quot;must&quot;: {
+          &quot;wildcard&quot;: {
+            &quot;contents&quot;: &quot;*기가*&quot;
+          }
+        }
+      }
+  }
+}'
 </code></pre>
 
-<h3 id="기존-index-의-일부-필드만-reindex-하는-방법">기존 index 의 일부 필드만 <code>reindex</code> 하는 방법</h3>
+<p>그런데 이번에는 원하는 결과를 찾을 수가 없다.</p>
 
-<p>일부 필드만 <code>reindex</code> 하거나(includes), 불필요한 필드는 제외시킬 수도 있다. (excludes)</p>
+<pre><code>{
+  &quot;took&quot;: 230,
+  &quot;timed_out&quot;: false,
+  &quot;_shards&quot;: {
+    &quot;total&quot;: 1,
+    &quot;successful&quot;: 1,
+    &quot;failed&quot;: 0
+  },
+  &quot;hits&quot;: {
+    &quot;total&quot;: 0,
+    &quot;max_score&quot;: null,
+    &quot;hits&quot;: []
+  }
+}
+</code></pre>
 
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
-  &quot;source&quot;: {
-    &quot;index&quot;: &quot;old-index-name&quot;,
-    &quot;_source&quot;: {
-      &quot;includes&quot;: [&quot;field1&quot;, &quot;field2&quot;]
+<h3 id="왜-그럴까">왜 그럴까?</h3>
+
+<p>이 차이는 바로 <code>wildcard</code> 쿼리가 <code>term level query</code> 이기 때문이다. ElasticSearch는 실제로 저장된 <code>document</code> 의 원문을 검사하는 것이 아니라, <code>inverted index</code> 의 목록 중에서
+<code>term(token)</code> 중에 쿼리에서 질의한 <code>keyword</code>를 찾기 때문이다. (이건 아주 기본적인 사항이지만, 우리는 이를 금방 까먹는다&hellip;)</p>
+
+<p>그럼 <strong>진달래꽃</strong>은 어떤 token 으로 구성되어 있는지 확인해 보자.</p>
+
+<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
+  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
+  &quot;analyzer&quot;: &quot;my_custom_analyzer&quot;
+}'
+
+</code></pre>
+
+<p>token 의 결과를 보면 &ldquo;*기가*&rdquo; 와 매칭되는 token 이 존재하지 않는다. <strong>보기가</strong> 라는 단어는 다음과 같이 <strong>보기</strong> 의 단어(word)로 tokenize 되기 때문이다. (어떤 analyzer 를 사용하느냐는 여기서 언급하지 않겠다.)</p>
+
+<pre><code>{
+  &quot;tokens&quot;: [
+    .......
+    {
+      &quot;token&quot;: &quot;보기&quot;,
+      &quot;start_offset&quot;: 0,
+      &quot;end_offset&quot;: 2,
+      &quot;type&quot;: &quot;word&quot;,
+      &quot;position&quot;: 7
+    },
+    .......
+  ]
+}
+</code></pre>
+
+<p>따라서 처음에 생각한 <code>걸음</code> 이라는 단어는 검색이 되지만, <code>기가</code> 라는 단어는 검색이 되지 않는다.</p>
+
+<h3 id="그렇다면-이를-어떻게-해결할-수-있을까">그렇다면 이를 어떻게 해결할 수 있을까?</h3>
+
+<blockquote>
+<p>이런 경우 <code>ngram</code>을 사용 하면 된다.</p>
+</blockquote>
+
+<p>mapping 에 nested 구조로 ngram 이라는 필드를 추가해보자</p>
+
+<pre><code>mappings
+......
+  &quot;mappings&quot;: {
+    &quot;poems&quot;: { // type name
+      &quot;properties&quot;: {
+        &quot;contents&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;fields&quot;: {
+            &quot;ngram&quot;: {
+              &quot;type&quot;: &quot;text&quot;,
+              &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
+            }
+          }
+        }
+        ....
+      }
+    }
+    ....
+</code></pre>
+
+<pre><code>settings
+......
+  &quot;analyzer&quot;: {
+    &quot;my_customer_ngram_analyzer&quot;: {
+      &quot;tokenizer&quot;: &quot;my_customer_ngram_tokenizer&quot;
     }
   },
-  &quot;dest&quot;: {
-      &quot;index&quot;: &quot;new-index-name&quot;
+  &quot;tokenizer&quot;: {
+    &quot;my_customer_ngram_tokenizer&quot;: {
+      &quot;type&quot;: &quot;ngram&quot;,
+      &quot;min_gram&quot;: &quot;2&quot;,
+      &quot;max_gram&quot;: &quot;5&quot;
+    }
   }
-}`
+......
+</code></pre>
+
+<p>이제 새롭게 document를 추가하면 contents.ngram 이라는 필드에 token 이 다르게 나온다. 다시 analyzer 결과를 확인해 보자.</p>
+
+<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
+  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
+  &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
+}'
 
 </code></pre>
 
-<h3 id="전체-데이터가-아니라-일부-데이터만-reindex-하는-방법">전체 데이터가 아니라, 일부 데이터만 <code>reindex</code> 하는 방법</h3>
+<p>이번에는 단어를 하나하나 쪼개서 길이 2 ~ 길이 5사이의 token 으로 나뉘어진다. <code>보기가</code> 라는 단어는 <code>보기</code>, <code>보기가</code>, <code>기가</code> 라는 세개의 토큰으로 나뉘어 졌다.</p>
 
-<p>쿼리를 질의해서 기존 index 에서 일부 데이터만을 <code>reindex</code> 할 수도 있다. 일반적인 쿼리와 마찬가지로 size 를 지정할 수도 있다.</p>
-
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
-  &quot;source&quot;: {
-    &quot;index&quot;: &quot;old-index-name&quot;,
-    &quot;_source&quot;: {
-      &quot;includes&quot;: [&quot;field1&quot;, &quot;field2&quot;]
+<pre><code>{
+  &quot;tokens&quot;: [
+    ......
+    {
+      &quot;token&quot;: &quot;보기&quot;,
+      &quot;start_offset&quot;: 0,
+      &quot;end_offset&quot;: 2,
+      &quot;type&quot;: &quot;word&quot;,
+      &quot;position&quot;: 7
     },
-    &quot;size&quot;: 10000,
-    &quot;query&quot;: {
+    {
+      &quot;token&quot;: &quot;보기가&quot;,
+      &quot;start_offset&quot;: 0,
+      &quot;end_offset&quot;: 3,
+      &quot;type&quot;: &quot;word&quot;,
+      &quot;position&quot;: 7
+    },
+    {
+      &quot;token&quot;: &quot;기가&quot;,
+      &quot;start_offset&quot;: 1,
+      &quot;end_offset&quot;: 3,
+      &quot;type&quot;: &quot;word&quot;,
+      &quot;position&quot;: 8
+    },
+    ......
+}
+</code></pre>
+
+<p>이렇게 <code>ngram</code> 을 설정하면 <strong>min</strong>, <strong>max</strong> 의 설정에 따라서 나뉘는 기준이 달라진다. <strong>사랑합니다</strong> 라는 단어를 ngram 의 length 에 따라서 나뉘어 보면 다음과 같다.</p>
+
+<ul>
+<li>Length 1 (unigram): [ 사, 랑, 합, 니, 다 ]</li>
+<li>Length 2 (bigram): [ 사랑, 랑합, 합니, 니다 ]</li>
+<li>Length 3 (trigram): [ 사랑합, 랑합니, 합니다 ]</li>
+<li>Length 4 (four-gram): [ 사랑합니, 랑합니 ]</li>
+<li>Length 5 (five-gram): [ 사랑합니다 ]</li>
+</ul>
+
+<p><code>보기가</code> 라는 단어는 단어의 길이가 3 이기 때문에 총 6개의 token 으로 나뉘어 졌다. 이렇게 단어의 일부분을 <code>ngram</code> 으로 잘라내서 tokenize 해서 매칭 시키는 방식을 <code>partial matching</code> 이라고 한다.</p>
+
+<p>이렇게 <code>ngram</code> 을 사용하도록 변경하였으니, 쿼리를 수정하자. <code>wildcard</code> 쿼리는 빼고, <code>term</code> 쿼리를 사용하자.</p>
+
+<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+{
+  &quot;query&quot; : {
       &quot;bool&quot;: {
-        &quot;filter&quot;: [
-          {
-            &quot;match_phrase&quot;: {
-              &quot;field1&quot;: &quot;search_keyword&quot;
-            }
+        &quot;should&quot; : [
+            {&quot;term&quot; : { &quot;contents&quot; : &quot;기가&quot; } },
+            {&quot;match_phrase&quot; : { &quot;contents.ngram&quot; : &quot;기가&quot; } }
+        ],
+        &quot;minimum_should_match&quot; : 1
+      }
+  }
+}'
+</code></pre>
+
+<p>위의 쿼리는 <code>contents</code> 의 token 과 <code>contents.ngram</code> 의 token을 찾게 된다. 쿼리 결과는 아래와 같이 정상적으로 원하는 문서를 찾을 수 있다.</p>
+
+<pre><code>{
+  &quot;took&quot;: 8,
+  &quot;timed_out&quot;: false,
+  &quot;_shards&quot;: {
+    &quot;total&quot;: 1,
+    &quot;successful&quot;: 1,
+    &quot;skipped&quot;: 0,
+    &quot;failed&quot;: 0
+  },
+  &quot;hits&quot;: {
+    &quot;total&quot;: 1,
+    &quot;max_score&quot;: null,
+    &quot;hits&quot;: [
+      {
+        &quot;_index&quot;: &quot;index-name&quot;,
+        &quot;_type&quot;: &quot;poems&quot;,
+        &quot;_id&quot;: &quot;1-1&quot;,
+        &quot;_score&quot;: null,
+        &quot;_source&quot;: {
+          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+        }
+      }
+    ]
+  }
+}
+</code></pre>
+
+<p><strong>와일드카드 쿼리를 사용했을 때는 결과가 230 ms 였다면, ngram 을 사용하여 조정한 뒤에는 8 ms 가 걸렸다.</strong></p>
+
+<h2 id="로그-분석의-경우">로그 분석의 경우</h2>
+
+<p>nginx access log 를 ElasticSearch 를 저장하고 조회 &amp; 분석하는 경우라면 URL 에 숫자와 알파벳이 조합된, 특수한 ID 값 같은 식별자가 붙는 경우가 많다.
+예를 들면 ex) <code>?user=3FGAZS1032&amp;key2=ssssss</code> 라고 가정해보자.. 이 경우 user 가 <code>3FGAZS1032</code> 인 경우를 찾는다면 문제 없겠지만, user 값에 <code>3FGAZS</code>가 들어가는 경우를 찾는다면,
+원하는 결과를 얻기가 어렵다. 마찬가지로 이 경우도 <code>ngram</code> 을 통한 tokenize 를 구성했다면 <code>partial mathching</code> 이 가능해져 원하는 문서를 찾을 수 있다.</p>
+
+<p><code>3FGAZS1032</code> 라는 단어가 analyze 가 어떻게 되는지 살펴보자</p>
+
+<pre><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_analyze?pretty -XPOST -d '
+{
+  &quot;text&quot;: &quot;3FGAZS1032&quot;,
+  &quot;analyzer&quot;: &quot;log_analyzer&quot;
+}
+</code></pre>
+
+<p>token 이 하나만 나온다.</p>
+
+<pre><code>{
+  &quot;tokens&quot;: [
+    {
+      &quot;token&quot;: &quot;3FGAZS1032&quot;,
+      &quot;start_offset&quot;: 0,
+      &quot;end_offset&quot;: 10,
+      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,
+      &quot;position&quot;: 0
+    }
+  ]
+}
+</code></pre>
+
+<p>이 상황에서 <code>\*3FGAZS\*</code> 라는 와일드카드 쿼리를 사용할 수 있지만 응답속도가 느리다. 그렇지만 <code>ngram</code> 을 구성하면 훨씬 빠르다.</p>
+
+<pre><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_search?pretty -XPOST -d '
+{
+  &quot;_source&quot;: [&quot;user&quot;,&quot;path&quot;],
+  &quot;query&quot; : {
+      &quot;bool&quot;: {
+        &quot;must&quot;: [
+          &quot;term&quot;: {
+            &quot;user.ngram&quot;: &quot;3FGAZS&quot;
           },
-          {
-            &quot;range&quot;: {
-              &quot;datetime&quot;: {
-                &quot;gte&quot;: &quot;2018-07-05T05:05:54.000Z&quot;
-              }
-            }
+          &quot;term&quot;: {
+            &quot;path.keyword&quot;: &quot;/user/playground&quot;
           }
         ]
       }
-    }
-  },
-  &quot;dest&quot;: {
-      &quot;index&quot;: &quot;new-index-name&quot;
   }
-}`
+}'
 </code></pre>
 
-<p><code>reindex</code> 를 실행하면 한꺼번에 많은 데이터를 새로 인덱싱 해야 하기 때문에 ES 클러스터의 부하가 높아진다. 이미 부하가 높은 클러스터라면,
-성능에 여유가 있는지 잘 살펴서 실행하도록 하자. 그리고 이왕이면 언제 필요할지 모르는 <code>reindex</code> 의 부담을 최소화 하기 위해서라도 index 는 잘 쪼개서 <code>alias</code> 로 관리하는 습관을 들이도록 하자.</p>
+<p>결과가 1ms 가 나왔다.</p>
 
-<h3 id="참고">참고</h3>
+<pre><code>{
+  &quot;took&quot;: 1,
+  &quot;timed_out&quot;: false,
+  &quot;_shards&quot;: {
+    &quot;total&quot;: 1,
+    &quot;successful&quot;: 1,
+    &quot;skipped&quot;: 0,
+    &quot;failed&quot;: 0
+  },
+  &quot;hits&quot;: {
+    &quot;total&quot;: 39,
+    &quot;max_score&quot;: null,
+    &quot;hits&quot;: [
+      {
+        &quot;_index&quot;: &quot;log-2018.07.14&quot;,
+        &quot;_type&quot;: &quot;log&quot;,
+        &quot;_id&quot;: &quot;3078923&quot;,
+        &quot;_score&quot;: null,
+        &quot;_source&quot;: {
+          &quot;user&quot;: &quot;3FGAZS1032&quot;,
+          &quot;path&quot;: &quot;/user/playground&quot;
+        }
+      }
+      ......
+    ]
+  }
+}
+</code></pre>
+
+<h3 id="wildcard-대신-ngram-을-도입하여-얻은-효과">wildcard 대신 ngram 을 도입하여 얻은 효과</h3>
 
 <ul>
-<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html</a></li>
+<li>먼저 token 을 기준으로 wildcard 에서 못찾는 document를 찾을 수 있다.</li>
+<li>반응 속도가 엄청 빨라진다. (1ms 라니..)</li>
+<li>대신 token 의 갯수가 많아지기 때문에 inverted index 사이즈가 늘어난다.</li>
 </ul>
+
+<h2 id="결론">결론</h2>
+
+<p>ElasticSearch 쿼리를 작성하면서 wildcard 를 사용할 때 RDBMS 의 <code>like &quot;%keyword%&quot;</code> 와 같이 사용하고자 한다면 <code>ngram</code> 을 사용한 tokenize 를 고려해보는게 좋다.
+wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필요가 있다. 더불어 <code>ngram</code> 과 <code>match_phrase</code> 쿼리를 사용하면 긴 단어나 문장을 검색 키워드로 조회하더라도
+원하는 문서를 잘 찾을 수 있다(콘텐츠 검색의 경우).</p>
 
 <div class="blog-navigation">
     
-        <a class="prev" href="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/">&laquo; ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</a>
+    <a class="prev"></a>
     
     
-        <a class="next" href="https://findstar.pe.kr/2018/06/29/elasticsearch-template/">ElasticSearch 에서 template 을 활용하는 방법 &raquo;</a>
+        <a class="next" href="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/">ElasticSearch 에서 reindex 을 활용하는 방법 &raquo;</a>
     
 </div>
 
@@ -285,15 +553,15 @@
     <h4>Related Posts</h4>
     <ul>
         
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/">ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</a></li>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/">ElasticSearch 에서 wildcard 쿼리에 대한 이해</a></li>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/">ElasticSearch 에서 reindex 을 활용하는 방법</a></li>
+        
             <li class="relatedPost"><a href="https://findstar.pe.kr/2018/06/29/elasticsearch-template/">ElasticSearch 에서 template 을 활용하는 방법</a></li>
         
             <li class="relatedPost"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/">ElasticSearch 에서 Index Alias 변경하기</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/">logstash와 filebeat 설정하기</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/">ElasticSearch 에서 null 과 empty string 의 차이</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/">ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</a></li>
         
     </ul>
 </div>
@@ -311,7 +579,7 @@
 <div class="share">
     
     
-        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f07%2f07%2felasticsearch-reindex%2f - ElasticSearch%20%ec%97%90%ec%84%9c%20reindex%20%ec%9d%84%20%ed%99%9c%ec%9a%a9%ed%95%98%eb%8a%94%20%eb%b0%a9%eb%b2%95 by @findstar">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f07%2f14%2felasticsearch-wildcard-to-ngram%2f - ElasticSearch%20%ec%97%90%ec%84%9c%20wildcard%20%ec%bf%bc%eb%a6%ac%20%eb%8c%80%ec%8b%a0%20ngram%ec%9d%84%20%ed%99%9c%ec%9a%a9%ed%95%98%eb%8a%94%20%eb%b0%a9%eb%b2%95 by @findstar">
     <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
 </a>
 
@@ -327,8 +595,8 @@
 <script type="text/javascript">
 
 var disqus_config = function () {
-        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/07\/07\/elasticsearch-reindex\/';
-        this.page.identifier = '\/2018\/07\/07\/elasticsearch-reindex';
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/07\/14\/elasticsearch-wildcard-to-ngram\/';
+        this.page.identifier = '\/2018\/07\/14\/elasticsearch-wildcard-to-ngram';
 };
 var disqus_shortname = 'findstar';
 var disqus_developer = 0;

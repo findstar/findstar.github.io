@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</loc>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</loc>
-    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+    <lastmod>2018-07-07T22:14:53+00:00</lastmod>
   </url>
   
   <url>
@@ -179,7 +184,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/elasticsearch/</loc>
-    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -221,7 +226,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
   </url>
   
   <url>
@@ -322,7 +327,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/match_phrase/</loc>
-    <lastmod>2018-01-19T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -345,6 +350,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/ngram/</loc>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/null/</loc>
     <lastmod>2018-01-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -355,6 +366,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/partial-matching/</loc>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/phpstorm/</loc>
     <lastmod>2018-01-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -362,7 +379,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -380,7 +397,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/reindex/</loc>
-    <lastmod>2018-07-06T22:14:53+00:00</lastmod>
+    <lastmod>2018-07-07T22:14:53+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -466,7 +483,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/wildcard/</loc>
-    <lastmod>2018-01-17T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-14T10:02:32+09:00</lastmod>
     <priority>0</priority>
   </url>
   

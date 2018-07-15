@@ -114,7 +114,7 @@
     <item>
       <title>Elasticsearch</title>
       <link>https://findstar.pe.kr/tags/elasticsearch/</link>
-      <pubDate>Fri, 06 Jul 2018 22:14:53 +0000</pubDate>
+      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/elasticsearch/</guid>
       <description></description>
@@ -321,7 +321,7 @@
     <item>
       <title>Match_phrase</title>
       <link>https://findstar.pe.kr/tags/match_phrase/</link>
-      <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/match_phrase/</guid>
       <description></description>
@@ -355,11 +355,29 @@
     </item>
     
     <item>
+      <title>Ngram</title>
+      <link>https://findstar.pe.kr/tags/ngram/</link>
+      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/ngram/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Null</title>
       <link>https://findstar.pe.kr/tags/null/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>https://findstar.pe.kr/tags/null/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Partial Matching</title>
+      <link>https://findstar.pe.kr/tags/partial-matching/</link>
+      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/partial-matching/</guid>
       <description></description>
     </item>
     
@@ -393,7 +411,7 @@
     <item>
       <title>Reindex</title>
       <link>https://findstar.pe.kr/tags/reindex/</link>
-      <pubDate>Fri, 06 Jul 2018 22:14:53 +0000</pubDate>
+      <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
       
       <guid>https://findstar.pe.kr/tags/reindex/</guid>
       <description></description>
@@ -501,7 +519,7 @@
     <item>
       <title>Wildcard</title>
       <link>https://findstar.pe.kr/tags/wildcard/</link>
-      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/wildcard/</guid>
       <description></description>

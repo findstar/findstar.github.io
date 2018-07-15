@@ -6,15 +6,38 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Fri, 06 Jul 2018 22:14:53 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 14 Jul 2018 10:02:32 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
         
         <item>
+            <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</link>
+            <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</guid>
+            <description>&lt;p&gt;ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 &lt;code&gt;like &amp;quot;%keyword%&amp;quot;&lt;/code&gt; 와 같은 쿼리를 대체하기 위해서 &lt;code&gt;wildcard&lt;/code&gt; 를 사용하는 경우를 몇번 목격하였다.
+이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 &lt;code&gt;ngram&lt;/code&gt; 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>ElasticSearch</tag>
+            
+            <tag>wildcard</tag>
+            
+            <tag>ngram</tag>
+            
+            <tag>Partial Matching</tag>
+            
+            <tag>match_phrase</tag>
+            
+        </item>
+        
+        <item>
             <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
             <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
-            <pubDate>Fri, 06 Jul 2018 22:14:53 +0000</pubDate>
+            <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
             
             <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
             <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;
