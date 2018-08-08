@@ -6,10 +6,28 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sat, 14 Jul 2018 10:02:32 +0900</lastBuildDate>
+        <lastBuildDate>Fri, 27 Jul 2018 08:08:32 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>Haproxy 설치하기</title>
+            <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
+            <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
+            <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>haproxy</tag>
+            
+            <tag>install</tag>
+            
+            <tag>haproxy 1.8</tag>
+            
+        </item>
         
         <item>
             <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</title>

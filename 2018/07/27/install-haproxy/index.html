@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법 - Soo Story</title>
+    <title>Haproxy 설치하기 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/">
+    <link rel="canonical" href="https://findstar.pe.kr/2018/07/27/install-haproxy/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -50,16 +50,15 @@
 
 <meta name="generator" content="Hugo 0.42.2" />
 
-<meta property="og:title" content="ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법" />
-<meta property="og:description" content="ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 like &quot;%keyword%&quot; 와 같은 쿼리를 대체하기 위해서 wildcard 를 사용하는 경우를 몇번 목격하였다.
-이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 ngram 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.
+<meta property="og:title" content="Haproxy 설치하기" />
+<meta property="og:description" content="Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/" />
+<meta property="og:url" content="https://findstar.pe.kr/2018/07/27/install-haproxy/" />
 
 
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="/images/posts/haproxy/haproxy-logo.png" />
 
 
 
@@ -104,10 +103,10 @@
 
 
 
-<h1 class="title">ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</h1>
+<h1 class="title">Haproxy 설치하기</h1>
 
 <span class="date">
-        <time datetime="2018-07-14">2018-07-14</time>
+        <time datetime="2018-07-27">2018-07-27</time>
 </span>
 
 
@@ -115,437 +114,369 @@
 <div class="post-tags">
     <i class="fa fa-tags" title="태그"></i>
     
-        <a class="item" href="https://findstar.pe.kr/tags/#elasticsearch">ElasticSearch</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy">haproxy</a>
     
-        <a class="item" href="https://findstar.pe.kr/tags/#wildcard">wildcard</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#install">install</a>
     
-        <a class="item" href="https://findstar.pe.kr/tags/#ngram">ngram</a>
-    
-        <a class="item" href="https://findstar.pe.kr/tags/#partial-matching">Partial Matching</a>
-    
-        <a class="item" href="https://findstar.pe.kr/tags/#match_phrase">match_phrase</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy-1.8">haproxy 1.8</a>
     
 </div>
 
 
-<p>ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 <code>like &quot;%keyword%&quot;</code> 와 같은 쿼리를 대체하기 위해서 <code>wildcard</code> 를 사용하는 경우를 몇번 목격하였다.
-이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 <code>ngram</code> 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.</p>
+<p>Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.</p>
 
 <p></p>
 
-<h2 id="콘텐츠-검색의-경우">콘텐츠 검색의 경우</h2>
+<p>Haproxy 는 Load balancer 로 활용할 수 있으며, 다양한 설정이 가능하고, nginx reverse proxy 에 비해서 active health check가 가능하기 때문에
+더 안정적으로 운영할 수 있다. 다만 설정이 조금 복잡해서 익숙해 지는데 시간이 걸렸다.</p>
 
-<p>시의 내용을 DB 와 ElasticSearch 에 저장하고 쿼리를 통해서 원하는 시의 본문 전체 내용을 찾는 방법을 가정해 보자. 저장된 내용은 <strong>김소월의 진달래꽃</strong> 을 예시로 가정해봤다.</p>
+<h3 id="설치-환경">설치 환경</h3>
 
-<pre><code>진달래꽃
+<ol>
+<li><p>haproxy 를 설치한 서버는 Centos 7.4 서버였다. yum 을 사용할것인지 아니면 컴파일을 해서 사용할지 결정해야 했는데 결국은 컴파일해서 설치하기로 했다. 그 이유는 yum 기본 repo 에 있는 haproxy 버전이 낮고, 대부분의 레퍼런스에서 컴파일해서 설치하고 있기에 이대로 진행했다.
+(다만, 컴파일에서 옵션을 잘못 지정해서 나중에 엄청난 삽질을 하게되었는데, 이건 따로 이야기 하기로 하고 설치 내역을 정리해보았다)</p></li>
 
-나 보기가 역겨워
-가실 때에는
-말없이 고이 보내 드리우리다
+<li><p>필요한 yum 패키지들을 설치해주자.</p>
 
-영변에 약산
-진달래꽃
-아름 따다 가실 길에 뿌리우리다
+<pre><code>yum install gcc openssl pcre-static pcre-devel systemd-devel
+</code></pre></li>
+</ol>
 
-가시는 걸음 걸음
-놓인 그 꽃을
-사뿐히 즈려밟고 가시옵소서
+<h3 id="haproxy-다운로드-컴파일">Haproxy 다운로드 &amp; 컴파일</h3>
 
-나 보기가 역겨워
-가실 때에는
-죽어도 아니 눈물 흘리우리다
-</code></pre>
+<ol>
+<li><p>haproxy 소스 파일을 다운로드 받는다. 설치하는 현재 stable 버전은 1.8.12 버전이다.</p>
 
-<h3 id="rdbms-의-경우">RDBMS 의 경우</h3>
+<pre><code>wget http://www.haproxy.org/download/1.8/src/haproxy-1.8.12.tar.gz
+tar zxvf haproxy-1.8.12.tar.gz
+</code></pre></li>
 
-<p>먼저 RDBMS 의 <code>like &quot;%keyword%&quot;</code> 쿼리를 생각해 보자, <code>걸음</code> 이라는 텍스트가 포함되어 있는 row 를 찾으려면 아래처럼 쿼리를 하게 되겠다.
-이런 쿼리를 사용하는 순간 full text searching 을 하기 때문에 가급적이면 사용을 지양해야할 쿼리이긴 하지만, 어쩔 수 없이 사용한다고 가정하자.</p>
+<li><p>컴파일을 하자, 이때 옵션을 지정해줘야 한다. TARGET 정보는 <code>README</code> 파일에서 확인하자. SSL 인증서를 활성화 하기 위해서 <code>USE_OPENSSL</code> 를 enable 해주고, systemd 를 통해서 서비스를 컨트롤 하기 위해서 <code>USE_SYSTEMD</code> 도 활성화 해주었다.</p>
 
-<pre><code>SELECT * FROM poems WHERE contents LIKE '%걸음%'
-</code></pre>
+<pre><code>make TARGET=linux2628 USE_OPENSSL=1 USE_PCRE=1 USE_ZLIB=1 USE_SYSTEMD=1
+</code></pre></li>
 
-<pre><code>id | contents
-1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
-</code></pre>
+<li><p>컴파일을 완료했다면 설치하자 <code>/usr/local/sbin/haproxy</code> 에 실행파일이 설치된다.</p>
 
-<h3 id="elasticsearch-의-경우">ElasticSearch 의 경우</h3>
+<pre><code>make install
+install -d &quot;/usr/local/sbin&quot;
+install haproxy  &quot;/usr/local/sbin&quot;
+install -d &quot;/usr/local/share/man&quot;/man1
+install -m 644 doc/haproxy.1 &quot;/usr/local/share/man&quot;/man1
+install -d &quot;/usr/local/doc/haproxy&quot;
+for x in configuration management architecture peers-v2.0 cookie-options lua WURFL-device-detection proxy-protocol linux-syn-cookies network-namespaces DeviceAtlas-device-detection 51Degrees-device-detection netscaler-client-ip-insertion-protocol peers close-options SPOE intro; do \
+        install -m 644 doc/$x.txt &quot;/usr/local/doc/haproxy&quot; ; \
+done
+</code></pre></li>
 
-<p>RDBMS 에서 처럼 full text searching 이 가능할것으로 기대하고, <code>wildcard</code> 쿼리를 사용해보자.</p>
+<li><p>정상적으로 설치가 되었는지 확인하자</p>
 
-<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
-{
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: {
-          &quot;wildcard&quot;: {
-            &quot;contents&quot;: &quot;*걸음*&quot;
-          }
-        }
-      }
-  }
-}'
-</code></pre>
+<pre><code>sudo haproxy -v
+</code></pre></li>
+</ol>
 
-<p>결과는 아래와 같은 형태가 된다.</p>
+<h3 id="haproxy-systemd-등록">Haproxy systemd 등록</h3>
 
-<pre><code>{
-  &quot;took&quot;: 230,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
-  },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 1,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
-      {
-        &quot;_index&quot;: &quot;index-name&quot;,
-        &quot;_type&quot;: &quot;poems&quot;,
-        &quot;_id&quot;: &quot;1-1&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
-        }
-      }
-    ]
-  }
+<ol>
+<li><p>이제 systemd 에 등록하고 서비스를 컨트롤할 수 있도록 해주어야 한다. <a href="http://git.haproxy.org/?p=haproxy-1.8.git;a=blob_plain;f=contrib/systemd/haproxy.service.in">haproxy git repo 에서 제공하는 system file</a> 을 확인하자.
+해당 파일을 <code>/etc/systemd/system/haproxy.service</code> 에 저장하고 <code>sudo systemd daemon-reload</code> 실행하자.</p>
+
+<pre><code>sudo wget &quot;http://git.haproxy.org/?p=haproxy-1.8.git;a=blob_plain;f=contrib/systemd/haproxy.service.in&quot; -O /etc/systemd/system/haproxy.service
+sudo systemd daemon-reload
+</code></pre></li>
+</ol>
+
+<h3 id="기타-작업">기타 작업</h3>
+
+<ol>
+<li><p>haproxy 관련 디렉토리를 만들자.</p>
+
+<pre><code>sudo mkdir -p /etc/haproxy
+sudo mkdir -p /var/log/haproxy
+sudo mkdir -p /etc/haproxy/certs
+sudo mkdir -p /etc/haproxy/errors/
+</code></pre></li>
+
+<li><p>haproxy 데몬을 구동할 haproxy 계정을 만들자</p>
+
+<pre><code>sudo useradd -r haproxy
+</code></pre></li>
+</ol>
+
+<h3 id="설정-파일">설정 파일</h3>
+
+<ol>
+<li><p>example 디렉토리의 haproxy config 을 참고해서 원하는 형태의 cfg 를 구성해야 한다. 이게 제일 힘든 부분이긴 한데 고생한 결과물을 기록했다.</p>
+
+<pre><code># 다음은 80 과 443 으로 haproxy 를 reverse proxy 형태로 구성하여 LB로 사용하는 설정이다.
+global
+    daemon
+
+    # 연결할 수 있는 최대 connection 을 지정한다. 이걸 안하면 기본값이 2000 으로 설정된다.
+    maxconn 81920
+
+    # haproxy 프로세서를 구동할 user (gid/uid를 지정할 수도 있다.)
+    user    haproxy
+
+    # ssl 을 구성할 때 key size를 지정한다.
+    tune.ssl.default-dh-param 2048
+
+    # haproxy는 로그를 남기기 위해서 file io 를 직접 처리하지 않는다. rsyslog 로 UDP 전송을 한다.
+    log 127.0.0.1 local0
+
+    # ciphers 설정
+    # WindowsXP SP3 IE7,8 호환이 필요하지 않을 경우 !3DES도 추가한다.
+    ssl-default-bind-ciphers ECDH+AESGCM:ECDH+AES128:ECDH+AES256:DH+AES128:DH+AES256:DH+CAMELLIA128:DH+CAMELLIA256:DH+SEEDCBC:RSA:!aNULL:!MD5:!eNULL:!RC4
+
+defaults
+
+    # Haproxy 에서 log format 은 총 5가지 (default, tcp, http, clf, custom) 을 지원한다
+    # 1. 기본적인 log format
+    # datetime host process_name[pid]: Connect from source_ip:source_port to dest_ip:dest_port (frontend_name/mode)
+    # ex) Feb  6 12:12:09 localhost haproxy[14385]: Connect from 10.0.1.2:33312 to 10.0.3.31:8012 (www/HTTP)
+    #
+    # 2. `option tcplog` 가 지정된 경우
+    # datetime host process_name[pid]: client_ip:client_port [accept_date] frontend_name backend_name/server_name tw/tc/tx bytes_read termination_state actionn/feconn/beconn/srv_conn/retries srv_queue/backend_queue
+    # ex) Feb  6 12:12:56 localhost haproxy[14387]: 10.0.1.2:33313 [06/Feb/2009:12:12:51.443] fnt bck/srv1 0/0/5007 212 -- 0/0/0/0/3 0/0
+    #
+    # 3. `option httplog` 가 지정된 경우
+    # HTTP 프록시를 구성하는 경우에 제일 많이 사용되는 로그 포맷
+    # datetime host process_name[pid]: client_ip:client_port [request_date] frontend_name backend_name/server_name TR/Tw/Tc/Tr/Ta status_code bytes_read captured_request_cooie captured_response_cookie termination_state actionn/feconn/beconn/srv_conn/retries srv_queue/backend_queue {captured_request_headers} {captured_response_headers} &quot;http_request&quot;
+    # ex)
+    # Feb  6 12:14:14 localhost haproxy[14389]: 10.0.1.2:33317 [06/Feb/2009:12:14:14.655] http-in static/srv1 10/0/30/69/109 200 2750 - - ---- 1/1/1/1/0 0/0 {1wt.eu} {} &quot;GET /index.html HTTP/1.1&quot;
+    #
+    # 4. `log-format` 을 통해서 custom 구성을 한경우
+    # `log-format` 을 지정하면 커스텀 로그 포맷 구성이 가능함
+    # 자세한 변수는 http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#8.2.4 참고
+    #
+    # 5. clf 는 (Common Logging Format)
+    #
+    # 이설정파일에서는 custom log format 을 사용했다.
+    log       global
+    mode      http
+    option    httplog clf
+
+    #Enable logging of null connections (헬스체크와 같이 시스템이 살아 있는지 확인하기 위해서 일정하게 접속하는 커넥션에 대한 로그 사용)
+    option    dontlognull
+
+    #Enable skip logging normal connection log 일반적인 http status 200 로그는 남기지 않는다.
+    (https://www.slideshare.net/haproxytech/haproxy-best-practice) 참고
+    option    dontlog-normal
+
+    #request-요청을 서버로 보낼 때 `X-Forwarded-For` 를 헤더에 추가한다
+    option    forwardfor
+
+    # 기본적으로 HAProxy 는 커넥션 유지 관점에서 keep-alive 모드로 동작을 하는데, 각각의 커넥션은 request-요청과 reponse-응답을 처리하고나서
+    # 새로운 request을 받기까지 connection idle 상태(유휴상태)로 양쪽이 연결되어 있다.
+    # 이 동작모드를 변경하려면 &quot;option http-server-close&quot; &quot;option forceclose&quot; &quot;option httpclose&quot; &quot;option http-tunnel&quot; 의 옵션이 가능한데,
+    # &quot;option http-server-close&quot; 는 클라이언트 사이드에서 HTTP keep-alive를 유지하고 파이프라이닝을 지원하면서 서버 사이드에 커넥션을 닫는 형태를 설정한다.
+    # 이는 클라이언트 사이드에서 최저 수준의 응답지연을 제공하고 &quot;option forceclose&quot; 와 비슷하게 서버사이드에서 리소스를 재활용할 수 있게 되어
+    # backend 에서 빠르게 세션을 재사용할 수 있도록 해준다.
+    option    http-server-close
+
+
+    timeout   http-request  10s
+    timeout   client        20s
+    timeout   connect       4s
+    timeout   server        30s
+    timeout   http-keep-alive   10s
+
+# haproxy 의 상태정보를 확인할 수 있는 기능을 활성화 한다. &quot;stats&quot;
+# 이 포트는 외부에 노출되지 않도록 주의하자.
+# 접근 가능한 사용자를 제한하기 위해서 auth 를 추가했다.
+listen stats
+    bind :9000 # Listen on localhost:9000
+    stats enable  # Enable stats page
+    stats realm Haproxy\ Statistics  # Title text for popup window
+    stats uri /haproxy_stats  # Stats URI
+    stats auth    admin1:password1
+    stats auth    admin2:password2
+
+
+frontend www
+
+    # 기본적으로 80 번을 listen 한다.
+    bind *:80
+
+    # https 지원을 위한 443 listen
+    # cert 파일은 /etc/haproxy/certs 디렉토리에 넣는다.
+    # 키 파일과 cert 파일을 하나로 합쳐서 넣으면 된다.
+    bind *:443 ssl crt /etc/haproxy/certs
+
+    maxconn 81920
+
+    # 압축 알고리즘 gzip 적용
+    compression algo gzip
+    compression type text/plain application/json application/xml
+
+    # ACL &quot;deny_useragent&quot; 선언
+    # 보안취약점 스캔 툴 같은 agent 들을 막기 위한 list 파일을 구성했다.
+    # -i 옵션은 대소문자 구분하지 않음
+    # -f 는 파일에서 매칭
+    acl deny_useragent hdr_sub(user-agent) -i -f /etc/haproxy/deny_useragent.list
+
+    # Private Ip 대역 확인용 ACL &quot;private-network&quot; 선언
+    # 같은 VPC 대역이라던가..
+    acl private-network src 10.10.0.0/16
+
+    http-request deny if deny_useragent
+
+    # 모니터링을 위한 주소 설정
+    monitor-uri /monitor
+
+    # 모니터링 주소는 같은 private ip 대역이 아니라면 실패 처리
+    monitor fail  if !private-network
+
+    # log format 을 위해서 header 정보를 capture 한다. custom format %hr 에서 사용되며 delimiter : '|'로 구분된다.
+    capture request header Host len 128
+    capture request header User-Agent len 64
+    capture request header Referrer len 64
+
+    # 다음은 custom format 을 위한 지
+    # %ci : client ip
+    # %trl : local date time
+    # %HM : HTTP method (ex GET)
+    # %HU : HTTP request URI (ex: /foo?bar=baz)
+    # %HV : HTTP version (ex: HTTP/1.1)
+    # %ST : Status Code
+    # %B : bytes_read
+    # %hr : header values (host, agent, referrer) 위에서 capture 한 값들.
+    # %s : server_name
+    # %b : backend_name
+    # %TR : time to receive the full request from 1st byte
+    # %Tw : total time in milliseconds spent waiting in the various queues
+    # %Tc : total time in milliseconds spent waiting for the connection to establish to the final server, including retries
+    # %Tr : total time in milliseconds spent waiting for the server to send a full HTTP response, not counting data
+    # %Ta : time the request remained active in haproxy, which is the total time in milliseconds elapsed between the first byte of the request was received and the last byte of response was sent
+    # %ac : total number of concurrent connections on the process when the session was logged
+    # %fc : total number of concurrent connections on the frontend when the session was logged
+    # %bc : total number of concurrent connections handled by the backend when the session was logged
+    # %sc : total number of concurrent connections still active on the server when the session was logged
+    # %rc : the number of connection retries experienced by this session when trying to connect to the server
+    log-format &quot;%ci\ [%trl]\ %HM\ \&quot;%HU\&quot;\ \&quot;%HV\&quot;\ %ST\ %B\ %hr\ %s\ %b\ %TR/%Tw/%Tc/%Tr/%Ta\ %ac/%fc/%bc/%sc/%rc&quot;
+
+    # 기본적으로 사용할 backend 를 지정한다.
+    default_backend web-svr
+
+backend web-svr
+
+    # 로드 밸런싱을 라운드 로빈으로 지정한다. 이밖에도 leastconn 을 많이 지정하는것 같다.
+    balance roundrobin
+
+    # 연결할 서버들이 active health check를 지정한다. (nginx 와 가장큰 다른점이라고 생각된다. nginx 는 active health check 가 plus(유료)버전에서만 가능하다)
+    option  httpchk HEAD /_health HTTP/1.1\r\nHost:\ localhost
+
+    # 에러 파일 설정
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
+
+    # backend 서버들로 request-요청 을 proxy 로 전달할 때 Protocol(https) 와 Port 정보를 함께 전달
+    # X-Forwarded-For 는 앞의 option 으로 전달됨 (option forwardfor)
+    http-request set-header X-Forwarded-Port %[dst_port]
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+
+    # 연결할 서버들의 리스트다. 3번 health check 가 실패하면 빼고, 2번 성공하면 다시 LB 대상에 포함시킨다.
+    server  my-web-server-1-host   10.10.192.1:80  check fall 3 rise 2
+    server  my-web-server-2-host   10.10.192.2:80  check fall 3 rise 2
+    server  my-web-server-3-host   10.10.192.3:80  check fall 3 rise 2
+    server  my-web-server-4-host   10.10.192.4:80  check fall 3 rise 2
+    server  my-web-server-5-host   10.10.192.5:80  check fall 3 rise 2
+    server  my-web-server-6-host   10.10.192.6:80  check fall 3 rise 2
+    server  my-web-server-7-host   10.10.192.7:80  check fall 3 rise 2
+    server  my-web-server-8-host   10.10.192.8:80  check fall 3 rise 2
+    server  my-web-server-9-host   10.10.192.9:80  check fall 3 rise 2
+    server  my-web-server-10-host   10.10.192.10:80  check fall 3 rise 2
+
+</code></pre></li>
+
+<li><p>설정 파일이 완료되었다면 아래와 같이 이상이 없는지 체크할 수 있다.</p>
+
+<pre><code>sudo haproxy -f /etc/haproxy/haproxy.cfg -c
+</code></pre></li>
+</ol>
+
+<h3 id="구동">구동</h3>
+
+<ol>
+<li><p>이제 <code>systemd</code> 를 사용해서 구동해보자</p>
+
+<pre><code>systemd start haproxy.service
+</code></pre></li>
+
+<li><p>재시작은 <code>reload</code> 하면된다. 만약 컴파일시에 <code>USE_SYSTEMD</code> 옵션을 주지 않았다면 재시작에 실패할 수 있다.</p>
+
+<pre><code>systemd reload haproxy.service
+</code></pre></li>
+</ol>
+
+<h3 id="설치후-추가할일">설치후 추가할일</h3>
+
+<ol>
+<li><p>rsyslog 에 haproxy 용 로그를 남기도록 설정한다. <code>/etc/rsyslog.d/haproxy.conf</code> 파일을 다음과 같이 구성한다.</p>
+
+<pre><code># Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+$template Haproxy, &quot;%msg%\n&quot;
+#rsyslog 에는 rsyslog 가 메세지를 수신한 시각 및 데몬 이름같은 추가적인 정보가 prepend 되므로, message 만 출력하는 템플릿 지정
+# 이를 haproxy-info.log 에만 적용한다.
+
+# 모든 haproxy 를 남기려면 다음을 주석해재, 단 access log 가 기록되므로, 양이 많다.
+#local0.*   /var/log/haproxy/haproxy.log
+
+# local0.=info 는 haproxy 에서 에러로 처리된 이벤트들만 기록하게 됨 (포맷 적용)
+local0.=info    /var/log/haproxy/haproxy-info.log;Haproxy
+
+# local0.notice 는 haproxy 가 재시작되는 경우와 같은 시스템 메세지를 기록하게됨 (포맷 미적용)
+local0.notice   /var/log/haproxy/haproxy-allbutinfo.log
+</code></pre></li>
+
+<li><p>logroate 에 haproxy 설정을 추가한다. <code>/etc/logrotate.d/haproxy</code> 파일을 다음과 같이 구성한다. haproxy 는 재시작할 필요가 없으므로 rsyslog 를 재시작해준다.</p>
+
+<pre><code>/var/log/haproxy/*log {
+    daily
+    rotate 90
+    create 0644 nobody nobody
+    missingok
+    notifempty
+    compress
+    sharedscripts
+    postrotate
+        /bin/systemctl restart rsyslog.service &gt; /dev/null 2&gt;/dev/null || true
+    endscript
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
-<p>원하는대로 <strong>진달래꽃</strong>을 잘 찾았다. 그럼 이번에는 키워드를 바꿔서 <code>나 보기가 역겨워</code>라는 문장에서 <code>기가</code> 라는 단어를 기준으로 검색해 보자.</p>
+<h3 id="설치-후기">설치 후기</h3>
 
 <ul>
-<li>RDBMS</li>
+<li>익숙해 지는데 시간이 걸리긴 했지만, 성능도 좋고 원하는 대부분의 기능이 제공되므로 만족스러웠다. 다만 설정과 관련된 방식이 친절하지 못하다고 느껴지는건 단순히 익숙하지 않음 때문은 아닌듯.
+그리고 여전히 문서를 잘 읽어야 한다는 생각이 든다. 특히나 소스 압축 풀고 <code>example</code> 폴더 한번만 주의 깊게 봤으면 고생을 덜 했을 텐데 싶다.</li>
 </ul>
 
-<pre><code>SELECT * FROM poems WHERE contents LIKE '%기가%'
-</code></pre>
-
-<p>여전히 아래와 같이 잘 찾는다.</p>
-
-<pre><code>id | contents
-1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
-</code></pre>
+<h3 id="참고">참고</h3>
 
 <ul>
-<li>ElasticSearch</li>
+<li><a href="https://cbonte.github.io/haproxy-dconv/1.8/configuration.html">https://cbonte.github.io/haproxy-dconv/1.8/configuration.html</a></li>
+<li><a href="http://git.haproxy.org/?p=haproxy-1.8.git;a=blob_plain;f=contrib/systemd/haproxy.service.in">http://git.haproxy.org/?p=haproxy-1.8.git;a=blob_plain;f=contrib/systemd/haproxy.service.in</a></li>
+<li><a href="https://www.upcloud.com/support/haproxy-load-balancer-centos/">https://www.upcloud.com/support/haproxy-load-balancer-centos/</a></li>
+<li><a href="http://blog.whitelife.co.kr/321">http://blog.whitelife.co.kr/321</a></li>
+<li><a href="https://medium.com/@jinro4/%EA%B0%9C%EB%B0%9C-haproxy-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B8%B0%EB%B3%B8-%EC%84%A4%EC%A0%95-f4623815622">https://medium.com/@jinro4/%EA%B0%9C%EB%B0%9C-haproxy-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B8%B0%EB%B3%B8-%EC%84%A4%EC%A0%95-f4623815622</a></li>
+<li><a href="http://sseungshin.tistory.com/77">http://sseungshin.tistory.com/77</a></li>
 </ul>
-
-<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
-{
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: {
-          &quot;wildcard&quot;: {
-            &quot;contents&quot;: &quot;*기가*&quot;
-          }
-        }
-      }
-  }
-}'
-</code></pre>
-
-<p>그런데 이번에는 원하는 결과를 찾을 수가 없다.</p>
-
-<pre><code>{
-  &quot;took&quot;: 230,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;failed&quot;: 0
-  },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 0,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: []
-  }
-}
-</code></pre>
-
-<h3 id="왜-그럴까">왜 그럴까?</h3>
-
-<p>이 차이는 바로 <code>wildcard</code> 쿼리가 <code>term level query</code> 이기 때문이다. ElasticSearch는 실제로 저장된 <code>document</code> 의 원문을 검사하는 것이 아니라, <code>inverted index</code> 의 목록 중에서
-<code>term(token)</code> 중에 쿼리에서 질의한 <code>keyword</code>를 찾기 때문이다. (이건 아주 기본적인 사항이지만, 우리는 이를 금방 까먹는다&hellip;)</p>
-
-<p>그럼 <strong>진달래꽃</strong>은 어떤 token 으로 구성되어 있는지 확인해 보자.</p>
-
-<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
-  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
-  &quot;analyzer&quot;: &quot;my_custom_analyzer&quot;
-}'
-
-</code></pre>
-
-<p>token 의 결과를 보면 &ldquo;*기가*&rdquo; 와 매칭되는 token 이 존재하지 않는다. <strong>보기가</strong> 라는 단어는 다음과 같이 <strong>보기</strong> 의 단어(word)로 tokenize 되기 때문이다. (어떤 analyzer 를 사용하느냐는 여기서 언급하지 않겠다.)</p>
-
-<pre><code>{
-  &quot;tokens&quot;: [
-    .......
-    {
-      &quot;token&quot;: &quot;보기&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 2,
-      &quot;type&quot;: &quot;VX&quot;,
-      &quot;position&quot;: 7
-    },
-    .......
-  ]
-}
-</code></pre>
-
-<p>따라서 처음에 생각한 <code>걸음</code> 이라는 단어는 검색이 되지만, <code>기가</code> 라는 단어는 검색이 되지 않는다.</p>
-
-<h3 id="그렇다면-이를-어떻게-해결할-수-있을까">그렇다면 이를 어떻게 해결할 수 있을까?</h3>
-
-<blockquote>
-<p>이런 경우 <code>ngram</code>을 사용 하면 된다.</p>
-</blockquote>
-
-<p>mapping 에 nested 구조로 ngram 이라는 필드를 추가해보자</p>
-
-<pre><code>mappings
-......
-  &quot;mappings&quot;: {
-    &quot;poems&quot;: { // type name
-      &quot;properties&quot;: {
-        &quot;contents&quot;: {
-          &quot;type&quot;: &quot;text&quot;,
-          &quot;fields&quot;: {
-            &quot;ngram&quot;: {
-              &quot;type&quot;: &quot;text&quot;,
-              &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
-            }
-          }
-        }
-        ....
-      }
-    }
-    ....
-</code></pre>
-
-<pre><code>settings
-......
-  &quot;analyzer&quot;: {
-    &quot;my_customer_ngram_analyzer&quot;: {
-      &quot;tokenizer&quot;: &quot;my_customer_ngram_tokenizer&quot;
-    }
-  },
-  &quot;tokenizer&quot;: {
-    &quot;my_customer_ngram_tokenizer&quot;: {
-      &quot;type&quot;: &quot;ngram&quot;,
-      &quot;min_gram&quot;: &quot;2&quot;,
-      &quot;max_gram&quot;: &quot;5&quot;
-    }
-  }
-......
-</code></pre>
-
-<p>이제 새롭게 document를 추가하면 contents.ngram 이라는 필드에 token 이 다르게 나온다. 다시 analyzer 결과를 확인해 보자.</p>
-
-<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
-  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
-  &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
-}'
-
-</code></pre>
-
-<p>이번에는 단어를 하나하나 쪼개서 길이 2 ~ 길이 5사이의 token 으로 나뉘어진다. <code>보기가</code> 라는 단어는 <code>보기</code>, <code>보기가</code>, <code>기가</code> 라는 세개의 토큰으로 나뉘어 졌다.</p>
-
-<pre><code>{
-  &quot;tokens&quot;: [
-    ......
-    {
-      &quot;token&quot;: &quot;보기&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 2,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 7
-    },
-    {
-      &quot;token&quot;: &quot;보기가&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 3,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 7
-    },
-    {
-      &quot;token&quot;: &quot;기가&quot;,
-      &quot;start_offset&quot;: 1,
-      &quot;end_offset&quot;: 3,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 8
-    },
-    ......
-}
-</code></pre>
-
-<p>이렇게 <code>ngram</code> 을 설정하면 <strong>min</strong>, <strong>max</strong> 의 설정에 따라서 나뉘는 기준이 달라진다. <strong>사랑합니다</strong> 라는 단어를 ngram 의 length 에 따라서 나뉘어 보면 다음과 같다.</p>
-
-<ul>
-<li>Length 1 (unigram): [ 사, 랑, 합, 니, 다 ]</li>
-<li>Length 2 (bigram): [ 사랑, 랑합, 합니, 니다 ]</li>
-<li>Length 3 (trigram): [ 사랑합, 랑합니, 합니다 ]</li>
-<li>Length 4 (four-gram): [ 사랑합니, 랑합니 ]</li>
-<li>Length 5 (five-gram): [ 사랑합니다 ]</li>
-</ul>
-
-<p><code>보기가</code> 라는 단어는 단어의 길이가 3 이기 때문에 총 6개의 token 으로 나뉘어 졌다. 이렇게 단어의 일부분을 <code>ngram</code> 으로 잘라내서 tokenize 해서 매칭 시키는 방식을 <code>partial matching</code> 이라고 한다.</p>
-
-<p>이렇게 <code>ngram</code> 을 사용하도록 변경하였으니, 쿼리를 수정하자. <code>wildcard</code> 쿼리는 빼고, <code>term</code> 쿼리를 사용하자.</p>
-
-<pre><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
-{
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;should&quot; : [
-            {&quot;term&quot; : { &quot;contents&quot; : &quot;기가&quot; } },
-            {&quot;match_phrase&quot; : { &quot;contents.ngram&quot; : &quot;기가&quot; } }
-        ],
-        &quot;minimum_should_match&quot; : 1
-      }
-  }
-}'
-</code></pre>
-
-<p>위의 쿼리는 <code>contents</code> 의 token 과 <code>contents.ngram</code> 의 token을 찾게 된다. 쿼리 결과는 아래와 같이 정상적으로 원하는 문서를 찾을 수 있다.</p>
-
-<pre><code>{
-  &quot;took&quot;: 8,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
-  },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 1,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
-      {
-        &quot;_index&quot;: &quot;index-name&quot;,
-        &quot;_type&quot;: &quot;poems&quot;,
-        &quot;_id&quot;: &quot;1-1&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
-        }
-      }
-    ]
-  }
-}
-</code></pre>
-
-<p><strong>와일드카드 쿼리를 사용했을 때는 결과가 230 ms 였다면, ngram 을 사용하여 조정한 뒤에는 8 ms 가 걸렸다.</strong></p>
-
-<h2 id="로그-분석의-경우">로그 분석의 경우</h2>
-
-<p>nginx access log 를 ElasticSearch 를 저장하고 조회 &amp; 분석하는 경우라면 URL 에 숫자와 알파벳이 조합된, 특수한 ID 값 같은 식별자가 붙는 경우가 많다.
-예를 들면 ex) <code>?user=3FGAZS1032&amp;key2=ssssss</code> 라고 가정해보자.. 이 경우 user 가 <code>3FGAZS1032</code> 인 경우를 찾는다면 문제 없겠지만, user 값에 <code>3FGAZS</code>가 들어가는 경우를 찾는다면,
-원하는 결과를 얻기가 어렵다. 마찬가지로 이 경우도 <code>ngram</code> 을 통한 tokenize 를 구성했다면 <code>partial mathching</code> 이 가능해져 원하는 문서를 찾을 수 있다.</p>
-
-<p><code>3FGAZS1032</code> 라는 단어가 analyze 가 어떻게 되는지 살펴보자</p>
-
-<pre><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_analyze?pretty -XPOST -d '
-{
-  &quot;text&quot;: &quot;3FGAZS1032&quot;,
-  &quot;analyzer&quot;: &quot;log_analyzer&quot;
-}
-</code></pre>
-
-<p>token 이 하나만 나온다.</p>
-
-<pre><code>{
-  &quot;tokens&quot;: [
-    {
-      &quot;token&quot;: &quot;3FGAZS1032&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 10,
-      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,
-      &quot;position&quot;: 0
-    }
-  ]
-}
-</code></pre>
-
-<p>이 상황에서 <code>\*3FGAZS\*</code> 라는 와일드카드 쿼리를 사용할 수 있지만 응답속도가 느리다. 그렇지만 <code>ngram</code> 을 구성하면 훨씬 빠르다.</p>
-
-<pre><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_search?pretty -XPOST -d '
-{
-  &quot;_source&quot;: [&quot;user&quot;,&quot;path&quot;],
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: [
-          &quot;term&quot;: {
-            &quot;user.ngram&quot;: &quot;3FGAZS&quot;
-          },
-          &quot;term&quot;: {
-            &quot;path.keyword&quot;: &quot;/user/playground&quot;
-          }
-        ]
-      }
-  }
-}'
-</code></pre>
-
-<p>결과가 1ms 가 나왔다.</p>
-
-<pre><code>{
-  &quot;took&quot;: 1,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
-  },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 39,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
-      {
-        &quot;_index&quot;: &quot;log-2018.07.14&quot;,
-        &quot;_type&quot;: &quot;log&quot;,
-        &quot;_id&quot;: &quot;3078923&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;user&quot;: &quot;3FGAZS1032&quot;,
-          &quot;path&quot;: &quot;/user/playground&quot;
-        }
-      }
-      ......
-    ]
-  }
-}
-</code></pre>
-
-<h3 id="wildcard-대신-ngram-을-도입하여-얻은-효과">wildcard 대신 ngram 을 도입하여 얻은 효과</h3>
-
-<ul>
-<li>먼저 token 을 기준으로 wildcard 에서 못찾는 document를 찾을 수 있다.</li>
-<li>반응 속도가 엄청 빨라진다. (1ms 라니..)</li>
-<li>대신 token 의 갯수가 많아지기 때문에 inverted index 사이즈가 늘어난다.</li>
-</ul>
-
-<h2 id="결론">결론</h2>
-
-<p>ElasticSearch 쿼리를 작성하면서 wildcard 를 사용할 때 RDBMS 의 <code>like &quot;%keyword%&quot;</code> 와 같이 사용하고자 한다면 <code>ngram</code> 을 사용한 tokenize 를 고려해보는게 좋다.
-wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필요가 있다. 더불어 <code>ngram</code> 과 <code>match_phrase</code> 쿼리를 사용하면 긴 단어나 문장을 검색 키워드로 조회하더라도 원하는 문서를 잘 찾을 수 있다(콘텐츠 검색의 경우).</p>
-
-<h3 id="덧-붙이는-말">덧 붙이는 말</h3>
-
-<p>테스트와 더불어 <a href="https://brunch.co.kr/@alden">강진우님</a>님께서 관련 내용을 함께 고민해주고 도움을 주셨다.</p>
 
 <div class="blog-navigation">
     
-        <a class="prev" href="https://findstar.pe.kr/2018/07/27/install-haproxy/">&laquo; Haproxy 설치하기</a>
+    <a class="prev"></a>
     
     
-        <a class="next" href="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/">ElasticSearch 에서 reindex 을 활용하는 방법 &raquo;</a>
+        <a class="next" href="https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/">ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법 &raquo;</a>
     
 </div>
 
@@ -556,15 +487,7 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
     <h4>Related Posts</h4>
     <ul>
         
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/">ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/">ElasticSearch 에서 wildcard 쿼리에 대한 이해</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/">ElasticSearch 에서 reindex 을 활용하는 방법</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/06/29/elasticsearch-template/">ElasticSearch 에서 template 을 활용하는 방법</a></li>
-        
-            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/">ElasticSearch 에서 Index Alias 변경하기</a></li>
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/">logstash와 filebeat 설정하기</a></li>
         
     </ul>
 </div>
@@ -582,7 +505,7 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
 <div class="share">
     
     
-        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f07%2f14%2felasticsearch-wildcard-to-ngram%2f - ElasticSearch%20%ec%97%90%ec%84%9c%20wildcard%20%ec%bf%bc%eb%a6%ac%20%eb%8c%80%ec%8b%a0%20ngram%ec%9d%84%20%ed%99%9c%ec%9a%a9%ed%95%98%eb%8a%94%20%eb%b0%a9%eb%b2%95 by @findstar">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f07%2f27%2finstall-haproxy%2f - Haproxy%20%ec%84%a4%ec%b9%98%ed%95%98%ea%b8%b0 by @findstar">
     <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
 </a>
 
@@ -598,8 +521,8 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
 <script type="text/javascript">
 
 var disqus_config = function () {
-        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/07\/14\/elasticsearch-wildcard-to-ngram\/';
-        this.page.identifier = '\/2018\/07\/14\/elasticsearch-wildcard-to-ngram';
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/07\/27\/install-haproxy\/';
+        this.page.identifier = '\/2018\/07\/27\/install-haproxy';
 };
 var disqus_shortname = 'findstar';
 var disqus_developer = 0;
