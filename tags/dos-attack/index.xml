@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Haproxy on Soo Story</title>
-    <link>https://findstar.pe.kr/tags/haproxy/</link>
-    <description>Recent content in Haproxy on Soo Story</description>
+    <title>Dos Attack on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/dos-attack/</link>
+    <description>Recent content in Dos Attack on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <lastBuildDate>Mon, 13 Aug 2018 23:11:17 +0900</lastBuildDate>
     
-	<atom:link href="https://findstar.pe.kr/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://findstar.pe.kr/tags/dos-attack/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,17 +20,6 @@
       <guid>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</guid>
       <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
 이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy 설치해서 로드 밸런서로 활용하기</title>
-      <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
-      <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
-      <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

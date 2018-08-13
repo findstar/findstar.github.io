@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</loc>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/07/27/install-haproxy/</loc>
     <lastmod>2018-07-27T08:08:32+09:00</lastmod>
   </url>
@@ -188,6 +193,12 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/dos-attack/</loc>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/elasticsearch/</loc>
     <lastmod>2018-07-14T10:02:32+09:00</lastmod>
     <priority>0</priority>
@@ -231,19 +242,19 @@
   
   <url>
     <loc>https://findstar.pe.kr/tags/haproxy/</loc>
-    <lastmod>2018-07-27T08:08:32+09:00</lastmod>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://findstar.pe.kr/tags/haproxy-1.8/</loc>
-    <lastmod>2018-07-27T08:08:32+09:00</lastmod>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-07-27T08:08:32+09:00</lastmod>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
   </url>
   
   <url>
@@ -396,13 +407,19 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-07-27T08:08:32+09:00</lastmod>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://findstar.pe.kr/tags/query-dsl/</loc>
     <lastmod>2018-01-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/rate-limit/</loc>
+    <lastmod>2018-08-13T23:11:17+09:00</lastmod>
     <priority>0</priority>
   </url>
   

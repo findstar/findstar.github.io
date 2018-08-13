@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>Home - Soo Story</title>
+    <title>Haproxy를 활용해서 dos 공격 방어하기 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/">
+    <link rel="canonical" href="https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -47,19 +47,19 @@
 
 
 
-    <link href="https://findstar.pe.kr/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
-    <link href="https://findstar.pe.kr/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
-
 
 <meta name="generator" content="Hugo 0.42.2" />
 
-<meta property="og:title" content="Home" />
-<meta property="og:description" content="Software Developer, I love code." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://findstar.pe.kr/" />
+<meta property="og:title" content="Haproxy를 활용해서 dos 공격 방어하기" />
+<meta property="og:description" content="앞서 Haproxy 로 로드밸런서를 구성하는 방법을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
+이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/" />
 
 
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="/images/posts/haproxy/haproxy-logo.png" />
 
 
 
@@ -72,40 +72,11 @@
 <div class="wrapper-large">
     
         
-            <div class="page home">
+            <div class="page blog">
         
     
 
     
-<header class="header-home animated">
-    <a class="link" href="https://findstar.pe.kr/about">
-        <img class="selfie" alt="J.S Ahn" src="https://findstar.pe.kr/images/profile.jpg" />
-    </a>
-
-    <h1 class="title">Soo Story</h1>
-    <h2 class="description">Thoughts, stories and ideas.</h2>
-    <div class="social-links">
-
-
-    
-    <a class="link" data-title="facebook" href="https://facebook.com/findstar" target="_blank">
-        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
-    </a>
-    
-    <a class="link" data-title="twitter" href="https://twitter.com/findstar/" target="_blank">
-        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-    </a>
-    
-    <a class="link" data-title="github" href="https://github.com/findstar/" target="_blank">
-        <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-    </a>
-    
-
-
-</div>
-
-</header>
-
 
 <nav class="nav">
     
@@ -131,198 +102,358 @@
 
     
 
-<section class="list">
+
+
+<h1 class="title">Haproxy를 활용해서 dos 공격 방어하기</h1>
+
+<span class="date">
+        <time datetime="2018-08-13">2018-08-13</time>
+</span>
 
 
 
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts" rel="bookmark" title="Permanent Link to /2018/06/25/jekyll-to-hugo-thoughts">jekyll 에서 hugo 로 전환한 소감</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-25">2018-06-25</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>사용하던 github pages 기반 툴을 <code>jekyll</code> 에서 <code>hugo</code> 로 전환해보았다. 아래는 그 과정에서 느낀 점을 정리해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#hugo" title="Pages tagged hugo" rel="tag">hugo</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#jekyll%20to%20hugo" title="Pages tagged jekyll to hugo" rel="tag">jekyll to hugo</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#migration" title="Pages tagged migration" rel="tag">migration</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting" rel="bookmark" title="Permanent Link to /2018/06/24/nginx-rate-limiting">nginx reverse proxy로 동일 IP 중복 요청 제한</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-24">2018-06-24</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 <code>limit_req</code> 모듈을 적용해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#nginx" title="Pages tagged nginx" rel="tag">nginx</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#rate%20litmiting" title="Pages tagged rate litmiting" rel="tag">rate litmiting</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#limit_req_zone" title="Pages tagged limit_req_zone" rel="tag">limit_req_zone</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index" rel="bookmark" title="Permanent Link to /2018/06/03/change-alias-on-elasticsearch-index">ElasticSearch 에서 Index Alias 변경하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-06-03">2018-06-03</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="6월-3일-일-til">6월 3일 (일) TIL</h1>
-
-<p>ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#index%20alias" title="Pages tagged index alias" rel="tag">index alias</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="post-thumbnail"><img style="max-width:100%" src="https://findstar.pe.kr/images/posts/elastic/logstash_filebeats.png" alt="logstash와 filebeat 설정하기 "></a>
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash" rel="bookmark" title="Permanent Link to /2018/05/28/install-and_configuration-filebeat-logstash">logstash와 filebeat 설정하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-28">2018-05-28</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <p>Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#logstash" title="Pages tagged logstash" rel="tag">logstash</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#filebeat" title="Pages tagged filebeat" rel="tag">filebeat</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#install" title="Pages tagged install" rel="tag">install</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl" rel="bookmark" title="Permanent Link to /2018/05/13/upload-file-on-curl">CURL 에서 파일 업로드 하기</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-05-13">2018-05-13</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="5월-13일-수-til">5월 13일 (수) TIL</h1>
-
-<p>작성한 API를 테스트 하기 위해서 <a href="https://www.getpostman.com/">Postman</a> 이나 <a href="https://paw.cloud/">Paw</a>를 주로 사용하는데,
-CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 <code>CURL</code>을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/05/13/upload-file-on-curl/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#curl" title="Pages tagged curl" rel="tag">curl</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#file%20upload" title="Pages tagged file upload" rel="tag">file upload</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-<div class="pagination">
+<div class="post-tags">
+    <i class="fa fa-tags" title="태그"></i>
     
-        <a href="https://findstar.pe.kr/" class="previous">«</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy">haproxy</a>
     
-
-    <span class="page_number ">page 2 of 5</span>
-
+        <a class="item" href="https://findstar.pe.kr/tags/#dos-attack">dos attack</a>
     
-    <a href="https://findstar.pe.kr/page/3/" class="next">»</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#rate-limit">rate limit</a>
+    
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy-1.8">haproxy 1.8</a>
     
 </div>
 
+
+<p>앞서 <a href="https://findstar.pe.kr/2018/07/27/install-haproxy">Haproxy 로 로드밸런서를 구성하는 방법</a>을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
+이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.</p>
+
+<p></p>
+
+<h3 id="dos-란">DOS 란?</h3>
+
+<p>먼저 DOS 공격의 정의를 살펴보았다.(DDOS 가 아니다, DOS다)
+<a href="https://ko.wikipedia.org/wiki/%EC%84%9C%EB%B9%84%EC%8A%A4_%EA%B1%B0%EB%B6%80_%EA%B3%B5%EA%B2%A9">위키피디아</a> 에 따르면
+DOS 란 &ldquo;Denial of Service attack&rdquo;. 서비스 거부 공격으로 악의적 공격으로 해당 시스템의 자원을 부족하게 하여 원래 의도된 용도로 사용하지 못하게 하는 공격을 의미한다.
+여기에서는 Haproxy를 사용하여 가장 단순한 패턴인 <code>단일 IP에서 유입되는 과도한 request</code> 를 방어하는 방법을 살펴보았다.</p>
+
+<h3 id="구성-요건">구성 요건</h3>
+
+<ul>
+<li><p>Haproxy 의 <code>rate limit</code> 기능을 사용하여 단일 IP 에서 유입되는 과도한 request 를 막는다.</p></li>
+
+<li><p>내부 IP 대역은 제외한다. - vpc 내의 서버들이나, 내부 연동 서버들은 제한 대상에서 제외한다.</p></li>
+
+<li><p>특정 ULR 들은 제외한다. - static file 등을 위한 whitelist 로 관리되는 url 목록을 관리한다.</p></li>
+</ul>
+
+<h3 id="haproxy-설정하기">Haproxy 설정하기</h3>
+
+<ol>
+<li><p>우선 제외할 IP 대역과, URL 리스트 파일을 정의하자.</p>
+
+<pre><code># ACL &quot;vpc-network&quot; 선언
+acl vpc-network src 10.10.1.0/16
+
+
+# ACL &quot;allow_url&quot; 선언
+# whitelist url 목록 파일 지정
+acl accept_url url_beg -i -f /etc/haproxy/accept_url.list
+
+</code></pre></li>
+
+<li><p>accept_url.list 파일의 내용은 다음과 같다.</p>
+
+<pre><code># Allowd url
+
+/public
+/assets
+/resource
+/feed
+</code></pre></li>
+
+<li><p>이제 client ip 를 저장할 공간(sticky session)을 정의하자.</p>
+
+<pre><code># stickiness (Sticky Sessions)을 사용하여 10m 메모리에 10초동안 요청되는 client ip 를 저장한다. (1분 유지)
+# 이를 통한 ACL 제어는 다음의 컨트롤이 가능하다
+# - conn_rate(10s) : 10초 동안 TCP 커넥션의 rate
+# - conn_cur : 동시 접속 TCP 커넥션
+# - http_req_rate(10s) : 10초 동안의 HTTP 커넥션 rate
+# - http_err_rate(20s) : 20초 동안의 HTTP 커넥션 에러(비정상적인 커넥션 요청)
+# 여기서는 http_req_rate를 사용했다.
+stick-table type ip size 500m expire 1m store http_req_rate(10s)
+</code></pre></li>
+
+<li><p>정의한 stick table의 카운트를 올리려면 다음과 같이 지정하자</p>
+
+<pre><code># 카운트 table 유지 vpc network 접속이 아니고 AND 허용되는 url 가 아닐 때 ( true AND true 조건 형태)
+http-request track-sc1 src table www if !vpc-network !accept_url
+</code></pre></li>
+
+<li><p>ACL &lsquo;dos-attack&rsquo; 정의</p>
+
+<pre><code># 위에서 정의한 stick-table 에 따라서 10초 동안 요청되는 HTTP connectoin rate 가 100이 넘으면 DOS 공격으로 판단.
+acl dos-attack src_http_req_rate(www) ge 100
+</code></pre></li>
+
+<li><p>DOS 공격으로 판단될 때 사용할 backend 연결</p>
+
+<pre><code>use_backend blocked_page if dos-attack !accept_url
+</code></pre></li>
+
+<li><p>blocked_page backend 정의</p>
+
+<pre><code>backend blocked_page
+
+    mode http
+    # 벡엔드에서 연결될 서버가 없으므로 503 에러가 발생할 것이다. 이 때 보여줄 페이지는 아래와 같다.
+    errorfile 503 /etc/haproxy/errors/blocked.http
+</code></pre></li>
+
+<li><p>block 되었을 때 보여줄 에러 페이지</p>
+
+<p>status code 429는 too many connection 오류를 의미한다.</p>
+
+<pre><code>HTTP/1.1 429 Too Many Requests
+Content-Type: text/html
+Retry-After: 600
+
+&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;Can not connect page&lt;/title&gt;
+&lt;body&gt;
+&lt;p&gt;Nothing&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+</ol>
+
+<h3 id="완성된-haproxy-conf">완성된 Haproxy conf</h3>
+
+<p>위의 과정을 거치면 대략 아래와 같은 내용의 파일을 구성할 수 있다.</p>
+
+<pre><code>frontend www
+
+
+    ...
+
+    # ACL &quot;vpc-network&quot; 선언
+    acl vpc-network src 10.10.1.0/16
+
+    # ACL &quot;allow_url&quot; 선언
+    # whitelist url 목록 파일 지정
+    acl accept_url url_beg -i -f /etc/haproxy/accept_url.list
+
+
+    # stickiness (Sticky Sessions)을 사용하여 10m 메모리에 10초동안 요청되는 client ip 를 저장한다. (1분 유지)
+    # 이를 통한 ACL 제어는 다음의 컨트롤이 가능하다
+    # - conn_rate(10s) : 10초 동안 TCP 커넥션의 rate
+    # - conn_cur : 동시 접속 TCP 커넥션
+    # - http_req_rate(10s) : 10초 동안의 HTTP 커넥션 rate
+    # - http_err_rate(20s) : 20초 동안의 HTTP 커넥션 에러(비정상적인 커넥션 요청)
+    # 여기서는 http_req_rate를 사용했다.
+    stick-table type ip size 500m expire 1m store http_req_rate(10s)
+
+    # 위에서 정의한 stick-table 에 따라서 10초 동안 요청되는 HTTP connectoin rate 가 100이 넘으면 DOS 공격으로 판단.
+    acl dos-attack src_http_req_rate(www) ge 100
+
+
+    # 카운트 table 유지 vpc network 접속이 아니고 AND 허용되는 url 가 아닐 때 ( true AND true 조건 형태)
+    http-request track-sc1 src table www if !vpc-network !accept_url
+
+    use_backend blocked_page if dos-attack !accept_url
+
+    default_backend web-svr
+
+backend blocked_page
+
+    mode http
+    # 벡엔드에서 연결될 서버가 없으므로 503 에러가 발생할 것이다. 이 때 보여줄 페이지는 아래와 같다.
+    errorfile 503 /etc/haproxy/errors/blocked.http
+
+
+backend web-svr
+
+    ......
+
+</code></pre>
+
+<h3 id="테스트">테스트</h3>
+
+<p>apache bench 를 사용해서 테스트 해보았다.</p>
+
+<pre><code>$ ab -r -c 10 -n 2000 -l http://my.service.host/
+This is ApacheBench, Version 2.3 &lt;$Revision: 1796539 $&gt;
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking my.service.host (be patient)
+Completed 200 requests
+Completed 400 requests
+Completed 600 requests
+Completed 800 requests
+Completed 1000 requests
+Completed 1200 requests
+Completed 1400 requests
+Completed 1600 requests
+Completed 1800 requests
+Completed 2000 requests
+Finished 2000 requests
+
+
+Server Software:        Apache
+Server Hostname:        my.service.host
+Server Port:            80
+
+Document Path:          /
+Document Length:        Variable
+
+Concurrency Level:      10
+Time taken for tests:   2.991 seconds
+Complete requests:      2000
+Failed requests:        0
+Non-2xx responses:      1901
+Total transferred:      24512750 bytes
+HTML transferred:       24332595 bytes
+Requests per second:    668.73 [#/sec] (mean)
+Time per request:       14.954 [ms] (mean)
+Time per request:       1.495 [ms] (mean, across all concurrent requests)
+Transfer rate:          8004.14 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        2    5   4.2      5      71
+Processing:     6   10   7.3      8      73
+Waiting:        5    9   5.5      7      73
+Total:          9   15   8.4     13      80
+
+Percentage of the requests served within a certain time (ms)
+  50%     13
+  66%     13
+  75%     14
+  80%     14
+  90%     16
+  95%     40
+  98%     45
+  99%     48
+ 100%     80 (longest request)
+</code></pre>
+
+<p><code>Non-2xx responses</code> 라고 표시된 부분이 haproxy 에서 block 되어 429 response 응답을 수신한 부분이고, 로드 밸런서로 지정된 web-srv 서버들에도
+access log 가 남지 않았다.</p>
+
+<h3 id="rsyslog-로깅-변경">rsyslog 로깅 변경</h3>
+
+<p>Haproxy 는 rsyslog 로 로그를 남기는데 여기서 dos attack 인 녀석들만 로그를 기록해 보자. <code>/etc/rsyslog.d/haproxy-dos.conf</code> 파일을 구성한다.
+사전에 haproxy-info.log 가 존재하고, 로그에 dos 용 backend 인 &lsquo;blocked_page&rsquo; 라는 &ldquo;backend name&rdquo; 을 로깅하도록 커스텀 포맷이 지정되어 있다고 가정한다.</p>
+
+<pre><code># Provides UDP syslog reception
+$ModLoad imfile
+$template Haproxy, &quot;%msg%\n&quot;
+$InputFilePollInterval 1
+
+# UDP 로 메세지를 수신하지 않고, haproxy-info 파일을 watch 하는 형태로 입력받음
+# 기존에 이미 haproxy-info.log 가 있다고 가정.
+
+$InputFileName /var/log/haproxy/haproxy-info.log
+$InputFileTag haproxy-dos:
+$InputFileStateFile haproxy-dos
+$InputFileFacility local0
+$InputRunFileMonitor
+
+# blocked_page 라는 단어가 포함된 메세지를 haproxy-dos.log 에 다시 기록함
+:syslogtag, isequal, &quot;haproxy-dos:&quot; {
+  :msg, contains, &quot;blocked_page&quot; {
+    local0.* /var/log/haproxy/haproxy-dos.log;Haproxy
+  }
+  stop
+}
+</code></pre>
+
+<h3 id="적용-후기">적용 후기</h3>
+
+<ul>
+<li>기존에 <a href="https://findstar.pe.kr/2018/06/24/nginx-rate-limiting">nginx rate limit</a>으로도 동일한 구성을 해보았는데, Haproxy 는 좀 더 유연하고, 더 디테일하게 제어가 가능했다.
+여기서는 가장 기본적인 &ldquo;단일 IP에서의 과도한 유입&rdquo;만 막을 수 있었지만, 더 연구해서 다른 패턴도 막을 수 있도록 알아봐야겠다.(.. 언제?)</li>
+</ul>
+
+<h3 id="참고">참고</h3>
+
+<ul>
+<li><a href="https://blog.codecentric.de/en/2014/12/haproxy-http-header-rate-limiting/">https://blog.codecentric.de/en/2014/12/haproxy-http-header-rate-limiting/</a></li>
+<li><a href="https://gist.github.com/jeremyj/e964a951634f1997daea">https://gist.github.com/jeremyj/e964a951634f1997daea</a></li>
+<li><a href="https://www.loadbalancer.org/blog/simple-denial-of-service-dos-attack-mitigation-using-haproxy-2/">https://www.loadbalancer.org/blog/simple-denial-of-service-dos-attack-mitigation-using-haproxy-2/</a></li>
+<li><a href="https://www.haproxy.com/blog/use-a-load-balancer-as-a-first-row-of-defense-against-ddos/">https://www.haproxy.com/blog/use-a-load-balancer-as-a-first-row-of-defense-against-ddos/</a></li>
+</ul>
+
+<div class="blog-navigation">
+    
+    <a class="prev"></a>
+    
+    
+        <a class="next" href="https://findstar.pe.kr/2018/07/27/install-haproxy/">Haproxy 설치해서 로드 밸런서로 활용하기 &raquo;</a>
+    
+</div>
+
+
+
+
+<div class="related">
+    <h4>Related Posts</h4>
+    <ul>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/07/27/install-haproxy/">Haproxy 설치해서 로드 밸런서로 활용하기</a></li>
+        
+    </ul>
+</div>
+
+
+<section class="author">
+<div class="toleft">
+        <img class="selfie" src="https://findstar.pe.kr/images/profile.jpg" alt="J.S Ahn" alt="author selfie">
+</div>
+
+<div class="toright">
+<h4 class="name">J.S Ahn</h4>
+<p class="bio">Software Developer, I love code.</p>
+
+<div class="share">
+    
+    
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2018%2f08%2f13%2fblock-dos-attacks-using-haproxy-rate-limit%2f - Haproxy%eb%a5%bc%20%ed%99%9c%ec%9a%a9%ed%95%b4%ec%84%9c%20dos%20%ea%b3%b5%ea%b2%a9%20%eb%b0%a9%ec%96%b4%ed%95%98%ea%b8%b0 by @findstar">
+    <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+</a>
+
+    <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+    </a>
+</div>
+</div>
 </section>
+
+<section class="disqus">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+var disqus_config = function () {
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2018\/08\/13\/block-dos-attacks-using-haproxy-rate-limit\/';
+        this.page.identifier = '\/2018\/08\/13\/block-dos-attacks-using-haproxy-rate-limit';
+};
+var disqus_shortname = 'findstar';
+var disqus_developer = 0;
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 
     <footer class="footer-main">
