@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Seamless Reload on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/seamless-reload/</link>
+    <description>Recent content in Seamless Reload on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 15 Aug 2018 21:46:18 +0900</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/seamless-reload/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
+      <link>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</link>
+      <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</guid>
+      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail&#34;&gt;Haproxy를 reload fail 해결하기&lt;/a&gt;을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
