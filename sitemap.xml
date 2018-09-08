@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</loc>
+    <lastmod>2018-09-08T15:26:07+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</loc>
     <lastmod>2018-08-15T21:46:18+09:00</lastmod>
   </url>
@@ -270,7 +275,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2018-08-15T21:46:18+09:00</lastmod>
+    <lastmod>2018-09-08T15:26:07+09:00</lastmod>
   </url>
   
   <url>
@@ -330,6 +335,18 @@
   <url>
     <loc>https://findstar.pe.kr/tags/json/</loc>
     <lastmod>2018-01-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/lets-encrypt/</loc>
+    <lastmod>2018-09-08T15:26:07+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/letsencrypt/</loc>
+    <lastmod>2018-09-08T15:26:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -423,7 +440,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2018-08-15T21:46:18+09:00</lastmod>
+    <lastmod>2018-09-08T15:26:07+09:00</lastmod>
     <priority>0</priority>
   </url>
   

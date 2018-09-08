@@ -6,10 +6,26 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Wed, 15 Aug 2018 21:46:18 +0900</lastBuildDate>
+        <lastBuildDate>Sat, 08 Sep 2018 15:26:07 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
+            <link>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</link>
+            <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</guid>
+            <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>let&#39;s encrypt</tag>
+            
+            <tag>letsencrypt</tag>
+            
+        </item>
         
         <item>
             <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
