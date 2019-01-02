@@ -6,10 +6,24 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sat, 08 Sep 2018 15:26:07 +0900</lastBuildDate>
+        <lastBuildDate>Wed, 02 Jan 2019 21:36:07 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>2019년 새해 목표</title>
+            <link>https://findstar.pe.kr/2019/01/01/2019-new-year/</link>
+            <pubDate>Wed, 02 Jan 2019 21:36:07 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/01/2019-new-year/</guid>
+            <description>&lt;p&gt;2019년 새해가 밝았다, 작년 중반 이후에는 뜸해진 블로그에 간만에 따뜻한(?) 온기를 불어넣어보고자, 2019년 한해의 다짐을 기록해 본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>happy new year</tag>
+            
+        </item>
         
         <item>
             <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
