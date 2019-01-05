@@ -34,9 +34,9 @@
 
 
     <base href="https://findstar.pe.kr">
-    <title>Home - Soo Story</title>
+    <title>Haproxy 의 Statistics 정보 모니터링 하기 - Soo Story</title>
 
-    <link rel="canonical" href="https://findstar.pe.kr/">
+    <link rel="canonical" href="https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://findstar.pe.krindex.xml" />
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
@@ -47,19 +47,19 @@
 
 
 
-    <link href="https://findstar.pe.kr/index.xml" rel="alternate" type="application/rss+xml" title="Soo Story" />
-    <link href="https://findstar.pe.kr/index.xml" rel="feed" type="application/rss+xml" title="Soo Story" />
-
 
 <meta name="generator" content="Hugo 0.49.2" />
 
-<meta property="og:title" content="Home" />
-<meta property="og:description" content="Software Developer, I love code." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://findstar.pe.kr/" />
+<meta property="og:title" content="Haproxy 의 Statistics 정보 모니터링 하기" />
+<meta property="og:description" content="Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
+간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/" />
 
 
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="/images/posts/haproxy/haproxy-logo.png" />
 
 
 
@@ -72,40 +72,11 @@
 <div class="wrapper-large">
     
         
-            <div class="page home">
+            <div class="page blog">
         
     
 
     
-<header class="header-home animated">
-    <a class="link" href="https://findstar.pe.kr/about">
-        <img class="selfie" alt="J.S Ahn" src="https://findstar.pe.kr/images/profile.jpg" />
-    </a>
-
-    <h1 class="title">Soo Story</h1>
-    <h2 class="description">Thoughts, stories and ideas.</h2>
-    <div class="social-links">
-
-
-    
-    <a class="link" data-title="facebook" href="https://facebook.com/findstar" target="_blank">
-        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
-    </a>
-    
-    <a class="link" data-title="twitter" href="https://twitter.com/findstar/" target="_blank">
-        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-    </a>
-    
-    <a class="link" data-title="github" href="https://github.com/findstar/" target="_blank">
-        <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-    </a>
-    
-
-
-</div>
-
-</header>
-
 
 <nav class="nav">
     
@@ -131,249 +102,321 @@
 
     
 
-<section class="list">
+
+
+<h1 class="title">Haproxy 의 Statistics 정보 모니터링 하기</h1>
+
+<span class="date">
+        <time datetime="2019-01-05">2019-01-05</time>
+</span>
 
 
 
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch" rel="bookmark" title="Permanent Link to /2018/01/17/understanding-whildcard-query-on-elasticsearch">ElasticSearch 에서 wildcard 쿼리에 대한 이해</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-17">2018-01-17</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-17일-수-til">1월 17일 (수) TIL</h1>
-
-<p>ElasticSearch 에서 쿼리를 작성하던 중 wildcard 쿼리의 결과가 내가 생각했던 것 과는 달라서 내용을 정리해본다.
-<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html">wildcard query</a>를 작성할 때 기대한 것은
-RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 기대했는데, 막상 쿼리 결과를 확인해 보니 원하는 형태가 아니었다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#ElasticSearch" title="Pages tagged ElasticSearch" rel="tag">ElasticSearch</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#wildcard" title="Pages tagged wildcard" rel="tag">wildcard</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#query%20DSL" title="Pages tagged query DSL" rel="tag">query DSL</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#inverted%20index" title="Pages tagged inverted index" rel="tag">inverted index</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm" rel="bookmark" title="Permanent Link to /2018/01/05/increse-heap-memory-on-phpstorm">느려진 PHPStorm에서 Heap Memory를 늘리는 방법</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-05">2018-01-05</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-05일-금-til">1월 05일 (금) TIL</h1>
-
-<p>이전에, phpstorm에서 사용하지 않는 플러그인을 비활성화 시켜서 약간의 속도 향상을 가져왔다면, 이제는 아예 Heap Memory Size를 늘려보기로 했다.
-IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memory size가 차기 시작하는데, 이건 예전에 Eclipse를 쓸 때 부터, Intellij, Webstorm, Phpstorm 가리지 않고 나타나는 증상이다.
-커서가 렉 걸린 것 처럼 느리게 이동하기 시작하면, 우측 하단에 Memory Indicator를 바라보고는, 여기서 매번 Heap Memory Size 를 확인하고 클릭해주면서 한번씩 정리가 되는데, 그러고 나면 다시 괜찮아지고는 했다.
-아예 Heap Memory Size 설정을 변경하기 위해서 설정을 변경해봤다.</p>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#phpstorm" title="Pages tagged phpstorm" rel="tag">phpstorm</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#speed%20up" title="Pages tagged speed up" rel="tag">speed up</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#vm%20options" title="Pages tagged vm options" rel="tag">vm options</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm" rel="bookmark" title="Permanent Link to /2018/01/04/disable-unused-plugins-phpstorm">PHPStorm에서 사용하지 않는 플러그인 비활성화 시키기.</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-04">2018-01-04</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-04일-목-til">1월 04일 (목) TIL</h1>
-
-<p>phpstorm이 조금 버벅거리면서 느린 느낌이 들었다. 내 경우에는, JavaScript 와 php 가 같이 들어 있는 템플릿 파일을 수정하거나, 마크다운MD 파일을 수정할 때 그런 증상들이 심해졌다.
-일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.</p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#phpstorm" title="Pages tagged phpstorm" rel="tag">phpstorm</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#speed%20up" title="Pages tagged speed up" rel="tag">speed up</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#unused%20plugins" title="Pages tagged unused plugins" rel="tag">unused plugins</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm" rel="bookmark" title="Permanent Link to /2018/01/03/create-macro-shortcut-on-phpstorm">PHPStorm 에서 매크로 단축키를 지정하는 방법</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-03">2018-01-03</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-03일-수-til">1월 03일 (수) TIL</h1>
-
-<ul>
-<li>참고 매뉴얼 : <a href="https://www.jetbrains.com/help/idea/recording-macros.html">Jetbrains Recording Macros</a></li>
-</ul>
-
-<p>phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.</p>
-
-<p>1 먼저 phpstorm 의 Edit -&gt; Macros 를 살펴보자.</p>
-
-<figure class="full-width caption" >
-    <img src="https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png" alt=""/>
+<div class="post-tags">
+    <i class="fa fa-tags" title="태그"></i>
     
-</figure>
-
-<p>2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.</p>
-
-<figure class="full-width caption" >
-    <img src="https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png" alt=""/>
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy">haproxy</a>
     
-</figure>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#phpstorm" title="Pages tagged phpstorm" rel="tag">phpstorm</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#jetbrains" title="Pages tagged jetbrains" rel="tag">jetbrains</a>
-            
-                <a href="https://findstar.pe.kr/tags/index.html#macro%20key%20mapping" title="Pages tagged macro key mapping" rel="tag">macro key mapping</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-    <article class="post-list">
-        <header class="entry-header">
-            <div class="entry-header-wrap">
-            
-                <h2 class="entry-title"><a href="https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/" rel="bookmark" title="Permanent Link to /til/2018-01-02-local-test-for-fluentd-output/">Fluentd 를 로컬에서 테스트 해보는 방법</a></h2>
-            </div>
-            <div class="entry-meta">
-                on <time class="published" datetime="2018-01-02">2018-01-02</time>
-            </div>
-        </header>
-        <div class="entry-content">
-            <h1 id="1월-02일-화-til">1월 02일 (화) TIL</h1>
-
-<ul>
-<li><a href="https://www.fluentd.org/">Fluentd</a></li>
-</ul>
-
-<p>fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.
-<code>/etc/td-agent/td-agent.conf</code> 가 다음과 같을 때:</p>
-
-<pre><code>&lt;source&gt;
-.....
-.....
-.....
-&lt;/source&gt;
-
-# 결과 값에 hostname 을 추가로 덧붙임.
-&lt;filter accesslog&gt;
-  @type record_transformer
-  &lt;record&gt;
-    source &quot;#{Socket.gethostname}&quot;
-    path ${record[&quot;host&quot;]}
-  &lt;/record&gt;
-&lt;/filter&gt;
-
-# Local 에서 테스트 해볼 때 사용할 수 있는 match
-&lt;match accesslogs&gt;
- type stdout
-&lt;/match&gt;
-</code></pre>
-
-<p></p>
-            
-                <p class="read-more"><a href="https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/" class="more-link" title="read more">read more</a></p>
-            
-        </div>
-        
-        <footer class="entry-footer">
-            <div class="tag-links">
-                Tags:
-            
-                <a href="https://findstar.pe.kr/tags/index.html#fluentd" title="Pages tagged fluentd" rel="tag">fluentd</a>
-            
-            </div>
-        </footer>
-        
-    </article>
-
-<div class="pagination">
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy-stat">haproxy stat</a>
     
-        <a href="https://findstar.pe.kr/page/4/" class="previous">«</a>
-    
-
-    <span class="page_number ">page 5 of 6</span>
-
-    
-    <a href="https://findstar.pe.kr/page/6/" class="next">»</a>
+        <a class="item" href="https://findstar.pe.kr/tags/#haproxy-metric">haproxy metric</a>
     
 </div>
 
+
+<p>Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
+간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.</p>
+
+<p></p>
+
+<h2 id="haproxy-의-statistics-를-얻을-수-있는-방법">Haproxy 의 statistics 를 얻을 수 있는 방법</h2>
+
+<p>Haproxy 의 statistics를 확인할 수 있는 방법은 다음의 2가지 방법을 확인가능하다.</p>
+
+<h4 id="1-http-상에서-확인할-수-있는-방법">1. HTTP 상에서 확인할 수 있는 방법</h4>
+
+<p>haproxy.cfg 에 다음과 같이 stats 설정을 지정하면 http 를 통해서 확인이 가능하다</p>
+
+<pre><code>listen stats # &quot;stats&quot;라는 이름으로 listen 지정
+    bind :9000 # 접속 포트 지정
+    stats enable
+    stats realm Haproxy\ Statistics  # 브라우저 타이틀
+    stats uri /haproxy_stats  # stat 를 제공할 URI
+    stats auth Username:Password # 인증이 필요하면 추가한다
+</code></pre>
+
+<p>이렇게 설정한 뒤에 <a href="http://haproxy_host:9000">http://haproxy_host:9000</a> 으로 접속하면 다음과 같은 화면을 확인할 수 있다.</p>
+
+<figure class="full-width caption"  style="border: 1px solid #ededed;" >
+    <img src="https://findstar.pe.kr/images/posts/haproxy/haproxy-stats.png" alt=""/>
+    
+</figure>
+
+<p>화면으로만 보는 것도 의미가 있지만 모니터링을 위해서는 metric 정보만 필요할 수도 있다. 주로 <em>CSV</em> 포맷으로 보게 되는데 URI 뒤에 <code>;csv</code>를 붙이면 된다.</p>
+
+<p>위와 같은 설정이라면 stats URI 를 <code>/haproxy_stats;csv</code> 라고 접근하면 된다.</p>
+
+<h4 id="2-unix-socket-를-사용하는-방법">2. unix socket 를 사용하는 방법</h4>
+
+<p>http 를 사용할 수도 있지만 unix socket 을 사용할 수도 있다. 먼저 haproxy.cfg 에 다음과 같이 설정되어 있어야 한다.</p>
+
+<pre><code>stats socket /var/run/haproxy.sock
+</code></pre>
+
+<p>그리고 <code>socat</code> 명령어를 사용할 수 있어야 한다. 명령어가 설치되어 있지 않다면 <code>yum</code> 또는 <code>apt</code> 를 사용해서 설치해야한다.</p>
+
+<p>이제 다음 명령어로 stat 을 확인할 수 있다.</p>
+
+<pre><code>echo &quot;show stat&quot; | socat unix-connect:/var/run/haproxy.sock stdio
+
+
+http-in,FRONTEND,,,0,85,2000,4655,380562,991165,0,0,14,,,,,OPEN,,,,,,,,,1,2,0,,,,0,0,0,3305,,,,0,0,0,14,4641,0,,0,3305,4655,,,0,0,0,0,,,,,,,,
+appname,lamp1,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,1,1,134,134,,1,3,1,,0,,2,0,,0,L4TOUT,,2002,0,0,0,0,0,0,0,,,,0,0,,,,,-1,,,0,0,0,0,
+appname,lamp2,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,1,1,133,133,,1,3,2,,0,,2,0,,0,L4TOUT,,2002,0,0,0,0,0,0,0,,,,0,0,,,,,-1,,,0,0,0,0,
+appname,BACKEND,0,0,0,77,200,4641,380562,988533,0,0,,4641,0,0,0,DOWN,0,0,0,,1,133,133,,1,3,0,,0,,1,0,,3292,,,,0,0,0,0,4641,0,,,,,0,0,0,0,0,0,-1,,,0,0,0,0,
+</code></pre>
+
+<p>여기서 출력되는 정보는 haproxy.cfg 에 설정된 backend, frontend 에 따라서 조금씩 달라진다. 그리고 여기서 확인되는 정보는 다음과 같다.</p>
+
+<pre><code>  0. pxname [LFBS]: proxy name
+  1. svname [LFBS]: service name (FRONTEND for frontend, BACKEND for backend,
+     any name for server/listener)
+  2. qcur [..BS]: current queued requests. For the backend this reports the
+     number queued without a server assigned.
+  3. qmax [..BS]: max value of qcur
+  4. scur [LFBS]: current sessions
+  5. smax [LFBS]: max sessions
+  6. slim [LFBS]: configured session limit
+  7. stot [LFBS]: cumulative number of connections
+  8. bin [LFBS]: bytes in
+  9. bout [LFBS]: bytes out
+ 10. dreq [LFB.]: requests denied because of security concerns.
+     - For tcp this is because of a matched tcp-request content rule.
+     - For http this is because of a matched http-request or tarpit rule.
+ 11. dresp [LFBS]: responses denied because of security concerns.
+     - For http this is because of a matched http-request rule, or
+       &quot;option checkcache&quot;.
+ 12. ereq [LF..]: request errors. Some of the possible causes are:
+     - early termination from the client, before the request has been sent.
+     - read error from the client
+     - client timeout
+     - client closed connection
+     - various bad requests from the client.
+     - request was tarpitted.
+ 13. econ [..BS]: number of requests that encountered an error trying to
+     connect to a backend server. The backend stat is the sum of the stat
+     for all servers of that backend, plus any connection errors not
+     associated with a particular server (such as the backend having no
+     active servers).
+ 14. eresp [..BS]: response errors. srv_abrt will be counted here also.
+     Some other errors are:
+     - write error on the client socket (won't be counted for the server stat)
+     - failure applying filters to the response.
+ 15. wretr [..BS]: number of times a connection to a server was retried.
+ 16. wredis [..BS]: number of times a request was redispatched to another
+     server. The server value counts the number of times that server was
+     switched away from.
+ 17. status [LFBS]: status (UP/DOWN/NOLB/MAINT/MAINT(via)...)
+ 18. weight [..BS]: total weight (backend), server weight (server)
+ 19. act [..BS]: number of active servers (backend), server is active (server)
+ 20. bck [..BS]: number of backup servers (backend), server is backup (server)
+ 21. chkfail [...S]: number of failed checks. (Only counts checks failed when
+     the server is up.)
+ 22. chkdown [..BS]: number of UP-&gt;DOWN transitions. The backend counter counts
+     transitions to the whole backend being down, rather than the sum of the
+     counters for each server.
+ 23. lastchg [..BS]: number of seconds since the last UP&lt;-&gt;DOWN transition
+ 24. downtime [..BS]: total downtime (in seconds). The value for the backend
+     is the downtime for the whole backend, not the sum of the server downtime.
+ 25. qlimit [...S]: configured maxqueue for the server, or nothing in the
+     value is 0 (default, meaning no limit)
+ 26. pid [LFBS]: process id (0 for first instance, 1 for second, ...)
+ 27. iid [LFBS]: unique proxy id
+ 28. sid [L..S]: server id (unique inside a proxy)
+ 29. throttle [...S]: current throttle percentage for the server, when
+     slowstart is active, or no value if not in slowstart.
+ 30. lbtot [..BS]: total number of times a server was selected, either for new
+     sessions, or when re-dispatching. The server counter is the number
+     of times that server was selected.
+ 31. tracked [...S]: id of proxy/server if tracking is enabled.
+ 32. type [LFBS]: (0=frontend, 1=backend, 2=server, 3=socket/listener)
+ 33. rate [.FBS]: number of sessions per second over last elapsed second
+ 34. rate_lim [.F..]: configured limit on new sessions per second
+ 35. rate_max [.FBS]: max number of new sessions per second
+ 36. check_status [...S]: status of last health check, one of:
+        UNK     -&gt; unknown
+        INI     -&gt; initializing
+        SOCKERR -&gt; socket error
+        L4OK    -&gt; check passed on layer 4, no upper layers testing enabled
+        L4TOUT  -&gt; layer 1-4 timeout
+        L4CON   -&gt; layer 1-4 connection problem, for example
+                   &quot;Connection refused&quot; (tcp rst) or &quot;No route to host&quot; (icmp)
+        L6OK    -&gt; check passed on layer 6
+        L6TOUT  -&gt; layer 6 (SSL) timeout
+        L6RSP   -&gt; layer 6 invalid response - protocol error
+        L7OK    -&gt; check passed on layer 7
+        L7OKC   -&gt; check conditionally passed on layer 7, for example 404 with
+                   disable-on-404
+        L7TOUT  -&gt; layer 7 (HTTP/SMTP) timeout
+        L7RSP   -&gt; layer 7 invalid response - protocol error
+        L7STS   -&gt; layer 7 response error, for example HTTP 5xx
+ 37. check_code [...S]: layer5-7 code, if available
+ 38. check_duration [...S]: time in ms took to finish last health check
+ 39. hrsp_1xx [.FBS]: http responses with 1xx code
+ 40. hrsp_2xx [.FBS]: http responses with 2xx code
+ 41. hrsp_3xx [.FBS]: http responses with 3xx code
+ 42. hrsp_4xx [.FBS]: http responses with 4xx code
+ 43. hrsp_5xx [.FBS]: http responses with 5xx code
+ 44. hrsp_other [.FBS]: http responses with other codes (protocol error)
+ 45. hanafail [...S]: failed health checks details
+ 46. req_rate [.F..]: HTTP requests per second over last elapsed second
+ 47. req_rate_max [.F..]: max number of HTTP requests per second observed
+ 48. req_tot [.F..]: total number of HTTP requests received
+ 49. cli_abrt [..BS]: number of data transfers aborted by the client
+ 50. srv_abrt [..BS]: number of data transfers aborted by the server
+     (inc. in eresp)
+ 51. comp_in [.FB.]: number of HTTP response bytes fed to the compressor
+ 52. comp_out [.FB.]: number of HTTP response bytes emitted by the compressor
+ 53. comp_byp [.FB.]: number of bytes that bypassed the HTTP compressor
+     (CPU/BW limit)
+ 54. comp_rsp [.FB.]: number of HTTP responses that were compressed
+ 55. lastsess [..BS]: number of seconds since last session assigned to
+     server/backend
+ 56. last_chk [...S]: last health check contents or textual error
+ 57. last_agt [...S]: last agent check contents or textual error
+ 58. qtime [..BS]: the average queue time in ms over the 1024 last requests
+ 59. ctime [..BS]: the average connect time in ms over the 1024 last requests
+ 60. rtime [..BS]: the average response time in ms over the 1024 last requests
+     (0 for TCP)
+ 61. ttime [..BS]: the average total session time in ms over the 1024 last
+     requests
+</code></pre>
+
+<p>이제 stat 를 확인하는 스크립트를 구성한다. <code>www</code>라는 <code>frontend</code> 의 <code>scur(current sessions)</code>를 출력하는 스크립트로 구성했다.</p>
+
+<pre><code>#!/bin/sh
+
+sock='/var/run/haproxy.sock'
+host=&quot;$(hostname -f)&quot;
+pause=1
+
+
+time=&quot;$(date +%s)&quot;
+echo 'show stat' | socat - UNIX-CLIENT:$sock \
+  |while IFS=',' read pxname svname qcur qmax scur smax slim stot bin bout dreq dresp ereq econ eresp wretr wredis status weight act bck chkfail chkdown lastchg downtime qlimit pid iid sid throttle lbtot tracked type rate rate_lim rate_max check_status check_code check_duration hrsp_1xx hrsp_2xx hrsp_3xx hrsp_4xx hrsp_5xx hrsp_other hanafail req_rate req_rate_max req_tot cli_abrt srv_abrt comp_in comp_out comp_byp comp_rsp; do
+  if [ &quot;$svname&quot; = 'FRONTEND' ]; then
+    if [ &quot;$pxname&quot; = 'www' ]; then
+      name=$(echo $svname | tr '[:upper:]' '[:lower:]')
+      echo &quot;${scur:-0}&quot;
+    fi
+  fi
+done
+</code></pre>
+
+<p>이 결과를 이제 collectd 에 연결해서 그래프로 그리면 된다.</p>
+
+<pre><code>LoadPlugin &quot;exec&quot;
+&lt;Plugin &quot;exec&quot;&gt;
+    Exec &quot;haproxy:haproxy&quot; &quot;/usr/local/bin/haproxy-stats&quot;
+
+&lt;/Plugin&gt;
+</code></pre>
+
+<figure class="full-width caption"  style="border: 1px solid #ededed;" >
+    <img src="https://findstar.pe.kr/images/posts/haproxy/haproxy_www_frontend_current_session.png" alt=""/>
+    
+</figure>
+
+<p>두가지 방법중에 나의 경우는 unix socket 을 사용했다.</p>
+
+<h4 id="요약">요약</h4>
+
+<p>haproxy 의 stat를 확인하여 모니터링하는 방법은 <code>unix socket</code> 을 활용해서 필요한 정보(여기서는 current session)를 얻는 스크립트를 작성하고 이를 주기적으로 실행해서
+(collectd 또는 별도의 방법을 사용해도 된다.) 수집된 데이터를 전달하여 그래프로 그리는 것이다.
+그래프는 grafana 같은 그래프로 연결해 놓으면 보기도 편하고 이상이 있을 때 알림을 걸 수도 있어서 편리하다.</p>
+
+<h3 id="참고">참고</h3>
+
+<ul>
+<li>stat 수집 획득하는 방법 : <a href="https://www.datadoghq.com/blog/how-to-collect-haproxy-metrics/">https://www.datadoghq.com/blog/how-to-collect-haproxy-metrics/</a></li>
+<li>stat haproxy 매뉴얼 : <a href="https://cbonte.github.io/haproxy-dconv/1.8/management.html#9">https://cbonte.github.io/haproxy-dconv/1.8/management.html#9</a></li>
+<li>socket 으로 haproxy stat 획득하기 : <a href="https://makandracards.com/makandra/36727-get-haproxy-stats-informations-via-socat">https://makandracards.com/makandra/36727-get-haproxy-stats-informations-via-socat</a></li>
+<li>stat 수집 script : <a href="https://gist.github.com/bpaquet/7153979">https://gist.github.com/bpaquet/7153979</a></li>
+<li>stat 설명 : <a href="https://gist.github.com/alq666/20a464665a1086de0c9ddf1754a9b7fb">https://gist.github.com/alq666/20a464665a1086de0c9ddf1754a9b7fb</a></li>
+</ul>
+
+<div class="blog-navigation">
+    
+    <a class="prev"></a>
+    
+    
+        <a class="next" href="https://findstar.pe.kr/2019/01/01/2019-new-year/">2019년 새해 목표 &raquo;</a>
+    
+</div>
+
+
+
+
+<div class="related">
+    <h4>Related Posts</h4>
+    <ul>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/">Haproxy를 다운타임 없이 재시작(reload)하기</a></li>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/">Haproxy를 reload fail 해결하기</a></li>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/">Haproxy를 활용해서 dos 공격 방어하기</a></li>
+        
+            <li class="relatedPost"><a href="https://findstar.pe.kr/2018/07/27/install-haproxy/">Haproxy 설치해서 로드 밸런서로 활용하기</a></li>
+        
+    </ul>
+</div>
+
+
+<section class="author">
+<div class="toleft">
+        <img class="selfie" src="https://findstar.pe.kr/images/profile.jpg" alt="J.S Ahn" alt="author selfie">
+</div>
+
+<div class="toright">
+<h4 class="name">J.S Ahn</h4>
+<p class="bio">Software Developer, I love code.</p>
+
+<div class="share">
+    
+    
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2ffindstar.pe.kr%2f2019%2f01%2f05%2fhaproxy-stat-metric%2f - Haproxy%20%ec%9d%98%20Statistics%20%ec%a0%95%eb%b3%b4%20%eb%aa%a8%eb%8b%88%ed%84%b0%eb%a7%81%20%ed%95%98%ea%b8%b0 by @findstar">
+    <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+</a>
+
+    <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+    </a>
+</div>
+</div>
 </section>
+
+<section class="disqus">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+var disqus_config = function () {
+        this.page.url = 'https:\/\/findstar.pe.krhttps:\/\/findstar.pe.kr\/2019\/01\/05\/haproxy-stat-metric\/';
+        this.page.identifier = '\/2019\/01\/05\/haproxy-stat-metric';
+};
+var disqus_shortname = 'findstar';
+var disqus_developer = 0;
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
 
 
     <footer class="footer-main">

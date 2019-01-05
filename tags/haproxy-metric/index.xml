@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Haproxy Metric on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/haproxy-metric/</link>
+    <description>Recent content in Haproxy Metric on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sat, 05 Jan 2019 00:09:13 +0900</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/haproxy-metric/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
+      <link>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</link>
+      <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</guid>
+      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
+간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

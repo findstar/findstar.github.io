@@ -195,7 +195,7 @@
     <item>
       <title>Haproxy</title>
       <link>https://findstar.pe.kr/tags/haproxy/</link>
-      <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
+      <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/haproxy/</guid>
       <description></description>
@@ -211,11 +211,29 @@
     </item>
     
     <item>
+      <title>Haproxy Metric</title>
+      <link>https://findstar.pe.kr/tags/haproxy-metric/</link>
+      <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/haproxy-metric/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Haproxy Reload Fail</title>
       <link>https://findstar.pe.kr/tags/haproxy-reload-fail/</link>
       <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/haproxy-reload-fail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Haproxy Stat</title>
+      <link>https://findstar.pe.kr/tags/haproxy-stat/</link>
+      <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/haproxy-stat/</guid>
       <description></description>
     </item>
     
