@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>시작하세요 도커 on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4/</link>
+    <description>Recent content in 시작하세요 도커 on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 13 Jan 2019 20:11:31 +0900</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[북 리뷰] 시작하세요 도커</title>
+      <link>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</link>
+      <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</guid>
+      <description>&lt;p&gt;도커 공부를 시작 한지는 오래되었지만, 제대로 한권을 끝까지 읽은건 이책이 처음이었다. 위키북스에서 출간한 &amp;ldquo;시작하세요 도커&amp;rdquo; 책의 간략한 소감이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

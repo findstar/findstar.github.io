@@ -140,15 +140,15 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
 
-&lt;figure class=&#34;full-width caption&#34; &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;&#34;/&gt;
+&lt;figure class=&#34;full-width caption&#34;  &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;/&gt;
     
 &lt;/figure&gt;
 
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
 
-&lt;figure class=&#34;full-width caption&#34; &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;&#34;/&gt;
+&lt;figure class=&#34;full-width caption&#34;  &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
     
 &lt;/figure&gt;
 

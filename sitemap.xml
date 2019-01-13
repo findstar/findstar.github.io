@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</loc>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</loc>
     <lastmod>2019-01-05T00:09:13+09:00</lastmod>
   </url>
@@ -182,8 +187,20 @@
   </url>
   
   <url>
+    <loc>https://findstar.pe.kr/tags/begining-docker/</loc>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/tags/blog/</loc>
     <lastmod>2016-11-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/book/</loc>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -303,7 +320,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2019-01-05T00:09:13+09:00</lastmod>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
   </url>
   
   <url>
@@ -468,7 +485,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2019-01-05T00:09:13+09:00</lastmod>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -597,6 +614,12 @@
   <url>
     <loc>https://findstar.pe.kr/tags/zero-downtime/</loc>
     <lastmod>2018-08-15T21:46:18+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4/</loc>
+    <lastmod>2019-01-13T20:11:31+09:00</lastmod>
     <priority>0</priority>
   </url>
   

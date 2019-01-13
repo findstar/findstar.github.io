@@ -6,10 +6,28 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sat, 05 Jan 2019 00:09:13 +0900</lastBuildDate>
+        <lastBuildDate>Sun, 13 Jan 2019 20:11:31 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>[북 리뷰] 시작하세요 도커</title>
+            <link>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</link>
+            <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</guid>
+            <description>&lt;p&gt;도커 공부를 시작 한지는 오래되었지만, 제대로 한권을 끝까지 읽은건 이책이 처음이었다. 위키북스에서 출간한 &amp;ldquo;시작하세요 도커&amp;rdquo; 책의 간략한 소감이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>book</tag>
+            
+            <tag>시작하세요 도커</tag>
+            
+            <tag>begining docker</tag>
+            
+        </item>
         
         <item>
             <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
@@ -485,15 +503,15 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
 
-&lt;figure class=&#34;full-width caption&#34; &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;&#34;/&gt;
+&lt;figure class=&#34;full-width caption&#34;  &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;/&gt;
     
 &lt;/figure&gt;
 
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
 
-&lt;figure class=&#34;full-width caption&#34; &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;&#34;/&gt;
+&lt;figure class=&#34;full-width caption&#34;  &gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
     
 &lt;/figure&gt;
 
