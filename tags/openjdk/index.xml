@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openjdk on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/openjdk/</link>
+    <description>Recent content in Openjdk on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 20 Jan 2019 22:07:01 +0900</lastBuildDate>
+    
+	<atom:link href="https://findstar.pe.kr/tags/openjdk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>homebrew로 opendjk 설치하기 </title>
+      <link>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</link>
+      <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
+      <description>&lt;p&gt;사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
