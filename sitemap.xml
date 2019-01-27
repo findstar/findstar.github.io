@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://findstar.pe.kr/2019/01/27/learning-in-2019/</loc>
+    <lastmod>2019-01-27T23:21:34+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</loc>
     <lastmod>2019-01-20T22:07:01+09:00</lastmod>
   </url>
@@ -331,7 +336,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2019-01-20T22:07:01+09:00</lastmod>
+    <lastmod>2019-01-27T23:21:34+09:00</lastmod>
   </url>
   
   <url>
@@ -391,6 +396,12 @@
   <url>
     <loc>https://findstar.pe.kr/tags/json/</loc>
     <lastmod>2018-01-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://findstar.pe.kr/tags/learning-in-2019/</loc>
+    <lastmod>2019-01-27T23:21:34+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -502,7 +513,7 @@
   
   <url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2019-01-20T22:07:01+09:00</lastmod>
+    <lastmod>2019-01-27T23:21:34+09:00</lastmod>
     <priority>0</priority>
   </url>
   
