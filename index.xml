@@ -6,10 +6,27 @@
         <description>I want to fix the pothole that&#39;s right in front of me before I fall in.</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 03 Mar 2019 01:03:31 +0900</lastBuildDate>
+        <lastBuildDate>Sun, 21 Apr 2019 21:33:00 +0900</lastBuildDate>
         
         <atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
         
+        
+        <item>
+            <title>[리뷰] Kmooc-Microservice 설계 및 구현 수강 후기</title>
+            <link>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</link>
+            <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</guid>
+            <description>&lt;p&gt;우연찮게 &lt;a href=&#34;http://www.kmooc.kr/courses/course-v1:KAISTk+2018_K14+CS490/course/&#34;&gt;[kmooc] Microservice 설계 및 구현&lt;/a&gt; 강의를 신청해서 듣게 되었다.
+큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+            
+            <tag>kmooc</tag>
+            
+            <tag>Microservice 설계 및 구현</tag>
+            
+        </item>
         
         <item>
             <title>[북 리뷰] 쿠버네티스 시작하기(kubernetes up &amp; running)</title>
