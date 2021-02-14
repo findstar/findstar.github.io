@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Index Alias on Soo Story</title>
+    <title>index alias on Soo Story</title>
     <link>https://findstar.pe.kr/tags/index-alias/</link>
-    <description>Recent content in Index Alias on Soo Story</description>
+    <description>Recent content in index alias on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/index-alias/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 03 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index-alias/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ElasticSearch 에서 Index Alias 변경하기</title>
       <link>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</link>
@@ -19,10 +14,7 @@
       
       <guid>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</guid>
       <description>&lt;h1 id=&#34;6월-3일-일-til&#34;&gt;6월 3일 (일) TIL&lt;/h1&gt;
-
-&lt;p&gt;ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.&lt;/p&gt;</description>
     </item>
     
   </channel>

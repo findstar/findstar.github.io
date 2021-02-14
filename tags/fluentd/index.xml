@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fluentd on Soo Story</title>
+    <title>fluentd on Soo Story</title>
     <link>https://findstar.pe.kr/tags/fluentd/</link>
-    <description>Recent content in Fluentd on Soo Story</description>
+    <description>Recent content in fluentd on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 02 Jan 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/fluentd/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 02 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/fluentd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fluentd 를 로컬에서 테스트 해보는 방법</title>
       <link>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</link>
@@ -19,14 +14,11 @@
       
       <guid>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</guid>
       <description>&lt;h1 id=&#34;1월-02일-화-til&#34;&gt;1월 02일 (화) TIL&lt;/h1&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.fluentd.org/&#34;&gt;Fluentd&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.
 &lt;code&gt;/etc/td-agent/td-agent.conf&lt;/code&gt; 가 다음과 같을 때:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;&amp;lt;source&amp;gt;
 .....
 .....
@@ -46,9 +38,7 @@
 &amp;lt;match accesslogs&amp;gt;
  type stdout
 &amp;lt;/match&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

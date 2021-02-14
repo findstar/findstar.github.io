@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Spring Boot on Soo Story</title>
+    <title>spring boot on Soo Story</title>
     <link>https://findstar.pe.kr/tags/spring-boot/</link>
-    <description>Recent content in Spring Boot on Soo Story</description>
+    <description>Recent content in spring boot on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 02 May 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/spring-boot/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 02 May 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/spring-boot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spring Boot 매뉴얼 뽀개기 1</title>
       <link>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</link>
@@ -19,9 +14,7 @@
       
       <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
       <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
-Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;rdquo;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;quot;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
     </item>
     
   </channel>

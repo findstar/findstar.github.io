@@ -1,26 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rate Litmiting on Soo Story</title>
+    <title>rate litmiting on Soo Story</title>
     <link>https://findstar.pe.kr/tags/rate-litmiting/</link>
-    <description>Recent content in Rate Litmiting on Soo Story</description>
+    <description>Recent content in rate litmiting on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 24 Jun 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/rate-litmiting/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 24 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/rate-litmiting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx reverse proxy로 동일 IP 중복 요청 제한</title>
       <link>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</link>
       <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</guid>
-      <description>&lt;p&gt;Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 &lt;code&gt;limit_req&lt;/code&gt; 모듈을 적용해보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 &lt;code&gt;limit_req&lt;/code&gt; 모듈을 적용해보았다.&lt;/p&gt;</description>
     </item>
     
   </channel>

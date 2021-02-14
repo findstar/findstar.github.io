@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Phpstorm on Soo Story</title>
+    <title>phpstorm on Soo Story</title>
     <link>https://findstar.pe.kr/tags/phpstorm/</link>
-    <description>Recent content in Phpstorm on Soo Story</description>
+    <description>Recent content in phpstorm on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 05 Jan 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/phpstorm/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 05 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/phpstorm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>느려진 PHPStorm에서 Heap Memory를 늘리는 방법</title>
       <link>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</link>
@@ -19,13 +14,10 @@
       
       <guid>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</guid>
       <description>&lt;h1 id=&#34;1월-05일-금-til&#34;&gt;1월 05일 (금) TIL&lt;/h1&gt;
-
 &lt;p&gt;이전에, phpstorm에서 사용하지 않는 플러그인을 비활성화 시켜서 약간의 속도 향상을 가져왔다면, 이제는 아예 Heap Memory Size를 늘려보기로 했다.
 IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memory size가 차기 시작하는데, 이건 예전에 Eclipse를 쓸 때 부터, Intellij, Webstorm, Phpstorm 가리지 않고 나타나는 증상이다.
 커서가 렉 걸린 것 처럼 느리게 이동하기 시작하면, 우측 하단에 Memory Indicator를 바라보고는, 여기서 매번 Heap Memory Size 를 확인하고 클릭해주면서 한번씩 정리가 되는데, 그러고 나면 다시 괜찮아지고는 했다.
-아예 Heap Memory Size 설정을 변경하기 위해서 설정을 변경해봤다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+아예 Heap Memory Size 설정을 변경하기 위해서 설정을 변경해봤다.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -35,9 +27,21 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
       
       <guid>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</guid>
       <description>&lt;h1 id=&#34;1월-04일-목-til&#34;&gt;1월 04일 (목) TIL&lt;/h1&gt;
-
 &lt;p&gt;phpstorm이 조금 버벅거리면서 느린 느낌이 들었다. 내 경우에는, JavaScript 와 php 가 같이 들어 있는 템플릿 파일을 수정하거나, 마크다운MD 파일을 수정할 때 그런 증상들이 심해졌다.
-일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;</description>
+일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;
+&lt;p&gt;아래의 플러그인들은 사용하지 않음.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ASP : ASP 코딩 할일이 없어서 해제&lt;/li&gt;
+&lt;li&gt;Behat : BDD framework 인 Behat을 사용하지 않아서 해제
+(이걸 uncheck 하면 연결된 codeception framework 도 해제된다)&lt;/li&gt;
+&lt;li&gt;CoffeeScript : 커피스크립트 코딩 할일이 없어서 해제&lt;/li&gt;
+&lt;li&gt;CVS : subversion 이전에 활약하던 CVS 이다. 나는 git만 사용하므로 해제&lt;/li&gt;
+&lt;li&gt;Drupal support : Drupal 프레임워크를 사용하지 않으므로 해제&lt;/li&gt;
+&lt;li&gt;Gherikin  : 스타트랙을 보긴했지만. 이건 그냥 위트용이다. 해제&lt;/li&gt;
+&lt;li&gt;Google App Engine Support : GAE 연동을 하지 않으므로 해제 (난 AWS&amp;hellip;)&lt;/li&gt;
+&lt;li&gt;Haml : 사용하지 않아 해제&lt;/li&gt;
+&lt;li&gt;Handlebars/Mustache : 이건 사용하는 사람은 제법 있을 수 있지만, 나는 사용하지 않는 템플릿이라 해제&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -47,28 +51,20 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
       
       <guid>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</guid>
       <description>&lt;h1 id=&#34;1월-03일-수-til&#34;&gt;1월 03일 (수) TIL&lt;/h1&gt;
-
 &lt;ul&gt;
 &lt;li&gt;참고 매뉴얼 : &lt;a href=&#34;https://www.jetbrains.com/help/idea/recording-macros.html&#34;&gt;Jetbrains Recording Macros&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;
-
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
-
 &lt;figure class=&#34;full-width caption&#34;  &gt;
     &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;/&gt;
     
 &lt;/figure&gt;
-
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
-
 &lt;figure class=&#34;full-width caption&#34;  &gt;
     &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
     
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/figure&gt;</description>
     </item>
     
   </channel>

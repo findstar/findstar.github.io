@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Difference on Soo Story</title>
+    <title>difference on Soo Story</title>
     <link>https://findstar.pe.kr/tags/difference/</link>
-    <description>Recent content in Difference on Soo Story</description>
+    <description>Recent content in difference on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 24 Jan 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/difference/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 24 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/difference/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ElasticSearch 에서 null 과 empty string 의 차이</title>
       <link>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</link>
@@ -19,11 +14,8 @@
       
       <guid>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</guid>
       <description>&lt;h1 id=&#34;1월-24일-수-til&#34;&gt;1월 24일 (수) TIL&lt;/h1&gt;
-
 &lt;p&gt;ElasticSearch 에서 indexing 을 처리할 때, json 객체를 생성하면서 속성값이 때로는 &lt;code&gt;null&lt;/code&gt; 또 어떨때는 빈 문자열 &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt; 로 채워넣을 때가 있었는데
-보다 명확하게 이해하고 처리하기 위해서 &lt;code&gt;null&lt;/code&gt; 값과 &lt;code&gt;empty string(&amp;quot;&amp;quot;)&lt;/code&gt; 의 차이를 알아보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+보다 명확하게 이해하고 처리하기 위해서 &lt;code&gt;null&lt;/code&gt; 값과 &lt;code&gt;empty string(&amp;quot;&amp;quot;)&lt;/code&gt; 의 차이를 알아보았다.&lt;/p&gt;</description>
     </item>
     
   </channel>

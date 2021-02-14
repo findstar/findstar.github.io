@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Unused Plugins on Soo Story</title>
+    <title>unused plugins on Soo Story</title>
     <link>https://findstar.pe.kr/tags/unused-plugins/</link>
-    <description>Recent content in Unused Plugins on Soo Story</description>
+    <description>Recent content in unused plugins on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/unused-plugins/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 04 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/unused-plugins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PHPStorm에서 사용하지 않는 플러그인 비활성화 시키기.</title>
       <link>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</link>
@@ -19,9 +14,21 @@
       
       <guid>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</guid>
       <description>&lt;h1 id=&#34;1월-04일-목-til&#34;&gt;1월 04일 (목) TIL&lt;/h1&gt;
-
 &lt;p&gt;phpstorm이 조금 버벅거리면서 느린 느낌이 들었다. 내 경우에는, JavaScript 와 php 가 같이 들어 있는 템플릿 파일을 수정하거나, 마크다운MD 파일을 수정할 때 그런 증상들이 심해졌다.
-일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;</description>
+일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;
+&lt;p&gt;아래의 플러그인들은 사용하지 않음.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ASP : ASP 코딩 할일이 없어서 해제&lt;/li&gt;
+&lt;li&gt;Behat : BDD framework 인 Behat을 사용하지 않아서 해제
+(이걸 uncheck 하면 연결된 codeception framework 도 해제된다)&lt;/li&gt;
+&lt;li&gt;CoffeeScript : 커피스크립트 코딩 할일이 없어서 해제&lt;/li&gt;
+&lt;li&gt;CVS : subversion 이전에 활약하던 CVS 이다. 나는 git만 사용하므로 해제&lt;/li&gt;
+&lt;li&gt;Drupal support : Drupal 프레임워크를 사용하지 않으므로 해제&lt;/li&gt;
+&lt;li&gt;Gherikin  : 스타트랙을 보긴했지만. 이건 그냥 위트용이다. 해제&lt;/li&gt;
+&lt;li&gt;Google App Engine Support : GAE 연동을 하지 않으므로 해제 (난 AWS&amp;hellip;)&lt;/li&gt;
+&lt;li&gt;Haml : 사용하지 않아 해제&lt;/li&gt;
+&lt;li&gt;Handlebars/Mustache : 이건 사용하는 사람은 제법 있을 수 있지만, 나는 사용하지 않는 템플릿이라 해제&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

@@ -1,26 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Letsencrypt on Soo Story</title>
+    <title>letsencrypt on Soo Story</title>
     <link>https://findstar.pe.kr/tags/letsencrypt/</link>
-    <description>Recent content in Letsencrypt on Soo Story</description>
+    <description>Recent content in letsencrypt on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 08 Sep 2018 15:26:07 +0900</lastBuildDate>
-    
-	<atom:link href="https://findstar.pe.kr/tags/letsencrypt/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 08 Sep 2018 15:26:07 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/letsencrypt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
       <link>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</link>
       <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;</description>
     </item>
     
   </channel>
