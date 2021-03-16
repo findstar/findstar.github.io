@@ -6,7 +6,16 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 08 Sep 2019 23:42:45 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Mar 2021 22:19:13 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>curl</title>
+      <link>https://findstar.pe.kr/tags/curl/</link>
+      <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/curl/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>haproxy</title>
       <link>https://findstar.pe.kr/tags/haproxy/</link>
@@ -391,15 +400,6 @@
       <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
       
       <guid>https://findstar.pe.kr/tags/logstash/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>curl</title>
-      <link>https://findstar.pe.kr/tags/curl/</link>
-      <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/curl/</guid>
       <description></description>
     </item>
     
