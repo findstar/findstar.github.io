@@ -6,7 +6,17 @@
     <description>Recent content on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 15 Mar 2021 22:19:13 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Mar 2021 17:43:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nginx ingress 에서 정규표현식 경로 지정하는 방법</title>
+      <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
+      <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
+      <description>&lt;p&gt;k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을
+사용해서 등록하는 방법을 알아보았다.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>curl 로 측정하는 dns lookup time</title>
       <link>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</link>
