@@ -218,14 +218,18 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li><a href="#1월-24일-수-til">1월 24일 (수) TIL</a></li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <h1 id="1월-24일-수-til">1월 24일 (수) TIL</h1>
 <p>ElasticSearch 에서 indexing 을 처리할 때, json 객체를 생성하면서 속성값이 때로는 <code>null</code> 또 어떨때는 빈 문자열 <code>&quot;&quot;</code> 로 채워넣을 때가 있었는데

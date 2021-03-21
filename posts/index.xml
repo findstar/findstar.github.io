@@ -8,13 +8,12 @@
     <language>ko-kr</language>
     <lastBuildDate>Sun, 21 Mar 2021 17:43:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>nginx ingress 에서 정규표현식 경로 지정하는 방법</title>
+      <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
       <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
-      <description>&lt;p&gt;k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을
-사용해서 등록하는 방법을 알아보았다.&lt;/p&gt;</description>
+      <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
     </item>
     
     <item>
@@ -23,8 +22,7 @@
       <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</guid>
-      <description>&lt;p&gt;k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다.
-curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.&lt;/p&gt;</description>
+      <description>k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다. curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.</description>
     </item>
     
     <item>
@@ -33,9 +31,7 @@ curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.&lt;/p&gt
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
-      <description>&lt;p&gt;Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데,
-설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다.
-cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.&lt;/p&gt;</description>
+      <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
     </item>
     
     <item>
@@ -44,8 +40,7 @@ cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다
       <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</guid>
-      <description>&lt;p&gt;우연찮게 &lt;a href=&#34;http://www.kmooc.kr/courses/course-v1:KAISTk+2018_K14+CS490/course/&#34;&gt;[kmooc] Microservice 설계 및 구현&lt;/a&gt; 강의를 신청해서 듣게 되었다.
-큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.&lt;/p&gt;</description>
+      <description>우연찮게 [kmooc] Microservice 설계 및 구현 강의를 신청해서 듣게 되었다. 큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.</description>
     </item>
     
     <item>
@@ -54,8 +49,7 @@ cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다
       <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
-      <description>&lt;p&gt;쿠버네티스 스터디에서 학습을 위해서 읽은 &amp;ldquo;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&amp;ldquo;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서
-못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.&lt;/p&gt;</description>
+      <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
     </item>
     
     <item>
@@ -64,7 +58,7 @@ cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다
       <pubDate>Sun, 27 Jan 2019 23:21:34 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/01/27/learning-in-2019/</guid>
-      <description>&lt;p&gt;새해에 접어든지도 벌써 한달이 다되어 간다. 벌써 한해의 1/12이 지나가버린 것이다! 새해가 밝아오면 늘상 여러가지 다짐들을 하게 마련이지만, 작심삼일이라는 말처럼 쉽지 않은 일이다. 그런 의미에서 올 한해 배우려고 생각하는 것들을 다시금 리스트를 정리해서 스스로에게 동기부여를 해본다.&lt;/p&gt;</description>
+      <description>새해에 접어든지도 벌써 한달이 다되어 간다. 벌써 한해의 1/12이 지나가버린 것이다! 새해가 밝아오면 늘상 여러가지 다짐들을 하게 마련이지만, 작심삼일이라는 말처럼 쉽지 않은 일이다. 그런 의미에서 올 한해 배우려고 생각하는 것들을 다시금 리스트를 정리해서 스스로에게 동기부여를 해본다.</description>
     </item>
     
     <item>
@@ -73,7 +67,7 @@ cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다
       <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
-      <description>&lt;p&gt;사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.&lt;/p&gt;</description>
+      <description>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</description>
     </item>
     
     <item>
@@ -222,10 +216,7 @@ Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
-      <description>&lt;p&gt;ansible을 팀에서 사용하면서, 몇가지 &lt;code&gt;이런게 있었으면&lt;/code&gt; 하는 점이 있었는데, 그 중하나가 바로 &lt;code&gt;GUI 환경&lt;/code&gt;이다.
-물론 CLI 콘솔 상에서 playbook을 실행하는데는 아무 문제가 없고 잘 사용하고 있지만, GUI에서도 보기 쉽게 playbook을 실행하고 또한 누가 언제 playbook을 실행했는지 기록되면 좋겠다는 바램이 있었다.
-&lt;code&gt;Ansible Tower&lt;/code&gt;는 이러한 바램을 해소시켜 줄 수 있는 대안이라고 생각이 되지만, 라이센스 비용이 비싸기로 유명(?) 해서, 포기하고 있었는데.
-Redhat에서 &lt;a href=&#34;https://www.ansible.com/products/awx-project&#34;&gt;Ansible Tower 의 오픈소스 버전으로 Ansible AWX를 발표했다!&lt;/a&gt; (대인배&amp;hellip;Redhat.)&lt;/p&gt;</description>
+      <description>Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다.</description>
     </item>
     
     <item>

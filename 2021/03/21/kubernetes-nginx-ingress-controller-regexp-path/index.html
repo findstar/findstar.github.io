@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="nginx ingress 에서 정규표현식 경로 지정하는 방법" />
-    <meta property="og:title" content="nginx ingress 에서 정규표현식 경로 지정하는 방법" />
-    <meta property="twitter:title" content="nginx ingress 에서 정규표현식 경로 지정하는 방법" />
+    <meta name="title" content="nginx ingress 에서 정규표현식 경로 지정하기" />
+    <meta property="og:title" content="nginx ingress 에서 정규표현식 경로 지정하기" />
+    <meta property="twitter:title" content="nginx ingress 에서 정규표현식 경로 지정하기" />
     
 
     
@@ -27,7 +27,7 @@
     
 
     
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content="k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다." />
     
     
 
@@ -56,7 +56,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>nginx ingress 에서 정규표현식 경로 지정하는 방법 - Soo Story</title>
+    <title>nginx ingress 에서 정규표현식 경로 지정하기 - Soo Story</title>
 
     <link rel="canonical" href="/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/">
 
@@ -182,7 +182,7 @@
                         </a>
                         
                     </div>
-                    <h1>nginx ingress 에서 정규표현식 경로 지정하는 방법</h1>
+                    <h1>nginx ingress 에서 정규표현식 경로 지정하기</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         2021-03-21
@@ -210,10 +210,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li><a href="#nginx-ingress-controller-에서-regexp-location-지정하는-방법">nginx ingress controller 에서 regexp location 지정하는 방법</a>
       <ul>
@@ -223,10 +225,10 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
-                <p>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을
-사용해서 등록하는 방법을 알아보았다.</p>
-<h1 id="nginx-ingress-controller-에서-regexp-location-지정하는-방법">nginx ingress controller 에서 regexp location 지정하는 방법</h1>
+                <h1 id="nginx-ingress-controller-에서-regexp-location-지정하는-방법">nginx ingress controller 에서 regexp location 지정하는 방법</h1>
 <h2 id="배경">배경</h2>
 <p>k8s 에서 nginx ingress controller 의 path 을 지정할 때에 기본적으로는 string match 방식으로 path를 구분한다.
 대부분의 경우에는 별 문제가 없지만 특정 요구사항에 따라서 따라서 path 를 식별하는데 regexp 를 적용하고 싶은 경우가 있다.
@@ -261,6 +263,7 @@ ingress controller 로 동작하는 nginx 의 configuration을
 <ul>
 <li><a href="https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/">https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/</a></li>
 </ul>
+
 
                 
 

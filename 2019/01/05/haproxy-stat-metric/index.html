@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -226,6 +228,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
 간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.</p>

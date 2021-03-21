@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -227,6 +229,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 <code>limit_req</code> 모듈을 적용해보았다.</p>
 <p><a href="http://nginx.org/">nginx</a>에서 지원하는 <a href="http://nginx.org/en/docs/http/ngx_http_limit_req_module.html">limit_req</a> 모듈을 사용하면,

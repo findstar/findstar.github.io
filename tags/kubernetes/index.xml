@@ -8,13 +8,12 @@
     <language>ko-kr</language>
     <lastBuildDate>Sun, 21 Mar 2021 17:43:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>nginx ingress 에서 정규표현식 경로 지정하는 방법</title>
+      <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
       <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
-      <description>&lt;p&gt;k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을
-사용해서 등록하는 방법을 알아보았다.&lt;/p&gt;</description>
+      <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
     </item>
     
     <item>
@@ -23,8 +22,7 @@
       <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
-      <description>&lt;p&gt;쿠버네티스 스터디에서 학습을 위해서 읽은 &amp;ldquo;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&amp;ldquo;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서
-못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.&lt;/p&gt;</description>
+      <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
     </item>
     
   </channel>

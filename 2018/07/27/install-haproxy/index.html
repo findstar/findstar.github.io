@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -226,6 +228,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.</p>
 <p>Haproxy 는 Load balancer 로 활용할 수 있으며, 다양한 설정이 가능하고, nginx reverse proxy 에 비해서 active health check가 가능하기 때문에

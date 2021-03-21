@@ -13,9 +13,7 @@
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
-      <description>&lt;p&gt;Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데,
-설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다.
-cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.&lt;/p&gt;</description>
+      <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
     </item>
     
     <item>

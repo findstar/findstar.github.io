@@ -210,10 +210,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -222,6 +224,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
 Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 <em>&ldquo;Spring Boot 매뉴얼 뽀개기!&quot;</em> 라고 스터디 제목을 정했다. (과연..)</p>

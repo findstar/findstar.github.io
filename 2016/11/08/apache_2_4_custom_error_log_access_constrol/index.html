@@ -218,10 +218,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -231,6 +233,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.</p>
 <p>최근 웹서버를 CentOS 7 기반으로 재설치하면서 apache 2.4 버전을 사용해 보았다. 2.2 버전과는 다른 부분중에 2가지 부분을 살펴보았는데 다음과 같다.</p>

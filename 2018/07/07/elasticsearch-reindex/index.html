@@ -210,10 +210,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -222,6 +224,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>그럴 것 같지 않지만, ElasticSearch 에서는 <code>reindex</code>를 수행할 일이 많이 발생한다. <code>reindex</code>를 실행할때 사용할 수 있는 옵션을 확인해 보았다.</p>
 <p>ElasticSearch 를 사용하면서</p>

@@ -27,7 +27,7 @@
     
 
     
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content="Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다. " />
     
     
 
@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -226,11 +228,10 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
-                <p>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데,
-설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다.
-cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</p>
-<h2 id="haproxy-의-acl-설정">Haproxy 의 ACL 설정</h2>
+                <h2 id="haproxy-의-acl-설정">Haproxy 의 ACL 설정</h2>
 <p>reverse proxy 로 활용하면서 header 의 값을 판단하거나, source 의 IP 대역을 확인하거나,
 또는 기타 특정 backend 연결을 위해서 acl을 정의한다.</p>
 <pre><code>    # ACL &quot;vpc-network&quot; 선언
@@ -298,6 +299,7 @@ apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음�
 <li>stat 수집 script : <a href="https://gist.github.com/bpaquet/7153979">https://gist.github.com/bpaquet/7153979</a></li>
 <li>stat 설명 : <a href="https://gist.github.com/alq666/20a464665a1086de0c9ddf1754a9b7fb">https://gist.github.com/alq666/20a464665a1086de0c9ddf1754a9b7fb</a></li>
 </ul>
+
 
                 
 

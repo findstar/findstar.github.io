@@ -27,7 +27,7 @@
     
 
     
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content="사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다." />
     
     
 
@@ -210,12 +210,14 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#homebrew로-openjdk-설치하기">homebrew로 openjdk 설치하기</a>
       <ul>
         <li><a href="#openjdk">OpenJDK</a></li>
         <li><a href="#adoptopenjdk">AdoptOpenJDK</a></li>
@@ -223,8 +225,10 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
-                <p>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</p>
+                <h1 id="homebrew로-openjdk-설치하기">homebrew로 openjdk 설치하기</h1>
 <h2 id="openjdk">OpenJDK</h2>
 <p><a href="https://openjdk.java.net/">OpenJDK(Open Java Development Kit)</a>는 자바 플랫폼, 스탠더드 에디션 (자바 SE)의 자유-오픈 소스 구현체이다. 최근 자바가 유료화 되면서 한층 주목받고 있는데, (자바가 유료라니..)
 유료화에 대한 반발(?)로 주변의 많은 사람들이 OpenJDK를 설치하는 모습을 볼 수 있었다. 나는 새롭게 개발 환경을 구성하면서 OpenJDK를 설치해보고자 하였는데, 처음에는 생각없이 <code>brew</code> 명령어를 실행했었다.</p>
@@ -261,6 +265,7 @@ brew cask install adoptopenjdk8
 <li>OpenJDK 홈페이지 : <a href="https://openjdk.java.net/">https://openjdk.java.net/</a></li>
 <li>AdoptOpenJDK 홈페이지 : <a href="https://adoptopenjdk.net/">https://adoptopenjdk.net/</a></li>
 </ul>
+
 
                 
 

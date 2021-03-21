@@ -218,10 +218,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -230,6 +232,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>앞서 <a href="/2018/08/14/fix-haproxy-reload-fail">Haproxy를 reload fail 해결하기</a>을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.</p>
 <h3 id="seamless-reload">Seamless reload?</h3>

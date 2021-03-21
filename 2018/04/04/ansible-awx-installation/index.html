@@ -27,7 +27,7 @@
     
 
     
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content="Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다." />
     
     
 
@@ -218,23 +218,32 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#ansible-aws-설치해보기">Ansible AWS 설치해보기</a>
       <ul>
-        <li></li>
+        <li><a href="#배경">배경</a></li>
+        <li><a href="#특징">특징</a></li>
+        <li><a href="#설치">설치</a></li>
       </ul>
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
-                <p>ansible을 팀에서 사용하면서, 몇가지 <code>이런게 있었으면</code> 하는 점이 있었는데, 그 중하나가 바로 <code>GUI 환경</code>이다.
+                <h1 id="ansible-aws-설치해보기">Ansible AWS 설치해보기</h1>
+<h2 id="배경">배경</h2>
+<p>ansible을 팀에서 사용하면서, 몇가지 <code>이런게 있었으면</code> 하는 점이 있었는데, 그 중하나가 바로 <code>GUI 환경</code>이다.
 물론 CLI 콘솔 상에서 playbook을 실행하는데는 아무 문제가 없고 잘 사용하고 있지만, GUI에서도 보기 쉽게 playbook을 실행하고 또한 누가 언제 playbook을 실행했는지 기록되면 좋겠다는 바램이 있었다.
 <code>Ansible Tower</code>는 이러한 바램을 해소시켜 줄 수 있는 대안이라고 생각이 되지만, 라이센스 비용이 비싸기로 유명(?) 해서, 포기하고 있었는데.
 Redhat에서 <a href="https://www.ansible.com/products/awx-project">Ansible Tower 의 오픈소스 버전으로 Ansible AWX를 발표했다!</a> (대인배&hellip;Redhat.)</p>
+<h2 id="특징">특징</h2>
 <p>AWX(Towner의 오픈소스 버전)는 stanalone으로 구동하며, job(playbook) 에 대한 수행 history, 사용자별 권한제어, GUI, 스케줄링을 통한 실행 기능등을 제공한다.</p>
 <ul>
 <li>
@@ -274,6 +283,7 @@ Redhat에서 <a href="https://www.ansible.com/products/awx-project">Ansible Towe
 1.0.3 부터 docker를 통한 설치가 좀 더 간편해졌기 때문에, 이 버전부터는 그냥 docker 구성으로 설치를 진행했다.
 AWX에서는 완성된 <code>docker-compose.yml</code> 파일을 제공해주지 않기 때문에,
 각종 설정을 구성하고, 자체적으로 제공되는 playbook을 실행하면 docker-compose 파일이 생성되는 구조이다. 다음은 <code>Centos 7.4</code> 에서 AWX의 설치 과정을 기록한 것이다.</p>
+<h2 id="설치">설치</h2>
 <ul>
 <li>필요한 package 설치</li>
 </ul>
@@ -558,6 +568,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
 <li>Ansible Essential - <a href="https://www.ansible.com/blog/ansible-best-practices-essentials">https://www.ansible.com/blog/ansible-best-practices-essentials</a></li>
 <li>AWX 사용 - <a href="https://steemit.com/utopian-io/@adson/ansible-open-sources-ansible-tower-with-awx">https://steemit.com/utopian-io/@adson/ansible-open-sources-ansible-tower-with-awx</a></li>
 </ul>
+
 
                 
 

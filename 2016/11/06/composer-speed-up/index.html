@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -229,6 +231,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>PHP 의 의존성 관리도구인 <a href="https://getcomposer.org/" title="컴포저(composer) 공식 사이트">컴포저</a> 를 사용할 때, <code>composer install</code> 이나 <code>composer update</code> 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 <code>composer speed up</code> 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.</p>
 <p>몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.</p>

@@ -13,7 +13,7 @@
       <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
-      <description>&lt;p&gt;사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.&lt;/p&gt;</description>
+      <description>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</description>
     </item>
     
   </channel>

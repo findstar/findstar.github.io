@@ -214,10 +214,12 @@
                 post-container">
 
                 
-                <header>
-                    <h2>목차</h2>
-                </header>
-                <nav id="TableOfContents">
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -226,6 +228,8 @@
     </li>
   </ul>
 </nav>
+                    </details>
+                </div>
                 
                 <p>ElasticSearch를 로그 분석용으로 사용할 때 인덱스의 <code>mapping</code>은 <code>template</code>을 사용해서 생성되도록 설정하면 편리하다.</p>
 <p>로그 분석용으로 ElasticSearch 를 사용하면 주로 인덱스는 daily/weekly/monthly 중에 하나로 구성하는게 일반적이다.
