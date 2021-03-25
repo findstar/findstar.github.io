@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Soo Story">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://findstar.pe.kr//images/bg.jpg">
+    <meta property="twitter:image" content="https://findstar.pe.kr//images/bg.jpg" />
+    
+
+    
+    <meta name="title" content="Docker desktop 에서 istio 설치하기" />
+    <meta property="og:title" content="Docker desktop 에서 istio 설치하기" />
+    <meta property="twitter:title" content="Docker desktop 에서 istio 설치하기" />
+    
+
+    
+    <meta name="description" content="Software Developer, I love code.">
+    <meta property="og:description" content="Software Developer, I love code." />
+    <meta property="twitter:description" content="Software Developer, I love code." />
+    
+
+    
+    <meta property="twitter:card" content="mac 의 docker desktop 환경에 istio 를 설치하는 방법을 살펴보았다." />
+    
+    
+
+    <meta name="keyword"  content="blog | developer | personal">
+    <link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Docker desktop 에서 istio 설치하기 - Soo Story</title>
+
+    <link rel="canonical" href="/2021/03/25/install-istio-on-docker-desktop/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    <link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css">
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Soo Story</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        <a class="tag" href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
+                        </a>
+                        
+                        <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                    </div>
+                    <h1>Docker desktop 에서 istio 설치하기</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2021-03-25
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-desktop-에-istio-를-설치하는-방법">Docker desktop 에 istio 를 설치하는 방법</a>
+      <ul>
+        <li><a href="#배경">배경</a></li>
+        <li><a href="#설치-환경">설치 환경</a></li>
+        <li><a href="#istio-설치">istio 설치</a></li>
+        <li><a href="#bookinfo-예제-실행">BookInfo 예제 실행</a></li>
+        <li><a href="#접속-확인">접속 확인</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="docker-desktop-에-istio-를-설치하는-방법">Docker desktop 에 istio 를 설치하는 방법</h1>
+<h2 id="배경">배경</h2>
+<p>최근 istio 스터디에 참여하고 있는데 istio 를 설치하기 위해서 kubernetes 클러스터 환경이 필요했다.
+문득 로컬 docker desktop 에 kubernetes 지원이 있었던 기억이 나서 이 옵션을 활성화하여
+docker desktop 에서 istio 를 설치해보았다.</p>
+<h2 id="설치-환경">설치 환경</h2>
+<ul>
+<li>istio 1.9.1</li>
+<li>docker desktop 설치된 환경 (RAM 이 넉넉해야한다.)</li>
+</ul>
+<h3 id="docker-desktop-준비사항">Docker desktop 준비사항</h3>
+<ol>
+<li>
+<p>먼저 resource 에서 CPU 4cpu 이상, RAM 할당을 8G 로 늘려주자.
+<figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/step1-docker-desktop-resource.png" alt="docker desktop resource setup"/>
+    
+</figure></p>
+</li>
+<li>
+<p>그 다음으로 kubernetes 클러스터를 활성화 시켜주자.
+<figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/step2-enable-kubernetes-cluster.png" alt="docker desktop kubernetes cluster enable"/>
+    
+</figure></p>
+</li>
+<li>
+<p>클러스터가 잘 활성화 되었다면 다음과 같이 확인할 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get nodes 
+NAME             STATUS   ROLES    AGE   VERSION
+docker-desktop   Ready    master   2h    v1.19.3
+</code></pre></div></li>
+</ol>
+<h3 id="istioctl-설치">istioctl 설치</h3>
+<p><code>brew</code> 를 사용해서 <code>istioctl</code> 을 설치해두자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ brew install istioctl 
+$ istioctl version
+1.9.1
+</code></pre></div><h3 id="istio-sample-예제-clone">istio sample 예제 clone</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/istio/istio.git
+$ <span style="color:#8be9fd;font-style:italic">cd</span> istio 
+</code></pre></div><h2 id="istio-설치">istio 설치</h2>
+<p>istio 를 활성화한 kubenetes cluster 에 설치해보자.</p>
+<h3 id="operator-init">operator init</h3>
+<p>이전 버전과 다르게 최근 istio 에서는 operator 를 사용한 설치가 가능하다. 편리하게 사용해주자.
+(airflow 도 operator 로 설치했던 기억이..)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#6272a4"># --tags 를 붙여서 다른 버전을 설치할 수도 있다. 기본은 최신버전이 설치됨 </span>
+<span style="color:#6272a4"># istio-operator controller 설치 + IstioOperator CRD(Custom Resource Definition) 설치됨</span>
+
+$ istioctl operator init 
+Installing operator controller in namespace: istio-operator using image: docker.io/istio/operator:1.9.1
+Operator controller will watch namespaces: istio-system
+✔ Istio operator installed
+✔ Installation <span style="color:#8be9fd;font-style:italic">complete</span>
+</code></pre></div><h3 id="istiooperator-apply">IstioOperator apply</h3>
+<p>ingress gateway 를 활성화 하기 위해서 demo profile 로 <code>IstioOperator</code> 를 apply 하자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl create ns istio-system
+$ kubectl apply -f - <span style="color:#f1fa8c">&lt;&lt;EOF
+</span><span style="color:#f1fa8c">apiVersion: install.istio.io/v1alpha1
+</span><span style="color:#f1fa8c">kind: IstioOperator
+</span><span style="color:#f1fa8c">metadata:
+</span><span style="color:#f1fa8c">  namespace: istio-system
+</span><span style="color:#f1fa8c">  name: example-istiocontrolplane
+</span><span style="color:#f1fa8c">spec:
+</span><span style="color:#f1fa8c">  profile: demo # profile demo 로 하면 컴포넌트를 쭈루룩 설치한다.
+</span><span style="color:#f1fa8c">  components:
+</span><span style="color:#f1fa8c">    pilot:
+</span><span style="color:#f1fa8c">      k8s:
+</span><span style="color:#f1fa8c">        resources:
+</span><span style="color:#f1fa8c">          requests:
+</span><span style="color:#f1fa8c">            memory: 3072Mi
+</span><span style="color:#f1fa8c">    egressGateways:
+</span><span style="color:#f1fa8c">    - name: istio-egressgateway # 외부로 나가는 트래픽을 egressgateway 를 통하도록 활성화 한다.
+</span><span style="color:#f1fa8c">      enabled: true
+</span><span style="color:#f1fa8c">EOF</span>
+</code></pre></div><ul>
+<li>profile 에 따라서 설치되는 컴포넌트의 차이가 난다. 지금은 동작 확인을 위해서 <code>demo profile</code> 로 설치하지만 production 에서는
+customization 이 필요할 수도 있다. 자세한 프로필 옵션은 <a href="https://istio.io/latest/docs/setup/additional-setup/config-profiles/">매뉴얼 링크</a>를 참고하자.</li>
+<li>위의 예시로 설치하면 다음의 컴포넌트가 설치된다.
+<ul>
+<li>istio-egressgateway</li>
+<li>istio-ingressgateway</li>
+<li>istiod</li>
+</ul>
+</li>
+</ul>
+<h3 id="추가-컴포넌트-설치">추가 컴포넌트 설치</h3>
+<ul>
+<li>이전 버전에서는 demo 프로필로 설치하면 kiali, 등등의 컴포넌트가 많이 설치되었는데
+최신버전에서는 추가 컴포넌트는 따로 설치해줘야 한다.
+(이렇게 변경된 이유는 kiali, zipkin, Prometheus와 같은 컴포넌트는 istio 의 core 컴포넌트가 아니고
+이 녀석들도 버전업이 빨라서 demo profile 에 같이 포함시켰더니 버전업 대응하기가 어려웠다고 한다. 따라서
+그 때그때 필요한 사람들이 add components 하라고 안내하고 있다.)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ <span style="color:#8be9fd;font-style:italic">cd</span> istio/samples/addons 
+$ kubectl apply -f prometheus.yml
+$ kubectl apply -f kiali.yml
+$ kubectl apply -f grafana.yml
+$ kubectl apply -f jaeger.yaml
+
+</code></pre></div><h3 id="설치-확인">설치 확인</h3>
+<p><em>Service</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      
+grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     
+istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     
+istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   
+istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        
+jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          
+kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           
+prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     
+tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       
+zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     
+</code></pre></div><p><em>Pods</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">NAME                                   READY   STATUS    RESTARTS  
+grafana-f766d6c97-5gj64                1/1     Running   <span style="color:#bd93f9">0</span>          
+istio-egressgateway-5d748f86d5-2drv7   1/1     Running   <span style="color:#bd93f9">0</span>          
+istio-ingressgateway-67d647b4-xhjh5    1/1     Running   <span style="color:#bd93f9">0</span>          
+istiod-69ccd7b848-9vwck                1/1     Running   <span style="color:#bd93f9">0</span>          
+jaeger-7f78b6fb65-xp4sm                1/1     Running   <span style="color:#bd93f9">0</span>          
+kiali-59c8574c55-zvlcr                 1/1     Running   <span style="color:#bd93f9">0</span>          
+prometheus-69f7f4d689-4cswz            2/2     Running   <span style="color:#bd93f9">0</span>          
+
+</code></pre></div><h3 id="네임스페이스에-istio-injection-라벨-추가">네임스페이스에 istio-injection 라벨 추가</h3>
+<p>사이드카를 활성화할 <code>default</code> namespace 에 <code>istio-injection=enable</code> 라벨을 적용한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl label namespace default istio-injection<span style="color:#ff79c6">=</span>enabled
+namespace/default labeled
+</code></pre></div><h2 id="bookinfo-예제-실행">BookInfo 예제 실행</h2>
+<h3 id="sample-yml-예제-적용">sample yml 예제 적용</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+service/details created
+serviceaccount/bookinfo-details created
+deployment.apps/details-v1 created
+service/ratings created
+serviceaccount/bookinfo-ratings created
+deployment.apps/ratings-v1 created
+service/reviews created
+serviceaccount/bookinfo-reviews created
+deployment.apps/reviews-v1 created
+deployment.apps/reviews-v2 created
+deployment.apps/reviews-v3 created
+service/productpage created
+serviceaccount/bookinfo-productpage created
+deployment.apps/productpage-v1 created
+</code></pre></div><h4 id="bookinfo-서비스-확인">bookinfo 서비스 확인</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>    AGE
+details       ClusterIP   10.110.253.197   &lt;none&gt;        9080/TCP   7s
+kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    2d
+productpage   ClusterIP   10.109.81.216    &lt;none&gt;        9080/TCP   7s
+ratings       ClusterIP   10.109.38.26     &lt;none&gt;        9080/TCP   7s
+reviews       ClusterIP   10.101.176.215   &lt;none&gt;        9080/TCP   7s
+</code></pre></div><h4 id="pods-확인">pods 확인</h4>
+<ul>
+<li>pod 상태를 확인하자. docker desktop 에서 띄우려니 사이드카 뜨는데 시간이 좀 걸린다. ready 2/2 보려고 조금 기다렸다.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods -w 
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-79f774bdb9-v7wq7       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+productpage-v1-6b746f74dc-sgwxh   2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
+ratings-v1-b6994bb9-mjhkg         2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
+reviews-v1-545db77b95-p9lkm       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+reviews-v2-7bf8c9648f-gmckn       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+reviews-v3-84779c7bbc-qtrc8       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+</code></pre></div><h4 id="curl-요청-결과-확인">curl 요청 결과 확인</h4>
+<p>다음과 같이 <code>Simple Bookstore App</code> 이라는 문자열을 확인할 수 있으면 된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>kubectl get pod -l <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>ratings -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -c ratings -- curl -sS productpage:9080/productpage | grep -o <span style="color:#f1fa8c">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
+&lt;title&gt;Simple Bookstore App&lt;/title&gt;
+</code></pre></div><h3 id="네트워킹-설정-추가">네트워킹 설정 추가</h3>
+<p>아직 브라우저에서 편하게 접속하기가 어렵다. 네트워킹 설정을 추가하자</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+gateway.networking.istio.io/bookinfo-gateway created
+virtualservice.networking.istio.io/bookinfo created
+</code></pre></div><p>설치된 gateway 를 확인할 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get gateway
+NAME               AGE
+bookinfo-gateway   6s
+</code></pre></div><h2 id="접속-확인">접속 확인</h2>
+<h3 id="external-ip-확인">External IP 확인</h3>
+<p>현재 Docker desktop 환경에서는 LoadBalancer 의 External IP 가 localhost 로 나온다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      AGE
+grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     12h
+istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     3h16m
+istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   3h16m
+istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        3h16m
+jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          12h
+kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           12h
+prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     12h
+tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       12h
+zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     12h
+</code></pre></div><p>따라서 현재 istio-ingressgateway 가 LoadBalancer 타입으로 활성화 되어 localhost 를 통해서 접속이 가능하다는 것을 의미한다. 만약 minikube와 같이 다른 환경인 경우에는 각각의 external IP 또는
+NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <a href="https://istio.io/latest/docs/setup/getting-started/#determining-the-ingress-ip-and-ports">매뉴얼 링크</a></p>
+<h3 id="브라우저-확인">브라우저 확인</h3>
+<p>정상적으로 작업이 완료되었다면</p>
+<p><code>http://localhost/productpage</code> 로 접속이 잘 된다. 여러번 새로고침해보면서 rating 영역이 바뀌는 것을 볼 수 있다.</p>
+<figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/bookinfo-sample-view.png" alt="bookinfo sample app"/>
+    
+</figure>
+<h3 id="추가-컴포넌트-확인">추가 컴포넌트 확인</h3>
+<h4 id="kiali">Kiali</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard kiali
+</code></pre></div><figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/kiali.png" alt="bookinfo sample app kiali dashboard"/>
+    
+</figure>
+<h4 id="jaeger">Jaeger</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard jaeger
+</code></pre></div><figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/jaeger.png" alt="bookinfo sample app kiali dashboard"/>
+    
+</figure>
+<h4 id="garafana">garafana</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard garafana
+</code></pre></div><figure class="full-width caption"  >
+    <img src="/images/posts/istio/install/grafana.png" alt="bookinfo sample app kiali dashboard"/>
+    
+</figure>
+<h3 id="주의사항">주의사항</h3>
+<p>만약 진행에서 잘 되지 않는 부분이 있다면 <code>istioctl analyze</code> 를 실행해서 문제가 없는지 살펴볼 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">istioctl analyze
+</code></pre></div><h3 id="참고">참고</h3>
+<ul>
+<li><a href="https://istio.io/latest/docs/setup/install/operator/">https://istio.io/latest/docs/setup/install/operator/</a></li>
+<li><a href="https://istio.io/latest/docs/examples/bookinfo/">https://istio.io/latest/docs/examples/bookinfo/</a></li>
+<li><a href="https://istio.io/latest/docs/setup/getting-started/#determining-the-ingress-ip-and-ports">https://istio.io/latest/docs/setup/getting-started/#determining-the-ingress-ip-and-ports</a></li>
+<li><a href="https://istio.io/latest/docs/setup/additional-setup/config-profiles/">https://istio.io/latest/docs/setup/additional-setup/config-profiles/</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/" data-toggle="tooltip" data-placement="top" title="nginx ingress 에서 정규표현식 경로 지정하기">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
