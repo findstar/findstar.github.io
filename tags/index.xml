@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 21 Apr 2021 22:43:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cronjob</title>
+      <link>https://findstar.pe.kr/tags/cronjob/</link>
+      <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/cronjob/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>curl</title>
+      <link>https://findstar.pe.kr/tags/curl/</link>
+      <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/curl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://findstar.pe.kr/tags/k8s/</link>
+      <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>confluence</title>
       <link>https://findstar.pe.kr/tags/confluence/</link>
@@ -76,15 +103,6 @@
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/nginx-regexp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>curl</title>
-      <link>https://findstar.pe.kr/tags/curl/</link>
-      <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/curl/</guid>
       <description></description>
     </item>
     

@@ -2,22 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/cronjob/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/curl/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/k8s/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/confluence/</loc>
     <lastmod>2021-04-21T22:43:03+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/customizing/</loc>
     <lastmod>2021-04-21T22:43:03+09:00</lastmod>
   </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2021-04-21T22:43:03+09:00</lastmod>
-  </url><url>
     <loc>https://findstar.pe.kr/tags/sidebar-search/</loc>
-    <lastmod>2021-04-21T22:43:03+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2021-04-21T22:43:03+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2021-04-21T22:43:03+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</loc>
@@ -46,9 +58,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/tags/nginx-regexp/</loc>
     <lastmod>2021-03-21T17:43:01+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/curl/</loc>
-    <lastmod>2021-03-15T22:19:13+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</loc>
     <lastmod>2021-03-15T22:19:13+09:00</lastmod>
@@ -400,10 +409,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/2016/11/04/start-new-blog/</loc>
     <lastmod>2016-11-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/2021-04-26-timezone-pkg-on-alpine-linux/</loc>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/2021-04-29-k8s-cronjob-curl/</loc>
   </url><url>
     <loc>https://findstar.pe.kr/about/</loc>
   </url>

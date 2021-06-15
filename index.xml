@@ -6,7 +6,16 @@
     <description>Recent content on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 21 Apr 2021 22:43:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
+      <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
+      <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
+      <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
+    </item>
+    
     <item>
       <title>컨플루언스 사이드바에 검색 기능 추가하기</title>
       <link>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</link>
@@ -441,24 +450,6 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
       
       <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
       <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://findstar.pe.kr/posts/2021-04-26-timezone-pkg-on-alpine-linux/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/posts/2021-04-26-timezone-pkg-on-alpine-linux/</guid>
-      <description>https://wiki.alpinelinux.org/wiki/Setting_the_timezone</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://findstar.pe.kr/posts/2021-04-29-k8s-cronjob-curl/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/posts/2021-04-29-k8s-cronjob-curl/</guid>
-      <description>https://nieldw.medium.com/using-a-kubernetes-cronjob-the-team-city-api-to-trigger-a-regular-backup-17dfb076d83a</description>
     </item>
     
     <item>
