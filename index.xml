@@ -470,5 +470,14 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
       <description>남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터. 새로운걸 배</description>
     </item>
     
+    <item>
+      <title>Search Result</title>
+      <link>https://findstar.pe.kr/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://findstar.pe.kr/search/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

@@ -104,9 +104,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Soo Story</a>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
         </div>
-
         
         
         <div id="huxblog_navbar">
@@ -125,7 +135,6 @@
                         <li><a href="/tags/">ARCHIVES</a></li>
                     
 
-                    
                 </ul>
             </div>
         </div>
@@ -141,6 +150,7 @@
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
 
     $toggle.addEventListener('click', handleMagic)
     function handleMagic(e){
