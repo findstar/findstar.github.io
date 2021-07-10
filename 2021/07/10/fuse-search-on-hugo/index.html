@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Soo Story">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://findstar.pe.kr//images/bg.jpg">
+    <meta property="twitter:image" content="https://findstar.pe.kr//images/bg.jpg" />
+    
+
+    
+    <meta name="title" content="fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기" />
+    <meta property="og:title" content="fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기" />
+    <meta property="twitter:title" content="fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기" />
+    
+
+    
+    <meta name="description" content="Software Developer, I love code.">
+    <meta property="og:description" content="Software Developer, I love code." />
+    <meta property="twitter:description" content="Software Developer, I love code." />
+    
+
+    
+    <meta property="twitter:card" content="그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다" />
+    
+    
+
+    <meta name="keyword"  content="blog | developer | personal">
+    <link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기 - Soo Story</title>
+
+    <link rel="canonical" href="/2021/07/10/fuse-search-on-hugo/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+    
+    <link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css">
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        <a class="tag" href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
+                        </a>
+                        
+                    </div>
+                    <h1>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2021-07-10
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fusejs-로-hugo-블로그에-검색-기능-추가하기">fuse.js 로 Hugo 블로그에 검색 기능 추가하기</a>
+      <ul>
+        <li><a href="#fusejs">fuse.js</a></li>
+        <li><a href="#fuzzy-search">fuzzy search</a></li>
+        <li><a href="#hugo-에-적용하기">hugo 에 적용하기</a></li>
+        <li><a href="#기타">기타</a></li>
+      </ul>
+    </li>
+    <li><a href="#소감">소감</a></li>
+    <li><a href="#참고자료">참고자료</a></li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="fusejs-로-hugo-블로그에-검색-기능-추가하기">fuse.js 로 Hugo 블로그에 검색 기능 추가하기</h1>
+<p>그 동안 이 블로그에는 검색기능이 빠져 있었다. 😱 콘텐츠를 제공하는 사이트라면 기본적으로 제공하는 기능인데, 정적사이트에서 어떻게 하는지 몰라서 못하고 있었다. (사실 사이트 유입의 대부분인 구글 검색에 의존하고 있었다.) 그러다가 hugo 를 기반으로한 정적사이트에서 <a href="https://fusejs.io/">fuse.js</a>를 사용하면 된다는 사실을 알게되어 바로 적용해보았다.</p>
+<h2 id="fusejs">fuse.js</h2>
+<p>fuse.js 는 작고 강력한 <code>fuzzy search</code> 라이브러리로 다른 라이브러리 의존성이 없다는 특징이 있다. 따라서 적용이 아주 쉬운 장점이 있다. <a href="https://fusejs.io/demo.html">fuse.js 데모</a> 에서 확인해보면 한글 검색도 잘 지원한다.</p>
+<h2 id="fuzzy-search">fuzzy search</h2>
+<p><code>fuzzy search</code> 란 검색의 일종으로 완벽하게 일치하는 검색이 아닌 <code>흐린(fuzzy)</code> 검색이라는 뜻으로, 쉽게 생각해서 검색어가 완벽하게 일치하지 않더라도 대상 콘텐츠를 찾을 수 있는 검색을 의미한다. 유사 검색이라고도 하는데, 이를 구현하기 위한 알고리즘은 여러가지가 있고 세부적인건 복잡하기 때문에, 아주 쉽게 예를 들어 &ldquo;떡국&rdquo; 이라는 단어를 찾기 위해서 &ldquo;떡&rdquo; 이라는 검색어로 찾을 수 있는 경우가 바로 이 <code>fuzzy search</code> 라고 이해할 수 있다.</p>
+<h2 id="hugo-에-적용하기">hugo 에 적용하기</h2>
+<p><code>fuse.js</code> 가 아주 간단하게 fuzzy 검색 기능을 제공하지만 hugo 에 적용하려면 몇가지 작업이 필요하다. 직접 다 만들기는 어려우니 hugo theme 로 만들어진 자료를 참고하자. <a href="https://github.com/kaushalmodi/hugo-search-fuse-js">참고</a> 를 확인하여 다음과 같은 순서로 적용할 수 있다.</p>
+<h3 id="1-indexjson-템플릿을-적용">1. index.json 템플릿을 적용</h3>
+<ul>
+<li>config.toml 의 output 에 json 타입을 추가한다. (콘텐츠를 index.json 주소로 접근 가능하게 한다.)</li>
+<li>layouts/_default/index.json 에 json 으로 표시될 콘텐츠의 템플릿을 적용한다.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"> [{{ range $index, $page := .Site.Pages }}
+ {{- if ne $page.Type &#34;json&#34; -}}
+ {{- if and $index (gt $index 0) -}},{{- end }}
+ {
+ &#34;permalink&#34;: &#34;{{ $page.Permalink }}&#34;,
+ &#34;title&#34;: &#34;{{ htmlEscape $page.Title}}&#34;,
+ &#34;tags&#34;: [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}&#34;{{ $tag| htmlEscape }}&#34;{{ end }}],
+ &#34;description&#34;: &#34;{{ htmlEscape .Description}}&#34;,
+ &#34;contents&#34;: {{$page.Plain | jsonify}}
+ }
+ {{- end -}}
+ {{- end -}}]
+</code></pre></div></li>
+</ul>
+<h3 id="2-검색-랜딩-페이지-구성">2. 검색 랜딩 페이지 구성</h3>
+<ul>
+<li>content/search/index.md 파일을 생성하여 검색 랜딩 페이지를 구성한다.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
+title: Search Result
+layout: search
+---
+</code></pre></div></li>
+<li>참고자료의 fuse.js, search.js 를 적용한다.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#6272a4">&lt;!--검색 결과가 출력되는 부분 id=&#34;search-results&#34; 에 추가된다.--&gt;</span>
+ &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;inner&#34;</span>&gt;
+     &lt;<span style="color:#ff79c6">article</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full post page no-image&#34;</span>&gt;
+         &lt;<span style="color:#ff79c6">header</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-header&#34;</span>&gt;
+             &lt;<span style="color:#ff79c6">h1</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-title&#34;</span>&gt;Search Result&lt;/<span style="color:#ff79c6">h1</span>&gt;
+         &lt;/<span style="color:#ff79c6">header</span>&gt;
+         &lt;<span style="color:#ff79c6">section</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-content&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-results&#34;</span>&gt;
+
+         &lt;/<span style="color:#ff79c6">section</span>&gt;
+     &lt;/<span style="color:#ff79c6">article</span>&gt;
+
+ &lt;/<span style="color:#ff79c6">div</span>&gt;
+ <span style="color:#6272a4">&lt;!--검색 결과가 출력되는 템플릿 search.js 에 의해서 다음과 같은 포맷으로 표시된다.--&gt;</span>
+ &lt;<span style="color:#ff79c6">template</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-result-template&#34;</span>&gt;
+     &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_summary&#34;</span>&gt;
+         &lt;<span style="color:#ff79c6">h2</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-title no-text-decoration&#34;</span>&gt;&lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_link search_title&#34;</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt;&lt;/<span style="color:#ff79c6">a</span>&gt;&lt;/<span style="color:#ff79c6">h2</span>&gt;
+         &lt;<span style="color:#ff79c6">p</span>&gt;&lt;<span style="color:#ff79c6">em</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_snippet&#34;</span>&gt;&lt;/<span style="color:#ff79c6">em</span>&gt;&lt;/<span style="color:#ff79c6">p</span>&gt;
+         &lt;<span style="color:#ff79c6">small</span>&gt;
+             &lt;<span style="color:#ff79c6">table</span>&gt;
+                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_iftags&#34;</span>&gt;
+                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Tags&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_tags&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
+                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_ifcategories&#34;</span>&gt;
+                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Categories&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_categories&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
+             &lt;/<span style="color:#ff79c6">table</span>&gt;
+         &lt;/<span style="color:#ff79c6">small</span>&gt;
+     &lt;/<span style="color:#ff79c6">div</span>&gt;
+ &lt;/<span style="color:#ff79c6">template</span>&gt;
+ <span style="color:#6272a4">&lt;!--필요한 js 파일을 추가한다.--&gt;</span>
+ {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
+ &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">3</span>.<span style="color:#50fa7b">2</span>.<span style="color:#50fa7b">1</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+ &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">9</span>.<span style="color:#50fa7b">0</span>.<span style="color:#50fa7b">0</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+ &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">search</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+
+</code></pre></div></li>
+<li>css 스타일링은 적당히 변경한다.</li>
+</ul>
+<h3 id="3-header-영역에-검색-입력창-추가">3. header 영역에 검색 입력창 추가</h3>
+<ul>
+<li>theme 에서 사용하는 header 부분에 검색 입력창을 추가한다. submit 하면 추가한 검색 랜딩 페이지로 연결되도록 한다.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;get&#34;</span> <span style="color:#50fa7b">action</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/search&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">fieldset</span> &gt;
+        &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;field&#34;</span>&gt;
+            &lt;<span style="color:#ff79c6">label</span>&gt;&lt;<span style="color:#ff79c6">span</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hide&#34;</span>&gt;검색&lt;/<span style="color:#ff79c6">span</span>&gt;
+                &lt;<span style="color:#ff79c6">i</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fa fa-search&#34;</span>&gt;&lt;/<span style="color:#ff79c6">i</span>&gt;
+                &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;searchtext&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;input_text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;q&#34;</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span> <span style="color:#50fa7b">size</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;15&#34;</span> &gt;
+            &lt;/<span style="color:#ff79c6">label</span>&gt;
+        &lt;/<span style="color:#ff79c6">div</span>&gt;
+    &lt;/<span style="color:#ff79c6">fieldset</span>&gt;
+    &lt;/<span style="color:#ff79c6">form</span>&gt;
+&lt;/<span style="color:#ff79c6">div</span>&gt;
+</code></pre></div></li>
+</ul>
+<h3 id="4-검색-기능이-잘-되는지-확인한다">4. 검색 기능이 잘 되는지 확인한다.</h3>
+<h2 id="기타">기타</h2>
+<p>fuse.js 말고도 다른 방법을 사용하여 hugo 사이트에 검색 기능을 추가할 수 있다. 나의 경우에는 처음에 lunr 를 도입시도해보다가
+한글 지원지 잘 되지 않아서 포기하고 fuse.js 로 검색되도록 작업을 완료하였다. 다른 검색 기능을 살펴본다면 <a href="https://gohugo.io/tools/search/">공식 사이트 매뉴얼</a>을 살펴보자.</p>
+<h1 id="소감">소감</h1>
+<p>hugo 로 변경한 뒤에 내심 검색기능을 구글에만 의존하고 있어서 자체 검색을 추가해야지 해야지 하면서 시간만 보내고 있었는데
+간단하게 작업을 완료하고 나니 한결 보기 좋아졌다는 기분이 든다. 그 동안 왜 못한다고 생각하고 있었던 걸까?;; 앞으로 방문자들에게 조금이나마 더 편하게 글을 찾을 수 있도록 도움되길 바란다.</p>
+<h1 id="참고자료">참고자료</h1>
+<ul>
+<li><a href="https://gohugo.io/tools/search/">hugo 공식 매뉴얼의 검색 기능 안내</a></li>
+<li><a href="https://fusejs.io">fuse.js</a></li>
+<li><a href="https://github.com/kaushalmodi/hugo-search-fuse-js">hugo fuse.js 도입 참고</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2021/06/30/how-do-I-work/" data-toggle="tooltip" data-placement="top" title="나는 어떻게 일하는 사람인가?">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 30 Jun 2021 18:14:13 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Jul 2021 22:33:16 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
+      <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
+      <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</guid>
+      <description>그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다</description>
+    </item>
+    
     <item>
       <title>나는 어떻게 일하는 사람인가?</title>
       <link>https://findstar.pe.kr/2021/06/30/how-do-I-work/</link>

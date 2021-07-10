@@ -2,19 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/fuse.js/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/search-on-hugo/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2021-07-10T22:33:16+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/developer/</loc>
     <lastmod>2021-06-30T18:14:13+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/how-do-i-work/</loc>
-    <lastmod>2021-06-30T18:14:13+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2021-06-30T18:14:13+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2021-06-30T18:14:13+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2021-06-30T18:14:13+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/06/30/how-do-I-work/</loc>
