@@ -6,7 +6,16 @@
     <description>Recent content on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 10 Jul 2021 22:33:16 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jul 2021 23:28:36 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alpine 리눅스에서 timezone 설정하기</title>
+      <link>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</link>
+      <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</guid>
+      <description>도커 빌드에서 자주 사용되는 &lt;code&gt;Alpine&lt;/code&gt; 리눅스에서 Timezone을 지정하는 방법을 살펴보았다.</description>
+    </item>
+    
     <item>
       <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
       <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
