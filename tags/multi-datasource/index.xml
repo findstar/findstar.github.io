@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>multi datasource on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/multi-datasource/</link>
+    <description>Recent content in multi datasource on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 31 Jul 2021 11:54:35 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/multi-datasource/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>멀티 데이터소스에서 data.sql 사용하기</title>
+      <link>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</link>
+      <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</guid>
+      <description>데이터소스를 여러개 사용하고 있는 경우에 각각의 데이터베이스에 data.sql 을 적용하는 방법을 살펴보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

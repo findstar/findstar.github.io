@@ -1,19 +1,19 @@
 [
 {
-	"permalink": "https://findstar.pe.kr/tags/alpine-linux/",
-	"title": "alpine linux",
+	"permalink": "https://findstar.pe.kr/tags/data.sql/",
+	"title": "data.sql",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/",
-	"title": "Alpine 리눅스에서 timezone 설정하기",
-	"tags": ["alpine linux", "timezone"],
+	"permalink": "https://findstar.pe.kr/tags/multi-datasource/",
+	"title": "multi datasource",
+	"tags": [],
 	"description": "",
-	"type": "post",
-	"contents": "Alpine 리눅스에서 Timezone 설정하기 도커를 빌드할 때 주로 사용하는 것이 바로 Alpine 리눅스이다. 도커를 사용할 때 경량의 이미지를 기반으로 하면 이미지 pull 속도가 빨라 빠른 배포에 도움이 되어 자주 사용하고 있다. 다만 너무 경량이다 보니 필요한 패키지를 추가로 설치해줘야 하는 경우가 있는데 이미지에 timezone 을 추가로 지정하는 방법을 살펴보았다.\nAlpine Linux Alpine 리눅스는 보안, 단순함, 적은 자원을 사용하는 리눅스로 위키 링크 에서 대부분의 매뉴얼을 찾을 수 있다. 도커 허브에서는 베이스 이미지로 제공하고 있으며 로컬 머신에서 이미지를 다운로드 받아보면 얼마나 작은 사이즈를 유지하는지 확인할 수 있다. 다음처럼 확인했을 때 불과 5.6MB 에 이미지 사이즈를 확인할 수 있었다.\n$ docker image pull alpine:latest Using default tag: latest latest: Pulling from library/alpine 5843afab3874: Already exists Digest: sha256:234cb88d3020898631af0ccbbcca9a66ae7306ecd30c9720690858c1b007d2a0 Status: Downloaded newer image for alpine:latest docker.io/library/alpine:latest $ docker images alpine 3.14.0 d4ff818577bc 5 secods ago 5.6MB timezone 설정하기 정확한 내용은 위키 문서를 참고하였다. 일단 alpine 에서는 yum, apt 와 같은 패키지 매니저를 사용할 수 있는데 바로 apk 명령어다. 타임존을 설정하기 위해서는 tzdata 패키지가 필요하다.\napk add tzdata 패키지를 설치하는 것에 더해 /etc/timezone 을 지정해줘야한다.\necho \u0026#34;Asia/Seoul\u0026#34; \u0026gt; /etc/timezone 도커에서 설정하기 도커파일에서는 다음과 같이 사용하고 있다.\nENV TZ=Asia/Seoul RUN apk add --no-cache tzdata \u0026amp;\u0026amp; \\  cp /usr/share/zoneinfo/$TZ /etc/localtime \u0026amp;\u0026amp; \\  echo $TZ \u0026gt; /etc/timezone 참고자료  알파인 리눅스 도커 허브 이미지 timezone 지정 위키 문서  "
+	"type": "base",
+	"contents": ""
 },
 {
 	"permalink": "https://findstar.pe.kr/posts/",
@@ -32,12 +32,44 @@
 	"contents": ""
 },
 {
+	"permalink": "https://findstar.pe.kr/tags/spring-boot/",
+	"title": "spring boot",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
 	"permalink": "https://findstar.pe.kr/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/",
+	"title": "멀티 데이터소스에서 data.sql 사용하기",
+	"tags": ["spring boot", "multi datasource", "data.sql"],
+	"description": "",
+	"type": "post",
+	"contents": "개요 spring boot 프로젝트를 개발하는 도중 data.sql 을 사용해서 테스트에 필요한 기초 데이터를 초기화 하는 작업을 수행했다. 그런데 연결되는 데이터베이스가 늘어나서 데이터소스 설정을 추가한 뒤에 각각의 데이터베이스 마다 data.sql 을 사용하여 초기화 하려고 하자 테스트가 계속 실패했다. 그 원인을 찾아서 수정해보았다.\n멀티 데이터소스와 Data.sql 연결 싱글 데이터소스 연결 spring boot 프로젝트에서 여러개의 데이터베이스에 연결하는 경우가 있다. 나의 경우에는 신규 프로젝트를 시작하면서 제일 처음 사용자의 계정 데이터베이스에 연결하는 데이터소스를 설정하기 위해서 다음과 같이 코드를 작성하였다.\n다음은 AccountDataSourceConfiguration 이다.\n@Configuration @EnableJpaRepositories(basePackages = { \u0026#34;me.home.domain.account\u0026#34; }, entityManagerFactoryRef = \u0026#34;accountEntityManagerFactory\u0026#34;, transactionManagerRef = \u0026#34;accountTransactionManager\u0026#34;) public class AccountDataSourceConfig { public static final String[] packages = new String[]{ \u0026#34;me.home.domain.account\u0026#34; }; private final JpaProperties jpaProperties; private final HibernateProperties hibernateProperties; public AccountDataSourceConfig(JpaProperties jpaProperties, HibernateProperties hibernateProperties) { this.jpaProperties = jpaProperties; this.hibernateProperties = hibernateProperties; } ....이하 생략... 이 상태에서 data.sql 을 작성한 뒤 테스트를 실행하면 바로 이 AccountDataSource 에 작성한 SQL 스크립트가 실행된다.\n멀티 데이터소스 연결 위의 상황에서 추가적으로 비지니스 로직을 구현하면서 필요한 콘텐츠를 담아두는 데이터소스를 추가한다고 생각해보자.\n다음은 ContentDataSourceConfiguration 이다.\n@Configuration @EnableJpaRepositories(basePackages = { \u0026#34;me.home.domain.post\u0026#34;, \u0026#34;me.home.domain.comment\u0026#34;}, entityManagerFactoryRef = \u0026#34;contentEntityManagerFactory\u0026#34;, transactionManagerRef = \u0026#34;contentTransactionManager\u0026#34;) public class ContentDataSourceConfig { private final JpaProperties jpaProperties; private final HibernateProperties hibernateProperties; public ContentDataSourceConfig(JpaProperties jpaProperties, HibernateProperties hibernateProperties) { this.jpaProperties = jpaProperties; this.hibernateProperties = hibernateProperties; } ...이하 생략... 이 다음에는 content data source 에서 실행하고자 하는 data.sql 스크립트 내용을 추가로 작성해야하는데 이를 구분해서 적용하는 방법이 매뉴얼에는 안내되어 있지 않다. (매뉴얼에는 While we do not recommend using multiple data source initialization technologies 라고 하며 멀티 데이터소스에서 초기화 스크립트를 실행하는 것을 권장하지 않는다고 나와있다.) 이 상태에서 테스트를 실행하면 IllegalArgumentException 이 발생하거나 DataSourceInitializationConfiguration 에서 정상적으로 처리되지 않는다. 따라서 다음의 순서대로 적용해보았다.\nDataSourceInitializer 역할 확인 org.springframework.boot.autoconfigure.jdbc.DataSourceInitializer 파일을 확인해보면 initSchema() 메서드에서 runScripts 메서드를 호출하는 부분을 찾을 수 있는데 이부분이 바로 data.sql 을 실행하는 부분이다.\nList\u0026lt;Resource\u0026gt; scripts = getScripts(\u0026#34;spring.datasource.data\u0026#34;, this.properties.getData(), \u0026#34;data\u0026#34;); if (!scripts.isEmpty()) { if (!isEnabled()) { logger.debug(\u0026#34;Initialization disabled (not running data scripts)\u0026#34;); return; } String username = this.properties.getDataUsername(); String password = this.properties.getDataPassword(); runScripts(scripts, username, password); } 따라서 각각의 datasource configuration 에 다음과 같이 bean 을 등록해주는 코드를 추가해주었다.\nBean 등록 @Bean @Profile(\u0026#34;local\u0026#34;) // 테스트에서만 runScript 에 필요한 sql 스크립트이기 때문에 \u0026#39;local\u0026#39; profile 에서만 bean 을 등록한다. public DataSourceInitializer dataSourceInitializer(@Qualifier(\u0026#34;accountDataSource\u0026#34;) DataSource datasource) { ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(); resourceDatabasePopulator.addScript(new ClassPathResource(\u0026#34;account-data.sql\u0026#34;)); // 여기에서는 data.sql 을 사용하지 않고 account-data.sql 파일을 사용하였다.  DataSourceInitializer dataSourceInitializer = new DataSourceInitializer(); dataSourceInitializer.setDataSource(datasource); dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator); return dataSourceInitializer; } 그리고 application.yml 파일에 다음과 같이 설정해주었다.\ndatasource.account: jdbcUrl: jdbc:h2:mem:testdb driverClassName: org.h2.Driver username: sa password: maximumPoolSize: 20 poolName: account-hikari data: account-data.sql datasource.content: jdbcUrl: jdbc:h2:mem:testdb driverClassName: org.h2.Driver username: sa password: maximumPoolSize: 20 poolName: content-hikari data: content-data.sql 정리 나의 경우에는 테스트에서 필요한 기초 데이터를 입력하기 위한 data.sql 파일을 사용하고 있었는데, 멀티 데이터소스 구조로 변경되면서 각각의 데이터베이스에 분리된 별도의 data.sql 을 실행할 필요가 있었다. 따라서 DataSourceInitializer Bean 을 직접 추가하므로써 분리된 각각의 account-data.sql, content-data.sql 이 실행될 수 있도록 하였다.\n참고  DataSource Configuration은 이름 순서대로 Component Scan 하므로 DataSource Configuration 파일의 이름이 중요할 수 있다. @Primary 어노테이션은 Data.sql 을 실행하는데 아무런 관계가 없다. application.yml 을 어떤게 작성하여 datasource bean 을 등록하느냐에 따라서 위의 코드는 달라질 수 있다.  참고자료  공식 매뉴얼 스택오버플러오  "
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/alpine-linux/",
+	"title": "alpine linux",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/",
+	"title": "Alpine 리눅스에서 timezone 설정하기",
+	"tags": ["alpine linux", "timezone"],
+	"description": "",
+	"type": "post",
+	"contents": "Alpine 리눅스에서 Timezone 설정하기 도커를 빌드할 때 주로 사용하는 것이 바로 Alpine 리눅스이다. 도커를 사용할 때 경량의 이미지를 기반으로 하면 이미지 pull 속도가 빨라 빠른 배포에 도움이 되어 자주 사용하고 있다. 다만 너무 경량이다 보니 필요한 패키지를 추가로 설치해줘야 하는 경우가 있는데 이미지에 timezone 을 추가로 지정하는 방법을 살펴보았다.\nAlpine Linux Alpine 리눅스는 보안, 단순함, 적은 자원을 사용하는 리눅스로 위키 링크 에서 대부분의 매뉴얼을 찾을 수 있다. 도커 허브에서는 베이스 이미지로 제공하고 있으며 로컬 머신에서 이미지를 다운로드 받아보면 얼마나 작은 사이즈를 유지하는지 확인할 수 있다. 다음처럼 확인했을 때 불과 5.6MB 에 이미지 사이즈를 확인할 수 있었다.\n$ docker image pull alpine:latest Using default tag: latest latest: Pulling from library/alpine 5843afab3874: Already exists Digest: sha256:234cb88d3020898631af0ccbbcca9a66ae7306ecd30c9720690858c1b007d2a0 Status: Downloaded newer image for alpine:latest docker.io/library/alpine:latest $ docker images alpine 3.14.0 d4ff818577bc 5 secods ago 5.6MB timezone 설정하기 정확한 내용은 위키 문서를 참고하였다. 일단 alpine 에서는 yum, apt 와 같은 패키지 매니저를 사용할 수 있는데 바로 apk 명령어다. 타임존을 설정하기 위해서는 tzdata 패키지가 필요하다.\napk add tzdata 패키지를 설치하는 것에 더해 /etc/timezone 을 지정해줘야한다.\necho \u0026#34;Asia/Seoul\u0026#34; \u0026gt; /etc/timezone 도커에서 설정하기 도커파일에서는 다음과 같이 사용하고 있다.\nENV TZ=Asia/Seoul RUN apk add --no-cache tzdata \u0026amp;\u0026amp; \\  cp /usr/share/zoneinfo/$TZ /etc/localtime \u0026amp;\u0026amp; \\  echo $TZ \u0026gt; /etc/timezone 참고자료  알파인 리눅스 도커 허브 이미지 timezone 지정 위키 문서  "
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/timezone/",
@@ -746,14 +778,6 @@
 {
 	"permalink": "https://findstar.pe.kr/tags/file-upload/",
 	"title": "file upload",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/spring-boot/",
-	"title": "spring boot",
 	"tags": [],
 	"description": "",
 	"type": "base",

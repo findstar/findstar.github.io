@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/data.sql/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/multi-datasource/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/spring-boot/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</loc>
+    <lastmod>2021-07-31T11:54:35+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/alpine-linux/</loc>
     <lastmod>2021-07-25T23:28:36+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</loc>
-    <lastmod>2021-07-25T23:28:36+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2021-07-25T23:28:36+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2021-07-25T23:28:36+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2021-07-25T23:28:36+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/timezone/</loc>
@@ -283,9 +295,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/tags/file-upload/</loc>
     <lastmod>2018-05-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/spring-boot/</loc>
-    <lastmod>2018-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</loc>
     <lastmod>2018-05-02T00:00:00+00:00</lastmod>
