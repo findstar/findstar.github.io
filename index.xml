@@ -1,391 +1,656 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Soo Story</title>
-    <link>https://findstar.pe.kr/</link>
-    <description>Recent content on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ko-kr</language>
-    <lastBuildDate>Fri, 06 Aug 2021 20:08:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Spring 프로젝트 Maven을 사용할 때 도커라이즈 캐싱방법</title>
-      <link>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</link>
-      <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</guid>
-      <description>spring 프로젝트에서 maven 을 사용할 때 도커라이즈에서 레이어를 캐싱하여 빌드 속도를 향상시키는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>멀티 데이터소스에서 data.sql 사용하기</title>
-      <link>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</link>
-      <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</guid>
-      <description>데이터소스를 여러개 사용하고 있는 경우에 각각의 데이터베이스에 data.sql 을 적용하는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>Alpine 리눅스에서 timezone 설정하기</title>
-      <link>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</link>
-      <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</guid>
-      <description>도커 빌드에서 자주 사용되는 &lt;code&gt;Alpine&lt;/code&gt; 리눅스에서 Timezone을 지정하는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
-      <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
-      <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</guid>
-      <description>그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다</description>
-    </item>
-    
-    <item>
-      <title>나는 어떻게 일하는 사람인가?</title>
-      <link>https://findstar.pe.kr/2021/06/30/how-do-I-work/</link>
-      <pubDate>Wed, 30 Jun 2021 18:14:13 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/06/30/how-do-I-work/</guid>
-      <description>올해 초 4년 6개월간 일했던 조직에서 이동하게 되어 회고 발표를 하게 되었는데, &lt;code&gt;나는 어떻게 일하는 사람인가?&lt;/code&gt; 를 돌아보며 내용을 정리해보았다.</description>
-    </item>
-    
-    <item>
-      <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
-      <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
-      <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
-      <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
-    </item>
-    
-    <item>
-      <title>컨플루언스 사이드바에 검색 기능 추가하기</title>
-      <link>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</link>
-      <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</guid>
-      <description>위키(컨플루언스)에 새로운 스페이스를 생성하면서, 사이드바에 검색 기능을 추가하는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>istio의 트래픽 관리 기능 살펴보기</title>
-      <link>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</link>
-      <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</guid>
-      <description>istio 의 트래픽 관리 기능에 대해서 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>Docker desktop 에서 istio 설치하기</title>
-      <link>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</link>
-      <pubDate>Thu, 25 Mar 2021 09:27:44 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</guid>
-      <description>mac 의 docker desktop 환경에 istio 를 설치하는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
-      <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
-      <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
-      <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
-    </item>
-    
-    <item>
-      <title>curl 로 측정하는 dns lookup time</title>
-      <link>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</link>
-      <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</guid>
-      <description>k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다. curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>Haproxy에서 acl을 log에 기록하기</title>
-      <link>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</link>
-      <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
-      <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
-    </item>
-    
-    <item>
-      <title>[리뷰] Kmooc-Microservice 설계 및 구현 수강 후기</title>
-      <link>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</link>
-      <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</guid>
-      <description>우연찮게 [kmooc] Microservice 설계 및 구현 강의를 신청해서 듣게 되었다. 큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.</description>
-    </item>
-    
-    <item>
-      <title>[북 리뷰] 쿠버네티스 시작하기(kubernetes up &amp; running)</title>
-      <link>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</link>
-      <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
-      <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
-    </item>
-    
-    <item>
-      <title>2019년에 배우고자 하는 것들</title>
-      <link>https://findstar.pe.kr/2019/01/27/learning-in-2019/</link>
-      <pubDate>Sun, 27 Jan 2019 23:21:34 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/01/27/learning-in-2019/</guid>
-      <description>새해에 접어든지도 벌써 한달이 다되어 간다. 벌써 한해의 1/12이 지나가버린 것이다! 새해가 밝아오면 늘상 여러가지 다짐들을 하게 마련이지만, 작심삼일이라는 말처럼 쉽지 않은 일이다. 그런 의미에서 올 한해 배우려고 생각하는 것들을 다시금 리스트를 정리해서 스스로에게 동기부여를 해본다.</description>
-    </item>
-    
-    <item>
-      <title>homebrew로 openjdk 설치하기 </title>
-      <link>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</link>
-      <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
-      <description>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</description>
-    </item>
-    
-    <item>
-      <title>[북 리뷰] 시작하세요 도커</title>
-      <link>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</link>
-      <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</guid>
-      <description>&lt;p&gt;도커 공부를 시작 한지는 오래되었지만, 제대로 한권을 끝까지 읽은건 이책이 처음이었다. 위키북스에서 출간한 &amp;ldquo;시작하세요 도커&amp;rdquo; 책의 간략한 소감이다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
-      <link>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</link>
-      <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</guid>
-      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
+    <channel>
+        <title>Soo Story</title>
+        <link>https://findstar.pe.kr/</link>
+        <description>Recent content on Soo Story</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-kr</language>
+        <lastBuildDate>Fri, 06 Aug 2021 20:08:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>Spring 프로젝트 Maven을 사용할 때 도커라이즈 캐싱방법</title>
+            <link>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</link>
+            <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</guid>
+            <description>spring 프로젝트에서 maven 을 사용할 때 도커라이즈에서 레이어를 캐싱하여 빌드 속도를 향상시키는 방법을 살펴보았다.</description>
+            
+            <category>dockerize</category>
+            
+            <category>spring boot</category>
+            
+            <category>maven</category>
+            
+        </item>
+        
+        <item>
+            <title>멀티 데이터소스에서 data.sql 사용하기</title>
+            <link>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</link>
+            <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</guid>
+            <description>데이터소스를 여러개 사용하고 있는 경우에 각각의 데이터베이스에 data.sql 을 적용하는 방법을 살펴보았다.</description>
+            
+            <category>spring boot</category>
+            
+            <category>multi datasource</category>
+            
+            <category>data.sql</category>
+            
+        </item>
+        
+        <item>
+            <title>Alpine 리눅스에서 timezone 설정하기</title>
+            <link>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</link>
+            <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</guid>
+            <description>도커 빌드에서 자주 사용되는 &lt;code&gt;Alpine&lt;/code&gt; 리눅스에서 Timezone을 지정하는 방법을 살펴보았다.</description>
+            
+            <category>alpine linux</category>
+            
+            <category>timezone</category>
+            
+        </item>
+        
+        <item>
+            <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
+            <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
+            <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</guid>
+            <description>그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다</description>
+            
+            <category>fuse.js</category>
+            
+            <category>search on hugo</category>
+            
+        </item>
+        
+        <item>
+            <title>나는 어떻게 일하는 사람인가?</title>
+            <link>https://findstar.pe.kr/2021/06/30/how-do-I-work/</link>
+            <pubDate>Wed, 30 Jun 2021 18:14:13 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/06/30/how-do-I-work/</guid>
+            <description>올해 초 4년 6개월간 일했던 조직에서 이동하게 되어 회고 발표를 하게 되었는데, &lt;code&gt;나는 어떻게 일하는 사람인가?&lt;/code&gt; 를 돌아보며 내용을 정리해보았다.</description>
+            
+            <category>developer</category>
+            
+            <category>how do I work</category>
+            
+        </item>
+        
+        <item>
+            <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
+            <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
+            <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
+            <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
+            
+            <category>curl</category>
+            
+            <category>k8s</category>
+            
+            <category>cronjob</category>
+            
+        </item>
+        
+        <item>
+            <title>컨플루언스 사이드바에 검색 기능 추가하기</title>
+            <link>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</link>
+            <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</guid>
+            <description>위키(컨플루언스)에 새로운 스페이스를 생성하면서, 사이드바에 검색 기능을 추가하는 방법을 살펴보았다.</description>
+            
+            <category>confluence</category>
+            
+            <category>sidebar search</category>
+            
+            <category>customizing</category>
+            
+        </item>
+        
+        <item>
+            <title>istio의 트래픽 관리 기능 살펴보기</title>
+            <link>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</link>
+            <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</guid>
+            <description>istio 의 트래픽 관리 기능에 대해서 살펴보았다.</description>
+            
+            <category>istio</category>
+            
+            <category>traffic management</category>
+            
+            <category>kubernetes</category>
+            
+        </item>
+        
+        <item>
+            <title>Docker desktop 에서 istio 설치하기</title>
+            <link>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</link>
+            <pubDate>Thu, 25 Mar 2021 09:27:44 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</guid>
+            <description>mac 의 docker desktop 환경에 istio 를 설치하는 방법을 살펴보았다.</description>
+            
+            <category>istio</category>
+            
+            <category>docker desktop</category>
+            
+            <category>kubernetes</category>
+            
+        </item>
+        
+        <item>
+            <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
+            <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
+            <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
+            <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
+            
+            <category>kubernetes</category>
+            
+            <category>nginx regexp</category>
+            
+        </item>
+        
+        <item>
+            <title>curl 로 측정하는 dns lookup time</title>
+            <link>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</link>
+            <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</guid>
+            <description>k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다. curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.</description>
+            
+            <category>curl</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy에서 acl을 log에 기록하기</title>
+            <link>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</link>
+            <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
+            <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
+            
+            <category>haproxy</category>
+            
+            <category>haproxy acl logging</category>
+            
+            <category>haproxy custom variable logging</category>
+            
+        </item>
+        
+        <item>
+            <title>[리뷰] Kmooc-Microservice 설계 및 구현 수강 후기</title>
+            <link>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</link>
+            <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</guid>
+            <description>우연찮게 [kmooc] Microservice 설계 및 구현 강의를 신청해서 듣게 되었다. 큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.</description>
+            
+            <category>kmooc</category>
+            
+            <category>Microservice 설계 및 구현</category>
+            
+        </item>
+        
+        <item>
+            <title>[북 리뷰] 쿠버네티스 시작하기(kubernetes up &amp; running)</title>
+            <link>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</link>
+            <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
+            <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
+            
+            <category>book</category>
+            
+            <category>쿠버네티스 시작하기</category>
+            
+            <category>kubernetes</category>
+            
+        </item>
+        
+        <item>
+            <title>2019년에 배우고자 하는 것들</title>
+            <link>https://findstar.pe.kr/2019/01/27/learning-in-2019/</link>
+            <pubDate>Sun, 27 Jan 2019 23:21:34 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/27/learning-in-2019/</guid>
+            <description>새해에 접어든지도 벌써 한달이 다되어 간다. 벌써 한해의 1/12이 지나가버린 것이다! 새해가 밝아오면 늘상 여러가지 다짐들을 하게 마련이지만, 작심삼일이라는 말처럼 쉽지 않은 일이다. 그런 의미에서 올 한해 배우려고 생각하는 것들을 다시금 리스트를 정리해서 스스로에게 동기부여를 해본다.</description>
+            
+            <category>learning in 2019</category>
+            
+        </item>
+        
+        <item>
+            <title>homebrew로 openjdk 설치하기 </title>
+            <link>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</link>
+            <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
+            <description>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</description>
+            
+            <category>openjdk</category>
+            
+            <category>brew cask</category>
+            
+        </item>
+        
+        <item>
+            <title>[북 리뷰] 시작하세요 도커</title>
+            <link>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</link>
+            <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</guid>
+            <description>&lt;p&gt;도커 공부를 시작 한지는 오래되었지만, 제대로 한권을 끝까지 읽은건 이책이 처음이었다. 위키북스에서 출간한 &amp;ldquo;시작하세요 도커&amp;rdquo; 책의 간략한 소감이다.&lt;/p&gt;</description>
+            
+            <category>book</category>
+            
+            <category>시작하세요 도커</category>
+            
+            <category>begining docker</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
+            <link>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</link>
+            <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</guid>
+            <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
 간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>2019년 새해 목표</title>
-      <link>https://findstar.pe.kr/2019/01/01/2019-new-year/</link>
-      <pubDate>Wed, 02 Jan 2019 21:36:07 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2019/01/01/2019-new-year/</guid>
-      <description>&lt;p&gt;2019년 새해가 밝았다, 작년 중반 이후에는 뜸해진 블로그에 간만에 따뜻한(?) 온기를 불어넣어보고자, 2019년 한해의 다짐을 기록해 본다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
-      <link>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</link>
-      <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
-      <link>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</link>
-      <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</guid>
-      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail&#34;&gt;Haproxy를 reload fail 해결하기&lt;/a&gt;을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy를 reload fail 해결하기</title>
-      <link>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</link>
-      <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</guid>
-      <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)
+            
+            <category>haproxy</category>
+            
+            <category>haproxy stat</category>
+            
+            <category>haproxy metric</category>
+            
+        </item>
+        
+        <item>
+            <title>2019년 새해 목표</title>
+            <link>https://findstar.pe.kr/2019/01/01/2019-new-year/</link>
+            <pubDate>Wed, 02 Jan 2019 21:36:07 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2019/01/01/2019-new-year/</guid>
+            <description>&lt;p&gt;2019년 새해가 밝았다, 작년 중반 이후에는 뜸해진 블로그에 간만에 따뜻한(?) 온기를 불어넣어보고자, 2019년 한해의 다짐을 기록해 본다.&lt;/p&gt;</description>
+            
+            <category>happy new year</category>
+            
+        </item>
+        
+        <item>
+            <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
+            <link>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</link>
+            <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</guid>
+            <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;</description>
+            
+            <category>let&#39;s encrypt</category>
+            
+            <category>letsencrypt</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
+            <link>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</link>
+            <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</guid>
+            <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail&#34;&gt;Haproxy를 reload fail 해결하기&lt;/a&gt;을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.&lt;/p&gt;</description>
+            
+            <category>haproxy</category>
+            
+            <category>seamless reload</category>
+            
+            <category>zero downtime</category>
+            
+            <category>haproxy 1.8</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy를 reload fail 해결하기</title>
+            <link>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</link>
+            <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</guid>
+            <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)
 Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해결하기 위해서 수행했던 몇일간의 삽질(!)아닌 삽질기를 정리해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy를 활용해서 dos 공격 방어하기</title>
-      <link>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</link>
-      <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</guid>
-      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
+            
+            <category>haproxy</category>
+            
+            <category>haproxy reload fail</category>
+            
+            <category>systemd reload</category>
+            
+            <category>haproxy 1.8</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy를 활용해서 dos 공격 방어하기</title>
+            <link>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</link>
+            <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</guid>
+            <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
 이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Haproxy 설치해서 로드 밸런서로 활용하기</title>
-      <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
-      <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
-      <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</title>
-      <link>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</link>
-      <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</guid>
-      <description>&lt;p&gt;ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 &lt;code&gt;like &amp;quot;%keyword%&amp;quot;&lt;/code&gt; 와 같은 쿼리를 대체하기 위해서 &lt;code&gt;wildcard&lt;/code&gt; 를 사용하는 경우를 몇번 목격하였다.
+            
+            <category>haproxy</category>
+            
+            <category>dos attack</category>
+            
+            <category>rate limit</category>
+            
+            <category>haproxy 1.8</category>
+            
+        </item>
+        
+        <item>
+            <title>Haproxy 설치해서 로드 밸런서로 활용하기</title>
+            <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
+            <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
+            <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;</description>
+            
+            <category>haproxy</category>
+            
+            <category>install</category>
+            
+            <category>haproxy 1.8</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</link>
+            <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</guid>
+            <description>&lt;p&gt;ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 &lt;code&gt;like &amp;quot;%keyword%&amp;quot;&lt;/code&gt; 와 같은 쿼리를 대체하기 위해서 &lt;code&gt;wildcard&lt;/code&gt; 를 사용하는 경우를 몇번 목격하였다.
 이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 &lt;code&gt;ngram&lt;/code&gt; 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
-      <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
-      <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
-      <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 template 을 활용하는 방법</title>
-      <link>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</link>
-      <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</guid>
-      <description>&lt;p&gt;ElasticSearch를 로그 분석용으로 사용할 때 인덱스의 &lt;code&gt;mapping&lt;/code&gt;은 &lt;code&gt;template&lt;/code&gt;을 사용해서 생성되도록 설정하면 편리하다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>jekyll 에서 hugo 로 전환한 소감</title>
-      <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
-      <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
-      <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 전환해보았다. 아래는 그 과정에서 느낀 점을 정리해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>nginx reverse proxy로 동일 IP 중복 요청 제한</title>
-      <link>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</link>
-      <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</guid>
-      <description>&lt;p&gt;Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 &lt;code&gt;limit_req&lt;/code&gt; 모듈을 적용해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 Index Alias 변경하기</title>
-      <link>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</link>
-      <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</guid>
-      <description>&lt;h1 id=&#34;6월-3일-일-til&#34;&gt;6월 3일 (일) TIL&lt;/h1&gt;
+            
+            <category>ElasticSearch</category>
+            
+            <category>wildcard</category>
+            
+            <category>ngram</category>
+            
+            <category>Partial Matching</category>
+            
+            <category>match_phrase</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
+            <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
+            <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;</description>
+            
+            <category>ElasticSearch</category>
+            
+            <category>reindex</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 template 을 활용하는 방법</title>
+            <link>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</link>
+            <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</guid>
+            <description>&lt;p&gt;ElasticSearch를 로그 분석용으로 사용할 때 인덱스의 &lt;code&gt;mapping&lt;/code&gt;은 &lt;code&gt;template&lt;/code&gt;을 사용해서 생성되도록 설정하면 편리하다.&lt;/p&gt;</description>
+            
+            <category>ElasticSearch</category>
+            
+            <category>template</category>
+            
+            <category>mapping</category>
+            
+        </item>
+        
+        <item>
+            <title>jekyll 에서 hugo 로 전환한 소감</title>
+            <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
+            <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
+            <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 전환해보았다. 아래는 그 과정에서 느낀 점을 정리해보았다.&lt;/p&gt;</description>
+            
+            <category>hugo</category>
+            
+            <category>jekyll to hugo</category>
+            
+            <category>migration</category>
+            
+        </item>
+        
+        <item>
+            <title>nginx reverse proxy로 동일 IP 중복 요청 제한</title>
+            <link>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</link>
+            <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</guid>
+            <description>&lt;p&gt;Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 &lt;code&gt;limit_req&lt;/code&gt; 모듈을 적용해보았다.&lt;/p&gt;</description>
+            
+            <category>nginx</category>
+            
+            <category>rate litmiting</category>
+            
+            <category>limit_req_zone</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 Index Alias 변경하기</title>
+            <link>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</link>
+            <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/06/03/change-alias-on-elasticsearch-index/</guid>
+            <description>&lt;h1 id=&#34;6월-3일-일-til&#34;&gt;6월 3일 (일) TIL&lt;/h1&gt;
 &lt;p&gt;ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>logstash와 filebeat 설정하기</title>
-      <link>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</link>
-      <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</guid>
-      <description>&lt;p&gt;Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>CURL 에서 파일 업로드 하기</title>
-      <link>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</link>
-      <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</guid>
-      <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;
+            
+            <category>ElasticSearch</category>
+            
+            <category>index alias</category>
+            
+        </item>
+        
+        <item>
+            <title>logstash와 filebeat 설정하기</title>
+            <link>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</link>
+            <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</guid>
+            <description>&lt;p&gt;Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;</description>
+            
+            <category>ElasticSearch</category>
+            
+            <category>logstash</category>
+            
+            <category>filebeat</category>
+            
+            <category>install</category>
+            
+        </item>
+        
+        <item>
+            <title>CURL 에서 파일 업로드 하기</title>
+            <link>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</link>
+            <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</guid>
+            <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;
 &lt;p&gt;작성한 API를 테스트 하기 위해서 &lt;a href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt; 이나 &lt;a href=&#34;https://paw.cloud/&#34;&gt;Paw&lt;/a&gt;를 주로 사용하는데,
 CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 &lt;code&gt;CURL&lt;/code&gt;을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Spring Boot 매뉴얼 뽀개기 1</title>
-      <link>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</link>
-      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
-      <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
+            
+            <category>curl</category>
+            
+            <category>file upload</category>
+            
+        </item>
+        
+        <item>
+            <title>Spring Boot 매뉴얼 뽀개기 1</title>
+            <link>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</link>
+            <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
+            <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
 Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;quot;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Ansible AWX 를 설치해보기</title>
-      <link>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</link>
-      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
-      <description>Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다.</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 null 과 empty string 의 차이</title>
-      <link>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</link>
-      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</guid>
-      <description>&lt;h1 id=&#34;1월-24일-수-til&#34;&gt;1월 24일 (수) TIL&lt;/h1&gt;
+            
+            <category>study</category>
+            
+            <category>spring boot</category>
+            
+        </item>
+        
+        <item>
+            <title>Ansible AWX 를 설치해보기</title>
+            <link>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</link>
+            <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
+            <description>Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다.</description>
+            
+            <category>ansible</category>
+            
+            <category>awx</category>
+            
+            <category>installation</category>
+            
+            <category>ansible tower</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 null 과 empty string 의 차이</title>
+            <link>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</link>
+            <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/24/difference-between-null-and-empty-string-elasticsearch/</guid>
+            <description>&lt;h1 id=&#34;1월-24일-수-til&#34;&gt;1월 24일 (수) TIL&lt;/h1&gt;
 &lt;p&gt;ElasticSearch 에서 indexing 을 처리할 때, json 객체를 생성하면서 속성값이 때로는 &lt;code&gt;null&lt;/code&gt; 또 어떨때는 빈 문자열 &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt; 로 채워넣을 때가 있었는데
 보다 명확하게 이해하고 처리하기 위해서 &lt;code&gt;null&lt;/code&gt; 값과 &lt;code&gt;empty string(&amp;quot;&amp;quot;)&lt;/code&gt; 의 차이를 알아보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Golang 에서 Mysql 데이터를 Struct 에 Scan 할 때 Null 처리 경험기</title>
-      <link>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</link>
-      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</guid>
-      <description>&lt;h1 id=&#34;1월-23일-화-til&#34;&gt;1월 23일 (화) TIL&lt;/h1&gt;
+            
+            <category>ElasticSearch</category>
+            
+            <category>null</category>
+            
+            <category>empty string</category>
+            
+            <category>difference</category>
+            
+        </item>
+        
+        <item>
+            <title>Golang 에서 Mysql 데이터를 Struct 에 Scan 할 때 Null 처리 경험기</title>
+            <link>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</link>
+            <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</guid>
+            <description>&lt;h1 id=&#34;1월-23일-화-til&#34;&gt;1월 23일 (화) TIL&lt;/h1&gt;
 &lt;p&gt;최근 ElasticSearch 에 bulk insert 를 하기 위한 golang 기반의 간단한 툴을 만들고 있다.
 mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 ElasticSearch로 bulk insert 하는 구조인데, 이 과정에서 mysql rows 를 golang 에서 scan 하면서 알게된 내용을 정리해보았다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</title>
-      <link>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</link>
-      <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</guid>
-      <description>&lt;h1 id=&#34;1월-19일-금-til&#34;&gt;1월 19일 (금) TIL&lt;/h1&gt;
+            
+            <category>Golang</category>
+            
+            <category>mysql</category>
+            
+            <category>struct</category>
+            
+            <category>json</category>
+            
+            <category>null</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</title>
+            <link>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</link>
+            <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</guid>
+            <description>&lt;h1 id=&#34;1월-19일-금-til&#34;&gt;1월 19일 (금) TIL&lt;/h1&gt;
 &lt;p&gt;작성한 ElasticSearch 쿼리를 테스트 해보다가 정확하게 이해하지 못한 상태고 작성하고 있는 키워드를 발견했다.
 작성한 쿼리에는 &lt;code&gt;term&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt;, &lt;code&gt;match_phrase&lt;/code&gt;가 무분별하게 사용되고 있었는데, 다시금 문서를 확인해보고, 잊어먹기 전에 정리해봤다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ElasticSearch 에서 wildcard 쿼리에 대한 이해</title>
-      <link>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</link>
-      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</guid>
-      <description>&lt;h1 id=&#34;1월-17일-수-til&#34;&gt;1월 17일 (수) TIL&lt;/h1&gt;
+            
+            <category>ElasticSearch</category>
+            
+            <category>term</category>
+            
+            <category>match</category>
+            
+            <category>match_phrase</category>
+            
+            <category>query DSL</category>
+            
+        </item>
+        
+        <item>
+            <title>ElasticSearch 에서 wildcard 쿼리에 대한 이해</title>
+            <link>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</link>
+            <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/17/understanding-whildcard-query-on-elasticsearch/</guid>
+            <description>&lt;h1 id=&#34;1월-17일-수-til&#34;&gt;1월 17일 (수) TIL&lt;/h1&gt;
 &lt;p&gt;ElasticSearch 에서 쿼리를 작성하던 중 wildcard 쿼리의 결과가 내가 생각했던 것 과는 달라서 내용을 정리해본다.
 &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html&#34;&gt;wildcard query&lt;/a&gt;를 작성할 때 기대한 것은
 RDBMS 의 like &amp;lsquo;%keyword%&amp;rsquo; 와 같은 형태가 가능할 것으로 기대했는데, 막상 쿼리 결과를 확인해 보니 원하는 형태가 아니었다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>느려진 PHPStorm에서 Heap Memory를 늘리는 방법</title>
-      <link>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</link>
-      <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</guid>
-      <description>&lt;h1 id=&#34;1월-05일-금-til&#34;&gt;1월 05일 (금) TIL&lt;/h1&gt;
+            
+            <category>ElasticSearch</category>
+            
+            <category>wildcard</category>
+            
+            <category>query DSL</category>
+            
+            <category>inverted index</category>
+            
+        </item>
+        
+        <item>
+            <title>느려진 PHPStorm에서 Heap Memory를 늘리는 방법</title>
+            <link>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</link>
+            <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/05/increse-heap-memory-on-phpstorm/</guid>
+            <description>&lt;h1 id=&#34;1월-05일-금-til&#34;&gt;1월 05일 (금) TIL&lt;/h1&gt;
 &lt;p&gt;이전에, phpstorm에서 사용하지 않는 플러그인을 비활성화 시켜서 약간의 속도 향상을 가져왔다면, 이제는 아예 Heap Memory Size를 늘려보기로 했다.
 IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memory size가 차기 시작하는데, 이건 예전에 Eclipse를 쓸 때 부터, Intellij, Webstorm, Phpstorm 가리지 않고 나타나는 증상이다.
 커서가 렉 걸린 것 처럼 느리게 이동하기 시작하면, 우측 하단에 Memory Indicator를 바라보고는, 여기서 매번 Heap Memory Size 를 확인하고 클릭해주면서 한번씩 정리가 되는데, 그러고 나면 다시 괜찮아지고는 했다.
 아예 Heap Memory Size 설정을 변경하기 위해서 설정을 변경해봤다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>PHPStorm에서 사용하지 않는 플러그인 비활성화 시키기.</title>
-      <link>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</link>
-      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</guid>
-      <description>&lt;h1 id=&#34;1월-04일-목-til&#34;&gt;1월 04일 (목) TIL&lt;/h1&gt;
+            
+            <category>phpstorm</category>
+            
+            <category>speed up</category>
+            
+            <category>vm options</category>
+            
+        </item>
+        
+        <item>
+            <title>PHPStorm에서 사용하지 않는 플러그인 비활성화 시키기.</title>
+            <link>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</link>
+            <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/04/disable-unused-plugins-phpstorm/</guid>
+            <description>&lt;h1 id=&#34;1월-04일-목-til&#34;&gt;1월 04일 (목) TIL&lt;/h1&gt;
 &lt;p&gt;phpstorm이 조금 버벅거리면서 느린 느낌이 들었다. 내 경우에는, JavaScript 와 php 가 같이 들어 있는 템플릿 파일을 수정하거나, 마크다운MD 파일을 수정할 때 그런 증상들이 심해졌다.
 일단 사용하지 않는 플러그인들을 비활성화 시켜서 속도가 조금 개선되는지 확인해 보기로 했다.&lt;/p&gt;
 &lt;p&gt;아래의 플러그인들은 사용하지 않음.&lt;/p&gt;
@@ -401,15 +666,22 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 &lt;li&gt;Haml : 사용하지 않아 해제&lt;/li&gt;
 &lt;li&gt;Handlebars/Mustache : 이건 사용하는 사람은 제법 있을 수 있지만, 나는 사용하지 않는 템플릿이라 해제&lt;/li&gt;
 &lt;/ol&gt;</description>
-    </item>
-    
-    <item>
-      <title>PHPStorm 에서 매크로 단축키를 지정하는 방법</title>
-      <link>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</link>
-      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</guid>
-      <description>&lt;h1 id=&#34;1월-03일-수-til&#34;&gt;1월 03일 (수) TIL&lt;/h1&gt;
+            
+            <category>phpstorm</category>
+            
+            <category>speed up</category>
+            
+            <category>unused plugins</category>
+            
+        </item>
+        
+        <item>
+            <title>PHPStorm 에서 매크로 단축키를 지정하는 방법</title>
+            <link>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</link>
+            <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2018/01/03/create-macro-shortcut-on-phpstorm/</guid>
+            <description>&lt;h1 id=&#34;1월-03일-수-til&#34;&gt;1월 03일 (수) TIL&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;참고 매뉴얼 : &lt;a href=&#34;https://www.jetbrains.com/help/idea/recording-macros.html&#34;&gt;Jetbrains Recording Macros&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -424,15 +696,22 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
     &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
     
 &lt;/figure&gt;</description>
-    </item>
-    
-    <item>
-      <title>Fluentd 를 로컬에서 테스트 해보는 방법</title>
-      <link>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</link>
-      <pubDate>Tue, 02 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</guid>
-      <description>&lt;h1 id=&#34;1월-02일-화-til&#34;&gt;1월 02일 (화) TIL&lt;/h1&gt;
+            
+            <category>phpstorm</category>
+            
+            <category>jetbrains</category>
+            
+            <category>macro key mapping</category>
+            
+        </item>
+        
+        <item>
+            <title>Fluentd 를 로컬에서 테스트 해보는 방법</title>
+            <link>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</link>
+            <pubDate>Tue, 02 Jan 2018 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</guid>
+            <description>&lt;h1 id=&#34;1월-02일-화-til&#34;&gt;1월 02일 (화) TIL&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.fluentd.org/&#34;&gt;Fluentd&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -458,62 +737,97 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
  type stdout
 &amp;lt;/match&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
-      <title>itermocil을 사용해서 다수의 서버에 SSH 접속하기</title>
-      <link>https://findstar.pe.kr/2017/01/03/itermocil/</link>
-      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2017/01/03/itermocil/</guid>
-      <description>&lt;p&gt;얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>apache 2.4에서 달라진 기능 2가지</title>
-      <link>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</link>
-      <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</guid>
-      <description>&lt;p&gt;apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>컴포저의 속도를 올리는 방법</title>
-      <link>https://findstar.pe.kr/2016/11/06/composer-speed-up/</link>
-      <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2016/11/06/composer-speed-up/</guid>
-      <description>&lt;p&gt;PHP 의 의존성 관리도구인 &lt;a href=&#34;https://getcomposer.org/&#34; title=&#34;컴포저(composer) 공식 사이트&#34;&gt;컴포저&lt;/a&gt; 를 사용할 때, &lt;code&gt;composer install&lt;/code&gt; 이나 &lt;code&gt;composer update&lt;/code&gt; 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 &lt;code&gt;composer speed up&lt;/code&gt; 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.&lt;/p&gt;
+            
+            <category>fluentd</category>
+            
+        </item>
+        
+        <item>
+            <title>itermocil을 사용해서 다수의 서버에 SSH 접속하기</title>
+            <link>https://findstar.pe.kr/2017/01/03/itermocil/</link>
+            <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2017/01/03/itermocil/</guid>
+            <description>&lt;p&gt;얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.&lt;/p&gt;</description>
+            
+            <category>ssh</category>
+            
+            <category>iterm</category>
+            
+            <category>macro</category>
+            
+        </item>
+        
+        <item>
+            <title>apache 2.4에서 달라진 기능 2가지</title>
+            <link>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</link>
+            <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</guid>
+            <description>&lt;p&gt;apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.&lt;/p&gt;</description>
+            
+            <category>apache2.4</category>
+            
+            <category>customLog</category>
+            
+            <category>errorLogFormat</category>
+            
+            <category>accessControl</category>
+            
+        </item>
+        
+        <item>
+            <title>컴포저의 속도를 올리는 방법</title>
+            <link>https://findstar.pe.kr/2016/11/06/composer-speed-up/</link>
+            <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2016/11/06/composer-speed-up/</guid>
+            <description>&lt;p&gt;PHP 의 의존성 관리도구인 &lt;a href=&#34;https://getcomposer.org/&#34; title=&#34;컴포저(composer) 공식 사이트&#34;&gt;컴포저&lt;/a&gt; 를 사용할 때, &lt;code&gt;composer install&lt;/code&gt; 이나 &lt;code&gt;composer update&lt;/code&gt; 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 &lt;code&gt;composer speed up&lt;/code&gt; 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.&lt;/p&gt;
 &lt;p&gt;몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>블로그 플랫폼 이전 - 글쓰기에 도전하기</title>
-      <link>https://findstar.pe.kr/2016/11/04/start-new-blog/</link>
-      <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
-      <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://findstar.pe.kr/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/about/</guid>
-      <description>남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터. 새로운걸 배</description>
-    </item>
-    
-    <item>
-      <title>Search Result</title>
-      <link>https://findstar.pe.kr/search/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/search/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+            
+            <category>tips</category>
+            
+            <category>composer</category>
+            
+            <category>speedup</category>
+            
+        </item>
+        
+        <item>
+            <title>블로그 플랫폼 이전 - 글쓰기에 도전하기</title>
+            <link>https://findstar.pe.kr/2016/11/04/start-new-blog/</link>
+            <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
+            <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
+            
+            <category>blog</category>
+            
+            <category>developer</category>
+            
+            <category>Jekyll</category>
+            
+        </item>
+        
+        <item>
+            <title>About</title>
+            <link>https://findstar.pe.kr/about/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/about/</guid>
+            <description>남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터. 새로운걸 배</description>
+            
+        </item>
+        
+        <item>
+            <title>Search Result</title>
+            <link>https://findstar.pe.kr/search/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            
+            <guid>https://findstar.pe.kr/search/</guid>
+            <description></description>
+            
+        </item>
+        
+    </channel>
 </rss>
