@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="Hugo에서 RSS 템플릿을 지정하는 방법" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/bg.jpg">
+
+
+<meta property="og:title" content="Hugo에서 RSS 템플릿을 지정하는 방법" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/bg.jpg" />
+
+
+<meta property="twitter:title" content="Hugo에서 RSS 템플릿을 지정하는 방법" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="그 동안 작성된 포스트를 rss 링크에서 확인한 결과 태그가 정상적으로 노출되지 않고 있다는 것을 발견하였다. 그래서 hugo 에서 지원하는 RSS 템플릿 기능을 사용해서 RSS 에서 포스트의 태그를 확인할 수 있게 작업을 진행해보았다." />
+
+
+<meta property="article:title" content="Hugo에서 RSS 템플릿을 지정하는 방법" />
+
+
+
+<meta property="article:tag" content="hugo" />
+<meta property="article:tag" content="rss template" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>Hugo에서 RSS 템플릿을 지정하는 방법 - Soo Story</title>
+<link rel="canonical" href="/2021/08/16/hugo-rss-template/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        <a class="tag" href="/tags/rss-template" title="rss template">
+                        rss template
+                        </a>
+                        
+                    </div>
+                    <h1>Hugo에서 RSS 템플릿을 지정하는 방법</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2021-08-16
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a>
+      <ul>
+        <li><a href="#템플릿-파일-생성하기">템플릿 파일 생성하기</a></li>
+        <li><a href="#결과-확인">결과 확인</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="개요">개요</h1>
+<p>지난주에 커뮤니티에서 친분이 있는 분이 이 블로그의 RSS 링크에서 포스트의 태그가 확인되지 않는다고 제보해 주셨다. 확인 결과 rss 링크 &ldquo;<a href="https://findstar.pe.kr/index.mlx%22">https://findstar.pe.kr/index.mlx&quot;</a> 에서 포스트에 등록한 태그가 노출되지 않고 있었다. 그래서 RSS 스펙을 확인하여 hugo 템플릿을 수정해서 해결하였다.</p>
+<h2 id="템플릿-파일-생성하기">템플릿 파일 생성하기</h2>
+<p><a href="https://gohugo.io/templates/rss/#the-embedded-rss-xml">매뉴얼</a> 을 확인하면 먼저 RSS 템플릿의 파일 매칭 순서를 확인할 수 있다.
+내가 사용하는 테마파일에서는 별도의 RSS 템플릿을 지정하지 않았기 때문에 내장된 기본값이 사용된다. 기본값은 <a href="https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/_default/rss.xml">링크</a>에서 내용을 확인할 수 있다.</p>
+<p>내장된 기본값은 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- if or $.IsHome $.IsSection -}}
+{{- $pages = $pctx.RegularPages -}}
+{{- else -}}
+{{- $pages = $pctx.Pages -}}
+{{- end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{- printf &#34;<span style="color:#ff79c6">&lt;?xml version=\&#34;1.0\&#34; encoding=\&#34;utf-8\&#34; standalone=\&#34;yes\&#34;?&gt;</span>&#34; | safeHTML }}
+<span style="color:#ff79c6">&lt;rss</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;2.0&#34;</span> <span style="color:#50fa7b">xmlns:atom=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2005/Atom&#34;</span><span style="color:#ff79c6">&gt;</span>
+  <span style="color:#ff79c6">&lt;channel&gt;</span>
+    <span style="color:#ff79c6">&lt;title&gt;</span>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}<span style="color:#ff79c6">&lt;/title&gt;</span>
+    <span style="color:#ff79c6">&lt;link&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/link&gt;</span>
+    <span style="color:#ff79c6">&lt;description&gt;</span>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}<span style="color:#ff79c6">&lt;/description&gt;</span>
+    <span style="color:#ff79c6">&lt;generator&gt;</span>Hugo -- gohugo.io<span style="color:#ff79c6">&lt;/generator&gt;</span>{{ with .Site.LanguageCode }}
+    <span style="color:#ff79c6">&lt;language&gt;</span>{{.}}<span style="color:#ff79c6">&lt;/language&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span style="color:#ff79c6">&lt;managingEditor&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/managingEditor&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span style="color:#ff79c6">&lt;webMaster&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/webMaster&gt;</span>{{end}}{{ with .Site.Copyright }}
+    <span style="color:#ff79c6">&lt;copyright&gt;</span>{{.}}<span style="color:#ff79c6">&lt;/copyright&gt;</span>{{end}}{{ if not .Date.IsZero }}
+    <span style="color:#ff79c6">&lt;lastBuildDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span style="color:#ff79c6">&lt;/lastBuildDate&gt;</span>{{ end }}
+    {{- with .OutputFormats.Get &#34;RSS&#34; -}}
+    {{ printf &#34;<span style="color:#ff79c6">&lt;atom:link</span> <span style="color:#50fa7b">href=</span><span style="color:#f1fa8c">%q</span> <span style="color:#50fa7b">rel=</span><span style="color:#f1fa8c">\&#34;self\&#34;</span> <span style="color:#50fa7b">type=</span><span style="color:#f1fa8c">%q</span> <span style="color:#ff79c6">/&gt;</span>&#34; .Permalink .MediaType | safeHTML }}
+    {{- end -}}
+    {{ range $pages }}
+    <span style="color:#ff79c6">&lt;item&gt;</span>
+      <span style="color:#ff79c6">&lt;title&gt;</span>{{ .Title }}<span style="color:#ff79c6">&lt;/title&gt;</span>
+      <span style="color:#ff79c6">&lt;link&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/link&gt;</span>
+      <span style="color:#ff79c6">&lt;pubDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span style="color:#ff79c6">&lt;/pubDate&gt;</span>
+      {{ with .Site.Author.email }}<span style="color:#ff79c6">&lt;author&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/author&gt;</span>{{end}}
+      <span style="color:#ff79c6">&lt;guid&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/guid&gt;</span>
+      <span style="color:#ff79c6">&lt;description&gt;</span>{{ .Summary | html }}<span style="color:#ff79c6">&lt;/description&gt;</span>
+    <span style="color:#ff79c6">&lt;/item&gt;</span>
+    {{ end }}
+  <span style="color:#ff79c6">&lt;/channel&gt;</span>
+<span style="color:#ff79c6">&lt;/rss&gt;</span>
+</code></pre></div><p>이제 나의 고유한 RSS 템플릿 파일을 작성해보자. 위의 내장된 기본값을 바탕으로 약간의 수정된 내용을 추가하면 된다. 나의 경우에는
+<code>layouts/_default/index.xml</code> 파일을 생성하였다. 만약 값이 적용이 안된다면 <a href="https://gohugo.io/templates/rss/#the-embedded-rss-xml">매뉴얼</a>에서 매칭 순서를 다시 확인해보자. 우선순위가 높은 파일이 이미 존재할 수도 있다.</p>
+<p>생성한 파일은 다음과 같이 <code>&lt;category&gt;</code> 태그를 추가하였다. 포스트에서는 <code>TAG</code> 이지만, 이를 표한혀는 <a href="https://validator.w3.org/feed/docs/rss2.html">RSS 스펙</a>이 <code>Category</code> 이기 때문이다. 이를 <code>Taxonomy</code> 라고 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- if or $.IsHome $.IsSection -}}
+{{- $pages = $pctx.RegularPages -}}
+{{- else -}}
+{{- $pages = $pctx.Pages -}}
+{{- end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{- printf &#34;<span style="color:#ff79c6">&lt;?xml version=\&#34;1.0\&#34; encoding=\&#34;utf-8\&#34; standalone=\&#34;yes\&#34;?&gt;</span>&#34; | safeHTML }}
+<span style="color:#ff79c6">&lt;rss</span> <span style="color:#50fa7b">version=</span><span style="color:#f1fa8c">&#34;2.0&#34;</span> <span style="color:#50fa7b">xmlns:atom=</span><span style="color:#f1fa8c">&#34;http://www.w3.org/2005/Atom&#34;</span><span style="color:#ff79c6">&gt;</span>
+    <span style="color:#ff79c6">&lt;channel&gt;</span>
+        <span style="color:#ff79c6">&lt;title&gt;</span>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}<span style="color:#ff79c6">&lt;/title&gt;</span>
+        <span style="color:#ff79c6">&lt;link&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/link&gt;</span>
+        <span style="color:#ff79c6">&lt;description&gt;</span>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}<span style="color:#ff79c6">&lt;/description&gt;</span>
+        <span style="color:#ff79c6">&lt;generator&gt;</span>Hugo -- gohugo.io<span style="color:#ff79c6">&lt;/generator&gt;</span>{{ with .Site.LanguageCode }}
+        <span style="color:#ff79c6">&lt;language&gt;</span>{{.}}<span style="color:#ff79c6">&lt;/language&gt;</span>{{end}}{{ with .Site.Author.email }}
+        <span style="color:#ff79c6">&lt;managingEditor&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/managingEditor&gt;</span>{{end}}{{ with .Site.Author.email }}
+        <span style="color:#ff79c6">&lt;webMaster&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/webMaster&gt;</span>{{end}}{{ with .Site.Copyright }}
+        <span style="color:#ff79c6">&lt;copyright&gt;</span>{{.}}<span style="color:#ff79c6">&lt;/copyright&gt;</span>{{end}}{{ if not .Date.IsZero }}
+        <span style="color:#ff79c6">&lt;lastBuildDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span style="color:#ff79c6">&lt;/lastBuildDate&gt;</span>{{ end }}
+        {{- with .OutputFormats.Get &#34;RSS&#34; -}}
+        {{ printf &#34;<span style="color:#ff79c6">&lt;atom:link</span> <span style="color:#50fa7b">href=</span><span style="color:#f1fa8c">%q</span> <span style="color:#50fa7b">rel=</span><span style="color:#f1fa8c">\&#34;self\&#34;</span> <span style="color:#50fa7b">type=</span><span style="color:#f1fa8c">%q</span> <span style="color:#ff79c6">/&gt;</span>&#34; .Permalink .MediaType | safeHTML }}
+        {{- end -}}
+        {{ range $pages }}
+        <span style="color:#ff79c6">&lt;item&gt;</span>
+            <span style="color:#ff79c6">&lt;title&gt;</span>{{ .Title }}<span style="color:#ff79c6">&lt;/title&gt;</span>
+            <span style="color:#ff79c6">&lt;link&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/link&gt;</span>
+            <span style="color:#ff79c6">&lt;pubDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span style="color:#ff79c6">&lt;/pubDate&gt;</span>
+            {{ with .Site.Author.email }}<span style="color:#ff79c6">&lt;author&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span style="color:#ff79c6">&lt;/author&gt;</span>{{end}}
+            <span style="color:#ff79c6">&lt;guid&gt;</span>{{ .Permalink }}<span style="color:#ff79c6">&lt;/guid&gt;</span>
+            <span style="color:#ff79c6">&lt;description&gt;</span>{{ .Summary | html }}<span style="color:#ff79c6">&lt;/description&gt;</span>
+            {{ range .Params.tags }}
+            <span style="color:#ff79c6">&lt;category&gt;</span>{{ . }}<span style="color:#ff79c6">&lt;/category&gt;</span>
+            {{ end }}
+        <span style="color:#ff79c6">&lt;/item&gt;</span>
+        {{ end }}
+    <span style="color:#ff79c6">&lt;/channel&gt;</span>
+<span style="color:#ff79c6">&lt;/rss&gt;</span>
+</code></pre></div><p>실제 기본 템플릿 내용에서 추가한 부분은 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;item&gt;</span>
+    ..생략..
+    {{ range .Params.tags }}
+    <span style="color:#ff79c6">&lt;category&gt;</span>{{ . }}<span style="color:#ff79c6">&lt;/category&gt;</span>
+    {{ end }}
+<span style="color:#ff79c6">&lt;/item&gt;</span>
+</code></pre></div><p>템플릿 파일에서는 <code>.Params</code> 값을 사용할 수 있다. 템플릿에서 사용할 수 있는 값들은 <a href="https://gohugo.io/variables/page/">매뉴얼</a>을 참고하자.
+추가한 내용을 해석하면 포스트의 <code>tags</code> 라는 값을 확인해서 <code>category</code> 라는 RSS 태그를 추가한 것이다. 따라서 <code>category</code> 는 여러개가 될 수 있다.
+물론 위의 RSS 태그가 표시되려면 개별 포스트는 tags 라는 속성값이 존재해야한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">...
+tags: [&#34;hugo&#34;, &#34;rss template&#34;]
+...
+</code></pre></div><h2 id="결과-확인">결과 확인</h2>
+<p>이제 rss 결과를 확인하자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#ff79c6">&lt;item&gt;</span>
+<span style="color:#ff79c6">&lt;title&gt;</span>Spring 프로젝트 Maven을 사용할 때 도커라이즈 캐싱방법<span style="color:#ff79c6">&lt;/title&gt;</span>
+<span style="color:#ff79c6">&lt;link&gt;</span>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/<span style="color:#ff79c6">&lt;/link&gt;</span>
+<span style="color:#ff79c6">&lt;pubDate&gt;</span>Fri, 06 Aug 2021 20:08:09 +0900<span style="color:#ff79c6">&lt;/pubDate&gt;</span>
+<span style="color:#ff79c6">&lt;guid&gt;</span>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/<span style="color:#ff79c6">&lt;/guid&gt;</span>
+<span style="color:#ff79c6">&lt;description&gt;</span>spring 프로젝트에서 maven 을 사용할 때 도커라이즈에서 레이어를 캐싱하여 빌드 속도를 향상시키는 방법을 살펴보았다.<span style="color:#ff79c6">&lt;/description&gt;</span>
+<span style="color:#ff79c6">&lt;category&gt;</span>dockerize<span style="color:#ff79c6">&lt;/category&gt;</span>
+<span style="color:#ff79c6">&lt;category&gt;</span>spring boot<span style="color:#ff79c6">&lt;/category&gt;</span>
+<span style="color:#ff79c6">&lt;category&gt;</span>maven<span style="color:#ff79c6">&lt;/category&gt;</span>
+<span style="color:#ff79c6">&lt;/item&gt;</span>
+</code></pre></div><h3 id="참고">참고</h3>
+<ul>
+<li><a href="https://gohugo.io/templates/rss/#the-embedded-rss-xml">https://gohugo.io/templates/rss/#the-embedded-rss-xml</a></li>
+<li><a href="https://gohugo.io/variables/page/">https://gohugo.io/variables/page/</a></li>
+<li><a href="https://validator.w3.org/feed/docs/rss2.html">https://validator.w3.org/feed/docs/rss2.html</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2021/08/06/dockerize-maven-project/" data-toggle="tooltip" data-placement="top" title="Spring 프로젝트 Maven을 사용할 때 도커라이즈 캐싱방법">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
