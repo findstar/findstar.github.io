@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/forwarded-option/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/nginx-ingress/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2021/08/22/nginx-ingress-controller-use-forwarded-for-option/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2021-08-22T21:22:30+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/hugo/</loc>
     <lastmod>2021-08-16T18:40:01+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/08/16/hugo-rss-template/</loc>
     <lastmod>2021-08-16T18:40:01+09:00</lastmod>
   </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2021-08-16T18:40:01+09:00</lastmod>
-  </url><url>
     <loc>https://findstar.pe.kr/tags/rss-template/</loc>
-    <lastmod>2021-08-16T18:40:01+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2021-08-16T18:40:01+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2021-08-16T18:40:01+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/dockerize/</loc>

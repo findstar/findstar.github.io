@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 16 Aug 2021 18:40:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Aug 2021 21:22:30 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>forwarded option</title>
+      <link>https://findstar.pe.kr/tags/forwarded-option/</link>
+      <pubDate>Sun, 22 Aug 2021 21:22:30 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/forwarded-option/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx ingress</title>
+      <link>https://findstar.pe.kr/tags/nginx-ingress/</link>
+      <pubDate>Sun, 22 Aug 2021 21:22:30 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/nginx-ingress/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>hugo</title>
       <link>https://findstar.pe.kr/tags/hugo/</link>
