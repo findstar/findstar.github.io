@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>엔터프라이즈 애플리케이션 아키텍처 패턴 on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4/</link>
+    <description>Recent content in 엔터프라이즈 애플리케이션 아키텍처 패턴 on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 22 Jan 2022 16:01:31 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[북리뷰] 엔터프라이즈 애플리케이션 아키텍처패턴</title>
+      <link>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</link>
+      <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</guid>
+      <description>&lt;p&gt;새로운 팀에서 신규 프로젝트를 작성하면서 애플리케이션의 구조에 대해서 고민하게 되었는데, 좀 더 나은 아키텍처를 위해서 참고할만한 서적을 찾던 중 책장에 사놓고 고이 모셔두었던 이 책을 찾아 읽어보았다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

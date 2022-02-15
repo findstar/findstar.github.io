@@ -257,7 +257,7 @@
 <h4 id="gateway">Gateway</h4>
 <p>먼저 <code>Gateway</code> istio 서비스 메쉬로 유입되는 관문을 나타낸다. 게이트웨이는 노출되는 포트, 프로토콜, 호스트, TLS 정보를 담고 있다.
 다음은 이전 포스트에서 예제로 실행한 bookinfo-gateway.yml 파일에 들어 있는 내용이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: Gateway
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: bookinfo-gateway
@@ -273,13 +273,13 @@
         - <span style="color:#f1fa8c">&#34;*&#34;</span>
 </code></pre></div><p>위의 yml 을 해석해보자면 먼저 <code>selector</code> 에 나타나 있는 <code>istio: ingressgateway</code> 는 로드밸런서로 동작하는 <code>istio-ingressgateway</code> 에서 실행되라는 의미가 된다.
 operator 를 통해서 설치한 ingressgateway 컴포넌트를 통해 실행된 pods 의 라벨을 확인해보자</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods/istio-ingressgateway-67d647b4-b6k84 --show-labels -n istio-system <span style="color:#6272a4"># (pods 이름은 그때 그때 각기 다를 수 있다.)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods/istio-ingressgateway-67d647b4-b6k84 --show-labels -n istio-system <span style="color:#6272a4"># (pods 이름은 그때 그때 각기 다를 수 있다.)</span>
 istio-ingressgateway-67d647b4-b6k84   1/1   Running   <span style="color:#bd93f9">0</span>     31m   <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>istio-ingressgateway,chart<span style="color:#ff79c6">=</span>gateways,heritage<span style="color:#ff79c6">=</span>Tiller,install.operator.istio.io/owning-resource<span style="color:#ff79c6">=</span>unknown,istio.io/rev<span style="color:#ff79c6">=</span>default,istio<span style="color:#ff79c6">=</span>ingressgateway,operator.istio.io/component<span style="color:#ff79c6">=</span>IngressGateways,pod-template-hash<span style="color:#ff79c6">=</span>67d647b4,release<span style="color:#ff79c6">=</span>istio,service.istio.io/canonical-name<span style="color:#ff79c6">=</span>istio-ingressgateway,service.istio.io/canonical-revision<span style="color:#ff79c6">=</span>latest,sidecar.istio.io/inject<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">false</span>
 </code></pre></div><p>결과에서 보면 <code>istio=ingressgateway</code> 라는 라벨을 확인할 수 있다. ingressgateway 에서 실행되는 논리적인 게이트웨이 나타낸것이 바로 <code>Gateway</code> 컴포넌트이다.
 게이트웨이는 <code>VirtualService</code> 와 함께 사용되어 트래픽을 제어하게 된다.</p>
 <h4 id="virtualservice">VirtualService</h4>
 <p><code>VirtualService</code> 는 트래픽 라우팅과 관련된 설정이다. <code>gateway</code> 와 결합하여 트래픽을 제어한다. 다음은 bookinfo 예제에서 사용한 yml 이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: VirtualService
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: bookinfo
@@ -310,7 +310,7 @@ istio-ingressgateway-67d647b4-b6k84   1/1   Running   <span style="color:#bd93f9
 <code>route</code> 에서는 연결할 대상을 지정하는데 <code>host</code> 가 <code>productpage</code> 로 되어 있는 것은 앞선 예제에서 등록한 <code>Service</code> 컴포넌트로 연결하라는 의미가 된다. (k8s 내부에서 서비스명으로 바로 접속할 수 있기 때문)</p>
 <p><code>Gateway</code> 와 <code>VirtualService</code> 는 실제로 별도의 pods 를 실행하는 것은 아니고 <em>ingressgateway 의 envoy 설정을 변경한다.(중요)</em> ingressgateway 의 라우트 설정은 다음의 명령어로 확인할 수 있다.
 자세히 보면 prefix 로 지정한 uri 는 match 뒤에 <code>*</code> 표시가 붙어 있는 것을 확인할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl pc routes istio-ingressgateway-67d647b4-b6k84.istio-system
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl pc routes istio-ingressgateway-67d647b4-b6k84.istio-system
 NOTE: This output only contains routes loaded via RDS.
 NAME        DOMAINS     MATCH                  VIRTUAL SERVICE
 http.80     *           /productpage           bookinfo.default
@@ -321,7 +321,7 @@ http.80     *           /api/v1/products*      bookinfo.default
             *           /healthz/ready*
             *           /stats/prometheus*
 </code></pre></div><p><code>VirtualService</code> 에는 라우팅을 위한 좀 더 디테일한 설정도 가능하다</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: VirtualService
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: reviews-route
@@ -351,7 +351,7 @@ http.80     *           /api/v1/products*      bookinfo.default
 <h4 id="destinationrule">DestinationRule</h4>
 <p><code>VirtualService</code> 가 어느 서비스로 트래픽을 라우팅할지 결정했다면, <code>DestinationRule</code> 은 어디로 라우팅할지 결정된 이후에 트래픽에 적용되는 정책을 정의하는 기능이다. (트래픽이 어디로 갈지 결정된 이후에 트래픽을 어떻게 보낼지 정의한 것이라고 이해하면 된다.) 이렇게 이야기 하면 감이 잘 오지 않는데 간단한 예시로 pods 의 라벨에 따라서 부하를 분산 시킬 때 사용하는 것이 바로 <code>DestinationRule</code> 이다.</p>
 <p>다음은 <a href="https://istio.io/latest/docs/examples/bookinfo/">bookinfo 예제</a>에서 사용하는 <code>DestinationRule</code> yml 이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: DestinationRule
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: productpage
@@ -416,7 +416,7 @@ http.80     *           /api/v1/products*      bookinfo.default
 </code></pre></div><p>자세히 보면 <code>subsets</code> 라고 보이는데 pods 의 label 을 그룹핑한 단위라고 보면 된다. pods 를 하나의 subset 으로 묶은 다음에 트래픽을 제어하는데 별도의 정책이 지정되지 않았으므로 라운드 로빈이 지정된다.
 설정 가능한 옵션은 <a href="https://istio.io/latest/docs/reference/config/networking/destination-rule/#LoadBalancerSettings-SimpleLB">문서</a>를 참고하자.
 다음과 같이 기본 정책을 지정하고 특정 subset 에 대해서만 다른 정책을 취할 수도 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: DestinationRule
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: bookinfo-ratings
@@ -433,7 +433,7 @@ http.80     *           /api/v1/products*      bookinfo.default
       <span style="color:#ff79c6">loadBalancer</span>:
         <span style="color:#ff79c6">simple</span>: ROUND_ROBIN <span style="color:#6272a4"># 라운드 로빈으로 연결한다(기본값)</span>
 </code></pre></div><p>다음은 user 라는 쿠키값을 해싱한 결과값을 기반으로 연결을 설정한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"> <span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"> <span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
  <span style="color:#ff79c6">kind</span>: DestinationRule
  <span style="color:#ff79c6">metadata</span>:
    <span style="color:#ff79c6">name</span>: bookinfo-ratings
@@ -447,7 +447,7 @@ http.80     *           /api/v1/products*      bookinfo.default
            <span style="color:#ff79c6">ttl</span>: 0s
 </code></pre></div><h4 id="기타-옵션">기타 옵션</h4>
 <p>다음은 istio 공식 사이트에서 제공한는 <code>Gateway</code> 예제이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
 <span style="color:#ff79c6">kind</span>: Gateway
 <span style="color:#ff79c6">metadata</span>:
   <span style="color:#ff79c6">name</span>: my-gateway
@@ -620,6 +620,12 @@ http.80     *           /api/v1/products*      bookinfo.default
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -1056,6 +1062,12 @@ http.80     *           /api/v1/products*      bookinfo.default
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1200,8 +1212,20 @@ http.80     *           /api/v1/products*      bookinfo.default
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1291,7 +1315,7 @@ http.80     *           /api/v1/products*      bookinfo.default
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

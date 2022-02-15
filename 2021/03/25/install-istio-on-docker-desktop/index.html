@@ -273,25 +273,25 @@ docker desktop 에서 istio 를 설치해보았다.</p>
 </li>
 <li>
 <p>클러스터가 잘 활성화 되었다면 다음과 같이 확인할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get nodes 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get nodes 
 NAME             STATUS   ROLES    AGE   VERSION
 docker-desktop   Ready    master   2h    v1.19.3
 </code></pre></div></li>
 </ol>
 <h3 id="istioctl-설치">istioctl 설치</h3>
 <p><code>brew</code> 를 사용해서 <code>istioctl</code> 을 설치해두자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ brew install istioctl 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ brew install istioctl 
 $ istioctl version
 1.9.1
 </code></pre></div><h3 id="istio-sample-예제-clone">istio sample 예제 clone</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/istio/istio.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/istio/istio.git
 $ <span style="color:#8be9fd;font-style:italic">cd</span> istio 
 </code></pre></div><h2 id="istio-설치">istio 설치</h2>
 <p>istio 를 활성화한 kubenetes cluster 에 설치해보자.</p>
 <h3 id="operator-init">operator init</h3>
 <p>이전 버전과 다르게 최근 istio 에서는 operator 를 사용한 설치가 가능하다. 편리하게 사용해주자.
 (airflow 도 operator 로 설치했던 기억이..)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#6272a4"># --tags 를 붙여서 다른 버전을 설치할 수도 있다. 기본은 최신버전이 설치됨 </span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#6272a4"># --tags 를 붙여서 다른 버전을 설치할 수도 있다. 기본은 최신버전이 설치됨 </span>
 <span style="color:#6272a4"># istio-operator controller 설치 + IstioOperator CRD(Custom Resource Definition) 설치됨</span>
 
 $ istioctl operator init 
@@ -301,7 +301,7 @@ Operator controller will watch namespaces: istio-system
 ✔ Installation <span style="color:#8be9fd;font-style:italic">complete</span>
 </code></pre></div><h3 id="istiooperator-apply">IstioOperator apply</h3>
 <p>ingress gateway 를 활성화 하기 위해서 demo profile 로 <code>IstioOperator</code> 를 apply 하자.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl create ns istio-system
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl create ns istio-system
 $ kubectl apply -f - <span style="color:#f1fa8c">&lt;&lt;EOF
 </span><span style="color:#f1fa8c">apiVersion: install.istio.io/v1alpha1
 </span><span style="color:#f1fa8c">kind: IstioOperator
@@ -351,7 +351,7 @@ egress-gateway 가 구동되는 위치를 일부 node들로 제한하고 이 Nod
 이 녀석들도 버전업이 빨라서 demo profile 에 같이 포함시켰더니 버전업 대응하기가 어려웠다고 한다. 따라서
 그 때그때 필요한 사람들이 add components 하라고 안내하고 있다.)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ <span style="color:#8be9fd;font-style:italic">cd</span> istio/samples/addons 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ <span style="color:#8be9fd;font-style:italic">cd</span> istio/samples/addons 
 $ kubectl apply -f prometheus.yml
 $ kubectl apply -f kiali.yml
 $ kubectl apply -f grafana.yml
@@ -359,7 +359,7 @@ $ kubectl apply -f jaeger.yaml
 
 </code></pre></div><h3 id="설치-확인">설치 확인</h3>
 <p><em>Service</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      
 grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     
 istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     
@@ -371,7 +371,7 @@ prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/
 tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       
 zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     
 </code></pre></div><p><em>Pods</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">NAME                                   READY   STATUS    RESTARTS  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">NAME                                   READY   STATUS    RESTARTS  
 grafana-f766d6c97-5gj64                1/1     Running   <span style="color:#bd93f9">0</span>          
 istio-egressgateway-5d748f86d5-2drv7   1/1     Running   <span style="color:#bd93f9">0</span>          
 istio-ingressgateway-67d647b4-xhjh5    1/1     Running   <span style="color:#bd93f9">0</span>          
@@ -382,11 +382,11 @@ prometheus-69f7f4d689-4cswz            2/2     Running   <span style="color:#bd9
 
 </code></pre></div><h3 id="네임스페이스에-istio-injection-라벨-추가">네임스페이스에 istio-injection 라벨 추가</h3>
 <p>사이드카를 활성화할 <code>default</code> namespace 에 <code>istio-injection=enable</code> 라벨을 적용한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl label namespace default istio-injection<span style="color:#ff79c6">=</span>enabled
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl label namespace default istio-injection<span style="color:#ff79c6">=</span>enabled
 namespace/default labeled
 </code></pre></div><h2 id="bookinfo-예제-실행">BookInfo 예제 실행</h2>
 <h3 id="sample-yml-예제-적용">sample yml 예제 적용</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 service/details created
 serviceaccount/bookinfo-details created
 deployment.apps/details-v1 created
@@ -402,7 +402,7 @@ service/productpage created
 serviceaccount/bookinfo-productpage created
 deployment.apps/productpage-v1 created
 </code></pre></div><h4 id="bookinfo-서비스-확인">bookinfo 서비스 확인</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc
 NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>    AGE
 details       ClusterIP   10.110.253.197   &lt;none&gt;        9080/TCP   7s
 kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    2d
@@ -413,7 +413,7 @@ reviews       ClusterIP   10.101.176.215   &lt;none&gt;        9080/TCP   7s
 <ul>
 <li>pod 상태를 확인하자. docker desktop 에서 띄우려니 사이드카 뜨는데 시간이 좀 걸린다. ready 2/2 보려고 조금 기다렸다.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods -w 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods -w 
 NAME                              READY   STATUS    RESTARTS   AGE
 details-v1-79f774bdb9-v7wq7       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
 productpage-v1-6b746f74dc-sgwxh   2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
@@ -423,21 +423,21 @@ reviews-v2-7bf8c9648f-gmckn       2/2     Running   <span style="color:#bd93f9">
 reviews-v3-84779c7bbc-qtrc8       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
 </code></pre></div><h4 id="curl-요청-결과-확인">curl 요청 결과 확인</h4>
 <p>다음과 같이 <code>Simple Bookstore App</code> 이라는 문자열을 확인할 수 있으면 된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>kubectl get pod -l <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>ratings -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -c ratings -- curl -sS productpage:9080/productpage | grep -o <span style="color:#f1fa8c">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>kubectl get pod -l <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>ratings -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -c ratings -- curl -sS productpage:9080/productpage | grep -o <span style="color:#f1fa8c">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
 &lt;title&gt;Simple Bookstore App&lt;/title&gt;
 </code></pre></div><h3 id="네트워킹-설정-추가">네트워킹 설정 추가</h3>
 <p>아직 브라우저에서 편하게 접속하기가 어렵다. 네트워킹 설정을 추가하자</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
 gateway.networking.istio.io/bookinfo-gateway created
 virtualservice.networking.istio.io/bookinfo created
 </code></pre></div><p>설치된 gateway 를 확인할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get gateway
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get gateway
 NAME               AGE
 bookinfo-gateway   6s
 </code></pre></div><h2 id="접속-확인">접속 확인</h2>
 <h3 id="external-ip-확인">External IP 확인</h3>
 <p>현재 Docker desktop 환경에서는 LoadBalancer 의 External IP 가 localhost 로 나온다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      AGE
 grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     12h
 istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     3h16m
@@ -459,26 +459,26 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 </figure>
 <h3 id="추가-컴포넌트-확인">추가 컴포넌트 확인</h3>
 <h4 id="kiali">Kiali</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard kiali
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard kiali
 </code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/kiali.png" alt="bookinfo sample app kiali dashboard"/>
     
 </figure>
 <h4 id="jaeger">Jaeger</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard jaeger
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard jaeger
 </code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/jaeger.png" alt="bookinfo sample app kiali dashboard"/>
     
 </figure>
 <h4 id="garafana">garafana</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard garafana
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard garafana
 </code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/grafana.png" alt="bookinfo sample app kiali dashboard"/>
     
 </figure>
 <h3 id="주의사항">주의사항</h3>
 <p>만약 진행에서 잘 되지 않는 부분이 있다면 <code>istioctl analyze</code> 를 실행해서 문제가 없는지 살펴볼 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">istioctl analyze
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">istioctl analyze
 </code></pre></div><h3 id="기타">기타</h3>
 <p>이건 스터디에서 안승규님이 알려주신 내용이다.</p>
 <ol>
@@ -490,7 +490,7 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 </li>
 <li>
 <p>IstioOperator 를 설치할 때 spec 에 revision 을 지정해주어야 다음버전으로 올라갈 때 수월하다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: isntall.istio.io/v1alpha1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: isntall.istio.io/v1alpha1
 <span style="color:#ff79c6">kind</span>: IstioOperator
 ...
 <span style="color:#ff79c6">spec</span>:
@@ -500,7 +500,7 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 </code></pre></div></li>
 <li>
 <p>리비전을 지정하면 <code>istio-injection=enabled</code> 이 동작하지 않는다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6272a4"># 다음처럼 지정해야된다.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6272a4"># 다음처럼 지정해야된다.</span>
 $ kubectl label ns default istio.io/rev=1-9-1 
 </code></pre></div></li>
 <li>
@@ -624,6 +624,12 @@ $ kubectl label ns default istio.io/rev=1-9-1
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -1060,6 +1066,12 @@ $ kubectl label ns default istio.io/rev=1-9-1
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1204,8 +1216,20 @@ $ kubectl label ns default istio.io/rev=1-9-1
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1295,7 +1319,7 @@ $ kubectl label ns default istio.io/rev=1-9-1
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

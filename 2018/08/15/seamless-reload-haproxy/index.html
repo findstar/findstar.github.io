@@ -277,7 +277,7 @@
 </ol>
 <p>요약하자면 unix socket을 사용해서 커넥션 상태를 유지하고, 이를 이전 프로세스와 새로운 프로세스간에 전달함으로써, 커넥션의 유실을 막는다는 것이다.</p>
 <p>참고로 haproxy 의 동작모드는 다음과 같고 Systemd 를 사용해서 reload 를 하려면 <code>-Ws</code> 모드를 사용해야 한다. (또한 빌드할 때 <code>USE_SYSTEMD</code> 가 활성화 되어 있어야 한다)</p>
-<pre><code>  -D : start as a daemon. The process detaches from the current terminal after
+<pre tabindex="0"><code>  -D : start as a daemon. The process detaches from the current terminal after
     forking, and errors are not reported anymore in the terminal. It is
     equivalent to the &quot;daemon&quot; keyword in the &quot;global&quot; section of the
     configuration. It is recommended to always force it in any init script so
@@ -296,7 +296,7 @@
 </code></pre><h3 id="설정-파일의-변경">설정 파일의 변경</h3>
 <p>이 기능은 Haproxy 1.8 버전에서 정식으로 적용되었고, 이를 사용하기 위해서는 <code>expose-fd listeners</code> 설정을 추가해주어야 한다.
 이 옵션의 의미하는 것은 file descriptor 를 통해서 connection listener 하는 것을 노출(expose)하겠다라는 뜻이다.</p>
-<pre><code># seamless reload 를 위한 status socket 운영
+<pre tabindex="0"><code># seamless reload 를 위한 status socket 운영
 stats socket /var/lock/subsys/haproxy mode 777 level admin expose-fd listeners
 </code></pre><p>이제 <code>sudo systemd reload haproxy</code> 를 실행하면 정상적으로 reload 가 수행된다.</p>
 <h3 id="테스트">테스트</h3>
@@ -304,13 +304,13 @@ stats socket /var/lock/subsys/haproxy mode 777 level admin expose-fd listeners
 <ol>
 <li>
 <p>먼저 정상적으로 서비스가 동작하고 있는 상태에서 아무런 액션을 취하지 않았을 때</p>
-<pre><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
+<pre tabindex="0"><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
 ab: illegal option -- l
 This is ApacheBench, Version 2.3 &lt;$Revision: 1430300 $&gt;
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking haproxy-lb.host (be patient)
+
 Completed 10000 requests
 Completed 20000 requests
 Completed 30000 requests
@@ -328,10 +328,10 @@ Server Software:        Apache
 Server Hostname:        haproxy-lb.host
 Server Port:            80
 
-Document Path:          /
+
 Document Length:        32987 bytes
 
-Concurrency Level:      100
+
 Time taken for tests:   35.472 seconds
 Complete requests:      100000
 Failed requests:        0
@@ -343,14 +343,14 @@ Time per request:       35.472 [ms] (mean)
 Time per request:       0.355 [ms] (mean, across all concurrent requests)
 Transfer rate:          91966.57 [Kbytes/sec] received
 
-Connection Times (ms)
+
               min  mean[+/-sd] median   max
 Connect:        0    1   0.9      1       6
 Processing:    22   34  11.2     34    1052
 Waiting:       19   33  11.1     32    1051
 Total:         22   35  11.2     35    1053
 
-Percentage of the requests served within a certain time (ms)
+
   50%     35
   66%     37
   75%     39
@@ -363,13 +363,13 @@ Percentage of the requests served within a certain time (ms)
 </code></pre></li>
 <li>
 <p><code>systemd restart haproxy.service</code> 실행한 경우</p>
-<pre><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
+<pre tabindex="0"><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
 ab: illegal option -- l
 This is ApacheBench, Version 2.3 &lt;$Revision: 1430300 $&gt;
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking haproxy-lb.host (be patient)
+
 Completed 10000 requests
 Completed 20000 requests
 Completed 30000 requests
@@ -387,10 +387,10 @@ Server Software:        Apache
 Server Hostname:        haproxy-lb.host
 Server Port:            80
 
-Document Path:          /
+
 Document Length:        32987 bytes
 
-Concurrency Level:      100
+
 Time taken for tests:   36.536 seconds
 Complete requests:      100000
 Failed requests:        104
@@ -403,14 +403,14 @@ Time per request:       36.536 [ms] (mean)
 Time per request:       0.365 [ms] (mean, across all concurrent requests)
 Transfer rate:          89198.02 [Kbytes/sec] received
 
-Connection Times (ms)
+
               min  mean[+/-sd] median   max
 Connect:        0    2  31.7      1    1004
 Processing:     3   35   6.9     34     214
 Waiting:        0   33   6.8     33     213
 Total:          3   36  33.2     35    1078
 
-Percentage of the requests served within a certain time (ms)
+
   50%     35
   66%     37
   75%     38
@@ -423,13 +423,13 @@ Percentage of the requests served within a certain time (ms)
 </code></pre></li>
 <li>
 <p><code>systemctl reload haproxy</code> : socket 설정을 추가하기 전 reload</p>
-<pre><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
+<pre tabindex="0"><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
 ab: illegal option -- l
 This is ApacheBench, Version 2.3 &lt;$Revision: 1430300 $&gt;
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking haproxy-lb.host (be patient)
+
 Completed 10000 requests
 Completed 20000 requests
 Completed 30000 requests
@@ -447,10 +447,10 @@ Server Software:        Apache
 Server Hostname:        haproxy-lb.host
 Server Port:            80
 
-Document Path:          /
+
 Document Length:        32987 bytes
 
-Concurrency Level:      100
+
 Time taken for tests:   35.514 seconds
 Complete requests:      100000
 Failed requests:        3
@@ -463,14 +463,14 @@ Time per request:       35.514 [ms] (mean)
 Time per request:       0.355 [ms] (mean, across all concurrent requests)
 Transfer rate:          91855.95 [Kbytes/sec] received
 
-Connection Times (ms)
+
               min  mean[+/-sd] median   max
 Connect:        0    1   0.9      1       8
 Processing:     0   35   7.1     34     239
 Waiting:        0   33   6.9     32     238
 Total:          0   35   7.0     35     239
 
-Percentage of the requests served within a certain time (ms)
+
   50%     35
   66%     37
   75%     38
@@ -483,13 +483,13 @@ Percentage of the requests served within a certain time (ms)
 </code></pre></li>
 <li>
 <p><code>systemctl reload haproxy</code> : <code>socket expose-fd listeners</code> 설정을 추가한 뒤의 reload</p>
-<pre><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
+<pre tabindex="0"><code>$ ab -r -c 100 -n 100000 -l http://haproxy-lb.host/
 ab: illegal option -- l
 This is ApacheBench, Version 2.3 &lt;$Revision: 1430300 $&gt;
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking haproxy-lb.host (be patient)
+
 Completed 10000 requests
 Completed 20000 requests
 Completed 30000 requests
@@ -507,10 +507,10 @@ Server Software:        Apache
 Server Hostname:        haproxy-lb.host
 Server Port:            80
 
-Document Path:          /
+
 Document Length:        32987 bytes
 
-Concurrency Level:      100
+
 Time taken for tests:   36.077 seconds
 Complete requests:      100000
 Failed requests:        0
@@ -522,14 +522,14 @@ Time per request:       36.077 [ms] (mean)
 Time per request:       0.361 [ms] (mean, across all concurrent requests)
 Transfer rate:          90423.65 [Kbytes/sec] received
 
-Connection Times (ms)
+
               min  mean[+/-sd] median   max
 Connect:        0    1   0.9      1       8
 Processing:    22   35   6.9     34     223
 Waiting:       20   34   6.8     33     222
 Total:         22   36   6.9     35     224
 
-Percentage of the requests served within a certain time (ms)
+
   50%     35
   66%     37
   75%     39
@@ -672,6 +672,12 @@ Percentage of the requests served within a certain time (ms)
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -1108,6 +1114,12 @@ Percentage of the requests served within a certain time (ms)
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1252,8 +1264,20 @@ Percentage of the requests served within a certain time (ms)
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1343,7 +1367,7 @@ Percentage of the requests served within a certain time (ms)
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

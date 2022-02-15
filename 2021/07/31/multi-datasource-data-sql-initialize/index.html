@@ -254,7 +254,7 @@
 <h2 id="싱글-데이터소스-연결">싱글 데이터소스 연결</h2>
 <p>spring boot 프로젝트에서 여러개의 데이터베이스에 연결하는 경우가 있다. 나의 경우에는 신규 프로젝트를 시작하면서 제일 처음 사용자의 계정 데이터베이스에 연결하는 데이터소스를 설정하기 위해서 다음과 같이 코드를 작성하였다.</p>
 <p>다음은 <em>AccountDataSourceConfiguration</em> 이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Configuration
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Configuration
 @EnableJpaRepositories<span style="color:#ff79c6">(</span>basePackages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">{</span>
 <span style="color:#f1fa8c">&#34;me.home.domain.account&#34;</span>
 <span style="color:#ff79c6">},</span>
@@ -279,7 +279,7 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
 <h2 id="멀티-데이터소스-연결">멀티 데이터소스 연결</h2>
 <p>위의 상황에서 추가적으로 비지니스 로직을 구현하면서 필요한 콘텐츠를 담아두는 데이터소스를 추가한다고 생각해보자.</p>
 <p>다음은 <em>ContentDataSourceConfiguration</em> 이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Configuration
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Configuration
 @EnableJpaRepositories<span style="color:#ff79c6">(</span>basePackages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">{</span>
         <span style="color:#f1fa8c">&#34;me.home.domain.post&#34;</span><span style="color:#ff79c6">,</span>
         <span style="color:#f1fa8c">&#34;me.home.domain.comment&#34;</span><span style="color:#ff79c6">},</span>
@@ -300,7 +300,7 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
 따라서 다음의 순서대로 적용해보았다.</p>
 <h2 id="datasourceinitializer-역할-확인">DataSourceInitializer 역할 확인</h2>
 <p><code>org.springframework.boot.autoconfigure.jdbc.DataSourceInitializer</code> 파일을 확인해보면 <code>initSchema()</code> 메서드에서 <code>runScripts</code> 메서드를 호출하는 부분을 찾을 수 있는데 이부분이 바로 <code>data.sql</code> 을 실행하는 부분이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#ff79c6">&lt;</span>Resource<span style="color:#ff79c6">&gt;</span> scripts <span style="color:#ff79c6">=</span> getScripts<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;spring.datasource.data&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">properties</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">getData</span><span style="color:#ff79c6">(),</span> <span style="color:#f1fa8c">&#34;data&#34;</span><span style="color:#ff79c6">);</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#ff79c6">&lt;</span>Resource<span style="color:#ff79c6">&gt;</span> scripts <span style="color:#ff79c6">=</span> getScripts<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;spring.datasource.data&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">properties</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">getData</span><span style="color:#ff79c6">(),</span> <span style="color:#f1fa8c">&#34;data&#34;</span><span style="color:#ff79c6">);</span>
 <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(!</span>scripts<span style="color:#ff79c6">.</span><span style="color:#50fa7b">isEmpty</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
     <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(!</span>isEnabled<span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
         logger<span style="color:#ff79c6">.</span><span style="color:#50fa7b">debug</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Initialization disabled (not running data scripts)&#34;</span><span style="color:#ff79c6">);</span>
@@ -312,7 +312,7 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
 <span style="color:#ff79c6">}</span>
 </code></pre></div><p>따라서 각각의 datasource configuration 에 다음과 같이 bean 을 등록해주는 코드를 추가해주었다.</p>
 <h2 id="bean-등록">Bean 등록</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Bean
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Bean
 @Profile<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;local&#34;</span><span style="color:#ff79c6">)</span> <span style="color:#6272a4">// 테스트에서만 runScript 에 필요한 sql 스크립트이기 때문에 &#39;local&#39; profile 에서만 bean 을 등록한다.
 </span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> DataSourceInitializer <span style="color:#50fa7b">dataSourceInitializer</span><span style="color:#ff79c6">(</span>@Qualifier<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;accountDataSource&#34;</span><span style="color:#ff79c6">)</span> DataSource datasource<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
     ResourceDatabasePopulator resourceDatabasePopulator <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> ResourceDatabasePopulator<span style="color:#ff79c6">();</span>
@@ -325,7 +325,7 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
     <span style="color:#ff79c6">return</span> dataSourceInitializer<span style="color:#ff79c6">;</span>
 <span style="color:#ff79c6">}</span>
 </code></pre></div><p>그리고 <code>application.yml</code> 파일에 다음과 같이 설정해주었다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">
   <span style="color:#ff79c6">datasource.account</span>:
     <span style="color:#ff79c6">jdbcUrl</span>: jdbc:h2:mem:testdb
     <span style="color:#ff79c6">driverClassName</span>: org.h2.Driver
@@ -445,6 +445,12 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -881,6 +887,12 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1025,8 +1037,20 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1116,7 +1140,7 @@ transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

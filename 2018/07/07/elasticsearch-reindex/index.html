@@ -249,7 +249,7 @@
 이전 데이터의 마이그레이션 과정에서 source 필드 일부를 제외해야 하거나 하는 등의 케이스에서 <code>reindex</code> 가 필요했다.</p>
 <h3 id="기본적인-reindex-실행하기">기본적인 <code>reindex</code> 실행하기</h3>
 <p>다음은 가장 기본적인 <code>reindex</code> 실행방법이다. source 에 기존의 index, dest 에 새롭게 인덱싱할 index 이름을 지정한다.</p>
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
+<pre tabindex="0"><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
   &quot;source&quot;: {
     &quot;index&quot;: &quot;old-index-name&quot;
   },
@@ -259,7 +259,7 @@
 }`
 
 </code></pre><p>이렇게 하면 데이터의 양에 따라서 시간이 걸리긴 하지만 정상적으로 완료되면 아래와 같은 응답을 확인할 수 있다.</p>
-<pre><code>{
+<pre tabindex="0"><code>{
   &quot;took&quot; : 147,   // 소요된 시간 (ms)
   &quot;timed_out&quot;: false, // timeout 이 발생했는지 여부
   &quot;created&quot;: 120, // 새롭게 생성된 document 의 갯수
@@ -281,7 +281,7 @@
 </code></pre><h3 id="다른-es-클러스터의-데이터를-reindex-하기">다른 ES 클러스터의 데이터를 <code>reindex</code> 하기</h3>
 <p>경우에 따라서는 신규 클러스터를 운영해야 해서, 크러스터 내부에서 새롭게 <code>reindex</code> 하는게 아니라, <code>remote</code> 의 ES 클러스터의 데이터를 <code>reindex</code> 해야 될 수도 있다.
 이럴 때에는 &ldquo;source&rdquo; 에 &ldquo;remote&rdquo; 를 지정하면 된다.</p>
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
+<pre tabindex="0"><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
   &quot;source&quot;: {
     &quot;index&quot;: &quot;old-index-name&quot;,
     &quot;remote&quot;: {
@@ -298,10 +298,10 @@
 </code></pre><ul>
 <li>&ldquo;remote&rdquo; 의 index 를 <code>reindex</code> 하고자 한다면, 기존 클러스터의 host 가 whitelist 에 추가되어 있어야 한다. (elasticsearch.yml)</li>
 </ul>
-<pre><code>reindex.remote.whitelist: &quot;otherhost:9200, another:9200, 127.0.10.*:9200, localhost:*&quot;
+<pre tabindex="0"><code>reindex.remote.whitelist: &quot;otherhost:9200, another:9200, 127.0.10.*:9200, localhost:*&quot;
 </code></pre><h3 id="기존-index-의-일부-필드만-reindex-하는-방법">기존 index 의 일부 필드만 <code>reindex</code> 하는 방법</h3>
 <p>일부 필드만 <code>reindex</code> 하거나(includes), 불필요한 필드는 제외시킬 수도 있다. (excludes)</p>
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
+<pre tabindex="0"><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
   &quot;source&quot;: {
     &quot;index&quot;: &quot;old-index-name&quot;,
     &quot;_source&quot;: {
@@ -315,7 +315,7 @@
 
 </code></pre><h3 id="전체-데이터가-아니라-일부-데이터만-reindex-하는-방법">전체 데이터가 아니라, 일부 데이터만 <code>reindex</code> 하는 방법</h3>
 <p>쿼리를 질의해서 기존 index 에서 일부 데이터만을 <code>reindex</code> 할 수도 있다. 일반적인 쿼리와 마찬가지로 size 를 지정할 수도 있다.</p>
-<pre><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
+<pre tabindex="0"><code>curl -H 'Content-Type: application/json' -XPOST http://my-elasticsearch-host:9200/_reindex -d `{
   &quot;source&quot;: {
     &quot;index&quot;: &quot;old-index-name&quot;,
     &quot;_source&quot;: {
@@ -438,6 +438,12 @@
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -874,6 +880,12 @@
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1018,8 +1030,20 @@
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1109,7 +1133,7 @@
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

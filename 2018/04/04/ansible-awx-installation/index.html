@@ -298,18 +298,18 @@ AWX에서는 완성된 <code>docker-compose.yml</code> 파일을 제공해주지
 <ul>
 <li>필요한 package 설치</li>
 </ul>
-<pre><code>$ sudo yum -y install epel-release
+<pre tabindex="0"><code>$ sudo yum -y install epel-release
 $ sudo yum -y install git gettext ansible docker nodejs npm gcc-c++ bzip2
 $ sudo yum -y install python-docker-py
 </code></pre><ul>
 <li>docker 데몬 시작</li>
 </ul>
-<pre><code>$ sudo systemctl start docker
+<pre tabindex="0"><code>$ sudo systemctl start docker
 $ sudo systemctl enable docker
 </code></pre><ul>
 <li>awx clone</li>
 </ul>
-<pre><code>$ git clone https://github.com/ansible/awx.git
+<pre tabindex="0"><code>$ git clone https://github.com/ansible/awx.git
 $ cd awx/installer/
 </code></pre><ul>
 <li>
@@ -326,18 +326,18 @@ $ cd awx/installer/
 <p>다음은 내가 설정한 내역이다.</p>
 </li>
 </ul>
-<pre><code>dockerhub_version=1.0.4.83
+<pre tabindex="0"><code>dockerhub_version=1.0.4.83
 postgres_data_dir=/var/awx/pgdocker
 use_docker_compose=true
 docker_compose_dir=/var/lib/awx
 </code></pre><ul>
 <li>이제 playbook을 실행해서 AWX를 설치한다.</li>
 </ul>
-<pre><code>ansible-playbook -i inventory install.yml
+<pre tabindex="0"><code>ansible-playbook -i inventory install.yml
 </code></pre><ul>
 <li>docker_compose_dir 로 이동해보면 <code>docker-compose.yml</code> 파일이 생성되었다.</li>
 </ul>
-<pre><code>docker-compose up -d
+<pre tabindex="0"><code>docker-compose up -d
 </code></pre><ul>
 <li>
 <p>이제 웹 브라우저로 접근해보자
@@ -494,7 +494,7 @@ docker_compose_dir=/var/lib/awx
 <p>template 에서 등록한 job을 run(로켓 모양 아이콘 클릭) 하면 된다. 이렇게 되면 jobs 메뉴에 실행 이력이 추가된다.</p>
 </li>
 </ul>
-<pre><code>Identity added: /tmp/awx_40_wPmxLi/credential_6 (/tmp/awx_40_wPmxLi/credential_6)
+<pre tabindex="0"><code>Identity added: /tmp/awx_40_wPmxLi/credential_6 (/tmp/awx_40_wPmxLi/credential_6)
 Using /etc/ansible/ansible.cfg as config file
 
 
@@ -667,6 +667,12 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
                         
                         <a href="/tags/apache2.4" title="apache2.4">
                         apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
                         </a>
                         
                         
@@ -1103,6 +1109,12 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
                         
                         
                         
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/query-dsl" title="query-dsl">
                         query-dsl
                         </a>
@@ -1247,8 +1259,20 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
                         
                         
                         
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
                         시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
                         </a>
                         
                         
@@ -1338,7 +1362,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2021
+                    Soo Story &copy; 2022
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

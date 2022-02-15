@@ -6,7 +6,26 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 22 Aug 2021 21:22:30 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jan 2022 23:39:41 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[북리뷰] 만들면서 배우는 클린 아키텍처</title>
+      <link>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</link>
+      <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</guid>
+      <description>&lt;p&gt;스프링 애플리케이션을 작성하면서 항상 아키텍처에 적합한 패키지 구조가 어떤 형태인지에 대한 의문이 있었다. 그러던중 우연찮게 이 책을 읽고나서 많은 부분에서 인사이트를 얻을 수 있었다.
+특히 DDD 에서 말하는 도메인 객체를 설계할 때의 경계에 대한 고민을, 책에서 소개하는 &amp;ldquo;Hexagonal Architecture&amp;rdquo; 를 통해서 이해할 수 있었다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[북리뷰] 엔터프라이즈 애플리케이션 아키텍처패턴</title>
+      <link>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</link>
+      <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</guid>
+      <description>&lt;p&gt;새로운 팀에서 신규 프로젝트를 작성하면서 애플리케이션의 구조에 대해서 고민하게 되었는데, 좀 더 나은 아키텍처를 위해서 참고할만한 서적을 찾던 중 책장에 사놓고 고이 모셔두었던 이 책을 찾아 읽어보았다.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Nginx ingress 에서 X-forwarded header 사용법</title>
       <link>https://findstar.pe.kr/2021/08/22/nginx-ingress-controller-use-forwarded-for-option/</link>
