@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/bg.jpg">
+
+
+<meta property="og:title" content="Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/bg.jpg" />
+
+
+<meta property="twitter:title" content="Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="gradle 을 사용할 때 docker 캐시 레이어를 사용해서 도커 빌드 속도를 빠르게 하는 방법을 알아보았다." />
+
+
+<meta property="article:title" content="Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법" />
+
+
+
+<meta property="article:tag" content="docker" />
+<meta property="article:tag" content="build cache" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법 - Soo Story</title>
+<link rel="canonical" href="/2022/05/13/gradle-docker-cache/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        <a class="tag" href="/tags/build-cache" title="build cache">
+                        build cache
+                        </a>
+                        
+                    </div>
+                    <h1>Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2022-05-13
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#기본적인-도커-빌드-과정">기본적인 도커 빌드 과정</a></li>
+    <li><a href="#문제점">문제점</a></li>
+    <li><a href="#해결방법">해결방법</a>
+      <ul>
+        <li><a href="#핵심-아이디어">핵심 아이디어</a></li>
+        <li><a href="#대안">대안</a></li>
+        <li><a href="#중간-결과">중간 결과</a></li>
+        <li><a href="#추가-작업">추가 작업</a></li>
+      </ul>
+    </li>
+    <li><a href="#참고자료">참고자료</a></li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="개요">개요</h1>
+<p>Spring boot 프로젝트 개발할 때 빌드 과정에서 의존 패키지를 다운받는 작업은 시간이 오래 걸리기 때문에
+도커 빌드 과정에서 이를 매번 반복하면 전체적인 도커 빌드 시간, 나아가 배포 시간이 길어지는 문제가 있다.</p>
+<p>Gradle을 사용할 때 도커 캐시 레이어를 사용해서 이 도커 빌드 타임을 줄이는 방법을 정리해보았다.
+만약 Maven을 사용한다면 <a href="/2021/08/06/dockerize-maven-project">이전 포스트</a>를 참고하길 바란다.</p>
+<h1 id="기본적인-도커-빌드-과정">기본적인 도커 빌드 과정</h1>
+<p>Spring Boot 프로젝트를 배포하기 위한 <code>Dockerfile</code> 이 다음과 같을 때 빌드 과정을 살펴보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#ff79c6">FROM</span><span style="color:#f1fa8c"> gradle:7.4-jdk-alpine</span>
+<span style="color:#ff79c6">WORKDIR</span><span style="color:#f1fa8c"> /app</span>
+<span style="color:#ff79c6">COPY</span> ./ ./
+<span style="color:#ff79c6">RUN</span> gradle clean build --no-daemon
+<span style="color:#ff79c6">CMD</span> java -jar build/libs/*.jar
+</code></pre></div><ol>
+<li>기반 이미지에서 gradle 을 사용하여 의존 패키지를 다운받는다.</li>
+<li>애플리케이션 구동을 위한 jar 파일이 빌드된다.</li>
+</ol>
+<h1 id="문제점">문제점</h1>
+<p>도커 명령어 <code>RUN gradle clean build --no-daemon</code> 을 실행할 때마다 <strong>매번 의존 패키지를 다운받기 때문에 시간이 오래걸린다.</strong>
+나의 경우에는 위의 <code>Dockerfile</code>을 사용해서 간단한 샘플 애플리케이션 코드를 도커 빌드하는데 <code>184초</code>가 걸렸다.</p>
+<h1 id="해결방법">해결방법</h1>
+<h2 id="핵심-아이디어">핵심 아이디어</h2>
+<p>한번 gradle 빌드를 하면 이 다음에 빌드할 때는 의존 패키지는 캐싱해두었다가 다시 사용되면 도커 빌드 타임이 줄어든다. 따라서 의존 패키지의 캐싱방법을 알아보았다.</p>
+<h2 id="대안">대안</h2>
+<h3 id="1-별도의-캐시-디렉토리를-지정하는-방법">1. 별도의 캐시 디렉토리를 지정하는 방법</h3>
+<p>만약 jenkins 와 같이 별도의 빌드 환경을 구축해서 사용한다면 캐시 디렉토리를 지정할 수 있다. gradle 6.1 버전 부터는 캐시 디렉토리를 지정할 수 있게 되었다.
+<a href="https://docs.gradle.org/6.1/userguide/dependency_resolution.html#sub:cache_copy">6.1 의존 패키지 캐싱 디렉토리 지정 매뉴얼</a> 따라서 빌드 할 때 이 캐시 디렉토리를 지정하면 이전에 다운로드된 의존 패키지는 다시 다운로드 받지 않는다.</p>
+<p><code>$GRADLE_HOME</code> 변수를 지정할 수 있는데, 문제는 프로젝트마다 각기 다른 디렉토리를 지정해주어야 한다는 불편함이 있어서 다른 방법을 찾아보았다.</p>
+<h3 id="2-gradle-의존성을-다운로드-받고-이를-도커-캐시에-저장하는-방법">2. gradle 의존성을 다운로드 받고 이를 도커 캐시에 저장하는 방법</h3>
+<p>gradle 에서는 의존성만 다운받아서 캐싱하는 명령어는 없다. 하지만 약간의 꼼수를 사용하면 가능하다. 다음과 같이 <code>Dockerfile</code>을 변경했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#ff79c6">FROM</span><span style="color:#f1fa8c"> gradle:7.4-jdk-alpine</span>
+<span style="color:#ff79c6">WORKDIR</span><span style="color:#f1fa8c"> /app</span>
+<span style="color:#ff79c6">ADD</span> build.gradle.kts /app/
+<span style="color:#ff79c6">RUN</span> gradle build -x <span style="color:#8be9fd;font-style:italic">test</span> --parallel --continue &gt; /dev/null 2&gt;&amp;<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">||</span> true
+
+<span style="color:#ff79c6">COPY</span> . /app
+<span style="color:#ff79c6">RUN</span> gradle clean build --no-daemon
+<span style="color:#ff79c6">CMD</span> java -jar build/libs/*.jar
+</code></pre></div><p>핵심은 <code>RUN gradle build -x test --parallel --continue &gt; /dev/null 2&gt;&amp;1 || true</code> 명령어다.
+앞서 <code>build.gradle.kts</code> 파일만 복사했기 때문에 제대로된 빌드가 수행될 수 없다. 하지만 도커 빌드 이미지 내부에 의존 패키지는 다운로드가 된다.
+(참고로 그래들 의존 패키지가 저장되는 디렉토리는 <code>${HOME}/.gradle/</code> 이다.)
+그리고 에러가 발생하지만 <code>/dev/null</code> 로 메세지를 보내버렸기 때문에 아무런 응답이 없고 <code>|| true</code> 라는 파이프를 연결해서 강제로 성공처리해버렸다.
+그 다음에 정상적으로 애플리케이션 소스 파일을 복사하고 다시 빌드하면 빌드 이미지 내부에 저장된 의존 패키지 덕분에 빌드가 빠르게 수행된다.
+그리고 이 과정은 각각의 도커 빌드 명령어로 나뉘어졌기 때문에 다음번에 소스코드만 변경하게 된 경우에는
+의존 패키지를 다시 다운받지 않게 되어 최종적으로 도커 빌드 시간이 줄어든다.</p>
+<p><strong>최초 도커 파일 적용시 빌드 로그</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Building 189.3s <span style="color:#ff79c6">(</span>11/11<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">FINISHED</span>
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load build definition from Dockerfile                                                                                                                                                                                                                                0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring dockerfile: 262B                                                                                                                                                                                                                                                0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load .dockerignore                                                                                                                                                                                                                                                   0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring context: 2B                                                                                                                                                                                                                                                     0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load metadata <span style="color:#ff79c6">for</span> docker.io/library/gradle:7.4-jdk-alpine                                                                                                                                                                                                            1.1s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load build context                                                                                                                                                                                                                                                   0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring context: 36.87kB                                                                                                                                                                                                                                                0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>1/6<span style="color:#ff79c6">]</span> FROM docker.io/library/gradle:7.4-jdk-alpine@sha256:93f4bd52c3372e54e4262c5ec9f0e060747b598b9effd1153def7e89833009ba                                                                                                                                                      0.0s
+ <span style="color:#ff79c6">=</span>&gt; CACHED <span style="color:#ff79c6">[</span>2/6<span style="color:#ff79c6">]</span> WORKDIR /app                                                                                                                                                                                                                                                       0.0s
+ <span style="color:#ff79c6">=</span>&gt; CACHED <span style="color:#ff79c6">[</span>3/6<span style="color:#ff79c6">]</span> ADD build.gradle.kts /app/                                                                                                                                                                                                                                         0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>4/6<span style="color:#ff79c6">]</span> RUN gradle build -x <span style="color:#8be9fd;font-style:italic">test</span> --parallel --continue &gt; /dev/null 2&gt;&amp;<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">true</span>                                                                                                                                                                                                 121.7s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>5/6<span style="color:#ff79c6">]</span> COPY . /app                                                                                                                                                                                                                                                               0.2s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>6/6<span style="color:#ff79c6">]</span> RUN gradle clean build --no-daemon                                                                                                                                                                                                                                       63.2s
+ <span style="color:#ff79c6">=</span>&gt; exporting to image                                                                                                                                                                                                                                                              3.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; exporting layers                                                                                                                                                                                                                                                             2.9s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; writing image sha256:ad2b0af2a18dbf64ca93d427868de1562e3a1c3ff8d2c5968e89ba3bc5bc443c                                                                                                                                                                                        0.0s
+</code></pre></div><p><strong>이후 소스 코드의 일부만 변경된 경우</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Building 65.6s <span style="color:#ff79c6">(</span>12/12<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">FINISHED</span>
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load build definition from Dockerfile                                                                                                                                                                                                                                0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring dockerfile: 37B                                                                                                                                                                                                                                                 0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load .dockerignore                                                                                                                                                                                                                                                   0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring context: 2B                                                                                                                                                                                                                                                     0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load metadata <span style="color:#ff79c6">for</span> docker.io/library/gradle:7.4-jdk-alpine                                                                                                                                                                                                            2.4s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>auth<span style="color:#ff79c6">]</span> library/gradle:pull token <span style="color:#ff79c6">for</span> registry-1.docker.io                                                                                                                                                                                                                       0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>internal<span style="color:#ff79c6">]</span> load build context                                                                                                                                                                                                                                                   0.1s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; transferring context: 41.38kB                                                                                                                                                                                                                                                0.1s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>1/6<span style="color:#ff79c6">]</span> FROM docker.io/library/gradle:7.4-jdk-alpine@sha256:93f4bd52c3372e54e4262c5ec9f0e060747b598b9effd1153def7e89833009ba                                                                                                                                                      0.0s
+ <span style="color:#ff79c6">=</span>&gt; CACHED <span style="color:#ff79c6">[</span>2/6<span style="color:#ff79c6">]</span> WORKDIR /app                                                                                                                                                                                                                                                       0.0s
+ <span style="color:#ff79c6">=</span>&gt; CACHED <span style="color:#ff79c6">[</span>3/6<span style="color:#ff79c6">]</span> ADD build.gradle.kts /app/                                                                                                                                                                                                                                         0.0s
+ <span style="color:#ff79c6">=</span>&gt; CACHED <span style="color:#ff79c6">[</span>4/6<span style="color:#ff79c6">]</span> RUN gradle build -x <span style="color:#8be9fd;font-style:italic">test</span> --parallel --continue &gt; /dev/null 2&gt;&amp;<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">true</span>                                                                                                                                                                                            0.0s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>5/6<span style="color:#ff79c6">]</span> COPY . /app                                                                                                                                                                                                                                                               0.2s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">[</span>6/6<span style="color:#ff79c6">]</span> RUN gradle clean build --no-daemon                                                                                                                                                                                                                                       62.3s
+ <span style="color:#ff79c6">=</span>&gt; exporting to image                                                                                                                                                                                                                                                              0.5s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; exporting layers                                                                                                                                                                                                                                                             0.4s
+ <span style="color:#ff79c6">=</span>&gt; <span style="color:#ff79c6">=</span>&gt; writing image sha256:7cb34a440b507949715da716d9f4f41ce5ed0b8ada396b9b2f5630e27b91bc11                                                                                                                                                                                        0.0s
+</code></pre></div><p>자세히 보면 <code>CACHED [4/6] RUN gradle build -x test --parallel --continue &gt; /dev/null 2&gt;&amp;1 || true</code>와 같이 의존패키지를 다운받는 과정이 <code>CACHED</code> 라고 표시된다.
+도커 레이어 캐시를 활용한 것이다.</p>
+<h2 id="중간-결과">중간 결과</h2>
+<ol>
+<li>도커 빌드 시간이 확 줄어들었다. <code>189s</code> -&gt; <code>65s</code></li>
+<li>의존 패키지의 변경이 있을 때만 (보다 정확히는 <code>build.gradle.kts</code> 파일이 변경 되었을 때만) 새롭게 의존성 패키지를 다운받는다.</li>
+<li>gradle 의존 패키지는 도커 레이어 캐시에 저장된다.</li>
+</ol>
+<h2 id="추가-작업">추가 작업</h2>
+<p>이렇게 하면 도커 빌드는 줄었지만, 최종 도커 이미지가 늘어난다. <code>multi-stage</code> 빌드로 바꾸고 약간 더 정리해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#ff79c6">FROM</span><span style="color:#f1fa8c"> gradle:7.4-jdk17-alpine as builder</span>
+<span style="color:#ff79c6">WORKDIR</span><span style="color:#f1fa8c"> /build</span>
+
+<span style="color:#6272a4"># 그래들 파일이 변경되었을 때만 새롭게 의존패키지 다운로드 받게함.</span>
+<span style="color:#ff79c6">COPY</span> build.gradle.kts settings.gradle.kts /build/
+<span style="color:#ff79c6">RUN</span> gradle build -x <span style="color:#8be9fd;font-style:italic">test</span> --parallel --continue &gt; /dev/null 2&gt;&amp;<span style="color:#bd93f9">1</span> <span style="color:#ff79c6">||</span> true
+
+<span style="color:#6272a4"># 빌더 이미지에서 애플리케이션 빌드</span>
+<span style="color:#ff79c6">COPY</span> . /build
+<span style="color:#ff79c6">RUN</span> gradle build -x <span style="color:#8be9fd;font-style:italic">test</span> --parallel
+
+<span style="color:#6272a4"># APP</span>
+<span style="color:#ff79c6">FROM</span><span style="color:#f1fa8c"> openjdk:17.0-slim</span>
+<span style="color:#ff79c6">WORKDIR</span><span style="color:#f1fa8c"> /app</span>
+
+<span style="color:#6272a4"># 빌더 이미지에서 jar 파일만 복사</span>
+<span style="color:#ff79c6">COPY</span> --from<span style="color:#ff79c6">=</span>builder /build/build/libs/my-app-0.0.1-SNAPSHOT.jar .
+
+<span style="color:#ff79c6">EXPOSE</span><span style="color:#f1fa8c"> 8080</span>
+
+<span style="color:#6272a4"># root 대신 nobody 권한으로 실행</span>
+<span style="color:#ff79c6">USER</span><span style="color:#f1fa8c"> nobody</span>
+<span style="color:#ff79c6">ENTRYPOINT</span> <span style="color:#ff79c6">[</span>                                                <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>    <span style="color:#f1fa8c">&#34;java&#34;</span>,                                                 <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>    <span style="color:#f1fa8c">&#34;-jar&#34;</span>,                                                 <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>    <span style="color:#f1fa8c">&#34;-Djava.security.egd=file:/dev/./urandom&#34;</span>,              <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>    <span style="color:#f1fa8c">&#34;-Dsun.net.inetaddr.ttl=0&#34;</span>,                             <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>    <span style="color:#f1fa8c">&#34;my-app-0.0.1-SNAPSHOT.jar&#34;</span>              <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span><span style="color:#ff79c6">]</span>
+</code></pre></div><p>이렇게 하면 gradle 의 모든 의존 패키지가 다운로드된 도커 이미지의 최종 사이즈가 다음과 같이 <code>1.11G</code> -&gt; <code>456MB</code> 로 줄어든다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">REPOSITORY               TAG       IMAGE ID       CREATED             SIZE
+&lt;none&gt;                   &lt;none&gt;    7cb34a440b50   <span style="color:#bd93f9">8</span> minutes ago       1.11GB
+&lt;none&gt;                   &lt;none&gt;    cc07b80891c1   About a minute ago   456MB
+</code></pre></div><p>따라서 최종적으로 빌드 시간도 줄어들고, 사이즈도 줄여서 배포시간에도 긍정적인 효과를 가져올 수 있다.</p>
+<h1 id="참고자료">참고자료</h1>
+<ul>
+<li><a href="https://docs.gradle.org/6.1/release-notes.html">Gradle 6.1 릴리즈 노트</a></li>
+<li><a href="https://localcoder.org/docker-cache-gradle-dependencies">https://localcoder.org/docker-cache-gradle-dependencies</a></li>
+<li><a href="https://zwbetz.com/reuse-the-gradle-dependency-cache-with-docker/">https://zwbetz.com/reuse-the-gradle-dependency-cache-with-docker/</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2022/04/29/beautiful-goodbye-mm/" data-toggle="tooltip" data-placement="top" title="서비스 종료 넋두리">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2022
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
