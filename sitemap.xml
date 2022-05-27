@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/graceful-deploy/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/k8s/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/build-cache/</loc>
     <lastmod>2022-05-13T20:17:32+09:00</lastmod>
   </url><url>
@@ -9,15 +27,6 @@
     <lastmod>2022-05-13T20:17:32+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2022/05/13/gradle-docker-cache/</loc>
-    <lastmod>2022-05-13T20:17:32+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2022-05-13T20:17:32+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2022-05-13T20:17:32+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2022-05-13T20:17:32+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/beautiful-goodbye/</loc>
@@ -123,9 +132,6 @@
     <lastmod>2021-06-13T22:21:09+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</loc>
-    <lastmod>2021-06-13T22:21:09+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/k8s/</loc>
     <lastmod>2021-06-13T22:21:09+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/confluence/</loc>
