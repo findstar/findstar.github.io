@@ -6,7 +6,21 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Fri, 27 May 2022 21:21:12 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 12 Jun 2022 20:46:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>백엔드 개발자의 운영툴 UX 고민들</title>
+            <link>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</link>
+            <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</guid>
+            <description>서비스의 운영툴, 흔히 backoffice라고 하는 기능들을 을 만들 때 어떻게 하면 사용하기 편리한 화면을 구성할 수 있을지 생각한 내용들을 정리해보았다.</description>
+            
+            <category>backoffice</category>
+            
+            <category>ux consideration</category>
+            
+        </item>
+        
         <item>
             <title>K8S 환경에서 pod을 안전하게 배포하는 방법</title>
             <link>https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/</link>
@@ -791,12 +805,12 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 &lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
 &lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;/&gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;  /&gt;
     
 &lt;/figure&gt;
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
 &lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;  /&gt;
     
 &lt;/figure&gt;</description>
             

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ux consideration on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/ux-consideration/</link>
+    <description>Recent content in ux consideration on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 12 Jun 2022 20:46:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/ux-consideration/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>백엔드 개발자의 운영툴 UX 고민들</title>
+      <link>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</link>
+      <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</guid>
+      <description>서비스의 운영툴, 흔히 backoffice라고 하는 기능들을 을 만들 때 어떻게 하면 사용하기 편리한 화면을 구성할 수 있을지 생각한 내용들을 정리해보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

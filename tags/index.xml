@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 27 May 2022 21:21:12 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 20:46:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>backoffice</title>
+      <link>https://findstar.pe.kr/tags/backoffice/</link>
+      <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/backoffice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ux consideration</title>
+      <link>https://findstar.pe.kr/tags/ux-consideration/</link>
+      <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/ux-consideration/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>graceful deploy</title>
       <link>https://findstar.pe.kr/tags/graceful-deploy/</link>

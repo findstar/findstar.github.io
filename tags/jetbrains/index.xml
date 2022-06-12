@@ -20,12 +20,12 @@
 &lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;
 &lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
 &lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;/&gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;  /&gt;
     
 &lt;/figure&gt;
 &lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
 &lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;/&gt;
+    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;  /&gt;
     
 &lt;/figure&gt;</description>
     </item>

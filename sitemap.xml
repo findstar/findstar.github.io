@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/backoffice/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/ux-consideration/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</loc>
+    <lastmod>2022-06-12T20:46:03+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/graceful-deploy/</loc>
     <lastmod>2022-05-27T21:21:12+09:00</lastmod>
   </url><url>
@@ -9,15 +27,6 @@
     <lastmod>2022-05-27T21:21:12+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/</loc>
-    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2022-05-27T21:21:12+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2022-05-27T21:21:12+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/build-cache/</loc>

@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="백엔드 개발자의 운영툴 UX 고민들" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/bg.jpg">
+
+
+<meta property="og:title" content="백엔드 개발자의 운영툴 UX 고민들" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/bg.jpg" />
+
+
+<meta property="twitter:title" content="백엔드 개발자의 운영툴 UX 고민들" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="서비스의 운영툴, 흔히 backoffice라고 하는 기능들을 을 만들 때 어떻게 하면 사용하기 편리한 화면을 구성할 수 있을지 생각한 내용들을 정리해보았다." />
+
+
+<meta property="article:title" content="백엔드 개발자의 운영툴 UX 고민들" />
+
+
+
+<meta property="article:tag" content="backoffice" />
+<meta property="article:tag" content="ux consideration" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>백엔드 개발자의 운영툴 UX 고민들 - Soo Story</title>
+<link rel="canonical" href="/2022/06/12/backoffice-ux-considerations/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        <a class="tag" href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
+                        </a>
+                        
+                    </div>
+                    <h1>백엔드 개발자의 운영툴 UX 고민들</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2022-06-12
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#백엔드-개발자의-운영툴-고민">백엔드 개발자의 운영툴 고민</a>
+      <ul>
+        <li><a href="#다음에는-잘-해봐야지">다음에는 잘 해봐야지</a></li>
+        <li><a href="#난-프론트-개발자가-아닌데">난 프론트 개발자가 아닌데</a></li>
+      </ul>
+    </li>
+    <li><a href="#운영툴을-만들-때-고민들">운영툴을 만들 때 고민들</a>
+      <ul>
+        <li><a href="#문제점">문제점</a></li>
+        <li><a href="#대응-방법">대응 방법</a></li>
+      </ul>
+    </li>
+    <li><a href="#ux-가이드">UX 가이드</a>
+      <ul>
+        <li><a href="#레이아웃">레이아웃</a></li>
+        <li><a href="#메뉴에-대하여">메뉴에 대하여</a></li>
+        <li><a href="#검색기능">검색기능</a></li>
+        <li><a href="#콘텐츠의-표시">콘텐츠의 표시</a></li>
+        <li><a href="#url-설계-가이드">URL 설계 가이드</a></li>
+      </ul>
+    </li>
+    <li><a href="#정리">정리</a></li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="백엔드-개발자의-운영툴-고민">백엔드 개발자의 운영툴 고민</h1>
+<p>벡엔드 개발자로 여러 서비스 개발을 진행하면서 드러나지 않지만 필수적으로 처리해야하는 작업 중에 하나로 운영툴 작업을 생각할 수 있다. 보통 서비스 이용자들과 접점이 있는 화면들이나 API에 대해서는 잘 관리되지만, 그 뒷단에 있는 운영툴-흔히 backoffice / admin / 관리자툴등으로 불리는 이 시스템은 잘 관리되지 않는 경우가 많았다. 이 운영툴 시스템은 서비스가 안정적으로 운영될 수 있도록 각종 정보 조회부터 CS(Custom Support)를 처리하거나, 서비스 통계 / 분석 기능을 제공하기 때문에 잘 관리되어 있다면 운영효율성을 증가시키고, 불필요한 커뮤니케이션을 줄여줄 수가 있다. 그런데 매번 서비스 개발에서 우선순위에서 밀리거나 촉박한 시간 탓에 잘 관리되기가 어려운 경우가 많았다. 그러다 보니 시간이 지나면서 동작하지 않거나 오류가 발생하게 되었지만 방치되고 있는 메뉴, 급하게 붙여넣은 기능으로 인해서 사용하기 어려운 UX, 무엇을 의미하는지 알 수 없는 기능들을 갖게 되는 모습을 볼 수 있었다.</p>
+<h2 id="다음에는-잘-해봐야지">다음에는 잘 해봐야지</h2>
+<p>지금은 바쁘니까, 다음에는 잘 해봐야지 하던 생각들을 하곤 했지만, 결국에 다음번에 새로운 운영툴 시스템을 만들 때에도 동일한 패턴이 반복되었다. 그래서 &ldquo;이래서는 안되겠다&quot;라는 마음을 먹고 새로운 프로젝트에 투입되었어 운영툴을 만드는 작업이 주어졌을 때 기존에 단편적으로 생각했던 내용들을 정리해야 겠다고 마음먹었다. 그 동안은 적절한 가이드와 고민들이 없었기 때문에 매번 기능을 쳐내는데 급급했다고 생각해서 고민들을 정리해보았다.</p>
+<h2 id="난-프론트-개발자가-아닌데">난 프론트 개발자가 아닌데</h2>
+<p>물론 나는 백엔드 개발영역이 메인 작업이었기 때문에 프론트엔드 지식은 얕은 수준으로 알고 있었고, 프레임워크도 React 하나만 알고 있었기 때문에 이 가이드가 높은 퀄리티를 갖추고 있다고 생각하지는 않는다.
+다만 주어진 상황 속에서 최소한 이정도는 해야지라고 생각했던 고민들의 결과로 정리해보았다.</p>
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/where_am_I.jpg" alt="where am I"  />
+    
+    <figcaption class="caption-text">프론트엔드 코드를 마주할 때의 나의 심정</figcaption>
+    
+</figure>
+<h1 id="운영툴을-만들-때-고민들">운영툴을 만들 때 고민들</h1>
+<p>먼저 기존의 운영툴 작업을 수행하며 문제가 되었던 부분들을 정리해보았다.</p>
+<h2 id="문제점">문제점</h2>
+<ol>
+<li>원하는 정보를 확인하기 위해서 어떤 메뉴에 접근해야햐는지 알기 어렵다.</li>
+<li>이 버튼/메뉴가 어떤 기능을 수행하지는지 알기 어렵다.</li>
+<li>방치된 메뉴들이 있거나, 비슷한 기능이 있음에도 새로운 메뉴를 만들어서 기능을 추가한다.</li>
+</ol>
+<h2 id="대응-방법">대응 방법</h2>
+<ol>
+<li>통합적인 검색 기능을 추가하여 원하는 정보의 접근을 쉽게한다.</li>
+<li>이해하기 쉬운 UX 가이드를 만든다.</li>
+<li>기능들에 대한 설명을 추가하도록 가이드를 만든다.</li>
+<li>모든 메뉴를 표시하고 권한에 따라 접근할 수 없도록 한다.</li>
+</ol>
+<p>: 막상 문제점과 고민들을 정리해보니 어떻게 해야 잘 만드는 것인지 명확하게 생각이 정리되지 않은 상태에서 무작정 작업을 진행하다보니 매번 효과적인 사용성을 가진 운영툴이 만들어지지 않았고 또 시간이 지나면서 유지보수가 어려워지는 상황이 발생했다고 느껴졌다.
+그래서 우선적으로 생각들을 정리한 가이드를 만들어서 개발에 참고하도록 하였다.</p>
+<h1 id="ux-가이드">UX 가이드</h1>
+<h2 id="레이아웃">레이아웃</h2>
+<ol>
+<li>
+<dl>
+<dt>Full Size 활용</dt>
+<dd>무료로 제공되는 오픈소스 Admin Template 들을 살펴보면 대부분이 Full size layout을 사용하는 것을 알 수 있다. 운영툴의 특성상 개별 도메인 정보 하나만을 취급하기 보다는 연관된 데이터를 함께 표시하거나
+정보를 확인하고 추가적인 기능을 수행하는 경우가 많기 때문에 UI가 복잡해지기 마련이다. 따라서 단순해보인다는 이유로 width를 제한해버리거나 UI 컴포넌트의 너비를 너무 넓게 잡아버리면
+주요 콘텐츠를 표시할 영역자체가 좁아진다. 따라서 가장 먼저 Full size 로 배치하는 것이 좋았다.
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/backoffice-layout.png" alt="local phase gnb"  />
+    
+    <figcaption class="caption-text">넓게 넓게 쓰자</figcaption>
+    
+</figure></dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>LNB / GNB / RNB</dt>
+<dd>네비게이션 영역을 각 용도에 맞게 활용하는 것이 필요했다. 오픈소스 템플릿에서는 RNB까지 활용되는 예시를 보여주고는 했지만 실제로는 LNB / GNB만 있어도 충분했다. LNB는 메뉴영역으로, GNB는 검색+현재 시스템에 로그인한 사용자 정보를 노출하는 정도로 활용했다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>GNB 영역의 컬러를 Development Phase 마다 바꿔서 표시한다.</dt>
+<dd>운영툴도 dev / stage / produciton 단계가 나뉘어져서 개발을 진행하게 된다. 이 때 dev 운영툴에서 수행해야 하는 작업을 실수로 proudction 에서 수행하는 경우가 종종 있었다.
+그래서 아예 개발 phase 별로 시각적으로 다르게 인식할 수 있도록 GNB 영역의 컬러를 다르게 지정하도록 했다.
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/local-gnb.png" alt="local phase gnb"  />
+    
+    <figcaption class="caption-text">local 환경의 GNB</figcaption>
+    
+</figure>
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/production-gnb.png" alt="production phase gnb"  />
+    
+    <figcaption class="caption-text">production 환경의 GNB</figcaption>
+    
+</figure></dd>
+</dl>
+</li>
+</ol>
+<h2 id="메뉴에-대하여">메뉴에 대하여</h2>
+<ol>
+<li>
+<dl>
+<dt>메뉴 위치 (LNB or GNB) : LNB</dt>
+<dd>운영툴을 만들 때마다 메뉴를 상단(GNB-Global Navigation Bar)에 배치할 것인지 좌측(LNB-Left Navigation Bar)에 배치할지 고민했던 적이 있었다. 두개의 방법 모두 시도해보았었고 나의 결론은 LNB가 적합하다라고 결론을 지었다.
+그 이유는 서비스가 오래되었을 때 운영툴에서 필요로 하는 기능이 늘어나면서 메뉴가 처음 생각보다 많아지기 때문이다. 운영툴의 메뉴가 늘어나면서 한 화면에 노출되기 어려운 상황이 발생하는데
+이 때 GNB로 배치한 메뉴는 좌우 스크롤이 생길수 있어서 운영툴의 사용자가 좌우 스크롤을 인지하기 어려워 진다. 따라서 늘어나는 메뉴를 생각해서 LNB 메뉴를 구성하는 것이 적합하다고 정리했다.
+물론 GNB도 메뉴를 펼쳐서 그룹화하면 좌우 스크롤이 생기지 않게 할 수 있지만, 운영툴을 사용하는 사람들은 대부분 메뉴가 펼쳐져 있는 상태를 좋아했다. (클릭 한번이라도 덜 하는 것을 선호했다)</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>메뉴의 그룹화와 Depth</dt>
+<dd>메뉴는 그룹화하여 표시하는 것이 좋다. 그리고 depth 를 표시할 때 folding 되는 UI 보다는 펼쳐져 있는 UI를 선호한다. 폴딩되는 UI는 예뻐보이고 깔끔해보일 수 있지만, 운영툴에서 필요한건
+한번 이라도 덜 클릭하는 것이 더 중요하다고 생각해서 폴딩 UI는 배제하였다. 그리고 depth 도 메뉴가 많아질것을 고려하여 최소한 2depth, 많으면 3depth 까지 표현할 수 있도록 가이드를 정했다.
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/menu_grouping.png" alt="menu grouping"  style="border: 1px solid #ededed;" />
+    
+    <figcaption class="caption-text">메뉴 그룹</figcaption>
+    
+</figure></dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>현재 확인하고 있는 메뉴가 어느 메뉴인지 Activation 을 표시해주어야 한다.</dt>
+<dd>빠뜨리기 쉬울수 있지만 현재 확인하고 있는 메뉴가 어떤 메뉴인지 활성/비활성 표시가 가능해야한다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>접근권한이 없더라도 모든 메뉴는 존재여부를 알 수 있어야한다.</dt>
+<dd>운영툴을 개발하다보면, 권한에 따라(개발팀/마케팅/CS/다른 협업부서등.) 접근가능한 메뉴가 다르고, 또 일부 기능이 제약이 있을 수 있다. 이런 경우 메뉴 자체를 보여주지 않는 경우도 있는데
+이렇게 하면 나중에 기능이 있는지 여부를 알기 어려워 새로운 기능-메뉴를 추가하는 일이 발생하고는 한다. (아..레거시.) 그래서 가급적이면 모든 메뉴는 항상 표시하고 권한이 없는 경우에는 별도로 권한 신청이 필요함을 알리도록 가이드를 정했다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>(옵션) 가능하다면 즐겨찾기 배치</dt>
+<dd>가능하다면 Local storage 기능을 활용해서 즐겨찾기 기능을 추가해두면 좋다. 운영툴 시스템의 사용자별로 자주 사용하는 기능이 다르기 때문에 이를 LNB 상단에 배치해주면 이용이 한결 수월해진다.
+물론 복잡하게 즐겨찾기 기능을 DB에 저장하거나 하면 API 개발도 필요하고 기능이 복잡해지기 때문에 local storage로 처리하는것이 편했다.</dd>
+</dl>
+</li>
+</ol>
+<h2 id="검색기능">검색기능</h2>
+<ol>
+<li>
+<dl>
+<dt>GNB 영역에 검색기능을 추가하자.</dt>
+<dd>운영툴에서 꼭 필요한 기능이 검색기능이라고 생각한다. 다만, 여기에서의 검색은 모든 운영툴 콘텐츠를 인덱싱해서 보여주는 통합검색이 아니라 일종의 단축기능-숏컷(shortcut) 이라고 이해하면 좋다.
+실제 서비스 이용자의 정보를 조회하거나, 특정 주문 내역을 조회하는 것이 아니라, <code>12345</code> 가 입력되면 해당 주문내역 혹은 해당 아이디를 가진 사용자의 정보를 조회하는 상세 페이지로 이동시켜주는
+일종의 편의기능으로 동작한다. 따라서 몇가지 자주 사용되는 패턴(이메일, 숫자형, 문자형, UUID등)에 대응되는 코드를 작성해두고 운영툴의 모든 페이지에서 이 검색영역이 노출되도록 하였다.
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/shortcut-search.gif" alt="shortcut search"  />
+    
+    <figcaption class="caption-text">검색바를 사용한 편의기능</figcaption>
+    
+</figure></dd>
+</dl>
+</li>
+</ol>
+<h2 id="콘텐츠의-표시">콘텐츠의 표시</h2>
+<ol>
+<li>
+<p>콘텐츠의 표시는 Title / Description / Body 로 구분한다.
+콘텐츠를 표시할 때는 제목과 설명 그리고 주요 정보가 표시되는 영역을 구분하였다. 필요한 경우 Wiki 로 연결되는 기능설명에 대한 별도 문서를 두어 사용자가 도메인 지식을 익힐 수 있도록 정보를 제공하도록 하였다.
+<figure class="full-width caption"  >
+    <img src="/images/posts/backoffice/content-layout.png" alt="content layout"  />
+    
+    <figcaption class="caption-text">content layout</figcaption>
+    
+</figure></p>
+</li>
+<li>
+<dl>
+<dt>페이징</dt>
+<dd>목록을 표시할 때 페이징을 고려해야하는데 기본적으로는 Next / Prev 구조로 가고 꼭 페이지가 필요하지 않도록 가이드를 정했다. 이유는 나중에 표시하는 콘텐츠의 수가 많아졌을 때 (ex 사용자)
+페이징이 느려지는 문제가 발생했기 때문이다. 전체 숫자등의 정보는 상시 노출되도록 별도로 가이드를 정했다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>상세 페이지</dt>
+<dd>콘텐츠를 노출할 때 간단한 정보를 보여주는 경우와 / 복잡한 액션 필요한 경우를 구분하여 가이드를 정했다.
+예를 들어 간단한 정보라면 body 영역을 Full 로 사용하고, 복잡한 액션이 필요한 경우라면 Body 를 다시 Left / Right 로 구분하여
+왼쪽에는 주요 콘텐츠 정보 / 오른쪽에는 이 정보를 기반으로 수행하는 액션 버튼들이 표시되도록 가이드를 정했다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>첫 페이지에서는 무엇을 보여주어야 할까?</dt>
+<dd>운영툴에 로그인을 하고나서 처음에 보여주어야 할 정보는 무엇이어야 할까? 흔히 대시보드 챠트를 생각하기 쉬운데, 경험적으로 대시보드는 그다지 유용하지 않았었다. 통계는 서비스가 개발되면서 보고자 하는
+분석 데이터가 달라지기 때문에</dd>
+</dl>
+</li>
+</ol>
+<h2 id="url-설계-가이드">URL 설계 가이드</h2>
+<ol>
+<li>
+<dl>
+<dt>퍼머링크</dt>
+<dd>운영툴의 URL도 퍼머링크를 지원해야한다. 링크가 크게 중요하지 않을 것 같지만, 동료들과의 커뮤니케이션을 할 때에는 URL 자체를 복사해서 전달하기 때문에 동일한 콘텐츠를 동일하게 볼 수 있어야 한다.
+따라서 퍼머링크를 지원하여 같은 화면과 무엇인가 선택이 되어 있다면 그런 부분도 동일하게 보여져야 한다고 가이드를 정했다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>세그먼트를 메뉴 그룹을 기반으로</dt>
+<dd>URL 세그먼트를 정할 때 메뉴 그룹을 기반으로 depth 에 따라서 정하도록 하였다. ex) <code>/marketing/banner</code> 이렇게 하면 나중에 URL만 확인해도 어떤 기능인지 짐작할 수 있도록 가이드를 정했다.</dd>
+</dl>
+</li>
+</ol>
+<h1 id="정리">정리</h1>
+<p>벡엔드 API를 만드는게 주 업무라 UX에 대해서 이렇게 고민해본 일이 없었는데 이렇게 정리한 내용을 발전시켜서 다음에는 더 사용하기 편리하고 효율적인 운영이 가능한 운영툴을 만드는데 활용했으면 한다.
+물론 여기에 정리한 가이드는 매우 주관적인 경험을 바탕으로 하고 있기 때문에 모든 경우에 적용하기는 어려울 수 있다. 그렇지만 정리한 UX 가이드를 통해서 사용하기 편리한 운영툴을 만들고 관리할 수 있게된다면,
+운영업무의 효율성 나아가 커뮤니케이션 비용이 줄어들 수 있다고 생각한다. 그러니 운영툴 작업이 우선순위가 낮아서 매번 나중에 해야지 하고 밀리는 작업이 아닌
+나와 동료들의 시간을 아껴줄 수 있는 주요 시스템이라고 인식하고 잘 만들도록 노력하면 좋겠다. 그렇게되면 개발자가 서비스의 핵심 기능을 개발하는데 더 집중할 수 있지 않을까?</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/" data-toggle="tooltip" data-placement="top" title="K8S 환경에서 pod을 안전하게 배포하는 방법">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful-deploy">
+                        graceful-deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2022
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -279,7 +279,7 @@ deployment yml 설정에서 이런 옵션들을 살펴보고 안전하게 pod를
 </code></pre></div><p>기본적인 Deployment 설정을 하고 나면 배포할 때 마다 순간적으로 5XX 오류를 확인할 수 있다. 이유는 POD는 시작하자마자 트래픽을 처리할 수 없기 때문이다.
 POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 위해서 Probe 설정을 추가해보자.</p>
 <figure class="full-width caption"  >
-    <img src="/images/posts/kubernetes/deployment-phase.gif" alt="deployment phase"/>
+    <img src="/images/posts/kubernetes/deployment-phase.gif" alt="deployment phase"  />
     
     <figcaption class="caption-text">K8S deployment</figcaption>
     
@@ -309,7 +309,7 @@ POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 
 </code></pre></div><blockquote>
 <p><code>Probe</code> 라는 건 중학교 건전지 회로 실험에서 사용해보았던, 전류가 흐르는지 확인하는 도구라고 생각하면 이해가 쉽다. 탐침, 조사하다는 의미로 해석할 수 있다.
 <figure class="full-width caption"  >
-    <img src="/images/posts/kubernetes/what_is_probe.jpg" alt="what is probe"/>
+    <img src="/images/posts/kubernetes/what_is_probe.jpg" alt="what is probe"  />
     
     <figcaption class="caption-text">오늘쪽 바늘 모양 도구가 probe</figcaption>
     
@@ -346,7 +346,7 @@ POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 
 <p>하지만 여기서 끝내면 안되고 한가지 작업이 더 남았다. 바로 종료시점에 대한 고려가 필요하다. pod 가 준비되고 트래픽을 처리하기 까지는 위의 설정으로도 충분하지만,
 pod 가 종료될 때 즉각적으로 pod를 제거해버리면, 처리하고 있던 응답을 완료하기 전에 프로세스가 종료되어 사용자가 5XX 에러를 볼 수 있다. 이를 막기 위해서
 <code>preStop</code> 설정을 추가해보자.</p>
-<h3 id="step-5-prestop-설정-추가">Step 5 <code>preStop</code> 설정 추가</h3>
+<h3 id="step-4-prestop-설정-추가">Step 4 <code>preStop</code> 설정 추가</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#ff79c6">ports</span>:
             - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
           <span style="color:#ff79c6">lifecycle</span>:
@@ -360,7 +360,7 @@ pod 가 종료될 때 즉각적으로 pod를 제거해버리면, 처리하고 �
 <h2 id="전체-시퀀스-도식화">전체 시퀀스 도식화</h2>
 <p>말로만 하면 이해가 잘 안될것 같아, 그림으로 도식화 해보았다.</p>
 <figure class="full-width caption"  >
-    <img src="/images/posts/kubernetes/graceful-shutdown.gif" alt="graceful shutdown"/>
+    <img src="/images/posts/kubernetes/graceful-shutdown.gif" alt="graceful shutdown"  />
     
     <figcaption class="caption-text">전체 pod 전환 순서</figcaption>
     
@@ -450,6 +450,11 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                     </li>
                     
                     
+                    <li class="next">
+                        <a href="https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/" data-toggle="tooltip" data-placement="top" title="백엔드 개발자의 운영툴 UX 고민들">Next
+                            Post &rarr;</a>
+                    </li>
+                    
                 </ul>
 
                 
@@ -532,6 +537,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         <a href="/tags/awx" title="awx">
                         awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
                         </a>
                         
                         
@@ -1120,6 +1131,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         <a href="/tags/unused-plugins" title="unused-plugins">
                         unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
                         </a>
                         
                         
