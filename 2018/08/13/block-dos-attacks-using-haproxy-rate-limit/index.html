@@ -269,22 +269,19 @@ DOS 란 &ldquo;Denial of Service attack&rdquo;. 서비스 거부 공격으로 �
 <ol>
 <li>
 <p>우선 제외할 IP 대역과, URL 리스트 파일을 정의하자.</p>
-<pre tabindex="0"><code># ACL &quot;vpc-network&quot; 선언
+<pre tabindex="0"><code># ACL &#34;vpc-network&#34; 선언
 acl vpc-network src 10.10.1.0/16
 
 
-# ACL &quot;allow_url&quot; 선언
+# ACL &#34;allow_url&#34; 선언
 # whitelist url 목록 파일 지정
 acl accept_url url_beg -i -f /etc/haproxy/accept_url.list
+</code></pre></li>
+<li>
+<p>accept_url.list 파일의 내용은 다음과 같다.</p>
+<pre tabindex="0"><code># Allowd url
 
-
-
-
-
-
-# Allowd url
-
-
+/public
 /assets
 /resource
 /feed
@@ -318,7 +315,7 @@ acl dos-attack src_http_req_rate(www) ge 100
 <p>blocked_page backend 정의</p>
 <pre tabindex="0"><code>backend blocked_page
 
-
+    mode http
     # 벡엔드에서 연결될 서버가 없으므로 503 에러가 발생할 것이다. 이 때 보여줄 페이지는 아래와 같다.
     errorfile 503 /etc/haproxy/errors/blocked.http
 </code></pre></li>
@@ -329,8 +326,8 @@ acl dos-attack src_http_req_rate(www) ge 100
 Content-Type: text/html
 Retry-After: 600
 
-
-&lt;html lang=&quot;ko&quot;&gt;
+&lt;!doctype html&gt;
+&lt;html lang=&#34;ko&#34;&gt;
 &lt;head&gt;
 &lt;title&gt;Can not connect page&lt;/title&gt;
 &lt;body&gt;
@@ -346,10 +343,10 @@ Retry-After: 600
 
     ...
 
-    # ACL &quot;vpc-network&quot; 선언
+    # ACL &#34;vpc-network&#34; 선언
     acl vpc-network src 10.10.1.0/16
 
-    # ACL &quot;allow_url&quot; 선언
+    # ACL &#34;allow_url&#34; 선언
     # whitelist url 목록 파일 지정
     acl accept_url url_beg -i -f /etc/haproxy/accept_url.list
 
@@ -384,7 +381,6 @@ backend blocked_page
 backend web-svr
 
     ......
-
 </code></pre><h3 id="테스트">테스트</h3>
 <p>apache bench 를 사용해서 테스트 해보았다.</p>
 <pre tabindex="0"><code>$ ab -r -c 10 -n 2000 -l http://my.service.host/
@@ -449,7 +445,7 @@ access log 가 남지 않았다.</p>
 사전에 haproxy-info.log 가 존재하고, 로그에 dos 용 backend 인 &lsquo;blocked_page&rsquo; 라는 &ldquo;backend name&rdquo; 을 로깅하도록 커스텀 포맷이 지정되어 있다고 가정한다.</p>
 <pre tabindex="0"><code># Provides UDP syslog reception
 $ModLoad imfile
-$template Haproxy, &quot;%msg%\n&quot;
+$template Haproxy, &#34;%msg%\n&#34;
 $InputFilePollInterval 1
 
 # UDP 로 메세지를 수신하지 않고, haproxy-info 파일을 watch 하는 형태로 입력받음
@@ -462,8 +458,8 @@ $InputFileFacility local0
 $InputRunFileMonitor
 
 # blocked_page 라는 단어가 포함된 메세지를 haproxy-dos.log 에 다시 기록함
-:syslogtag, isequal, &quot;haproxy-dos:&quot; {
-  :msg, contains, &quot;blocked_page&quot; {
+:syslogtag, isequal, &#34;haproxy-dos:&#34; {
+  :msg, contains, &#34;blocked_page&#34; {
     local0.* /var/log/haproxy/haproxy-dos.log;Haproxy
   }
   stop
@@ -504,7 +500,7 @@ $InputRunFileMonitor
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -811,6 +807,12 @@ $InputRunFileMonitor
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -855,6 +857,12 @@ $InputRunFileMonitor
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

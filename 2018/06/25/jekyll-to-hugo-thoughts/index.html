@@ -277,13 +277,13 @@
 </li>
 <li>
 <p>shortcode 라는 별도의 custom 단축기능을 만들 수 있다. 내 경우는 CSS class 와 맞추기 위해서 아래처럼 구성해서 썼다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">figure</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;full-width caption&#34;</span> {{ <span style="color:#50fa7b">with</span> .<span style="color:#50fa7b">Get</span> &#34;<span style="color:#50fa7b">border</span>&#34; }} <span style="color:#50fa7b">style</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;border: 1px solid #ededed;&#34;</span> {{ <span style="color:#50fa7b">end</span> }}&gt;
-    &lt;<span style="color:#ff79c6">img</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{ .Get &#34;</span><span style="color:#50fa7b">src</span>&#34; }}&#34; <span style="color:#50fa7b">alt</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{ .Get &#34;</span><span style="color:#50fa7b">alt</span>&#34; }}&#34;/&gt;
-    {{ with .Get &#34;caption&#34; }}
-    &lt;<span style="color:#ff79c6">figcaption</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;caption-text&#34;</span>&gt;{{ . }}&lt;/<span style="color:#ff79c6">figcaption</span>&gt;
-    {{ end }}
-&lt;/<span style="color:#ff79c6">figure</span>&gt;
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">figure</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;full-width caption&#34;</span> {{ <span style="color:#50fa7b">with</span> .<span style="color:#50fa7b">Get</span> &#34;<span style="color:#50fa7b">border</span>&#34; }} <span style="color:#50fa7b">style</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;border: 1px solid #ededed;&#34;</span> {{ <span style="color:#50fa7b">end</span> }}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff79c6">img</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{ .Get &#34;</span><span style="color:#50fa7b">src</span>&#34; }}&#34; <span style="color:#50fa7b">alt</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{ .Get &#34;</span><span style="color:#50fa7b">alt</span>&#34; }}&#34;/&gt;
+</span></span><span style="display:flex;"><span>    {{ with .Get &#34;caption&#34; }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff79c6">figcaption</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;caption-text&#34;</span>&gt;{{ . }}&lt;/<span style="color:#ff79c6">figcaption</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff79c6">figure</span>&gt;
+</span></span></code></pre></div></li>
 <li>
 <p>related post 를 구성하는 건 옵션이 많으니 입맛에 맞게 잘 맞춰야 한다.</p>
 </li>
@@ -315,7 +315,7 @@
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -622,6 +622,12 @@
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -666,6 +672,12 @@
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

@@ -257,52 +257,52 @@
 <h3 id="term"><code>term</code></h3>
 <p>사전적 의미로 보자면 <em>용어</em> 쯤 되겠다. 해당 content 의 inverted index 에 저장되는 token 들 중에서 쿼리의 키워드와 일치하는 녀석이 있는지 찾아준다.</p>
 <p>original text 가 *&ldquo;여러개의 물건들&rdquo;*이고, 다음처럼 tokenize 된다면,</p>
-<pre tabindex="0"><code>curl -XPOST 'localhost:9200/my_index/_analyze?pretty' -H 'Content-Type: application/json' -d'
+<pre tabindex="0"><code>curl -XPOST &#39;localhost:9200/my_index/_analyze?pretty&#39; -H &#39;Content-Type: application/json&#39; -d&#39;
 {
-  &quot;analyzer&quot;: &quot;my_custom_analyzer&quot;,
-  &quot;text&quot;: &quot;여러개의 물건들&quot;
+  &#34;analyzer&#34;: &#34;my_custom_analyzer&#34;,
+  &#34;text&#34;: &#34;여러개의 물건들&#34;
 }
 
 {
-  &quot;tokens&quot; : [
+  &#34;tokens&#34; : [
     {
-      &quot;token&quot; : &quot;여러&quot;,
-      &quot;start_offset&quot; : 0,
-      &quot;end_offset&quot; : 2,
-      &quot;type&quot; : &quot;MM&quot;,
-      &quot;position&quot; : 0
+      &#34;token&#34; : &#34;여러&#34;,
+      &#34;start_offset&#34; : 0,
+      &#34;end_offset&#34; : 2,
+      &#34;type&#34; : &#34;MM&#34;,
+      &#34;position&#34; : 0
     },
     {
-      &quot;token&quot; : &quot;개&quot;,
-      &quot;start_offset&quot; : 2,
-      &quot;end_offset&quot; : 3,
-      &quot;type&quot; : &quot;NNB&quot;,
-      &quot;position&quot; : 1
+      &#34;token&#34; : &#34;개&#34;,
+      &#34;start_offset&#34; : 2,
+      &#34;end_offset&#34; : 3,
+      &#34;type&#34; : &#34;NNB&#34;,
+      &#34;position&#34; : 1
     },
     {
-      &quot;token&quot; : &quot;물건&quot;,
-      &quot;start_offset&quot; : 5,
-      &quot;end_offset&quot; : 7,
-      &quot;type&quot; : &quot;NNG&quot;,
-      &quot;position&quot; : 2
+      &#34;token&#34; : &#34;물건&#34;,
+      &#34;start_offset&#34; : 5,
+      &#34;end_offset&#34; : 7,
+      &#34;type&#34; : &#34;NNG&#34;,
+      &#34;position&#34; : 2
     },
     {
-      &quot;token&quot; : &quot;물건들&quot;,
-      &quot;start_offset&quot; : 5,
-      &quot;end_offset&quot; : 8,
-      &quot;type&quot; : &quot;NNG&quot;,
-      &quot;position&quot; : 2
+      &#34;token&#34; : &#34;물건들&#34;,
+      &#34;start_offset&#34; : 5,
+      &#34;end_offset&#34; : 8,
+      &#34;type&#34; : &#34;NNG&#34;,
+      &#34;position&#34; : 2
     }
   ]
 }
 </code></pre><p><code>term</code> 쿼리를 통해서 검색 결과에 포함하려면 다음의 4가지 쿼리가 가능하다.</p>
 <pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;term&quot;: {
-            &quot;content&quot;: &quot;여러&quot;
+          &#34;term&#34;: {
+            &#34;content&#34;: &#34;여러&#34;
           }
         }
       ]
@@ -310,12 +310,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;term&quot;: {
-            &quot;content&quot;: &quot;개&quot;
+          &#34;term&#34;: {
+            &#34;content&#34;: &#34;개&#34;
           }
         }
       ]
@@ -323,12 +323,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;term&quot;: {
-            &quot;content&quot;: &quot;물건&quot;
+          &#34;term&#34;: {
+            &#34;content&#34;: &#34;물건&#34;
           }
         }
       ]
@@ -336,12 +336,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;term&quot;: {
-            &quot;content&quot;: &quot;물건들&quot;
+          &#34;term&#34;: {
+            &#34;content&#34;: &#34;물건들&#34;
           }
         }
       ]
@@ -353,12 +353,12 @@
 이 analyze 한 결과의 token 들 중에서 하나라도 일치하면 결과 document 에 포함된다.</p>
 <p>따라서 original text 가 위와 같을 때 가능한 쿼리는 다음과 같다.</p>
 <pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match&quot;: {
-            &quot;content&quot;: &quot;여러개&quot;
+          &#34;match&#34;: {
+            &#34;content&#34;: &#34;여러개&#34;
           }
         }
       ]
@@ -366,12 +366,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match&quot;: {
-            &quot;content&quot;: &quot;여러사&quot;
+          &#34;match&#34;: {
+            &#34;content&#34;: &#34;여러사&#34;
           }
         }
       ]
@@ -379,12 +379,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match&quot;: {
-            &quot;content&quot;: &quot;나의 물건들&quot;
+          &#34;match&#34;: {
+            &#34;content&#34;: &#34;나의 물건들&#34;
           }
         }
       ]
@@ -401,12 +401,12 @@
 <p>따라서 <code>match</code> 와 같이 &ldquo;나의 물건들&rdquo; 이라는 검색 키워드를 넣는다면, <code>나</code> 라는 token 이 들어 있지도 않고 순서도 맞지 않으니. <code>여러가지 물건들</code> 이라는 document 는 결과에 포함되지 않는다.</p>
 <p>이 때 가능한 쿼리는 다음과 같다.</p>
 <pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match_phrase&quot;: {
-            &quot;content&quot;: &quot;여러개&quot;
+          &#34;match_phrase&#34;: {
+            &#34;content&#34;: &#34;여러개&#34;
           }
         }
       ]
@@ -414,12 +414,12 @@
   }
 }
 </code></pre><pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match_phrase&quot;: {
-            &quot;content&quot;: &quot;여러개의 물건들&quot;
+          &#34;match_phrase&#34;: {
+            &#34;content&#34;: &#34;여러개의 물건들&#34;
           }
         }
       ]
@@ -428,12 +428,12 @@
 }
 </code></pre><p>순서만 바꿔도 안된다</p>
 <pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;match_phrase&quot;: {
-            &quot;content&quot;: &quot;물건들 여러개&quot;
+          &#34;match_phrase&#34;: {
+            &#34;content&#34;: &#34;물건들 여러개&#34;
           }
         }
       ]
@@ -470,7 +470,7 @@
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -777,6 +777,12 @@
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -821,6 +827,12 @@
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

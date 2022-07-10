@@ -244,14 +244,14 @@
                 <h2 id="haproxy-의-acl-설정">Haproxy 의 ACL 설정</h2>
 <p>reverse proxy 로 활용하면서 header 의 값을 판단하거나, source 의 IP 대역을 확인하거나,
 또는 기타 특정 backend 연결을 위해서 acl을 정의한다.</p>
-<pre tabindex="0"><code>    # ACL &quot;vpc-network&quot; 선언
+<pre tabindex="0"><code>    # ACL &#34;vpc-network&#34; 선언
     acl vpc-network src 10.10.1.0/16
 
-    # ACL &quot;allow_url&quot; 선언
+    # ACL &#34;allow_url&#34; 선언
     # whitelist url 목록 파일 지정
     acl accept_url url_beg -i -f /etc/haproxy/accept_url.list
 
-    # ACL &quot;found-header&quot; 선언
+    # ACL &#34;found-header&#34; 선언
     acl found-header req.hdr_val(my_custom_header) -m found
 </code></pre><h3 id="조건에-따른-분기-처리를-위한-변수-획득">조건에 따른 분기 처리를 위한 변수 획득</h3>
 <p>예를들어 header 의 특정 값을 변수로 획득하여 조건에 따라 다른 백엔드 서버로 요청을 처리를 하고 싶다고 가정해보자.
@@ -264,7 +264,7 @@
     SetEnvIf my_custom_header (.+) CUSTOM_HEADER=$1
 
     # 로그에 CUSTOM_HEADER 라는 변수값을 기록한다.
-    LogFormat &quot;%{CUSTOM_HEADER}e %{Host}i %D [%{%FT%T%z}t] \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined
+    LogFormat &#34;%{CUSTOM_HEADER}e %{Host}i %D [%{%FT%T%z}t] \&#34;%r\&#34; %&gt;s %b \&#34;%{Referer}i\&#34; \&#34;%{User-Agent}i\&#34;&#34; combined
 </code></pre><p>nginx 에서는 다음과 같이 처리할 수 있다.</p>
 <pre tabindex="0"><code>#nginx 
 
@@ -272,12 +272,12 @@
     # 값이 없다면 공백으로 지정
     # 값지 존재한다면 해당값을 변수에 저장한다.
     map $http_my_custom_header $custom_header {
-        &quot;-&quot;     &quot;&quot;;
+        &#34;-&#34;     &#34;&#34;;
         default $http_my_custom_header;
     }
 
     # custom_header 라는 변수값을 로그에 기록한다.
-    log_format main         '$custom_header $forward_ip $http_host $request_time [$time_iso8601] ';
+    log_format main         &#39;$custom_header $forward_ip $http_host $request_time [$time_iso8601] &#39;;
 </code></pre><p>haproxy document 를 확인하면 애석하게도 acl 을 곧바로 로그에 남기는 방법이 존재하지 않는다.
 apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음과 같이 해보자.</p>
 <pre tabindex="0"><code>#haproxy
@@ -287,14 +287,14 @@ apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음�
     http-request set-var(req.my_custom_variable) req.hdr(my_custom_header)
     
     # 특정 acl 에 따라서 string 값으로 지정할 수 있다.
-    http-request set-var(req.my_custom_variable) str(&quot;other_value&quot;) if my_acl
+    http-request set-var(req.my_custom_variable) str(&#34;other_value&#34;) if my_acl
     
     # 길이 제한 10으로 이 값을 capture 하자.
     http-request capture var(req.my_custom_variable) len 10
     
     # 위에서 캡처한 값을 로그에 기록한다.
     # 캡쳐한 값이 여러개라면 index 번호는 0, 1, 2.. 순으로 늘어난다.
-    log-format &quot;%[capture.req.hdr(0)]\ %Tt [%trl]\ \&quot;%HM\ %HU\ %HV\&quot;\ %ST\ %B\&quot;
+    log-format &#34;%[capture.req.hdr(0)]\ %Tt [%trl]\ \&#34;%HM\ %HU\ %HV\&#34;\ %ST\ %B\&#34;
 </code></pre><p>이렇게 하면 원하는 값을 acl 에 따라서 지정할 수 있고, 이를 로그에서 확인할 수 있다.
 나의 경우에는 내부 내트워크 에서 접속인지 아닌지 로그에서 바로 확인하는 용도로 사용한다.
 테스트는 haproxy 1.9 버전에서 정상적으로 동작하는 것을 확인했다.</p>
@@ -334,7 +334,7 @@ apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음�
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -641,6 +641,12 @@ apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음�
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -685,6 +691,12 @@ apache 나 nginx 보다는 조금 불편한 방법을 거쳐야 한다. 다음�
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

@@ -237,7 +237,7 @@
                 </div>
                 
                 <p>관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
-Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 <em>&ldquo;Spring Boot 매뉴얼 뽀개기!&quot;</em> 라고 스터디 제목을 정했다. (과연..)</p>
+Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 <em>&ldquo;Spring Boot 매뉴얼 뽀개기!&rdquo;</em> 라고 스터디 제목을 정했다. (과연..)</p>
 <p>스터디를 어떤 방식으로 진행할까 고민하다가 <a href="https://www.youtube.com/watch?v=CnmTCMRTbxo&amp;t=890s">백기선님의 유튜브</a>를 참고해서
 영상과 함께 매뉴얼을 훑어 보자는 아이디어가 나왔고, 나쁘지 않겠다 싶어서 그렇게 하기로 했다. 일정은 한달 안에 필요한 기능들을 확인하는 걸로 정했다.
 어차피 스터디 멤버는 완전 초심자가 아니기 때문에, 결국 대상은 : 자바 스프링을 사용해본 경험이 있으며, 프레임워크 및 개발 경험이 좀 있는 사람이 되었다.
@@ -336,10 +336,10 @@ X. Appendices
 </li>
 <li>
 <p>이제 pom.xml 파일에 parent, dependencies, build 를 추가해서 다음처럼 구성하자.</p>
-<pre tabindex="0"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
     &lt;groupId&gt;com.example&lt;/groupId&gt;
@@ -390,9 +390,9 @@ import org.springframework.web.bind.annotation.*;
 @EnableAutoConfiguration
 public class Application {
 
-    @RequestMapping(&quot;/&quot;)
+    @RequestMapping(&#34;/&#34;)
     String home() {
-        return &quot;Hello World!&quot;;
+        return &#34;Hello World!&#34;;
     }
 
 
@@ -450,7 +450,7 @@ public class Application {
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -757,6 +757,12 @@ public class Application {
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -801,6 +807,12 @@ public class Application {
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

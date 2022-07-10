@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>heap memory on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/heap-memory/</link>
+    <description>Recent content in heap memory on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 10 Jul 2022 13:23:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/heap-memory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
+      <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>
+      <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</guid>
+      <description>K8S에서 Java 애플리케이션을 구동할 때에는 리소스 설정과 메모리 설정에 주의하지 않으면 성능에 이슈가 발생할 수 있어, 관련 설정을 정리해보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -243,29 +243,28 @@
 <p>도커를 빌드할 때 주로 사용하는 것이 바로 Alpine 리눅스이다. 도커를 사용할 때 경량의 이미지를 기반으로 하면 이미지 pull 속도가 빨라 빠른 배포에 도움이 되어 자주 사용하고 있다. 다만 너무 경량이다 보니 필요한 패키지를 추가로 설치해줘야 하는 경우가 있는데 이미지에 timezone 을 추가로 지정하는 방법을 살펴보았다.</p>
 <h2 id="alpine-linux">Alpine Linux</h2>
 <p>Alpine 리눅스는 보안, 단순함, 적은 자원을 사용하는 리눅스로 <a href="https://wiki.alpinelinux.org/">위키 링크</a> 에서 대부분의 매뉴얼을 찾을 수 있다. <a href="https://hub.docker.com/_/alpine">도커 허브</a>에서는 베이스 이미지로 제공하고 있으며 로컬 머신에서 이미지를 다운로드 받아보면 얼마나 작은 사이즈를 유지하는지 확인할 수 있다. 다음처럼 확인했을 때 불과 5.6MB 에 이미지 사이즈를 확인할 수 있었다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ docker image pull alpine:latest
-Using default tag: latest
-latest: Pulling from library/alpine
-5843afab3874: Already exists
-Digest: sha256:234cb88d3020898631af0ccbbcca9a66ae7306ecd30c9720690858c1b007d2a0
-Status: Downloaded newer image <span style="color:#ff79c6">for</span> alpine:latest
-docker.io/library/alpine:latest
-
-$ docker images
-alpine    3.14.0    d4ff818577bc   <span style="color:#bd93f9">5</span> secods ago     5.6MB
-</code></pre></div><h2 id="timezone-설정하기">timezone 설정하기</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ docker image pull alpine:latest
+</span></span><span style="display:flex;"><span>Using default tag: latest
+</span></span><span style="display:flex;"><span>latest: Pulling from library/alpine
+</span></span><span style="display:flex;"><span>5843afab3874: Already exists
+</span></span><span style="display:flex;"><span>Digest: sha256:234cb88d3020898631af0ccbbcca9a66ae7306ecd30c9720690858c1b007d2a0
+</span></span><span style="display:flex;"><span>Status: Downloaded newer image <span style="color:#ff79c6">for</span> alpine:latest
+</span></span><span style="display:flex;"><span>docker.io/library/alpine:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ docker images
+</span></span><span style="display:flex;"><span>alpine    3.14.0    d4ff818577bc   <span style="color:#bd93f9">5</span> secods ago     5.6MB
+</span></span></code></pre></div><h2 id="timezone-설정하기">timezone 설정하기</h2>
 <p>정확한 내용은 <a href="https://wiki.alpinelinux.org/wiki/Setting_the_timezone">위키 문서</a>를 참고하였다. 일단 alpine 에서는 yum, apt 와 같은 패키지 매니저를 사용할 수 있는데 바로 <code>apk</code> 명령어다. 타임존을 설정하기 위해서는 <code>tzdata</code> 패키지가 필요하다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apk add tzdata
-
-</code></pre></div><p>패키지를 설치하는 것에 더해 <code>/etc/timezone</code> 을 지정해줘야한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Asia/Seoul&#34;</span> &gt;  /etc/timezone
-</code></pre></div><h2 id="도커에서-설정하기">도커에서 설정하기</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apk add tzdata
+</span></span></code></pre></div><p>패키지를 설치하는 것에 더해 <code>/etc/timezone</code> 을 지정해줘야한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Asia/Seoul&#34;</span> &gt;  /etc/timezone
+</span></span></code></pre></div><h2 id="도커에서-설정하기">도커에서 설정하기</h2>
 <p>도커파일에서는 다음과 같이 사용하고 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ENV <span style="color:#8be9fd;font-style:italic">TZ</span><span style="color:#ff79c6">=</span>Asia/Seoul
-RUN apk add --no-cache tzdata <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">\
-</span><span style="color:#f1fa8c"></span>    cp /usr/share/zoneinfo/<span style="color:#8be9fd;font-style:italic">$TZ</span> /etc/localtime <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">\
-</span><span style="color:#f1fa8c"></span>    <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$TZ</span> &gt; /etc/timezone
-</code></pre></div><h1 id="참고자료">참고자료</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ENV <span style="color:#8be9fd;font-style:italic">TZ</span><span style="color:#ff79c6">=</span>Asia/Seoul
+</span></span><span style="display:flex;"><span>RUN apk add --no-cache tzdata <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>    cp /usr/share/zoneinfo/<span style="color:#8be9fd;font-style:italic">$TZ</span> /etc/localtime <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>    <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$TZ</span> &gt; /etc/timezone
+</span></span></code></pre></div><h1 id="참고자료">참고자료</h1>
 <ul>
 <li><a href="https://hub.docker.com/_/alpine">알파인 리눅스 도커 허브 이미지</a></li>
 <li><a href="https://wiki.alpinelinux.org/wiki/Setting_the_timezone">timezone 지정 위키 문서</a></li>
@@ -295,7 +294,7 @@ RUN apk add --no-cache tzdata <span style="color:#ff79c6">&amp;&amp;</span> <spa
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -602,6 +601,12 @@ RUN apk add --no-cache tzdata <span style="color:#ff79c6">&amp;&amp;</span> <spa
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -646,6 +651,12 @@ RUN apk add --no-cache tzdata <span style="color:#ff79c6">&amp;&amp;</span> <spa
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

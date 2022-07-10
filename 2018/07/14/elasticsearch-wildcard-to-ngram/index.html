@@ -277,44 +277,44 @@
 </code></pre><h3 id="rdbms-의-경우">RDBMS 의 경우</h3>
 <p>먼저 RDBMS 의 <code>like &quot;%keyword%&quot;</code> 쿼리를 생각해 보자, <code>걸음</code> 이라는 텍스트가 포함되어 있는 row 를 찾으려면 아래처럼 쿼리를 하게 되겠다.
 이런 쿼리를 사용하는 순간 full text searching 을 하기 때문에 가급적이면 사용을 지양해야할 쿼리이긴 하지만, 어쩔 수 없이 사용한다고 가정하자.</p>
-<pre tabindex="0"><code>SELECT * FROM poems WHERE contents LIKE '%걸음%'
+<pre tabindex="0"><code>SELECT * FROM poems WHERE contents LIKE &#39;%걸음%&#39;
 </code></pre><pre tabindex="0"><code>id | contents
-1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+1 &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;
 </code></pre><h3 id="elasticsearch-의-경우">ElasticSearch 의 경우</h3>
 <p>RDBMS 에서 처럼 full text searching 이 가능할것으로 기대하고, <code>wildcard</code> 쿼리를 사용해보자.</p>
-<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d &#39;
 {
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: {
-          &quot;wildcard&quot;: {
-            &quot;contents&quot;: &quot;*걸음*&quot;
+  &#34;query&#34; : {
+      &#34;bool&#34;: {
+        &#34;must&#34;: {
+          &#34;wildcard&#34;: {
+            &#34;contents&#34;: &#34;*걸음*&#34;
           }
         }
       }
   }
-}'
+}&#39;
 </code></pre><p>결과는 아래와 같은 형태가 된다.</p>
 <pre tabindex="0"><code>{
-  &quot;took&quot;: 230,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
+  &#34;took&#34;: 230,
+  &#34;timed_out&#34;: false,
+  &#34;_shards&#34;: {
+    &#34;total&#34;: 1,
+    &#34;successful&#34;: 1,
+    &#34;skipped&#34;: 0,
+    &#34;failed&#34;: 0
   },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 1,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
+  &#34;hits&#34;: {
+    &#34;total&#34;: 1,
+    &#34;max_score&#34;: null,
+    &#34;hits&#34;: [
       {
-        &quot;_index&quot;: &quot;index-name&quot;,
-        &quot;_type&quot;: &quot;poems&quot;,
-        &quot;_id&quot;: &quot;1-1&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+        &#34;_index&#34;: &#34;index-name&#34;,
+        &#34;_type&#34;: &#34;poems&#34;,
+        &#34;_id&#34;: &#34;1-1&#34;,
+        &#34;_score&#34;: null,
+        &#34;_source&#34;: {
+          &#34;contents&#34;: &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;
         }
       }
     ]
@@ -324,59 +324,58 @@
 <ul>
 <li>RDBMS</li>
 </ul>
-<pre tabindex="0"><code>SELECT * FROM poems WHERE contents LIKE '%기가%'
+<pre tabindex="0"><code>SELECT * FROM poems WHERE contents LIKE &#39;%기가%&#39;
 </code></pre><p>여전히 아래와 같이 잘 찾는다.</p>
 <pre tabindex="0"><code>id | contents
-1 &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+1 &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;
 </code></pre><ul>
 <li>ElasticSearch</li>
 </ul>
-<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d &#39;
 {
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: {
-          &quot;wildcard&quot;: {
-            &quot;contents&quot;: &quot;*기가*&quot;
+  &#34;query&#34; : {
+      &#34;bool&#34;: {
+        &#34;must&#34;: {
+          &#34;wildcard&#34;: {
+            &#34;contents&#34;: &#34;*기가*&#34;
           }
         }
       }
   }
-}'
+}&#39;
 </code></pre><p>그런데 이번에는 원하는 결과를 찾을 수가 없다.</p>
 <pre tabindex="0"><code>{
-  &quot;took&quot;: 230,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;failed&quot;: 0
+  &#34;took&#34;: 230,
+  &#34;timed_out&#34;: false,
+  &#34;_shards&#34;: {
+    &#34;total&#34;: 1,
+    &#34;successful&#34;: 1,
+    &#34;failed&#34;: 0
   },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 0,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: []
+  &#34;hits&#34;: {
+    &#34;total&#34;: 0,
+    &#34;max_score&#34;: null,
+    &#34;hits&#34;: []
   }
 }
 </code></pre><h3 id="왜-그럴까">왜 그럴까?</h3>
 <p>이 차이는 바로 <code>wildcard</code> 쿼리가 <code>term level query</code> 이기 때문이다. ElasticSearch는 실제로 저장된 <code>document</code> 의 원문을 검사하는 것이 아니라, <code>inverted index</code> 의 목록 중에서
 <code>term(token)</code> 중에 쿼리에서 질의한 <code>keyword</code>를 찾기 때문이다. (이건 아주 기본적인 사항이지만, 우리는 이를 금방 까먹는다&hellip;)</p>
 <p>그럼 <strong>진달래꽃</strong>은 어떤 token 으로 구성되어 있는지 확인해 보자.</p>
-<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
-  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
-  &quot;analyzer&quot;: &quot;my_custom_analyzer&quot;
-}'
-
+<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d &#39;
+  &#34;text&#34;: &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;,
+  &#34;analyzer&#34;: &#34;my_custom_analyzer&#34;
+}&#39;
 </code></pre><p>token 의 결과를 보면 &ldquo;*기가*&rdquo; 와 매칭되는 token 이 존재하지 않는다. <strong>보기가</strong> 라는 단어는 다음과 같이 <strong>보기</strong> 의 단어(word)로 tokenize 되기 때문이다. (어떤 analyzer 를 사용하느냐는 여기서 언급하지 않겠다.)</p>
 <pre tabindex="0"><code>{
-  &quot;tokens&quot;: [
+  &#34;tokens&#34;: [
     .......
     {
-      &quot;token&quot;: &quot;보기&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 2,
-      &quot;type&quot;: &quot;VX&quot;,
-      &quot;position&quot;: 7
+      &#34;token&#34;: &#34;보기&#34;,
+      &#34;start_offset&#34;: 0,
+      &#34;end_offset&#34;: 2,
+      &#34;type&#34;: &#34;VX&#34;,
+      &#34;position&#34;: 7
     },
     .......
   ]
@@ -389,15 +388,15 @@
 <p>mapping 에 nested 구조로 ngram 이라는 필드를 추가해보자</p>
 <pre tabindex="0"><code>mappings
 ......
-  &quot;mappings&quot;: {
-    &quot;poems&quot;: { // type name
-      &quot;properties&quot;: {
-        &quot;contents&quot;: {
-          &quot;type&quot;: &quot;text&quot;,
-          &quot;fields&quot;: {
-            &quot;ngram&quot;: {
-              &quot;type&quot;: &quot;text&quot;,
-              &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
+  &#34;mappings&#34;: {
+    &#34;poems&#34;: { // type name
+      &#34;properties&#34;: {
+        &#34;contents&#34;: {
+          &#34;type&#34;: &#34;text&#34;,
+          &#34;fields&#34;: {
+            &#34;ngram&#34;: {
+              &#34;type&#34;: &#34;text&#34;,
+              &#34;analyzer&#34;: &#34;my_customer_ngram_analyzer&#34;
             }
           }
         }
@@ -407,49 +406,48 @@
     ....
 </code></pre><pre tabindex="0"><code>settings
 ......
-  &quot;analyzer&quot;: {
-    &quot;my_customer_ngram_analyzer&quot;: {
-      &quot;tokenizer&quot;: &quot;my_customer_ngram_tokenizer&quot;
+  &#34;analyzer&#34;: {
+    &#34;my_customer_ngram_analyzer&#34;: {
+      &#34;tokenizer&#34;: &#34;my_customer_ngram_tokenizer&#34;
     }
   },
-  &quot;tokenizer&quot;: {
-    &quot;my_customer_ngram_tokenizer&quot;: {
-      &quot;type&quot;: &quot;ngram&quot;,
-      &quot;min_gram&quot;: &quot;2&quot;,
-      &quot;max_gram&quot;: &quot;5&quot;
+  &#34;tokenizer&#34;: {
+    &#34;my_customer_ngram_tokenizer&#34;: {
+      &#34;type&#34;: &#34;ngram&#34;,
+      &#34;min_gram&#34;: &#34;2&#34;,
+      &#34;max_gram&#34;: &#34;5&#34;
     }
   }
 ......
 </code></pre><p>이제 새롭게 document를 추가하면 contents.ngram 이라는 필드에 token 이 다르게 나온다. 다시 analyzer 결과를 확인해 보자.</p>
-<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d '
-  &quot;text&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;,
-  &quot;analyzer&quot;: &quot;my_customer_ngram_analyzer&quot;
-}'
-
+<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_analyze?pretty -XPOST -d &#39;
+  &#34;text&#34;: &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;,
+  &#34;analyzer&#34;: &#34;my_customer_ngram_analyzer&#34;
+}&#39;
 </code></pre><p>이번에는 단어를 하나하나 쪼개서 길이 2 ~ 길이 5사이의 token 으로 나뉘어진다. <code>보기가</code> 라는 단어는 <code>보기</code>, <code>보기가</code>, <code>기가</code> 라는 세개의 토큰으로 나뉘어 졌다.</p>
 <pre tabindex="0"><code>{
-  &quot;tokens&quot;: [
+  &#34;tokens&#34;: [
     ......
     {
-      &quot;token&quot;: &quot;보기&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 2,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 7
+      &#34;token&#34;: &#34;보기&#34;,
+      &#34;start_offset&#34;: 0,
+      &#34;end_offset&#34;: 2,
+      &#34;type&#34;: &#34;word&#34;,
+      &#34;position&#34;: 7
     },
     {
-      &quot;token&quot;: &quot;보기가&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 3,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 7
+      &#34;token&#34;: &#34;보기가&#34;,
+      &#34;start_offset&#34;: 0,
+      &#34;end_offset&#34;: 3,
+      &#34;type&#34;: &#34;word&#34;,
+      &#34;position&#34;: 7
     },
     {
-      &quot;token&quot;: &quot;기가&quot;,
-      &quot;start_offset&quot;: 1,
-      &quot;end_offset&quot;: 3,
-      &quot;type&quot;: &quot;word&quot;,
-      &quot;position&quot;: 8
+      &#34;token&#34;: &#34;기가&#34;,
+      &#34;start_offset&#34;: 1,
+      &#34;end_offset&#34;: 3,
+      &#34;type&#34;: &#34;word&#34;,
+      &#34;position&#34;: 8
     },
     ......
 }
@@ -463,39 +461,39 @@
 </ul>
 <p><code>보기가</code> 라는 단어는 단어의 길이가 3 이기 때문에 총 6개의 token 으로 나뉘어 졌다. 이렇게 단어의 일부분을 <code>ngram</code> 으로 잘라내서 tokenize 해서 매칭 시키는 방식을 <code>partial matching</code> 이라고 한다.</p>
 <p>이렇게 <code>ngram</code> 을 사용하도록 변경하였으니, 쿼리를 수정하자. <code>wildcard</code> 쿼리는 빼고, <code>term</code> 쿼리를 사용하자.</p>
-<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d '
+<pre tabindex="0"><code>curl -s http://my-elastic-cluster-host:9200/index-name/_search?pretty -XPOST -d &#39;
 {
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;should&quot; : [
-            {&quot;term&quot; : { &quot;contents&quot; : &quot;기가&quot; } },
-            {&quot;match_phrase&quot; : { &quot;contents.ngram&quot; : &quot;기가&quot; } }
+  &#34;query&#34; : {
+      &#34;bool&#34;: {
+        &#34;should&#34; : [
+            {&#34;term&#34; : { &#34;contents&#34; : &#34;기가&#34; } },
+            {&#34;match_phrase&#34; : { &#34;contents.ngram&#34; : &#34;기가&#34; } }
         ],
-        &quot;minimum_should_match&quot; : 1
+        &#34;minimum_should_match&#34; : 1
       }
   }
-}'
+}&#39;
 </code></pre><p>위의 쿼리는 <code>contents</code> 의 token 과 <code>contents.ngram</code> 의 token을 찾게 된다. 쿼리 결과는 아래와 같이 정상적으로 원하는 문서를 찾을 수 있다.</p>
 <pre tabindex="0"><code>{
-  &quot;took&quot;: 8,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
+  &#34;took&#34;: 8,
+  &#34;timed_out&#34;: false,
+  &#34;_shards&#34;: {
+    &#34;total&#34;: 1,
+    &#34;successful&#34;: 1,
+    &#34;skipped&#34;: 0,
+    &#34;failed&#34;: 0
   },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 1,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
+  &#34;hits&#34;: {
+    &#34;total&#34;: 1,
+    &#34;max_score&#34;: null,
+    &#34;hits&#34;: [
       {
-        &quot;_index&quot;: &quot;index-name&quot;,
-        &quot;_type&quot;: &quot;poems&quot;,
-        &quot;_id&quot;: &quot;1-1&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;contents&quot;: &quot;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&quot;
+        &#34;_index&#34;: &#34;index-name&#34;,
+        &#34;_type&#34;: &#34;poems&#34;,
+        &#34;_id&#34;: &#34;1-1&#34;,
+        &#34;_score&#34;: null,
+        &#34;_source&#34;: {
+          &#34;contents&#34;: &#34;진달래꽃 나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다 영변에 약산 진달래꽃 아름 따다 가실 길에 뿌리우리다 가시는 걸음 걸음 놓인 그 꽃을 사뿐히 즈려밟고 가시옵소서 나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다&#34;
         }
       }
     ]
@@ -507,62 +505,62 @@
 예를 들면 ex) <code>?user=3FGAZS1032&amp;key2=ssssss</code> 라고 가정해보자.. 이 경우 user 가 <code>3FGAZS1032</code> 인 경우를 찾는다면 문제 없겠지만, user 값에 <code>3FGAZS</code>가 들어가는 경우를 찾는다면,
 원하는 결과를 얻기가 어렵다. 마찬가지로 이 경우도 <code>ngram</code> 을 통한 tokenize 를 구성했다면 <code>partial mathching</code> 이 가능해져 원하는 문서를 찾을 수 있다.</p>
 <p><code>3FGAZS1032</code> 라는 단어가 analyze 가 어떻게 되는지 살펴보자</p>
-<pre tabindex="0"><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_analyze?pretty -XPOST -d '
+<pre tabindex="0"><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_analyze?pretty -XPOST -d &#39;
 {
-  &quot;text&quot;: &quot;3FGAZS1032&quot;,
-  &quot;analyzer&quot;: &quot;log_analyzer&quot;
+  &#34;text&#34;: &#34;3FGAZS1032&#34;,
+  &#34;analyzer&#34;: &#34;log_analyzer&#34;
 }
 </code></pre><p>token 이 하나만 나온다.</p>
 <pre tabindex="0"><code>{
-  &quot;tokens&quot;: [
+  &#34;tokens&#34;: [
     {
-      &quot;token&quot;: &quot;3FGAZS1032&quot;,
-      &quot;start_offset&quot;: 0,
-      &quot;end_offset&quot;: 10,
-      &quot;type&quot;: &quot;&lt;ALPHANUM&gt;&quot;,
-      &quot;position&quot;: 0
+      &#34;token&#34;: &#34;3FGAZS1032&#34;,
+      &#34;start_offset&#34;: 0,
+      &#34;end_offset&#34;: 10,
+      &#34;type&#34;: &#34;&lt;ALPHANUM&gt;&#34;,
+      &#34;position&#34;: 0
     }
   ]
 }
 </code></pre><p>이 상황에서 <code>\*3FGAZS\*</code> 라는 와일드카드 쿼리를 사용할 수 있지만 응답속도가 느리다. 그렇지만 <code>ngram</code> 을 구성하면 훨씬 빠르다.</p>
-<pre tabindex="0"><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_search?pretty -XPOST -d '
+<pre tabindex="0"><code>curl -s http://my-log-es-cluster-host:9200/log-2018.07.14/_search?pretty -XPOST -d &#39;
 {
-  &quot;_source&quot;: [&quot;user&quot;,&quot;path&quot;],
-  &quot;query&quot; : {
-      &quot;bool&quot;: {
-        &quot;must&quot;: [
-          &quot;term&quot;: {
-            &quot;user.ngram&quot;: &quot;3FGAZS&quot;
+  &#34;_source&#34;: [&#34;user&#34;,&#34;path&#34;],
+  &#34;query&#34; : {
+      &#34;bool&#34;: {
+        &#34;must&#34;: [
+          &#34;term&#34;: {
+            &#34;user.ngram&#34;: &#34;3FGAZS&#34;
           },
-          &quot;term&quot;: {
-            &quot;path.keyword&quot;: &quot;/user/playground&quot;
+          &#34;term&#34;: {
+            &#34;path.keyword&#34;: &#34;/user/playground&#34;
           }
         ]
       }
   }
-}'
+}&#39;
 </code></pre><p>결과가 1ms 가 나왔다.</p>
 <pre tabindex="0"><code>{
-  &quot;took&quot;: 1,
-  &quot;timed_out&quot;: false,
-  &quot;_shards&quot;: {
-    &quot;total&quot;: 1,
-    &quot;successful&quot;: 1,
-    &quot;skipped&quot;: 0,
-    &quot;failed&quot;: 0
+  &#34;took&#34;: 1,
+  &#34;timed_out&#34;: false,
+  &#34;_shards&#34;: {
+    &#34;total&#34;: 1,
+    &#34;successful&#34;: 1,
+    &#34;skipped&#34;: 0,
+    &#34;failed&#34;: 0
   },
-  &quot;hits&quot;: {
-    &quot;total&quot;: 39,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: [
+  &#34;hits&#34;: {
+    &#34;total&#34;: 39,
+    &#34;max_score&#34;: null,
+    &#34;hits&#34;: [
       {
-        &quot;_index&quot;: &quot;log-2018.07.14&quot;,
-        &quot;_type&quot;: &quot;log&quot;,
-        &quot;_id&quot;: &quot;3078923&quot;,
-        &quot;_score&quot;: null,
-        &quot;_source&quot;: {
-          &quot;user&quot;: &quot;3FGAZS1032&quot;,
-          &quot;path&quot;: &quot;/user/playground&quot;
+        &#34;_index&#34;: &#34;log-2018.07.14&#34;,
+        &#34;_type&#34;: &#34;log&#34;,
+        &#34;_id&#34;: &#34;3078923&#34;,
+        &#34;_score&#34;: null,
+        &#34;_source&#34;: {
+          &#34;user&#34;: &#34;3FGAZS1032&#34;,
+          &#34;path&#34;: &#34;/user/playground&#34;
         }
       }
       ......
@@ -604,7 +602,7 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -911,6 +909,12 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -955,6 +959,12 @@ wildcard 는 term(token) level query 이고, 이 차이점을 잘 알아 둘 필
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

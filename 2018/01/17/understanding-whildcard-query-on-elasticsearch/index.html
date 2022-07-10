@@ -248,27 +248,27 @@
 RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 기대했는데, 막상 쿼리 결과를 확인해 보니 원하는 형태가 아니었다.</p>
 <p>original text 가 *&ldquo;여러개의 물건들&rdquo;*이고, 내가 시도한 쿼리는 다음과 같았다.</p>
 <pre tabindex="0"><code>{
-  &quot;query&quot;: {
-    &quot;bool&quot;: {
-      &quot;must&quot;: [
+  &#34;query&#34;: {
+    &#34;bool&#34;: {
+      &#34;must&#34;: [
         {
-          &quot;wildcard&quot;: {
-            &quot;title&quot;: &quot;*여러개*&quot;
+          &#34;wildcard&#34;: {
+            &#34;title&#34;: &#34;*여러개*&#34;
           }
         }
       ]
     }
   },
-  &quot;size&quot;: 100
+  &#34;size&#34;: 100
 }
 </code></pre><p>그런데 결과는 아래와 같이 hits count 가 0 이었다.</p>
 <pre tabindex="0"><code>{
-  &quot;took&quot;: 243,
-  &quot;timed_out&quot;: false,
-  &quot;hits&quot;: {
-    &quot;total&quot;: 0,
-    &quot;max_score&quot;: null,
-    &quot;hits&quot;: []
+  &#34;took&#34;: 243,
+  &#34;timed_out&#34;: false,
+  &#34;hits&#34;: {
+    &#34;total&#34;: 0,
+    &#34;max_score&#34;: null,
+    &#34;hits&#34;: []
   }
 }
 </code></pre><p>원인은 바로 <code>wildcard query</code> 가 term level query 이기 때문이다.</p>
@@ -276,42 +276,42 @@ RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 
 <p>term 즉 inverted index 를 기준으로 결과를 찾는다는 의미다. 다시 말해 analyzed 된 term keyword 가 있어야 하며,
 문서를 색인할 때 토크나이징된 단어가 아니라면 inverted index에 들어 있지 않기 때문에, 아예 비교 대상에 포함되지 않는 것이다.</p>
 <p>내가 테스트한 custom analyzer의 토크나이징은 아래와 같았으니,</p>
-<pre tabindex="0"><code>curl -XPOST 'localhost:9200/my_index/_analyze?pretty' -H 'Content-Type: application/json' -d'
+<pre tabindex="0"><code>curl -XPOST &#39;localhost:9200/my_index/_analyze?pretty&#39; -H &#39;Content-Type: application/json&#39; -d&#39;
 {
-  &quot;analyzer&quot;: &quot;my_custom_analyzer&quot;,
-  &quot;text&quot;: &quot;여러개의 물건들&quot;
+  &#34;analyzer&#34;: &#34;my_custom_analyzer&#34;,
+  &#34;text&#34;: &#34;여러개의 물건들&#34;
 }
 
 
 {
-  &quot;tokens&quot; : [
+  &#34;tokens&#34; : [
     {
-      &quot;token&quot; : &quot;여러&quot;,
-      &quot;start_offset&quot; : 0,
-      &quot;end_offset&quot; : 2,
-      &quot;type&quot; : &quot;MM&quot;,
-      &quot;position&quot; : 0
+      &#34;token&#34; : &#34;여러&#34;,
+      &#34;start_offset&#34; : 0,
+      &#34;end_offset&#34; : 2,
+      &#34;type&#34; : &#34;MM&#34;,
+      &#34;position&#34; : 0
     },
     {
-      &quot;token&quot; : &quot;개&quot;,
-      &quot;start_offset&quot; : 2,
-      &quot;end_offset&quot; : 3,
-      &quot;type&quot; : &quot;NNB&quot;,
-      &quot;position&quot; : 1
+      &#34;token&#34; : &#34;개&#34;,
+      &#34;start_offset&#34; : 2,
+      &#34;end_offset&#34; : 3,
+      &#34;type&#34; : &#34;NNB&#34;,
+      &#34;position&#34; : 1
     },
     {
-      &quot;token&quot; : &quot;물건&quot;,
-      &quot;start_offset&quot; : 5,
-      &quot;end_offset&quot; : 7,
-      &quot;type&quot; : &quot;NNG&quot;,
-      &quot;position&quot; : 2
+      &#34;token&#34; : &#34;물건&#34;,
+      &#34;start_offset&#34; : 5,
+      &#34;end_offset&#34; : 7,
+      &#34;type&#34; : &#34;NNG&#34;,
+      &#34;position&#34; : 2
     },
     {
-      &quot;token&quot; : &quot;물건들&quot;,
-      &quot;start_offset&quot; : 5,
-      &quot;end_offset&quot; : 8,
-      &quot;type&quot; : &quot;NNG&quot;,
-      &quot;position&quot; : 2
+      &#34;token&#34; : &#34;물건들&#34;,
+      &#34;start_offset&#34; : 5,
+      &#34;end_offset&#34; : 8,
+      &#34;type&#34; : &#34;NNG&#34;,
+      &#34;position&#34; : 2
     }
   ]
 }
@@ -341,7 +341,7 @@ RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -648,6 +648,12 @@ RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -692,6 +698,12 @@ RDBMS 의 like &lsquo;%keyword%&rsquo; 와 같은 형태가 가능할 것으로 
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

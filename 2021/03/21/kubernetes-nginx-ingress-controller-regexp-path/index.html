@@ -245,24 +245,24 @@ ingress controller 로 동작하는 nginx 의 configuration을
 바로 수정하기는 어려우니 ingress controller 에서 지원하는 방식으로 해법을 찾아보았다.</p>
 <h2 id="방법">방법</h2>
 <p>간단히 말해서 다음과 같이 <code>nginx.ingress.kubernetes.io/use-regex</code> annotation 을 적용하면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.k8s.io/v1beta1
-<span style="color:#ff79c6">kind</span>: Ingress
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: test-ingress
-  <span style="color:#ff79c6">annotations</span>:
-    <span style="color:#ff79c6">nginx.ingress.kubernetes.io/use-regex</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
-</code></pre></div><p>annotation 을 지정한 다음에 다음과 같이 path 지정을 했다면</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">rules</span>:
-  - <span style="color:#ff79c6">host</span>: test.com
-    <span style="color:#ff79c6">http</span>:
-      <span style="color:#ff79c6">paths</span>:
-      - <span style="color:#ff79c6">path</span>: /foo/.*
-        <span style="color:#ff79c6">backend</span>:
-          <span style="color:#ff79c6">serviceName</span>: test
-          <span style="color:#ff79c6">servicePort</span>: <span style="color:#bd93f9">80</span>
-</code></pre></div><p>nginx ingress controller 에 적용되는 nginx config 는 다음과 같은 형태가 된다.</p>
-<pre tabindex="0"><code>location ~* &quot;^/foo/.*&quot; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.k8s.io/v1beta1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Ingress
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: test-ingress
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">nginx.ingress.kubernetes.io/use-regex</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
+</span></span></code></pre></div><p>annotation 을 지정한 다음에 다음과 같이 path 지정을 했다면</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">host</span>: test.com
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff79c6">path</span>: /foo/.*
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">serviceName</span>: test
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">servicePort</span>: <span style="color:#bd93f9">80</span>
+</span></span></code></pre></div><p>nginx ingress controller 에 적용되는 nginx config 는 다음과 같은 형태가 된다.</p>
+<pre tabindex="0"><code>location ~* &#34;^/foo/.*&#34; {
   ...
 }
 </code></pre><h3 id="주의사항">주의사항</h3>
@@ -297,7 +297,7 @@ ingress controller 로 동작하는 nginx 의 configuration을
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -604,6 +604,12 @@ ingress controller 로 동작하는 nginx 의 configuration을
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -648,6 +654,12 @@ ingress controller 로 동작하는 nginx 의 configuration을
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

@@ -240,55 +240,54 @@
 <p>ElasticSearch 에서 index 의 alias 를 변경하는 방법을 알아보았다.</p>
 <h2 id="alias-확인">Alias 확인</h2>
 <p>먼저 ElasticSearch 클러스터에 <code>/_alias</code> 로 접속하면 현재 생성된 인덱스 들과 연결된 alias 를 확인할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
-  <span style="color:#ff79c6">&#34;activity-log-index&#34;</span>: {
-    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
-
-    }
-  },
-  <span style="color:#ff79c6">&#34;my-contents-index-v1&#34;</span>: {
-    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
-      <span style="color:#ff79c6">&#34;contents&#34;</span>: {
-
-      }
-    }
-  },
-  <span style="color:#ff79c6">&#34;my-contents-index-v2&#34;</span>: {
-    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
-
-    }
-  }
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JSON" data-lang="JSON"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;activity-log-index&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;my-contents-index-v1&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">&#34;contents&#34;</span>: {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&#34;my-contents-index-v2&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&#34;aliases&#34;</span>: {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>현재 <code>my-contents-index-v1</code> 이라는 인덱스에 <code>contents</code> 라는 <em>alias</em> 가 부여되어 있다. 이를 <code>my-contents-index-v2</code> 으로 교체해보겠다.</p>
-<pre tabindex="0"><code>curl -XPOST 'http://my-elasticsearch-host:9200/_aliases?pretty' -d'
+<pre tabindex="0"><code>curl -XPOST &#39;http://my-elasticsearch-host:9200/_aliases?pretty&#39; -d&#39;
 {
-    &quot;actions&quot; : [
-        { &quot;remove&quot; : { &quot;index&quot; : &quot;my-contents-index-v1&quot;, &quot;alias&quot; : &quot;contents&quot; } },
-        { &quot;add&quot; : { &quot;index&quot; : &quot;my-contents-index-v2&quot;, &quot;alias&quot; : &quot;contents&quot; } }
+    &#34;actions&#34; : [
+        { &#34;remove&#34; : { &#34;index&#34; : &#34;my-contents-index-v1&#34;, &#34;alias&#34; : &#34;contents&#34; } },
+        { &#34;add&#34; : { &#34;index&#34; : &#34;my-contents-index-v2&#34;, &#34;alias&#34; : &#34;contents&#34; } }
     ]
-}'
+}&#39;
 </code></pre><p>한번의 쿼리를 통해서 <code>my-contents-index-v1</code> 에서는 alias 가 삭제되고 <code>my-contents-index-v2</code> 에는 alias 가 추가되었다.</p>
 <p>이후 다시 <code>/_alias</code> 로 확인해보면 변경된 결과를 확인가능하다</p>
 <pre tabindex="0"><code>{
-  &quot;activity-log-index&quot;: {
-    &quot;aliases&quot;: {
+  &#34;activity-log-index&#34;: {
+    &#34;aliases&#34;: {
 
     }
   },
-  &quot;my-contents-index-v1&quot;: {
-    &quot;aliases&quot;: {
+  &#34;my-contents-index-v1&#34;: {
+    &#34;aliases&#34;: {
 
     }
   },
-  &quot;my-contents-index-v2&quot;: {
-    &quot;aliases&quot;: {
-      &quot;contents&quot;: {
+  &#34;my-contents-index-v2&#34;: {
+    &#34;aliases&#34;: {
+      &#34;contents&#34;: {
 
       }
     }
   }
 }
-
 </code></pre>
 
                 
@@ -309,7 +308,7 @@
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -616,6 +615,12 @@
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -660,6 +665,12 @@
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

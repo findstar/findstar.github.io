@@ -251,24 +251,23 @@
 <p>최근 ElasticSearch 에 bulk insert 를 하기 위한 golang 기반의 간단한 툴을 만들고 있다.
 mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 ElasticSearch로 bulk insert 하는 구조인데, 이 과정에서 mysql rows 를 golang 에서 scan 하면서 알게된 내용을 정리해보았다.</p>
 <p>먼저 golang 툴을 만들면서 사용한 패키지는 아래와 같다.</p>
-<pre tabindex="0"><code>	&quot;gopkg.in/olivere/elastic.v5&quot;
-	&quot;database/sql&quot;
-	_ &quot;github.com/go-sql-driver/mysql&quot;
-	&quot;encoding/json&quot;
-
+<pre tabindex="0"><code>	&#34;gopkg.in/olivere/elastic.v5&#34;
+	&#34;database/sql&#34;
+	_ &#34;github.com/go-sql-driver/mysql&#34;
+	&#34;encoding/json&#34;
 </code></pre><p>처음 생성한 <code>Post</code>라는 이름의 struct는 다음과 같다.</p>
 <pre tabindex="0"><code>type Post struct {
-	PostId         int64          `json:&quot;postId&quot;`
-	AuthorId       int64          `json:&quot;authorId&quot;`
-	Category       int64          `json:&quot;categoryId&quot;`
-	Title          string         `json:&quot;title&quot;`
-	Content        string         `json:&quot;content&quot;`
-	Created        string         `json:&quot;created&quot;`
-	Ip             string         `json:&quot;-&quot;`
-	Ip1            int64          `json:&quot;ip1&quot;`
-	Ip2            int64          `json:&quot;ip2&quot;`
-	Ip3            int64          `json:&quot;ip3&quot;`
-	Ip4            int64          `json:&quot;ip4&quot;`
+	PostId         int64          `json:&#34;postId&#34;`
+	AuthorId       int64          `json:&#34;authorId&#34;`
+	Category       int64          `json:&#34;categoryId&#34;`
+	Title          string         `json:&#34;title&#34;`
+	Content        string         `json:&#34;content&#34;`
+	Created        string         `json:&#34;created&#34;`
+	Ip             string         `json:&#34;-&#34;`
+	Ip1            int64          `json:&#34;ip1&#34;`
+	Ip2            int64          `json:&#34;ip2&#34;`
+	Ip3            int64          `json:&#34;ip3&#34;`
+	Ip4            int64          `json:&#34;ip4&#34;`
 }
 </code></pre><p>처음에는 쿼리를 해온 다음에 <code>rows.Scan</code> 와 같이 Post type 의 속성에 값을 넣으면 되겠지라고 생각했었는데, 실제로는 값이 <code>null</code> 인경우 에러가 발생한다
 (여기서는 category 값이 <code>null</code> 인 경우가 존재했다.)</p>
@@ -280,18 +279,18 @@ mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 Ela
 }
 </code></pre><p>최종적으로 struct 는 다음처럼 구성했다.</p>
 <pre tabindex="0"><code>type Post struct {
-	PostId         int64          `json:&quot;postId&quot;`
-	AuthorId       int64          `json:&quot;authorId&quot;`
-	RawCategory    sql.NullInt64  `json:&quot;-&quot;`
-	Category       int64          `json:&quot;categoryId&quot;`
-	Title          string         `json:&quot;title&quot;`
-	Content        string         `json:&quot;content&quot;`
-	Created        string         `json:&quot;created&quot;`
-	Ip             string         `json:&quot;-&quot;`
-	Ip1            int64          `json:&quot;ip1&quot;`
-	Ip2            int64          `json:&quot;ip2&quot;`
-	Ip3            int64          `json:&quot;ip3&quot;`
-	Ip4            int64          `json:&quot;ip4&quot;`
+	PostId         int64          `json:&#34;postId&#34;`
+	AuthorId       int64          `json:&#34;authorId&#34;`
+	RawCategory    sql.NullInt64  `json:&#34;-&#34;`
+	Category       int64          `json:&#34;categoryId&#34;`
+	Title          string         `json:&#34;title&#34;`
+	Content        string         `json:&#34;content&#34;`
+	Created        string         `json:&#34;created&#34;`
+	Ip             string         `json:&#34;-&#34;`
+	Ip1            int64          `json:&#34;ip1&#34;`
+	Ip2            int64          `json:&#34;ip2&#34;`
+	Ip3            int64          `json:&#34;ip3&#34;`
+	Ip4            int64          `json:&#34;ip4&#34;`
 }
 </code></pre><p>sql 패키지에서 제공하는 타입은 당연하겠지만. <code>NullString</code>, <code>NullBool</code>, <code>NullInt64</code>, <code>NullFloat64</code> 가 있다.</p>
 <p>이후에 이 post struct 를 이용해서 JSON을 만들면 된다.
@@ -322,7 +321,7 @@ mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 Ela
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -629,6 +628,12 @@ mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 Ela
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -673,6 +678,12 @@ mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 Ela
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

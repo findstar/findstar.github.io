@@ -251,68 +251,67 @@ time_pretransfer    파일 전송이 시작되었을때까지의 시간(초단�
 time_starttransfer  첫번째 바이트가 전송되었을 때까지의 시간(초단위)
 
 time_total          전체 작업이 완료되었을 때까지의 시간(초단위)
-
 </code></pre><p>이 중에서 dns lookup time 까지의 시간을 측정하려면 <code>time_namelookup</code> 을 사용하면 된다.</p>
 <p>다음과 같이 실행할 수 있다.</p>
-<pre tabindex="0"><code>curl --write-out '%{time_namelookup}' https://google.com
-&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;
+<pre tabindex="0"><code>curl --write-out &#39;%{time_namelookup}&#39; https://google.com
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html;charset=utf-8&#34;&gt;
 &lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
 &lt;H1&gt;301 Moved&lt;/H1&gt;
 The document has moved
-&lt;A HREF=&quot;https://www.google.co.kr/&quot;&gt;here&lt;/A&gt;.
+&lt;A HREF=&#34;https://www.google.co.kr/&#34;&gt;here&lt;/A&gt;.
 &lt;/BODY&gt;&lt;/HTML&gt;
 0.001519%
 </code></pre><p>요청 결과로 확인되는 응답은 보고 싶지 않으니 다음과 같이 결과 값을 표시하지 않도록 변경한다.
 <code>-o /dev/null</code> 을 추가한다.</p>
-<pre tabindex="0"><code>curl -o /dev/null --write-out '%{time_namelookup}' https://google.com
+<pre tabindex="0"><code>curl -o /dev/null --write-out &#39;%{time_namelookup}&#39; https://google.com
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   220  100   220    0     0    814      0 --:--:-- --:--:-- --:--:--   814
 0.002023%
 </code></pre><p>응답 결과를 제거하였지만 진행 상황을 나타내는 프로그레스가 아직 출력되어 지저분하다. 이것도 줄여보자.
 <code>-s</code> 을 추가한다. (silent)</p>
-<pre tabindex="0"><code>curl -o /dev/null -s --write-out '%{time_namelookup}' https://google.com
+<pre tabindex="0"><code>curl -o /dev/null -s --write-out &#39;%{time_namelookup}&#39; https://google.com
 0.001426%
 </code></pre><p>단 한번의 응답 값으로는 확인하기 어려우니 여러번 수행한 결과를 확인해보자.
 간단하게 스크립트를 작성했다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ff79c6">#!/bin/sh
-</span><span style="color:#ff79c6"></span>
-<span style="color:#8be9fd;font-style:italic">URL</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">1</span><span style="color:#f1fa8c">}</span>
-<span style="color:#8be9fd;font-style:italic">LIMIT</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">2</span><span style="color:#ff79c6">:-</span><span style="color:#8be9fd;font-style:italic">1000</span><span style="color:#f1fa8c">}</span>
-
-
-<span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[[</span> -z <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">]]</span>; <span style="color:#ff79c6">then</span>
-  <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;ERROR:
-</span><span style="color:#f1fa8c">  Useage : {url} {times}
-</span><span style="color:#f1fa8c">  &#34;</span>
-  <span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">1</span>
-<span style="color:#ff79c6">fi</span>
-
-<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$LIMIT</span><span style="color:#f1fa8c"> times dns_time check for </span><span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#f1fa8c">&#34;</span>
-
-<span style="color:#ff79c6">function</span> get_time<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-  <span style="color:#8be9fd;font-style:italic">url</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">$1</span>
-  <span style="color:#8be9fd;font-style:italic">t</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>curl -s -o /dev/null -w <span style="color:#f1fa8c">&#39;%{time_namelookup}&#39;</span> <span style="color:#8be9fd;font-style:italic">$url</span><span style="color:#ff79c6">)</span>
-  <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$t</span>
-<span style="color:#ff79c6">}</span>
-
-<span style="color:#8be9fd;font-style:italic">sum</span><span style="color:#ff79c6">=</span>.0
-<span style="color:#8be9fd;font-style:italic">count</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>
-<span style="color:#ff79c6">while</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c">&#34;</span> -le <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$LIMIT</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">]</span>
-  <span style="color:#ff79c6">do</span>
-    <span style="color:#8be9fd;font-style:italic">t</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>get_time <span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#ff79c6">)</span>
-    <span style="color:#8be9fd;font-style:italic">count</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$((</span>count <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span><span style="color:#ff79c6">))</span>
-    <span style="color:#8be9fd;font-style:italic">sum</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$sum</span><span style="color:#f1fa8c"> + </span><span style="color:#8be9fd;font-style:italic">$t</span><span style="color:#f1fa8c">&#34;</span> | bc| sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
-    <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c">&#34;</span> -ge <span style="color:#8be9fd;font-style:italic">$LIMIT</span> <span style="color:#ff79c6">]</span>
-      <span style="color:#ff79c6">then</span>
-        <span style="color:#8be9fd;font-style:italic">break</span>
-    <span style="color:#ff79c6">fi</span>
-  <span style="color:#ff79c6">done</span>
-
-<span style="color:#8be9fd;font-style:italic">total_time</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;scale=10; </span><span style="color:#8be9fd;font-style:italic">$sum</span><span style="color:#f1fa8c"> * 1000&#34;</span> | bc | sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
-<span style="color:#8be9fd;font-style:italic">avg_time</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;scale=10; </span><span style="color:#8be9fd;font-style:italic">$total_time</span><span style="color:#f1fa8c"> / </span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c"> &#34;</span> | bc | sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
-<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;total taken: </span><span style="color:#8be9fd;font-style:italic">$total_time</span><span style="color:#f1fa8c"> ms, avg_time : </span><span style="color:#8be9fd;font-style:italic">$avg_time</span><span style="color:#f1fa8c"> ms&#34;</span>
-</code></pre></div><p>커맨드라인에서 다음과 같이 입력하면 결과를 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff79c6">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">URL</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">1</span><span style="color:#f1fa8c">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">LIMIT</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">2</span><span style="color:#ff79c6">:-</span><span style="color:#8be9fd;font-style:italic">1000</span><span style="color:#f1fa8c">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[[</span> -z <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">]]</span>; <span style="color:#ff79c6">then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;ERROR:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  Useage : {url} {times}
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  &#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$LIMIT</span><span style="color:#f1fa8c"> times dns_time check for </span><span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#f1fa8c">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">function</span> get_time<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">url</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">$1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">t</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>curl -s -o /dev/null -w <span style="color:#f1fa8c">&#39;%{time_namelookup}&#39;</span> <span style="color:#8be9fd;font-style:italic">$url</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$t</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">sum</span><span style="color:#ff79c6">=</span>.0
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">count</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">while</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c">&#34;</span> -le <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$LIMIT</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">t</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>get_time <span style="color:#8be9fd;font-style:italic">$URL</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">count</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$((</span>count <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span><span style="color:#ff79c6">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">sum</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$sum</span><span style="color:#f1fa8c"> + </span><span style="color:#8be9fd;font-style:italic">$t</span><span style="color:#f1fa8c">&#34;</span> | bc| sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c">&#34;</span> -ge <span style="color:#8be9fd;font-style:italic">$LIMIT</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">break</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">fi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">total_time</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;scale=10; </span><span style="color:#8be9fd;font-style:italic">$sum</span><span style="color:#f1fa8c"> * 1000&#34;</span> | bc | sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">avg_time</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;scale=10; </span><span style="color:#8be9fd;font-style:italic">$total_time</span><span style="color:#f1fa8c"> / </span><span style="color:#8be9fd;font-style:italic">$count</span><span style="color:#f1fa8c"> &#34;</span> | bc | sed <span style="color:#f1fa8c">&#39;s/^\\./0./;s/0*$//;s/\\.$//&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;total taken: </span><span style="color:#8be9fd;font-style:italic">$total_time</span><span style="color:#f1fa8c"> ms, avg_time : </span><span style="color:#8be9fd;font-style:italic">$avg_time</span><span style="color:#f1fa8c"> ms&#34;</span>
+</span></span></code></pre></div><p>커맨드라인에서 다음과 같이 입력하면 결과를 확인할 수 있다.</p>
 <pre tabindex="0"><code>./time.sh http://google.co.kr 10
 10 times dns_time check for http://google.co.kr
 total taken: 16.338 ms, avg_time : 1.6338 ms
@@ -349,7 +348,7 @@ total taken: 16.338 ms, avg_time : 1.6338 ms
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -656,6 +655,12 @@ total taken: 16.338 ms, avg_time : 1.6338 ms
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -700,6 +705,12 @@ total taken: 16.338 ms, avg_time : 1.6338 ms
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

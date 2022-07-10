@@ -253,85 +253,84 @@
 <ul>
 <li>config.toml 의 output 에 json 타입을 추가한다. (콘텐츠를 index.json 주소로 접근 가능하게 한다.)</li>
 <li>layouts/_default/index.json 에 json 으로 표시될 콘텐츠의 템플릿을 적용한다.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"> [{{ range $index, $page := .Site.Pages }}
- {{- if ne $page.Type &#34;json&#34; -}}
- {{- if and $index (gt $index 0) -}},{{- end }}
- {
- &#34;permalink&#34;: &#34;{{ $page.Permalink }}&#34;,
- &#34;title&#34;: &#34;{{ htmlEscape $page.Title}}&#34;,
- &#34;tags&#34;: [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}&#34;{{ $tag| htmlEscape }}&#34;{{ end }}],
- &#34;description&#34;: &#34;{{ htmlEscape .Description}}&#34;,
- &#34;contents&#34;: {{$page.Plain | jsonify}}
- }
- {{- end -}}
- {{- end -}}]
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span> [{{ range $index, $page := .Site.Pages }}
+</span></span><span style="display:flex;"><span> {{- if ne $page.Type &#34;json&#34; -}}
+</span></span><span style="display:flex;"><span> {{- if and $index (gt $index 0) -}},{{- end }}
+</span></span><span style="display:flex;"><span> {
+</span></span><span style="display:flex;"><span> &#34;permalink&#34;: &#34;{{ $page.Permalink }}&#34;,
+</span></span><span style="display:flex;"><span> &#34;title&#34;: &#34;{{ htmlEscape $page.Title}}&#34;,
+</span></span><span style="display:flex;"><span> &#34;tags&#34;: [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}&#34;{{ $tag| htmlEscape }}&#34;{{ end }}],
+</span></span><span style="display:flex;"><span> &#34;description&#34;: &#34;{{ htmlEscape .Description}}&#34;,
+</span></span><span style="display:flex;"><span> &#34;contents&#34;: {{$page.Plain | jsonify}}
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> {{- end -}}
+</span></span><span style="display:flex;"><span> {{- end -}}]
+</span></span></code></pre></div></li>
 </ul>
 <h3 id="2-검색-랜딩-페이지-구성">2. 검색 랜딩 페이지 구성</h3>
 <ul>
 <li>content/search/index.md 파일을 생성하여 검색 랜딩 페이지를 구성한다.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
-title: Search Result
-layout: search
----
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: Search Result
+</span></span><span style="display:flex;"><span>layout: search
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div></li>
 <li>참고자료의 fuse.js, search.js 를 적용한다.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#6272a4">&lt;!--검색 결과가 출력되는 부분 id=&#34;search-results&#34; 에 추가된다.--&gt;</span>
- &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;inner&#34;</span>&gt;
-     &lt;<span style="color:#ff79c6">article</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full post page no-image&#34;</span>&gt;
-         &lt;<span style="color:#ff79c6">header</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-header&#34;</span>&gt;
-             &lt;<span style="color:#ff79c6">h1</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-title&#34;</span>&gt;Search Result&lt;/<span style="color:#ff79c6">h1</span>&gt;
-         &lt;/<span style="color:#ff79c6">header</span>&gt;
-         &lt;<span style="color:#ff79c6">section</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-content&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-results&#34;</span>&gt;
-
-         &lt;/<span style="color:#ff79c6">section</span>&gt;
-     &lt;/<span style="color:#ff79c6">article</span>&gt;
-
- &lt;/<span style="color:#ff79c6">div</span>&gt;
- <span style="color:#6272a4">&lt;!--검색 결과가 출력되는 템플릿 search.js 에 의해서 다음과 같은 포맷으로 표시된다.--&gt;</span>
- &lt;<span style="color:#ff79c6">template</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-result-template&#34;</span>&gt;
-     &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_summary&#34;</span>&gt;
-         &lt;<span style="color:#ff79c6">h2</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-title no-text-decoration&#34;</span>&gt;&lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_link search_title&#34;</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt;&lt;/<span style="color:#ff79c6">a</span>&gt;&lt;/<span style="color:#ff79c6">h2</span>&gt;
-         &lt;<span style="color:#ff79c6">p</span>&gt;&lt;<span style="color:#ff79c6">em</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_snippet&#34;</span>&gt;&lt;/<span style="color:#ff79c6">em</span>&gt;&lt;/<span style="color:#ff79c6">p</span>&gt;
-         &lt;<span style="color:#ff79c6">small</span>&gt;
-             &lt;<span style="color:#ff79c6">table</span>&gt;
-                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_iftags&#34;</span>&gt;
-                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Tags&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
-                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_tags&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
-                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
-                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_ifcategories&#34;</span>&gt;
-                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Categories&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
-                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_categories&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
-                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
-             &lt;/<span style="color:#ff79c6">table</span>&gt;
-         &lt;/<span style="color:#ff79c6">small</span>&gt;
-     &lt;/<span style="color:#ff79c6">div</span>&gt;
- &lt;/<span style="color:#ff79c6">template</span>&gt;
- <span style="color:#6272a4">&lt;!--필요한 js 파일을 추가한다.--&gt;</span>
- {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
- &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">3</span>.<span style="color:#50fa7b">2</span>.<span style="color:#50fa7b">1</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
- &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">9</span>.<span style="color:#50fa7b">0</span>.<span style="color:#50fa7b">0</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
- &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">search</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
-
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#6272a4">&lt;!--검색 결과가 출력되는 부분 id=&#34;search-results&#34; 에 추가된다.--&gt;</span>
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;inner&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;<span style="color:#ff79c6">article</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full post page no-image&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#ff79c6">header</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-header&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>             &lt;<span style="color:#ff79c6">h1</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-title&#34;</span>&gt;Search Result&lt;/<span style="color:#ff79c6">h1</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;/<span style="color:#ff79c6">header</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#ff79c6">section</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-full-content&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-results&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         &lt;/<span style="color:#ff79c6">section</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;/<span style="color:#ff79c6">article</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> &lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span><span style="display:flex;"><span> <span style="color:#6272a4">&lt;!--검색 결과가 출력되는 템플릿 search.js 에 의해서 다음과 같은 포맷으로 표시된다.--&gt;</span>
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#ff79c6">template</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search-result-template&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_summary&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#ff79c6">h2</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post-title no-text-decoration&#34;</span>&gt;&lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_link search_title&#34;</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt;&lt;/<span style="color:#ff79c6">a</span>&gt;&lt;/<span style="color:#ff79c6">h2</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#ff79c6">p</span>&gt;&lt;<span style="color:#ff79c6">em</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_snippet&#34;</span>&gt;&lt;/<span style="color:#ff79c6">em</span>&gt;&lt;/<span style="color:#ff79c6">p</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;<span style="color:#ff79c6">small</span>&gt;
+</span></span><span style="display:flex;"><span>             &lt;<span style="color:#ff79c6">table</span>&gt;
+</span></span><span style="display:flex;"><span>                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_iftags&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Tags&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_tags&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+</span></span><span style="display:flex;"><span>                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
+</span></span><span style="display:flex;"><span>                 &lt;<span style="color:#ff79c6">tr</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_ifcategories&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#ff79c6">td</span>&gt;&lt;<span style="color:#ff79c6">strong</span>&gt;Categories&lt;/<span style="color:#ff79c6">strong</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+</span></span><span style="display:flex;"><span>                     &lt;<span style="color:#ff79c6">td</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search_categories&#34;</span>&gt;&lt;/<span style="color:#ff79c6">td</span>&gt;
+</span></span><span style="display:flex;"><span>                 &lt;/<span style="color:#ff79c6">tr</span>&gt;
+</span></span><span style="display:flex;"><span>             &lt;/<span style="color:#ff79c6">table</span>&gt;
+</span></span><span style="display:flex;"><span>         &lt;/<span style="color:#ff79c6">small</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span><span style="display:flex;"><span> &lt;/<span style="color:#ff79c6">template</span>&gt;
+</span></span><span style="display:flex;"><span> <span style="color:#6272a4">&lt;!--필요한 js 파일을 추가한다.--&gt;</span>
+</span></span><span style="display:flex;"><span> {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">3</span>.<span style="color:#50fa7b">2</span>.<span style="color:#50fa7b">1</span>/<span style="color:#50fa7b">fuse</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">libs</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">9</span>.<span style="color:#50fa7b">0</span>.<span style="color:#50fa7b">0</span>/<span style="color:#50fa7b">mark</span>.<span style="color:#50fa7b">min</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{&#34;</span><span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">search</span>.<span style="color:#50fa7b">js</span>&#34; | <span style="color:#50fa7b">relURL</span>}}{{ <span style="color:#50fa7b">if</span> $<span style="color:#50fa7b">assetBusting</span> }}?{{ <span style="color:#50fa7b">now</span>.<span style="color:#50fa7b">Unix</span> }}{{ <span style="color:#50fa7b">end</span> }}&#34;&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span></code></pre></div></li>
 <li>css 스타일링은 적당히 변경한다.</li>
 </ul>
 <h3 id="3-header-영역에-검색-입력창-추가">3. header 영역에 검색 입력창 추가</h3>
 <ul>
 <li>theme 에서 사용하는 header 부분에 검색 입력창을 추가한다. submit 하면 추가한 검색 랜딩 페이지로 연결되도록 한다.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search&#34;</span>&gt;
-    &lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;get&#34;</span> <span style="color:#50fa7b">action</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/search&#34;</span>&gt;
-    &lt;<span style="color:#ff79c6">fieldset</span> &gt;
-        &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;field&#34;</span>&gt;
-            &lt;<span style="color:#ff79c6">label</span>&gt;&lt;<span style="color:#ff79c6">span</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hide&#34;</span>&gt;검색&lt;/<span style="color:#ff79c6">span</span>&gt;
-                &lt;<span style="color:#ff79c6">i</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fa fa-search&#34;</span>&gt;&lt;/<span style="color:#ff79c6">i</span>&gt;
-                &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;searchtext&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;input_text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;q&#34;</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span> <span style="color:#50fa7b">size</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;15&#34;</span> &gt;
-            &lt;/<span style="color:#ff79c6">label</span>&gt;
-        &lt;/<span style="color:#ff79c6">div</span>&gt;
-    &lt;/<span style="color:#ff79c6">fieldset</span>&gt;
-    &lt;/<span style="color:#ff79c6">form</span>&gt;
-&lt;/<span style="color:#ff79c6">div</span>&gt;
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;search&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;get&#34;</span> <span style="color:#50fa7b">action</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/search&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff79c6">fieldset</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;field&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#ff79c6">label</span>&gt;&lt;<span style="color:#ff79c6">span</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hide&#34;</span>&gt;검색&lt;/<span style="color:#ff79c6">span</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#ff79c6">i</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fa fa-search&#34;</span>&gt;&lt;/<span style="color:#ff79c6">i</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;searchtext&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;input_text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;q&#34;</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span> <span style="color:#50fa7b">size</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;15&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#ff79c6">label</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#ff79c6">fieldset</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#ff79c6">form</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span></code></pre></div></li>
 </ul>
 <h3 id="4-검색-기능이-잘-되는지-확인한다">4. 검색 기능이 잘 되는지 확인한다.</h3>
 <h2 id="기타">기타</h2>
@@ -371,7 +370,7 @@ layout: search
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -678,6 +677,12 @@ layout: search
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -722,6 +727,12 @@ layout: search
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

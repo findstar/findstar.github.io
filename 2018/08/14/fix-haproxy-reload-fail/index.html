@@ -261,7 +261,7 @@ Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해�
  7월 24 03:41:55 haproxy-lb sshd[19231]: Connection closed by 10.41.20.81 port 48616 [preauth]
  7월 24 03:42:01 haproxy-lb CROND[19235]: (root) CMD (/usr/lib64/sa/sa1 1 1)
  7월 24 03:42:01 haproxy-lb CROND[19236]: (root) CMD (/opt/SE/update_k5login)
- 7월 24 03:42:01 haproxy-lb anacron[1389]: Job `cron.daily' started
+ 7월 24 03:42:01 haproxy-lb anacron[1389]: Job `cron.daily&#39; started
  7월 24 03:42:01 haproxy-lb run-parts(/etc/cron.daily)[19244]: starting logrotate
  7월 24 03:42:01 haproxy-lb haproxy[19255]: Shutting down haproxy: [FAILED]
  7월 24 03:42:01 haproxy-lb logrotate[19272]: ALERT exited abnormally with [1]
@@ -270,7 +270,7 @@ Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해�
  7월 24 03:42:01 haproxy-lb run-parts(/etc/cron.daily)[19285]: finished man-db.cron
  7월 24 03:42:01 haproxy-lb run-parts(/etc/cron.daily)[19287]: starting mlocate
  7월 24 03:42:02 haproxy-lb run-parts(/etc/cron.daily)[19296]: finished mlocate
- 7월 24 03:42:02 haproxy-lb anacron[1389]: Job `cron.daily' terminated (produced output)
+ 7월 24 03:42:02 haproxy-lb anacron[1389]: Job `cron.daily&#39; terminated (produced output)
 </code></pre><p>새벽에 cron.daily 작업에 걸려 있던 logrotate 작업이 비정상적으로 종료된것을 확인했다. <code>ALERT exited abnormally</code> 라는 문구가 바로 그것이다.
 <code>sudo logrotate -f /etc/logrotate.d/haproxy</code> 와 같이 테스트해본 결과 증상이 재현되었다. 구동중인 haproxy 가 재시작 되지 않고 죽어버렸다.</p>
 <h3 id="logrotate-의심하기">logrotate 의심하기</h3>
@@ -330,7 +330,7 @@ Running on PCRE version : 8.32 2012-11-30
 PCRE library supports JIT : no (USE_PCRE_JIT not set)
 Built with zlib version : 1.2.7
 Running on zlib version : 1.2.7
-Compression algorithms supported : identity(&quot;identity&quot;), deflate(&quot;deflate&quot;), raw-deflate(&quot;deflate&quot;), gzip(&quot;gzip&quot;)
+Compression algorithms supported : identity(&#34;identity&#34;), deflate(&#34;deflate&#34;), raw-deflate(&#34;deflate&#34;), gzip(&#34;gzip&#34;)
 Built with network namespace support.
 
 Available polling systems :
@@ -379,8 +379,8 @@ Available filters :
 Description=HAProxy Load Balancer
 After=network.target
 
-
-Environment=&quot;CONFIG=/etc/haproxy/haproxy.cfg&quot; &quot;PIDFILE=/run/haproxy.pid&quot;
+[Service]
+Environment=&#34;CONFIG=/etc/haproxy/haproxy.cfg&#34; &#34;PIDFILE=/run/haproxy.pid&#34;
 ExecStartPre=@SBINDIR@/haproxy -f $CONFIG -c -q
 ExecStart=@SBINDIR@/haproxy -Ws -f $CONFIG -p $PIDFILE
 ExecReload=@SBINDIR@/haproxy -f $CONFIG -c -q
@@ -390,17 +390,17 @@ Restart=always
 SuccessExitStatus=143
 Type=notify
 
-
+# The following lines leverage SystemD&#39;s sandboxing options to provide
 # defense in depth protection at the expense of restricting some flexibility
 # in your setup (e.g. placement of your configuration files) or possibly
 # reduced performance. See systemd.service(5) and systemd.exec(5) for further
 # information.
 
-
+# NoNewPrivileges=true
 # ProtectHome=true
-# If you want to use 'ProtectSystem=strict' you should whitelist the PIDFILE,
-# any state files and any other files written using 'ReadWritePaths' or
-# 'RuntimeDirectory'.
+# If you want to use &#39;ProtectSystem=strict&#39; you should whitelist the PIDFILE,
+# any state files and any other files written using &#39;ReadWritePaths&#39; or
+# &#39;RuntimeDirectory&#39;.
 # ProtectSystem=true
 # ProtectKernelTunables=true
 # ProtectKernelModules=true
@@ -408,7 +408,7 @@ Type=notify
 # If your SystemD version supports them, you can add: @reboot, @swap, @sync
 # SystemCallFilter=~@cpu-emulation @keyring @module @obsolete @raw-io
 
-
+[Install]
 WantedBy=multi-user.target
 </code></pre><h3 id="추가-작업">추가 작업</h3>
 <ul>
@@ -475,7 +475,7 @@ restart 하지 않고서도 graceful 하게 재시작 할 수 있게 되었다. 
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -782,6 +782,12 @@ restart 하지 않고서도 graceful 하게 재시작 할 수 있게 되었다. 
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -826,6 +832,12 @@ restart 하지 않고서도 graceful 하게 재시작 할 수 있게 되었다. 
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

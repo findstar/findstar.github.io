@@ -248,35 +248,35 @@
 deployment yml 설정에서 이런 옵션들을 살펴보고 안전하게 pod를 종료/시작하는 방법을 살펴보았다.</p>
 <h2 id="step1-기본적인-deployment">Step1. 기본적인 Deployment</h2>
 <p>k8s 환경에서 배포를 위한 방법은 여러가지가 있지만 기본적인 Deployment Yml 은 다음과 같은 형태라고 가정해보자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: apps/v1
-<span style="color:#ff79c6">kind</span>: Deployment
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: my-app
-  <span style="color:#ff79c6">labels</span>:
-    <span style="color:#ff79c6">app</span>: my-app
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">replicas</span>: <span style="color:#bd93f9">4</span>
-  <span style="color:#ff79c6">selector</span>:
-    <span style="color:#ff79c6">matchLabels</span>:
-      <span style="color:#ff79c6">stage</span>: production
-      <span style="color:#ff79c6">app</span>: my-app
-  <span style="color:#ff79c6">strategy</span>:
-    <span style="color:#ff79c6">type</span>: RollingUpdate
-    <span style="color:#ff79c6">rollingUpdate</span>:
-      <span style="color:#ff79c6">maxUnavailable</span>: <span style="color:#bd93f9">50</span>%
-  <span style="color:#ff79c6">template</span>:
-    <span style="color:#ff79c6">metadata</span>:
-      <span style="color:#ff79c6">labels</span>:
-        <span style="color:#ff79c6">stage</span>: production
-        <span style="color:#ff79c6">app</span>: my-app
-    <span style="color:#ff79c6">spec</span>:
-      <span style="color:#ff79c6">containers</span>:
-        - <span style="color:#ff79c6">name</span>: my-app
-          <span style="color:#ff79c6">image</span>: my-org/my-app:latest
-          <span style="color:#ff79c6">imagePullPolicy</span>: Always
-          <span style="color:#ff79c6">ports</span>:
-            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
-</code></pre></div><p>기본적인 Deployment 설정을 하고 나면 배포할 때 마다 순간적으로 5XX 오류를 확인할 수 있다. 이유는 POD는 시작하자마자 트래픽을 처리할 수 없기 때문이다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: apps/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Deployment
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-app
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">replicas</span>: <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">stage</span>: production
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">strategy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">type</span>: RollingUpdate
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">rollingUpdate</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">maxUnavailable</span>: <span style="color:#bd93f9">50</span>%
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">stage</span>: production
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">containers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">name</span>: my-app
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">image</span>: my-org/my-app:latest
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">imagePullPolicy</span>: Always
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">ports</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
+</span></span></code></pre></div><p>기본적인 Deployment 설정을 하고 나면 배포할 때 마다 순간적으로 5XX 오류를 확인할 수 있다. 이유는 POD는 시작하자마자 트래픽을 처리할 수 없기 때문이다.
 POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 위해서 Probe 설정을 추가해보자.</p>
 <figure class="full-width caption"  >
     <img src="/images/posts/kubernetes/deployment-phase.gif" alt="deployment phase"  />
@@ -290,23 +290,23 @@ POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 
 <li><code>livenessProbe</code> : 컨테이너가 정상적으로 동작중인지 확인하는데 사용한다. 주로 HTTP 요청을 보내서 응답 결과가 정상적으로 200OK 가 반환되는지 확인해서 동작 유무를 판단한다. 응답이 200OK가 아니라면 k8s 클러스터는 pod를 죽이고 재시작하게 된다. 설정하지 않으면 기본값이 Success 로 간주된다.</li>
 <li><code>readinessProbe</code> : 컨테이너가 시작할 때 요청을 받을 준비가 되었는지 확인하는데 사용한다. 응답이 200 OK 가 아니라면 k8s 클러스터는 이 pod에 트래픽을 전달하지 않는다. 설정하지 않으면 기본값이 Success 로 간주한다.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#ff79c6">readinessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/liveness  <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span> <span style="color:#6272a4"># 타임아웃 시간 설정</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span> <span style="color:#6272a4"># 확인 주기</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span> <span style="color:#6272a4">#성공 기준 횟수</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span> <span style="color:#6272a4">#실패 기준 횟수</span>
-          <span style="color:#ff79c6">livenessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/readiness <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>          <span style="color:#ff79c6">readinessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/liveness  <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span> <span style="color:#6272a4"># 타임아웃 시간 설정</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span> <span style="color:#6272a4"># 확인 주기</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span> <span style="color:#6272a4">#성공 기준 횟수</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span> <span style="color:#6272a4">#실패 기준 횟수</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/readiness <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
+</span></span></code></pre></div><blockquote>
 <p><code>Probe</code> 라는 건 중학교 건전지 회로 실험에서 사용해보았던, 전류가 흐르는지 확인하는 도구라고 생각하면 이해가 쉽다. 탐침, 조사하다는 의미로 해석할 수 있다.
 <figure class="full-width caption"  >
     <img src="/images/posts/kubernetes/what_is_probe.jpg" alt="what is probe"  />
@@ -319,43 +319,43 @@ POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 
 애플리케이션 내부에서 일종의 Warm up (애플리케이션이 구동하기 위한 준비 작업들)이 더 필요할 수도 있기 때문이다.
 특히 단순히 redinessProbe를 <code>path: /_probe/readiness</code> 와 같이 설정한뒤에 200 OK를 반환하는 형태로 설정해둔 경우라면 트래픽의 일부가 여전히 오류를 반환할 수 있다.
 이런 경우에는 <code>initialDelaySeconds</code> 를 설정할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    @GetMapping<span style="color:#ff79c6">(</span>value <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;/_probe/readiness&#34;</span><span style="color:#ff79c6">)</span>
-	<span style="color:#8be9fd;font-style:italic">public</span> ResponseEntity<span style="color:#ff79c6">&lt;</span>String<span style="color:#ff79c6">&gt;</span> <span style="color:#50fa7b">healthCheck</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-		<span style="color:#ff79c6">return</span> ResponseEntity<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ok</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">body</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;ok&#34;</span><span style="color:#ff79c6">);</span>
-	<span style="color:#ff79c6">}</span>
-</code></pre></div><h2 id="step-3-initialdelayseconds-설정">Step 3 <code>initialDelaySeconds</code> 설정</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#ff79c6">readinessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/readiness <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
-          <span style="color:#ff79c6">livenessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/liveness  <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span> <span style="color:#6272a4"># 타임아웃 시간 설정</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span> <span style="color:#6272a4"># 확인 주기</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span> <span style="color:#6272a4">#성공 기준 횟수</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span> <span style="color:#6272a4">#실패 기준 횟수</span>
-</code></pre></div><p><code>initialDelaySeconds</code> 를 설정하면 pod 가 생성되고 난 뒤에 딜레이를 줘서 pod 가 트래픽을 처리할 준비가 된 후에 응답을 반환할 수 있게한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span>value <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;/_probe/readiness&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">public</span> ResponseEntity<span style="color:#ff79c6">&lt;</span>String<span style="color:#ff79c6">&gt;</span> <span style="color:#50fa7b">healthCheck</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">return</span> ResponseEntity<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ok</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">body</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;ok&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><h2 id="step-3-initialdelayseconds-설정">Step 3 <code>initialDelaySeconds</code> 설정</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>          <span style="color:#ff79c6">readinessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/readiness <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/liveness  <span style="color:#6272a4">#굳이 actuator 경로를 쓸 필요는 없다.</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span> <span style="color:#6272a4"># 타임아웃 시간 설정</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span> <span style="color:#6272a4"># 확인 주기</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span> <span style="color:#6272a4">#성공 기준 횟수</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span> <span style="color:#6272a4">#실패 기준 횟수</span>
+</span></span></code></pre></div><p><code>initialDelaySeconds</code> 를 설정하면 pod 가 생성되고 난 뒤에 딜레이를 줘서 pod 가 트래픽을 처리할 준비가 된 후에 응답을 반환할 수 있게한다.</p>
 <p>하지만 여기서 끝내면 안되고 한가지 작업이 더 남았다. 바로 종료시점에 대한 고려가 필요하다. pod 가 준비되고 트래픽을 처리하기 까지는 위의 설정으로도 충분하지만,
 pod 가 종료될 때 즉각적으로 pod를 제거해버리면, 처리하고 있던 응답을 완료하기 전에 프로세스가 종료되어 사용자가 5XX 에러를 볼 수 있다. 이를 막기 위해서
 <code>preStop</code> 설정을 추가해보자.</p>
 <h3 id="step-4-prestop-설정-추가">Step 4 <code>preStop</code> 설정 추가</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#ff79c6">ports</span>:
-            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
-          <span style="color:#ff79c6">lifecycle</span>:
-            <span style="color:#ff79c6">preStop</span>:
-              <span style="color:#ff79c6">exec</span>:
-                <span style="color:#ff79c6">command</span>: [ <span style="color:#f1fa8c">&#34;sh&#34;</span>, <span style="color:#f1fa8c">&#34;-c&#34;</span>, <span style="color:#f1fa8c">&#34;sleep 10&#34;</span> ]
-          <span style="color:#ff79c6">readinessProbe</span>:
-          ... 생략 ...
-</code></pre></div><p><code>preStop</code> 설정을 추가하면 Pod 가 종료를 처리할 때 즉각적으로 종료하지 않고 <code>preStop</code> 에 설정된 명령을 수행한 뒤에 pod 종료를 수행한다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>          <span style="color:#ff79c6">ports</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">lifecycle</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">preStop</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">exec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">command</span>: [ <span style="color:#f1fa8c">&#34;sh&#34;</span>, <span style="color:#f1fa8c">&#34;-c&#34;</span>, <span style="color:#f1fa8c">&#34;sleep 10&#34;</span> ]
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">readinessProbe</span>:
+</span></span><span style="display:flex;"><span>          ... 생략 ...
+</span></span></code></pre></div><p><code>preStop</code> 설정을 추가하면 Pod 가 종료를 처리할 때 즉각적으로 종료하지 않고 <code>preStop</code> 에 설정된 명령을 수행한 뒤에 pod 종료를 수행한다.
 따라서 위와 같이 약 10초의 딜레이를 주어서 현재 처리중이던 응답을 반환할 충분한 시간을 주면 사용자에게는 5XX에러 상황이 발생하지 않을 수 있다.</p>
 <h2 id="전체-시퀀스-도식화">전체 시퀀스 도식화</h2>
 <p>말로만 하면 이해가 잘 안될것 같아, 그림으로 도식화 해보았다.</p>
@@ -367,66 +367,66 @@ pod 가 종료될 때 즉각적으로 pod를 제거해버리면, 처리하고 �
 </figure>
 <h2 id="최종-yml-파일">최종 yml 파일</h2>
 <p>최종적으로 production 에서 사용하는 deployment yml 파일음 다음과 같은 형태를 가지고 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: apps/v1
-<span style="color:#ff79c6">kind</span>: Deployment
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: my-app
-  <span style="color:#ff79c6">labels</span>:
-    <span style="color:#ff79c6">app</span>: my-app
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">replicas</span>: <span style="color:#bd93f9">4</span>
-  <span style="color:#ff79c6">selector</span>:
-    <span style="color:#ff79c6">matchLabels</span>:
-      <span style="color:#ff79c6">stage</span>: production
-      <span style="color:#ff79c6">app</span>: my-app
-  <span style="color:#ff79c6">strategy</span>:
-    <span style="color:#ff79c6">type</span>: RollingUpdate
-    <span style="color:#ff79c6">rollingUpdate</span>:
-      <span style="color:#ff79c6">maxUnavailable</span>: <span style="color:#bd93f9">50</span>%
-  <span style="color:#ff79c6">template</span>:
-    <span style="color:#ff79c6">metadata</span>:
-      <span style="color:#ff79c6">labels</span>:
-        <span style="color:#ff79c6">stage</span>: production
-        <span style="color:#ff79c6">app</span>: my-app
-    <span style="color:#ff79c6">spec</span>:
-      <span style="color:#ff79c6">containers</span>:
-        - <span style="color:#ff79c6">name</span>: my-app
-          <span style="color:#ff79c6">image</span>: my-org/my-app:latest
-          <span style="color:#ff79c6">imagePullPolicy</span>: Always
-          <span style="color:#ff79c6">resources</span>:
-            <span style="color:#ff79c6">requests</span>:
-              <span style="color:#ff79c6">memory</span>: 2Gi
-            <span style="color:#ff79c6">limits</span>:
-              <span style="color:#ff79c6">memory</span>: 2Gi
-          <span style="color:#ff79c6">env</span>:
-            - <span style="color:#ff79c6">name</span>: SPRING_PROFILES_ACTIVE
-              <span style="color:#ff79c6">value</span>: <span style="color:#f1fa8c">&#34;production&#34;</span>
-          <span style="color:#ff79c6">ports</span>:
-            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
-          <span style="color:#ff79c6">livenessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/liveness
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
-          <span style="color:#ff79c6">readinessProbe</span>:
-            <span style="color:#ff79c6">httpGet</span>:
-              <span style="color:#ff79c6">path</span>: /actuator/health/readiness
-              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
-            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
-            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
-            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
-            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
-            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
-          <span style="color:#ff79c6">lifecycle</span>:
-            <span style="color:#ff79c6">preStop</span>:
-              <span style="color:#ff79c6">exec</span>:
-                <span style="color:#ff79c6">command</span>: [ <span style="color:#f1fa8c">&#34;sh&#34;</span>, <span style="color:#f1fa8c">&#34;-c&#34;</span>, <span style="color:#f1fa8c">&#34;sleep 10&#34;</span> ]
-      <span style="color:#ff79c6">terminationGracePeriodSeconds</span>: <span style="color:#bd93f9">120</span>
-</code></pre></div><h2 id="결론">결론</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: apps/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Deployment
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-app
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">replicas</span>: <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">stage</span>: production
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">strategy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">type</span>: RollingUpdate
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">rollingUpdate</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">maxUnavailable</span>: <span style="color:#bd93f9">50</span>%
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">stage</span>: production
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">app</span>: my-app
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">containers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">name</span>: my-app
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">image</span>: my-org/my-app:latest
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">imagePullPolicy</span>: Always
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">resources</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">requests</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">memory</span>: 2Gi
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">limits</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">memory</span>: 2Gi
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">env</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">name</span>: SPRING_PROFILES_ACTIVE
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">value</span>: <span style="color:#f1fa8c">&#34;production&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">ports</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">livenessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/liveness
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">readinessProbe</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">path</span>: /actuator/health/readiness
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">port</span>: <span style="color:#bd93f9">8080</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">10</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">timeoutSeconds</span>: <span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">30</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">successThreshold</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">lifecycle</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">preStop</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">exec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">command</span>: [ <span style="color:#f1fa8c">&#34;sh&#34;</span>, <span style="color:#f1fa8c">&#34;-c&#34;</span>, <span style="color:#f1fa8c">&#34;sleep 10&#34;</span> ]
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">terminationGracePeriodSeconds</span>: <span style="color:#bd93f9">120</span>
+</span></span></code></pre></div><h2 id="결론">결론</h2>
 <p>K8s에서 pod를 배포하는 과정에서는
 pod 가 시작할 때 준비과정(rediness), warmup (initialDelay)에 대한 고민이 필요하고
 pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지 기다리기 위한 preStop 과 같은 설정이 필요하다.
@@ -462,7 +462,7 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -769,6 +769,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -813,6 +819,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

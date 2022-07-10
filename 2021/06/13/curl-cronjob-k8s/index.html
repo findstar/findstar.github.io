@@ -251,29 +251,29 @@
 <h3 id="k8s-cronjob">k8s cronjob</h3>
 <p>쿠버네티스의 오브젝트 중에서 <code>cronjob</code> 오브젝트는 yml 에 정의된 스케줄에 맞게 지정한 이미지를 기반으로 명령어를 실행하는 오브젝트다.
 나는 다음과 같은 형식으로 사용하고 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: batch/v1beta1
-<span style="color:#ff79c6">kind</span>: CronJob
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: my-cronjob-name
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">schedule</span>: <span style="color:#f1fa8c">&#34;*/5 * * * *&#34;</span>
-  <span style="color:#ff79c6">jobTemplate</span>:
-    <span style="color:#ff79c6">spec</span>:
-      <span style="color:#ff79c6">template</span>:
-        <span style="color:#ff79c6">spec</span>:
-          <span style="color:#ff79c6">containers</span>:
-            - <span style="color:#ff79c6">name</span>: my-cronjob-name-pod-name
-              <span style="color:#ff79c6">image</span>: curlimages/curl:7.77.0
-              <span style="color:#ff79c6">imagePullPolicy</span>: IfNotPresent
-              <span style="color:#ff79c6">command</span>:
-                - <span style="color:#f1fa8c">&#34;/bin/sh&#34;</span>
-                - <span style="color:#f1fa8c">&#34;-c&#34;</span>
-                - |<span style="color:#f1fa8c">
-</span><span style="color:#f1fa8c">                  curl -X &#34;POST&#34; &#34;somehost&#34; \
-</span><span style="color:#f1fa8c">                       -H &#39;header-key: value&#39; \
-</span><span style="color:#f1fa8c">                       -H &#39;Content-Type: application/json; charset=utf-8&#39;</span>                  
-          <span style="color:#ff79c6">restartPolicy</span>: Never
-</code></pre></div><h2 id="설명">설명</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: batch/v1beta1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: CronJob
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-cronjob-name
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">schedule</span>: <span style="color:#f1fa8c">&#34;*/5 * * * *&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">jobTemplate</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">template</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">containers</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">name</span>: my-cronjob-name-pod-name
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">image</span>: curlimages/curl:7.77.0
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">imagePullPolicy</span>: IfNotPresent
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">command</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f1fa8c">&#34;/bin/sh&#34;</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f1fa8c">&#34;-c&#34;</span>
+</span></span><span style="display:flex;"><span>                - |<span style="color:#f1fa8c">
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">                  curl -X &#34;POST&#34; &#34;somehost&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">                       -H &#39;header-key: value&#39; \
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">                       -H &#39;Content-Type: application/json; charset=utf-8&#39;</span>                  
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">restartPolicy</span>: Never
+</span></span></code></pre></div><h2 id="설명">설명</h2>
 <ol>
 <li>
 <p>먼저 apiVersion 에 맞게 <code>CronJob</code> 을 등록한다.</p>
@@ -290,12 +290,12 @@
 </ol>
 <h2 id="실행-기록">실행 기록</h2>
 <p><code>kubectl get pods</code> 로 확인해보면 다음과 같이 언제 완료되었는지 확인이 가능하고 필요하다면 실행 결과를 로그로 확인할수도 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods
-my-cronjob-name-1623488400-tb4zs                   0/1     Completed           <span style="color:#bd93f9">0</span>          16s
-
-$ kubectl logs my-cronjob-name-1623488400-tb4zs
-Response OK 
-</code></pre></div><h2 id="참고">참고</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get pods
+</span></span><span style="display:flex;"><span>my-cronjob-name-1623488400-tb4zs                   0/1     Completed           <span style="color:#bd93f9">0</span>          16s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ kubectl logs my-cronjob-name-1623488400-tb4zs
+</span></span><span style="display:flex;"><span>Response OK 
+</span></span></code></pre></div><h2 id="참고">참고</h2>
 <p><a href="https://nieldw.medium.com/using-a-kubernetes-cronjob-the-team-city-api-to-trigger-a-regular-backup-17dfb076d83a">https://nieldw.medium.com/using-a-kubernetes-cronjob-the-team-city-api-to-trigger-a-regular-backup-17dfb076d83a</a></p>
 
 
@@ -322,7 +322,7 @@ Response OK
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -629,6 +629,12 @@ Response OK
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -673,6 +679,12 @@ Response OK
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

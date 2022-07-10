@@ -260,18 +260,18 @@
 이 경우에는 nginx ingress controller 의 <code>use-forwarded-for</code> 옵션을 true 로 지정한다.</p>
 <h2 id="적용-방법">적용 방법</h2>
 <p>nginx ingress controller 에 연결되는 config map 에 값을 설정하면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: v1
-<span style="color:#ff79c6">kind</span>: ConfigMap
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">labels</span>:
-    <span style="color:#ff79c6">app.kubernetes.io/name</span>: ingress-nginx
-    <span style="color:#ff79c6">app.kubernetes.io/part-of</span>: ingress-nginx
-  <span style="color:#ff79c6">name</span>: ingress-forwarded
-  <span style="color:#ff79c6">namespace</span>: ingress-nginx
-<span style="color:#ff79c6">data</span>:
-  <span style="color:#6272a4">## ... other values 생략.. ##</span>
-  <span style="color:#ff79c6">use-forwarded-headers</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
-</code></pre></div><h2 id="요약">요약</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: ConfigMap
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app.kubernetes.io/name</span>: ingress-nginx
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app.kubernetes.io/part-of</span>: ingress-nginx
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: ingress-forwarded
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">namespace</span>: ingress-nginx
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#6272a4">## ... other values 생략.. ##</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">use-forwarded-headers</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
+</span></span></code></pre></div><h2 id="요약">요약</h2>
 <p>K8s 와 연결되는 네트워크 구성과 그 앞단의 프록시 유무에 따라서 <code>use-forwarded-headers</code> 값을 적절하게 사용할 수 있다.</p>
 <h2 id="참고자료">참고자료</h2>
 <ul>
@@ -302,7 +302,7 @@
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -609,6 +609,12 @@
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -653,6 +659,12 @@
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

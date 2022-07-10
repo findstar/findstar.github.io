@@ -255,89 +255,86 @@
 <h3 id="템플릿-생성하기">템플릿 생성하기</h3>
 <p>다음은 <code>nginx-access-log</code> 라는 템플릿을 생성하는 것으로, 인덱스가 <code>nginx-access-*</code> 에 해당하는 패턴이라면, 지정된 <code>mapping</code> 으로 인덱스를 생성한다.</p>
 <pre tabindex="0"><code>## nginx-access-log 템플릿 생성
-curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template/nginx-access-log&quot; \
-     -H 'Content-Type: application/json; charset=utf-8' \
-     -d $'{
-  &quot;index_patterns&quot;: [
-     &quot;nginx-access-*&quot;
+curl -X &#34;PUT&#34; &#34;http://my-elasticsearch-server-host:9200/_template/nginx-access-log&#34; \
+     -H &#39;Content-Type: application/json; charset=utf-8&#39; \
+     -d $&#39;{
+  &#34;index_patterns&#34;: [
+     &#34;nginx-access-*&#34;
   ],
-  &quot;mappings&quot;: {
-    &quot;log&quot;: { // type name
-      &quot;properties&quot;: {
-        &quot;ip&quot;: {
-          &quot;type&quot;: &quot;text&quot;
+  &#34;mappings&#34;: {
+    &#34;log&#34;: { // type name
+      &#34;properties&#34;: {
+        &#34;ip&#34;: {
+          &#34;type&#34;: &#34;text&#34;
         },
-        &quot;host&quot;: {
-          &quot;type&quot;: &quot;keyword&quot;
+        &#34;host&#34;: {
+          &#34;type&#34;: &#34;keyword&#34;
         },
-        &quot;uri&quot;: {
-          &quot;type&quot;: &quot;text&quot;
+        &#34;uri&#34;: {
+          &#34;type&#34;: &#34;text&#34;
         },
-        &quot;datetime&quot;: {
-          &quot;type&quot;: &quot;date&quot;
+        &#34;datetime&#34;: {
+          &#34;type&#34;: &#34;date&#34;
         },
-        &quot;@timestamp&quot;: {
-          &quot;type&quot;: &quot;date&quot;
+        &#34;@timestamp&#34;: {
+          &#34;type&#34;: &#34;date&#34;
         }
       }
     }
     ........
   }
-}'
-
+}&#39;
 </code></pre><h3 id="setting-설정하기"><code>setting</code> 설정하기</h3>
 <p><code>mapping</code> 뿐만 아니라 <code>setting</code> 도 지정할 수 있다.</p>
-<pre tabindex="0"><code>curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template/new-template-name&quot; \
-     -d $'{
-  &quot;index_patterns&quot;: [
-       &quot;nginx-access-*&quot;
+<pre tabindex="0"><code>curl -X &#34;PUT&#34; &#34;http://my-elasticsearch-server-host:9200/_template/new-template-name&#34; \
+     -d $&#39;{
+  &#34;index_patterns&#34;: [
+       &#34;nginx-access-*&#34;
   ],
-  &quot;settings&quot;: { // setting
-    &quot;number_of_shards&quot;: 1
+  &#34;settings&#34;: { // setting
+    &#34;number_of_shards&#34;: 1
   },
-  &quot;mappings&quot;: {
-    &quot;type1&quot;: {
-      &quot;properties&quot;: {
-        &quot;host_name&quot;: {
-          &quot;type&quot;: &quot;keyword&quot;
+  &#34;mappings&#34;: {
+    &#34;type1&#34;: {
+      &#34;properties&#34;: {
+        &#34;host_name&#34;: {
+          &#34;type&#34;: &#34;keyword&#34;
         },
-        &quot;created_at&quot;: {
-          &quot;type&quot;: &quot;date&quot;,
-          &quot;format&quot;: &quot;EEE MMM dd HH:mm:ss Z YYYY&quot;
+        &#34;created_at&#34;: {
+          &#34;type&#34;: &#34;date&#34;,
+          &#34;format&#34;: &#34;EEE MMM dd HH:mm:ss Z YYYY&#34;
         }
       }
     }
   }
-}'
-
+}&#39;
 </code></pre><h3 id="여러개의-패턴-지정하기">여러개의 패턴 지정하기</h3>
 <p>인덱스 패턴을 여러개를 지정하고자 할 때는 배열 안에 계속 추가하면 된다.</p>
-<pre tabindex="0"><code>curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template/new-template-name&quot; \
-     -d $'{
-  &quot;index_patterns&quot;: [
-       &quot;pattern1*&quot;,
-       &quot;pattern2*&quot;,
-       &quot;pattern3*&quot;,
-       &quot;pattern4*&quot;
+<pre tabindex="0"><code>curl -X &#34;PUT&#34; &#34;http://my-elasticsearch-server-host:9200/_template/new-template-name&#34; \
+     -d $&#39;{
+  &#34;index_patterns&#34;: [
+       &#34;pattern1*&#34;,
+       &#34;pattern2*&#34;,
+       &#34;pattern3*&#34;,
+       &#34;pattern4*&#34;
   ],
-  &quot;settings&quot;: { // setting
-    &quot;number_of_shards&quot;: 1
+  &#34;settings&#34;: { // setting
+    &#34;number_of_shards&#34;: 1
   },
-  &quot;mappings&quot;: {
-    &quot;type1&quot;: {
-      &quot;properties&quot;: {
-        &quot;host_name&quot;: {
-          &quot;type&quot;: &quot;keyword&quot;
+  &#34;mappings&#34;: {
+    &#34;type1&#34;: {
+      &#34;properties&#34;: {
+        &#34;host_name&#34;: {
+          &#34;type&#34;: &#34;keyword&#34;
         },
-        &quot;created_at&quot;: {
-          &quot;type&quot;: &quot;date&quot;,
-          &quot;format&quot;: &quot;EEE MMM dd HH:mm:ss Z YYYY&quot;
+        &#34;created_at&#34;: {
+          &#34;type&#34;: &#34;date&#34;,
+          &#34;format&#34;: &#34;EEE MMM dd HH:mm:ss Z YYYY&#34;
         }
       }
     }
   }
-}'
-
+}&#39;
 </code></pre><h3 id="참고">참고</h3>
 <ul>
 <li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html</a></li>
@@ -366,7 +363,7 @@ curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -673,6 +670,12 @@ curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -717,6 +720,12 @@ curl -X &quot;PUT&quot; &quot;http://my-elasticsearch-server-host:9200/_template
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

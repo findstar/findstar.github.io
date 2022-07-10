@@ -252,7 +252,6 @@
 # zone name : depend_rate_limit
 # share memory assign : 10M
 # rate : 10 request / second
-
 </code></pre><h3 id="하나씩-살펴보자면">하나씩 살펴보자면,</h3>
 <ul>
 <li>limit_req_zone 이라는 것은 요청-request를 확인하고 이를 제한하기 위해서 특정한 영역(zone)을 선언한다는 의미이다.</li>
@@ -277,8 +276,6 @@
 
             limit_req zone=depend_rate_limit burst=5;
         }
-
-
 </code></pre><p><code>burst</code> 를 적용한 것은 rate(여기서는 10r/s) 이상의 request-요청에 대해서 5개 까지는 queue에 보관하도록 하고, 그 이상은 에러를 반환하게 한다는 의미이다.</p>
 <h3 id="에러-반환">에러 반환</h3>
 <p>기본적으로 정의한 rate 를 넘어서는 request-요청에 대해서는 <code>503</code> 에러를 반환하는데. 이를 변경할 수 있다.
@@ -286,21 +283,19 @@
 <pre tabindex="0"><code>
 limit_req               zone=depend_rate_limit burst=5 nodelay;
 limit_req_status        429;
-
 </code></pre><h3 id="log-level-설정">log level 설정</h3>
 <p>제한에 걸린 request-요청을 기록할 때 log level 을 설정할 수 있다.</p>
 <pre tabindex="0"><code>
 limit_req               zone=depend_rate_limit burst=5 nodelay;
 limit_req_status        429;
 limit_req_log_level     error;
-
 </code></pre><h2 id="제한에서-제외할-ip-설정">제한에서 제외할 IP 설정</h2>
 <p>실제로 limit_req 모듈을 적용하기 전에, 내부 네트워크 대역이나, 특정 IP에 대해서는 제한을 두지 않을 수 있다.</p>
 <pre tabindex="0"><code>
 geo $apply_limit {
     default         $binary_remote_addr;
-    10.10.0.0/16    '';                   # 내부 네트워크 대역 10.10.*.* 은 access limit 사용안함
-    211.33.188.246  '';                   # 외부의 특정 IP 211.33.188.246 는 access limit 사용안함
+    10.10.0.0/16    &#39;&#39;;                   # 내부 네트워크 대역 10.10.*.* 은 access limit 사용안함
+    211.33.188.246  &#39;&#39;;                   # 외부의 특정 IP 211.33.188.246 는 access limit 사용안함
 }
 
 ...
@@ -309,7 +304,6 @@ geo $apply_limit {
 limit_req_zone $apply_limit zone=depend_rate_limit:10m rate=10r/s;
 
 ...
-
 </code></pre><p><code>geo</code> 모듈을 사용해서 client ip 를 확인해서 <code>$apply_limit</code> 이라는 변수를 새롭게 할당했다.
 <strong>10.10.<em>.</em></strong> 대역 이거나, (내부 네트워크 대역인 경우), 외부의 특정 <strong>211.33.188.246</strong> 인 경우에는 빈값이 지정된다.</p>
 <p>이렇게 하고 나서 <code>limit_req_zone</code> 에 정의한 <code>$apply_limit</code> 변수를 사용하면, 예외로한 IP 에 대해서는 접속제한이 동작하지 않는다.</p>
@@ -343,7 +337,7 @@ limit_req_zone $apply_limit zone=depend_rate_limit:10m rate=10r/s;
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -650,6 +644,12 @@ limit_req_zone $apply_limit zone=depend_rate_limit:10m rate=10r/s;
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -694,6 +694,12 @@ limit_req_zone $apply_limit zone=depend_rate_limit:10m rate=10r/s;
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

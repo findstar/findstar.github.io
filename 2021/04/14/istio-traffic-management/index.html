@@ -257,247 +257,247 @@
 <h4 id="gateway">Gateway</h4>
 <p>먼저 <code>Gateway</code> istio 서비스 메쉬로 유입되는 관문을 나타낸다. 게이트웨이는 노출되는 포트, 프로토콜, 호스트, TLS 정보를 담고 있다.
 다음은 이전 포스트에서 예제로 실행한 bookinfo-gateway.yml 파일에 들어 있는 내용이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: Gateway
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: bookinfo-gateway
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">selector</span>:
-    <span style="color:#ff79c6">istio</span>: ingressgateway <span style="color:#6272a4"># use istio default controller</span>
-  <span style="color:#ff79c6">servers</span>:
-    - <span style="color:#ff79c6">port</span>:
-        <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">80</span>
-        <span style="color:#ff79c6">name</span>: http
-        <span style="color:#ff79c6">protocol</span>: HTTP
-      <span style="color:#ff79c6">hosts</span>:
-        - <span style="color:#f1fa8c">&#34;*&#34;</span>
-</code></pre></div><p>위의 yml 을 해석해보자면 먼저 <code>selector</code> 에 나타나 있는 <code>istio: ingressgateway</code> 는 로드밸런서로 동작하는 <code>istio-ingressgateway</code> 에서 실행되라는 의미가 된다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Gateway
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo-gateway
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">istio</span>: ingressgateway <span style="color:#6272a4"># use istio default controller</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">servers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">80</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">name</span>: http
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">protocol</span>: HTTP
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f1fa8c">&#34;*&#34;</span>
+</span></span></code></pre></div><p>위의 yml 을 해석해보자면 먼저 <code>selector</code> 에 나타나 있는 <code>istio: ingressgateway</code> 는 로드밸런서로 동작하는 <code>istio-ingressgateway</code> 에서 실행되라는 의미가 된다.
 operator 를 통해서 설치한 ingressgateway 컴포넌트를 통해 실행된 pods 의 라벨을 확인해보자</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods/istio-ingressgateway-67d647b4-b6k84 --show-labels -n istio-system <span style="color:#6272a4"># (pods 이름은 그때 그때 각기 다를 수 있다.)</span>
-istio-ingressgateway-67d647b4-b6k84   1/1   Running   <span style="color:#bd93f9">0</span>     31m   <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>istio-ingressgateway,chart<span style="color:#ff79c6">=</span>gateways,heritage<span style="color:#ff79c6">=</span>Tiller,install.operator.istio.io/owning-resource<span style="color:#ff79c6">=</span>unknown,istio.io/rev<span style="color:#ff79c6">=</span>default,istio<span style="color:#ff79c6">=</span>ingressgateway,operator.istio.io/component<span style="color:#ff79c6">=</span>IngressGateways,pod-template-hash<span style="color:#ff79c6">=</span>67d647b4,release<span style="color:#ff79c6">=</span>istio,service.istio.io/canonical-name<span style="color:#ff79c6">=</span>istio-ingressgateway,service.istio.io/canonical-revision<span style="color:#ff79c6">=</span>latest,sidecar.istio.io/inject<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">false</span>
-</code></pre></div><p>결과에서 보면 <code>istio=ingressgateway</code> 라는 라벨을 확인할 수 있다. ingressgateway 에서 실행되는 논리적인 게이트웨이 나타낸것이 바로 <code>Gateway</code> 컴포넌트이다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get pods/istio-ingressgateway-67d647b4-b6k84 --show-labels -n istio-system <span style="color:#6272a4"># (pods 이름은 그때 그때 각기 다를 수 있다.)</span>
+</span></span><span style="display:flex;"><span>istio-ingressgateway-67d647b4-b6k84   1/1   Running   <span style="color:#bd93f9">0</span>     31m   <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>istio-ingressgateway,chart<span style="color:#ff79c6">=</span>gateways,heritage<span style="color:#ff79c6">=</span>Tiller,install.operator.istio.io/owning-resource<span style="color:#ff79c6">=</span>unknown,istio.io/rev<span style="color:#ff79c6">=</span>default,istio<span style="color:#ff79c6">=</span>ingressgateway,operator.istio.io/component<span style="color:#ff79c6">=</span>IngressGateways,pod-template-hash<span style="color:#ff79c6">=</span>67d647b4,release<span style="color:#ff79c6">=</span>istio,service.istio.io/canonical-name<span style="color:#ff79c6">=</span>istio-ingressgateway,service.istio.io/canonical-revision<span style="color:#ff79c6">=</span>latest,sidecar.istio.io/inject<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">false</span>
+</span></span></code></pre></div><p>결과에서 보면 <code>istio=ingressgateway</code> 라는 라벨을 확인할 수 있다. ingressgateway 에서 실행되는 논리적인 게이트웨이 나타낸것이 바로 <code>Gateway</code> 컴포넌트이다.
 게이트웨이는 <code>VirtualService</code> 와 함께 사용되어 트래픽을 제어하게 된다.</p>
 <h4 id="virtualservice">VirtualService</h4>
 <p><code>VirtualService</code> 는 트래픽 라우팅과 관련된 설정이다. <code>gateway</code> 와 결합하여 트래픽을 제어한다. 다음은 bookinfo 예제에서 사용한 yml 이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: VirtualService
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: bookinfo
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">hosts</span>:
-    - <span style="color:#f1fa8c">&#34;*&#34;</span>
-  <span style="color:#ff79c6">gateways</span>:
-    - bookinfo-gateway
-  <span style="color:#ff79c6">http</span>:
-    - <span style="color:#ff79c6">match</span>:
-        - <span style="color:#ff79c6">uri</span>:
-            <span style="color:#ff79c6">exact</span>: /productpage
-        - <span style="color:#ff79c6">uri</span>:
-            <span style="color:#ff79c6">prefix</span>: /static
-        - <span style="color:#ff79c6">uri</span>:
-            <span style="color:#ff79c6">exact</span>: /login
-        - <span style="color:#ff79c6">uri</span>:
-            <span style="color:#ff79c6">exact</span>: /logout
-        - <span style="color:#ff79c6">uri</span>:
-            <span style="color:#ff79c6">prefix</span>: /api/v1/products
-      <span style="color:#ff79c6">route</span>:
-        - <span style="color:#ff79c6">destination</span>:
-            <span style="color:#ff79c6">host</span>: productpage
-            <span style="color:#ff79c6">port</span>:
-              <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9080</span>
-</code></pre></div><p>spec 을 살펴보면 연결할 게이트웨이를 <code>gateways</code> 에 <code>bookinfo-gateway</code>로 표시해주었다. <code>http</code> 설정은 http 프로토콜만을 설명하는 것은 아니고
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: VirtualService
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f1fa8c">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">gateways</span>:
+</span></span><span style="display:flex;"><span>    - bookinfo-gateway
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">exact</span>: /productpage
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">prefix</span>: /static
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">exact</span>: /login
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">exact</span>: /logout
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">prefix</span>: /api/v1/products
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">host</span>: productpage
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9080</span>
+</span></span></code></pre></div><p>spec 을 살펴보면 연결할 게이트웨이를 <code>gateways</code> 에 <code>bookinfo-gateway</code>로 표시해주었다. <code>http</code> 설정은 http 프로토콜만을 설명하는 것은 아니고
 <code>HTTP</code>, <code>HTTP2</code>, <code>GRPC</code> 를 포함한다. 그 다음으로 매칭 룰을 지정하는데 (<code>match</code>) <code>exact</code> 는 정확히 매칭되어야 하는 경우 <code>prefix</code> 는 uri 의 앞부분만 매칭되면 되는경우로 해석된다.
 <code>route</code> 에서는 연결할 대상을 지정하는데 <code>host</code> 가 <code>productpage</code> 로 되어 있는 것은 앞선 예제에서 등록한 <code>Service</code> 컴포넌트로 연결하라는 의미가 된다. (k8s 내부에서 서비스명으로 바로 접속할 수 있기 때문)</p>
 <p><code>Gateway</code> 와 <code>VirtualService</code> 는 실제로 별도의 pods 를 실행하는 것은 아니고 <em>ingressgateway 의 envoy 설정을 변경한다.(중요)</em> ingressgateway 의 라우트 설정은 다음의 명령어로 확인할 수 있다.
 자세히 보면 prefix 로 지정한 uri 는 match 뒤에 <code>*</code> 표시가 붙어 있는 것을 확인할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl pc routes istio-ingressgateway-67d647b4-b6k84.istio-system
-NOTE: This output only contains routes loaded via RDS.
-NAME        DOMAINS     MATCH                  VIRTUAL SERVICE
-http.80     *           /productpage           bookinfo.default
-http.80     *           /static*               bookinfo.default
-http.80     *           /login                 bookinfo.default
-http.80     *           /logout                bookinfo.default
-http.80     *           /api/v1/products*      bookinfo.default
-            *           /healthz/ready*
-            *           /stats/prometheus*
-</code></pre></div><p><code>VirtualService</code> 에는 라우팅을 위한 좀 더 디테일한 설정도 가능하다</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: VirtualService
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: reviews-route
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">hosts</span>:
-  - reviews.prod.svc.cluster.local
-  <span style="color:#ff79c6">http</span>:
-  - <span style="color:#ff79c6">headers</span>:
-      <span style="color:#ff79c6">request</span>:
-        <span style="color:#ff79c6">set</span>:
-          <span style="color:#ff79c6">test</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
-    <span style="color:#ff79c6">route</span>:
-    - <span style="color:#ff79c6">destination</span>:
-        <span style="color:#ff79c6">host</span>: reviews.prod.svc.cluster.local
-        <span style="color:#ff79c6">subset</span>: v2
-      <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">25</span>
-    - <span style="color:#ff79c6">destination</span>:
-        <span style="color:#ff79c6">host</span>: reviews.prod.svc.cluster.local
-        <span style="color:#ff79c6">subset</span>: v1
-      <span style="color:#ff79c6">headers</span>:
-        <span style="color:#ff79c6">response</span>:
-          <span style="color:#ff79c6">remove</span>:
-          - foo
-      <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">75</span>
-</code></pre></div><p>대표적으로 header를 수정할 수도 있고, destination 에 weight 값을 지정할 수도 있다. (가중치 값은 합쳐서 100이 되어야 한다.)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl pc routes istio-ingressgateway-67d647b4-b6k84.istio-system
+</span></span><span style="display:flex;"><span>NOTE: This output only contains routes loaded via RDS.
+</span></span><span style="display:flex;"><span>NAME        DOMAINS     MATCH                  VIRTUAL SERVICE
+</span></span><span style="display:flex;"><span>http.80     *           /productpage           bookinfo.default
+</span></span><span style="display:flex;"><span>http.80     *           /static*               bookinfo.default
+</span></span><span style="display:flex;"><span>http.80     *           /login                 bookinfo.default
+</span></span><span style="display:flex;"><span>http.80     *           /logout                bookinfo.default
+</span></span><span style="display:flex;"><span>http.80     *           /api/v1/products*      bookinfo.default
+</span></span><span style="display:flex;"><span>            *           /healthz/ready*
+</span></span><span style="display:flex;"><span>            *           /stats/prometheus*
+</span></span></code></pre></div><p><code>VirtualService</code> 에는 라우팅을 위한 좀 더 디테일한 설정도 가능하다</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: VirtualService
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews-route
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>  - reviews.prod.svc.cluster.local
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">headers</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">request</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">set</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">test</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: reviews.prod.svc.cluster.local
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">subset</span>: v2
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">25</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: reviews.prod.svc.cluster.local
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">subset</span>: v1
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">headers</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">response</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">remove</span>:
+</span></span><span style="display:flex;"><span>          - foo
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">75</span>
+</span></span></code></pre></div><p>대표적으로 header를 수정할 수도 있고, destination 에 weight 값을 지정할 수도 있다. (가중치 값은 합쳐서 100이 되어야 한다.)
 위의 yml 에서는 <code>test:true</code> 라는 헤더 값을 추가하고 v1 subset 에 대해서만 응답에서 foo 라는 헤더값을 제거한다.</p>
 <h4 id="destinationrule">DestinationRule</h4>
 <p><code>VirtualService</code> 가 어느 서비스로 트래픽을 라우팅할지 결정했다면, <code>DestinationRule</code> 은 어디로 라우팅할지 결정된 이후에 트래픽에 적용되는 정책을 정의하는 기능이다. (트래픽이 어디로 갈지 결정된 이후에 트래픽을 어떻게 보낼지 정의한 것이라고 이해하면 된다.) 이렇게 이야기 하면 감이 잘 오지 않는데 간단한 예시로 pods 의 라벨에 따라서 부하를 분산 시킬 때 사용하는 것이 바로 <code>DestinationRule</code> 이다.</p>
 <p>다음은 <a href="https://istio.io/latest/docs/examples/bookinfo/">bookinfo 예제</a>에서 사용하는 <code>DestinationRule</code> yml 이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: DestinationRule
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: productpage
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">host</span>: productpage
-  <span style="color:#ff79c6">subsets</span>:
-  - <span style="color:#ff79c6">name</span>: v1
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v1
----
-<span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: DestinationRule
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: reviews
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">host</span>: reviews
-  <span style="color:#ff79c6">subsets</span>:
-  - <span style="color:#ff79c6">name</span>: v1
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v1
-  - <span style="color:#ff79c6">name</span>: v2
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v2
-  - <span style="color:#ff79c6">name</span>: v3
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v3
----
-<span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: DestinationRule
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: ratings
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">host</span>: ratings
-  <span style="color:#ff79c6">subsets</span>:
-  - <span style="color:#ff79c6">name</span>: v1
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v1
-  - <span style="color:#ff79c6">name</span>: v2
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v2
-  - <span style="color:#ff79c6">name</span>: v2-mysql
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v2-mysql
-  - <span style="color:#ff79c6">name</span>: v2-mysql-vm
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v2-mysql-vm
----
-<span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: DestinationRule
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: details
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">host</span>: details
-  <span style="color:#ff79c6">subsets</span>:
-  - <span style="color:#ff79c6">name</span>: v1
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v1
-  - <span style="color:#ff79c6">name</span>: v2
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v2
----
-</code></pre></div><p>자세히 보면 <code>subsets</code> 라고 보이는데 pods 의 label 을 그룹핑한 단위라고 보면 된다. pods 를 하나의 subset 으로 묶은 다음에 트래픽을 제어하는데 별도의 정책이 지정되지 않았으므로 라운드 로빈이 지정된다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: productpage
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: productpage
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v1
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: reviews
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v1
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v3
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v3
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: ratings
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: ratings
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v1
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2-mysql
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2-mysql
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2-mysql-vm
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2-mysql-vm
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: details
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: details
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v1
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><p>자세히 보면 <code>subsets</code> 라고 보이는데 pods 의 label 을 그룹핑한 단위라고 보면 된다. pods 를 하나의 subset 으로 묶은 다음에 트래픽을 제어하는데 별도의 정책이 지정되지 않았으므로 라운드 로빈이 지정된다.
 설정 가능한 옵션은 <a href="https://istio.io/latest/docs/reference/config/networking/destination-rule/#LoadBalancerSettings-SimpleLB">문서</a>를 참고하자.
 다음과 같이 기본 정책을 지정하고 특정 subset 에 대해서만 다른 정책을 취할 수도 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: DestinationRule
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: bookinfo-ratings
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">host</span>: ratings.prod.svc.cluster.local
-  <span style="color:#ff79c6">trafficPolicy</span>:
-    <span style="color:#ff79c6">loadBalancer</span>:
-      <span style="color:#ff79c6">simple</span>: LEAST_CONN <span style="color:#6272a4"># 커넥션이 더 적은 쪽으로 연결한다. </span>
-  <span style="color:#ff79c6">subsets</span>:
-  - <span style="color:#ff79c6">name</span>: testversion
-    <span style="color:#ff79c6">labels</span>:
-      <span style="color:#ff79c6">version</span>: v3
-    <span style="color:#ff79c6">trafficPolicy</span>:
-      <span style="color:#ff79c6">loadBalancer</span>:
-        <span style="color:#ff79c6">simple</span>: ROUND_ROBIN <span style="color:#6272a4"># 라운드 로빈으로 연결한다(기본값)</span>
-</code></pre></div><p>다음은 user 라는 쿠키값을 해싱한 결과값을 기반으로 연결을 설정한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"> <span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
- <span style="color:#ff79c6">kind</span>: DestinationRule
- <span style="color:#ff79c6">metadata</span>:
-   <span style="color:#ff79c6">name</span>: bookinfo-ratings
- <span style="color:#ff79c6">spec</span>:
-   <span style="color:#ff79c6">host</span>: ratings.prod.svc.cluster.local
-   <span style="color:#ff79c6">trafficPolicy</span>:
-     <span style="color:#ff79c6">loadBalancer</span>:
-       <span style="color:#ff79c6">consistentHash</span>:
-         <span style="color:#ff79c6">httpCookie</span>:
-           <span style="color:#ff79c6">name</span>: user
-           <span style="color:#ff79c6">ttl</span>: 0s
-</code></pre></div><h4 id="기타-옵션">기타 옵션</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo-ratings
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: ratings.prod.svc.cluster.local
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">simple</span>: LEAST_CONN <span style="color:#6272a4"># 커넥션이 더 적은 쪽으로 연결한다. </span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: testversion
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v3
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">simple</span>: ROUND_ROBIN <span style="color:#6272a4"># 라운드 로빈으로 연결한다(기본값)</span>
+</span></span></code></pre></div><p>다음은 user 라는 쿠키값을 해싱한 결과값을 기반으로 연결을 설정한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span> <span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">name</span>: bookinfo-ratings
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">host</span>: ratings.prod.svc.cluster.local
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">consistentHash</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">httpCookie</span>:
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">name</span>: user
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">ttl</span>: 0s
+</span></span></code></pre></div><h4 id="기타-옵션">기타 옵션</h4>
 <p>다음은 istio 공식 사이트에서 제공한는 <code>Gateway</code> 예제이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
-<span style="color:#ff79c6">kind</span>: Gateway
-<span style="color:#ff79c6">metadata</span>:
-  <span style="color:#ff79c6">name</span>: my-gateway
-  <span style="color:#ff79c6">namespace</span>: some-config-namespace
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">selector</span>:
-    <span style="color:#ff79c6">app</span>: my-gateway-controller
-  <span style="color:#ff79c6">servers</span>:
-  - <span style="color:#ff79c6">port</span>:
-      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">80</span>
-      <span style="color:#ff79c6">name</span>: http
-      <span style="color:#ff79c6">protocol</span>: HTTP
-    <span style="color:#ff79c6">hosts</span>:
-    - uk.bookinfo.com
-    - eu.bookinfo.com
-    <span style="color:#ff79c6">tls</span>:
-      <span style="color:#ff79c6">httpsRedirect</span>: <span style="color:#ff79c6">true</span> <span style="color:#6272a4"># HTTP 로 접근시 301 리다이렉트 반환</span>
-  - <span style="color:#ff79c6">port</span>:
-      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">443</span>
-      <span style="color:#ff79c6">name</span>: https-443
-      <span style="color:#ff79c6">protocol</span>: HTTPS
-    <span style="color:#ff79c6">hosts</span>:
-    - uk.bookinfo.com
-    - eu.bookinfo.com
-    <span style="color:#ff79c6">tls</span>:
-      <span style="color:#ff79c6">mode</span>: SIMPLE <span style="color:#6272a4"># 이 포트에 대해서 HTTPS 활성화</span>
-      <span style="color:#ff79c6">serverCertificate</span>: /etc/certs/servercert.pem
-      <span style="color:#ff79c6">privateKey</span>: /etc/certs/privatekey.pem
-  - <span style="color:#ff79c6">port</span>:
-      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9443</span>
-      <span style="color:#ff79c6">name</span>: https-9443
-      <span style="color:#ff79c6">protocol</span>: HTTPS
-    <span style="color:#ff79c6">hosts</span>:
-    - <span style="color:#f1fa8c">&#34;bookinfo-namespace/*.bookinfo.com&#34;</span>
-    <span style="color:#ff79c6">tls</span>:
-      <span style="color:#ff79c6">mode</span>: SIMPLE <span style="color:#6272a4"># 이 포트에 대해서 HTTPS 활성화</span>
-      <span style="color:#ff79c6">credentialName</span>: bookinfo-secret <span style="color:#6272a4"># k8s secret 에 등록된 이름</span>
-  - <span style="color:#ff79c6">port</span>:
-      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9080</span>
-      <span style="color:#ff79c6">name</span>: http-wildcard
-      <span style="color:#ff79c6">protocol</span>: HTTP
-    <span style="color:#ff79c6">hosts</span>:
-    - <span style="color:#f1fa8c">&#34;*&#34;</span>
-  - <span style="color:#ff79c6">port</span>:
-      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">2379</span> <span style="color:#6272a4"># 내부 서비스를 2379포트 번호를 통해서 외부에 노출한다.</span>
-      <span style="color:#ff79c6">name</span>: mongo
-      <span style="color:#ff79c6">protocol</span>: MONGO <span style="color:#6272a4"># 프로토콜은 HTTP, HTTPS, GRPC, HTTP2, MONGO, TCP, TLS 중 하나여야 한다.</span>
-    <span style="color:#ff79c6">hosts</span>:
-    - <span style="color:#f1fa8c">&#34;*&#34;</span>
-</code></pre></div><h3 id="트래픽의-실제-연결-흐름">트래픽의 실제 연결 흐름</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Gateway
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-gateway
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">namespace</span>: some-config-namespace
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app</span>: my-gateway-controller
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">servers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">80</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: http
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: HTTP
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - uk.bookinfo.com
+</span></span><span style="display:flex;"><span>    - eu.bookinfo.com
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">httpsRedirect</span>: <span style="color:#ff79c6">true</span> <span style="color:#6272a4"># HTTP 로 접근시 301 리다이렉트 반환</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">443</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: https-443
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: HTTPS
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - uk.bookinfo.com
+</span></span><span style="display:flex;"><span>    - eu.bookinfo.com
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">mode</span>: SIMPLE <span style="color:#6272a4"># 이 포트에 대해서 HTTPS 활성화</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">serverCertificate</span>: /etc/certs/servercert.pem
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">privateKey</span>: /etc/certs/privatekey.pem
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9443</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: https-9443
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: HTTPS
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f1fa8c">&#34;bookinfo-namespace/*.bookinfo.com&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">mode</span>: SIMPLE <span style="color:#6272a4"># 이 포트에 대해서 HTTPS 활성화</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">credentialName</span>: bookinfo-secret <span style="color:#6272a4"># k8s secret 에 등록된 이름</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">9080</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: http-wildcard
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: HTTP
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f1fa8c">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">2379</span> <span style="color:#6272a4"># 내부 서비스를 2379포트 번호를 통해서 외부에 노출한다.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: mongo
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: MONGO <span style="color:#6272a4"># 프로토콜은 HTTP, HTTPS, GRPC, HTTP2, MONGO, TCP, TLS 중 하나여야 한다.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f1fa8c">&#34;*&#34;</span>
+</span></span></code></pre></div><h3 id="트래픽의-실제-연결-흐름">트래픽의 실제 연결 흐름</h3>
 <p>새로운 용어가 계속 나오기 때문에 실제 트래픽이 어떻게 제어되는지 헷갈려서 정리해보았다.</p>
 <ul>
 <li>로드밸런서로 부터 트래픽이 유입된다. (<code>$ kubectl get svc -n istio-system</code> 결과값을 생각해보자.)</li>
@@ -557,7 +557,7 @@ http.80     *           /api/v1/products*      bookinfo.default
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -864,6 +864,12 @@ http.80     *           /api/v1/products*      bookinfo.default
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -908,6 +914,12 @@ http.80     *           /api/v1/products*      bookinfo.default
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

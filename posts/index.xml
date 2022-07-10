@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 12 Jun 2022 20:46:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jul 2022 13:23:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
+      <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>
+      <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</guid>
+      <description>K8S에서 Java 애플리케이션을 구동할 때에는 리소스 설정과 메모리 설정에 주의하지 않으면 성능에 이슈가 발생할 수 있어, 관련 설정을 정리해보았다.</description>
+    </item>
+    
     <item>
       <title>백엔드 개발자의 운영툴 UX 고민들</title>
       <link>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</link>
@@ -361,7 +370,7 @@ Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해�
       
       <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
       <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
-Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;quot;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
+Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;rdquo;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
     </item>
     
     <item>

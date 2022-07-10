@@ -335,7 +335,7 @@ output.logstash:
 <p>따라서 이 메타 정보를 강제로 reset 하려면 다음과 같이 하면 된다. (경험적으로 설치가 잘 되었는지 확인될 때까지는 메타 정보를 여러번 reset 해야했다.)</p>
 </li>
 </ul>
-<pre tabindex="0"><code>echo &quot;[]&quot; &gt; /var/lib/filebeat/registry
+<pre tabindex="0"><code>echo &#34;[]&#34; &gt; /var/lib/filebeat/registry
 </code></pre><h2 id="logstash">logstash</h2>
 <h3 id="logstash-설치">logstash 설치</h3>
 <ul>
@@ -356,45 +356,44 @@ Installation successful
 </li>
 <li>
 <p>date 필터는 기준 시각을 filebeat 에 의해서 파싱된 시각을 사용하지 않고, log 에 기록된 시각으로 지정하도록 한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-io" data-lang="io">    input <span style="color:#ff79c6">{</span>
-      beats <span style="color:#ff79c6">{</span>
-        port <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;5044&#34;</span>
-      <span style="color:#ff79c6">}</span>
-    <span style="color:#ff79c6">}</span>
-    filter <span style="color:#ff79c6">{</span>
-      grok <span style="color:#ff79c6">{</span>
-        match <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">{</span> <span style="color:#f1fa8c">&#34;message&#34;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{TIMESTAMP_ISO8601:time}\t%{DATA:tag}\t{ % {DATA:data} }&#34;</span> <span style="color:#ff79c6">}</span>
-      <span style="color:#ff79c6">}</span>
-      mutate <span style="color:#ff79c6">{</span>
-        add_field <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">{</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;{ %{data}}&#34;</span> <span style="color:#ff79c6">}</span>
-      <span style="color:#ff79c6">}</span>
-      json <span style="color:#ff79c6">{</span>
-        source <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span>
-      <span style="color:#ff79c6">}</span>
-      <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[</span>fields<span style="color:#ff79c6">][</span>index_name<span style="color:#ff79c6">]</span> <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;qna5&#34;</span> <span style="color:#ff79c6">{</span>
-        geoip <span style="color:#ff79c6">{</span>
-          source <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;remote_addr&#34;</span>
-        <span style="color:#ff79c6">}</span>
-      <span style="color:#ff79c6">}</span>
-      alter <span style="color:#ff79c6">{</span>
-          remove_field <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;data&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span> <span style="color:#ff79c6">]</span>
-      <span style="color:#ff79c6">}</span>
-      date <span style="color:#ff79c6">{</span>
-        match <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;time&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#f1fa8c">&#34;yyyy-MM-dd&#39;T&#39;HH:mm:ssZZ&#34;</span> <span style="color:#ff79c6">]</span>
-      <span style="color:#ff79c6">}</span>
-    <span style="color:#ff79c6">}</span>
-    output <span style="color:#ff79c6">{</span>
-      elasticsearch <span style="color:#ff79c6">{</span>
-        hosts <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;my-elastcisearch-server-host:9200&#34;</span>
-        index <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{[fields][index_name]}-%{+YYYY.MM.dd}&#34;</span>
-        document_type <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{[fields][index_name]}&#34;</span>
-      <span style="color:#ff79c6">}</span>
-    <span style="color:#ff79c6">}</span>
-    <span style="color:#6272a4"># debug 를 위해서는 아래의 출력으로 조정.
-</span><span style="color:#6272a4"></span>    <span style="color:#6272a4">#output {
-</span><span style="color:#6272a4"></span>    <span style="color:#6272a4">#  stdout { codec =&gt; json }
-</span><span style="color:#6272a4"></span>    <span style="color:#6272a4">#}
-</span><span style="color:#6272a4"></span>    </code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-io" data-lang="io"><span style="display:flex;"><span>input <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  beats <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    port <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;5044&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>filter <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  grok <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    match <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">{</span> <span style="color:#f1fa8c">&#34;message&#34;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{TIMESTAMP_ISO8601:time}\t%{DATA:tag}\t{ % {DATA:data} }&#34;</span> <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  mutate <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    add_field <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">{</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;{ %{data}}&#34;</span> <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  json <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    source <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">[</span>fields<span style="color:#ff79c6">][</span>index_name<span style="color:#ff79c6">]</span> <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;qna5&#34;</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    geoip <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>      source <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;remote_addr&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  alter <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>      remove_field <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;data&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#f1fa8c">&#34;json_data&#34;</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>  date <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    match <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">[</span> <span style="color:#f1fa8c">&#34;time&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#f1fa8c">&#34;yyyy-MM-dd&#39;T&#39;HH:mm:ssZZ&#34;</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>output <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  elasticsearch <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    hosts <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;my-elastcisearch-server-host:9200&#34;</span>
+</span></span><span style="display:flex;"><span>    index <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{[fields][index_name]}-%{+YYYY.MM.dd}&#34;</span>
+</span></span><span style="display:flex;"><span>    document_type <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;%{[fields][index_name]}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># debug 를 위해서는 아래의 출력으로 조정.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">#output {
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">#  stdout { codec =&gt; json }
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>#<span style="color:#ff79c6">}</span></span></span></code></pre></div>
 </li>
 </ul>
 <h3 id="logstash-실행">logstash 실행</h3>
@@ -438,7 +437,7 @@ Installation successful
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -745,6 +744,12 @@ Installation successful
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -789,6 +794,12 @@ Installation successful
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

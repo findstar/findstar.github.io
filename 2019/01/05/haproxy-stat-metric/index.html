@@ -247,7 +247,7 @@
 <p>Haproxy 의 statistics를 확인할 수 있는 방법은 다음의 2가지 방법을 확인가능하다.</p>
 <h4 id="1-http-상에서-확인할-수-있는-방법">1. HTTP 상에서 확인할 수 있는 방법</h4>
 <p>haproxy.cfg 에 다음과 같이 stats 설정을 지정하면 http 를 통해서 확인이 가능하다</p>
-<pre tabindex="0"><code>listen stats # &quot;stats&quot;라는 이름으로 listen 지정
+<pre tabindex="0"><code>listen stats # &#34;stats&#34;라는 이름으로 listen 지정
     bind :9000 # 접속 포트 지정
     stats enable
     stats realm Haproxy\ Statistics  # 브라우저 타이틀
@@ -265,7 +265,7 @@
 <pre tabindex="0"><code>stats socket /var/run/haproxy.sock
 </code></pre><p>그리고 <code>socat</code> 명령어를 사용할 수 있어야 한다. 명령어가 설치되어 있지 않다면 <code>yum</code> 또는 <code>apt</code> 를 사용해서 설치해야한다.</p>
 <p>이제 다음 명령어로 stat 을 확인할 수 있다.</p>
-<pre tabindex="0"><code>echo &quot;show stat&quot; | socat unix-connect:/var/run/haproxy.sock stdio
+<pre tabindex="0"><code>echo &#34;show stat&#34; | socat unix-connect:/var/run/haproxy.sock stdio
 
 
 http-in,FRONTEND,,,0,85,2000,4655,380562,991165,0,0,14,,,,,OPEN,,,,,,,,,1,2,0,,,,0,0,0,3305,,,,0,0,0,14,4641,0,,0,3305,4655,,,0,0,0,0,,,,,,,,
@@ -290,7 +290,7 @@ appname,BACKEND,0,0,0,77,200,4641,380562,988533,0,0,,4641,0,0,0,DOWN,0,0,0,,1,13
      - For http this is because of a matched http-request or tarpit rule.
  11. dresp [LFBS]: responses denied because of security concerns.
      - For http this is because of a matched http-request rule, or
-       &quot;option checkcache&quot;.
+       &#34;option checkcache&#34;.
  12. ereq [LF..]: request errors. Some of the possible causes are:
      - early termination from the client, before the request has been sent.
      - read error from the client
@@ -305,7 +305,7 @@ appname,BACKEND,0,0,0,77,200,4641,380562,988533,0,0,,4641,0,0,0,DOWN,0,0,0,,1,13
      active servers).
  14. eresp [..BS]: response errors. srv_abrt will be counted here also.
      Some other errors are:
-     - write error on the client socket (won't be counted for the server stat)
+     - write error on the client socket (won&#39;t be counted for the server stat)
      - failure applying filters to the response.
  15. wretr [..BS]: number of times a connection to a server was retried.
  16. wredis [..BS]: number of times a request was redispatched to another
@@ -345,7 +345,7 @@ appname,BACKEND,0,0,0,77,200,4641,380562,988533,0,0,,4641,0,0,0,DOWN,0,0,0,,1,13
         L4OK    -&gt; check passed on layer 4, no upper layers testing enabled
         L4TOUT  -&gt; layer 1-4 timeout
         L4CON   -&gt; layer 1-4 connection problem, for example
-                   &quot;Connection refused&quot; (tcp rst) or &quot;No route to host&quot; (icmp)
+                   &#34;Connection refused&#34; (tcp rst) or &#34;No route to host&#34; (icmp)
         L6OK    -&gt; check passed on layer 6
         L6TOUT  -&gt; layer 6 (SSL) timeout
         L6RSP   -&gt; layer 6 invalid response - protocol error
@@ -388,25 +388,25 @@ appname,BACKEND,0,0,0,77,200,4641,380562,988533,0,0,,4641,0,0,0,DOWN,0,0,0,,1,13
 </code></pre><p>이제 stat 를 확인하는 스크립트를 구성한다. <code>www</code>라는 <code>frontend</code> 의 <code>scur(current sessions)</code>를 출력하는 스크립트로 구성했다.</p>
 <pre tabindex="0"><code>#!/bin/sh
 
-sock='/var/run/haproxy.sock'
-host=&quot;$(hostname -f)&quot;
+sock=&#39;/var/run/haproxy.sock&#39;
+host=&#34;$(hostname -f)&#34;
 pause=1
 
 
-time=&quot;$(date +%s)&quot;
-echo 'show stat' | socat - UNIX-CLIENT:$sock \
-  |while IFS=',' read pxname svname qcur qmax scur smax slim stot bin bout dreq dresp ereq econ eresp wretr wredis status weight act bck chkfail chkdown lastchg downtime qlimit pid iid sid throttle lbtot tracked type rate rate_lim rate_max check_status check_code check_duration hrsp_1xx hrsp_2xx hrsp_3xx hrsp_4xx hrsp_5xx hrsp_other hanafail req_rate req_rate_max req_tot cli_abrt srv_abrt comp_in comp_out comp_byp comp_rsp; do
-  if [ &quot;$svname&quot; = 'FRONTEND' ]; then
-    if [ &quot;$pxname&quot; = 'www' ]; then
-      name=$(echo $svname | tr '[:upper:]' '[:lower:]')
-      echo &quot;${scur:-0}&quot;
+time=&#34;$(date +%s)&#34;
+echo &#39;show stat&#39; | socat - UNIX-CLIENT:$sock \
+  |while IFS=&#39;,&#39; read pxname svname qcur qmax scur smax slim stot bin bout dreq dresp ereq econ eresp wretr wredis status weight act bck chkfail chkdown lastchg downtime qlimit pid iid sid throttle lbtot tracked type rate rate_lim rate_max check_status check_code check_duration hrsp_1xx hrsp_2xx hrsp_3xx hrsp_4xx hrsp_5xx hrsp_other hanafail req_rate req_rate_max req_tot cli_abrt srv_abrt comp_in comp_out comp_byp comp_rsp; do
+  if [ &#34;$svname&#34; = &#39;FRONTEND&#39; ]; then
+    if [ &#34;$pxname&#34; = &#39;www&#39; ]; then
+      name=$(echo $svname | tr &#39;[:upper:]&#39; &#39;[:lower:]&#39;)
+      echo &#34;${scur:-0}&#34;
     fi
   fi
 done
 </code></pre><p>이 결과를 이제 collectd 에 연결해서 그래프로 그리면 된다.</p>
-<pre tabindex="0"><code>LoadPlugin &quot;exec&quot;
-&lt;Plugin &quot;exec&quot;&gt;
-    Exec &quot;haproxy:haproxy&quot; &quot;/usr/local/bin/haproxy-stats&quot;
+<pre tabindex="0"><code>LoadPlugin &#34;exec&#34;
+&lt;Plugin &#34;exec&#34;&gt;
+    Exec &#34;haproxy:haproxy&#34; &#34;/usr/local/bin/haproxy-stats&#34;
 
 &lt;/Plugin&gt;
 </code></pre><figure class="full-width caption"  style="border: 1px solid #ededed;" >
@@ -450,7 +450,7 @@ done
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -757,6 +757,12 @@ done
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -801,6 +807,12 @@ done
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         

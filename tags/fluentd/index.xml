@@ -29,8 +29,8 @@
 &amp;lt;filter accesslog&amp;gt;
   @type record_transformer
   &amp;lt;record&amp;gt;
-    source &amp;quot;#{Socket.gethostname}&amp;quot;
-    path ${record[&amp;quot;host&amp;quot;]}
+    source &amp;#34;#{Socket.gethostname}&amp;#34;
+    path ${record[&amp;#34;host&amp;#34;]}
   &amp;lt;/record&amp;gt;
 &amp;lt;/filter&amp;gt;
 

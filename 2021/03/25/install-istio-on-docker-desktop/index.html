@@ -273,54 +273,54 @@ docker desktop 에서 istio 를 설치해보았다.</p>
 </li>
 <li>
 <p>클러스터가 잘 활성화 되었다면 다음과 같이 확인할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get nodes 
-NAME             STATUS   ROLES    AGE   VERSION
-docker-desktop   Ready    master   2h    v1.19.3
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get nodes 
+</span></span><span style="display:flex;"><span>NAME             STATUS   ROLES    AGE   VERSION
+</span></span><span style="display:flex;"><span>docker-desktop   Ready    master   2h    v1.19.3
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="istioctl-설치">istioctl 설치</h3>
 <p><code>brew</code> 를 사용해서 <code>istioctl</code> 을 설치해두자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ brew install istioctl 
-$ istioctl version
-1.9.1
-</code></pre></div><h3 id="istio-sample-예제-clone">istio sample 예제 clone</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/istio/istio.git
-$ <span style="color:#8be9fd;font-style:italic">cd</span> istio 
-</code></pre></div><h2 id="istio-설치">istio 설치</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ brew install istioctl 
+</span></span><span style="display:flex;"><span>$ istioctl version
+</span></span><span style="display:flex;"><span>1.9.1
+</span></span></code></pre></div><h3 id="istio-sample-예제-clone">istio sample 예제 clone</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git clone https://github.com/istio/istio.git
+</span></span><span style="display:flex;"><span>$ <span style="color:#8be9fd;font-style:italic">cd</span> istio 
+</span></span></code></pre></div><h2 id="istio-설치">istio 설치</h2>
 <p>istio 를 활성화한 kubenetes cluster 에 설치해보자.</p>
 <h3 id="operator-init">operator init</h3>
 <p>이전 버전과 다르게 최근 istio 에서는 operator 를 사용한 설치가 가능하다. 편리하게 사용해주자.
 (airflow 도 operator 로 설치했던 기억이..)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#6272a4"># --tags 를 붙여서 다른 버전을 설치할 수도 있다. 기본은 최신버전이 설치됨 </span>
-<span style="color:#6272a4"># istio-operator controller 설치 + IstioOperator CRD(Custom Resource Definition) 설치됨</span>
-
-$ istioctl operator init 
-Installing operator controller in namespace: istio-operator using image: docker.io/istio/operator:1.9.1
-Operator controller will watch namespaces: istio-system
-✔ Istio operator installed
-✔ Installation <span style="color:#8be9fd;font-style:italic">complete</span>
-</code></pre></div><h3 id="istiooperator-apply">IstioOperator apply</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># --tags 를 붙여서 다른 버전을 설치할 수도 있다. 기본은 최신버전이 설치됨 </span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># istio-operator controller 설치 + IstioOperator CRD(Custom Resource Definition) 설치됨</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ istioctl operator init 
+</span></span><span style="display:flex;"><span>Installing operator controller in namespace: istio-operator using image: docker.io/istio/operator:1.9.1
+</span></span><span style="display:flex;"><span>Operator controller will watch namespaces: istio-system
+</span></span><span style="display:flex;"><span>✔ Istio operator installed
+</span></span><span style="display:flex;"><span>✔ Installation <span style="color:#8be9fd;font-style:italic">complete</span>
+</span></span></code></pre></div><h3 id="istiooperator-apply">IstioOperator apply</h3>
 <p>ingress gateway 를 활성화 하기 위해서 demo profile 로 <code>IstioOperator</code> 를 apply 하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl create ns istio-system
-$ kubectl apply -f - <span style="color:#f1fa8c">&lt;&lt;EOF
-</span><span style="color:#f1fa8c">apiVersion: install.istio.io/v1alpha1
-</span><span style="color:#f1fa8c">kind: IstioOperator
-</span><span style="color:#f1fa8c">metadata:
-</span><span style="color:#f1fa8c">  namespace: istio-system
-</span><span style="color:#f1fa8c">  name: example-istiocontrolplane
-</span><span style="color:#f1fa8c">spec:
-</span><span style="color:#f1fa8c">  profile: demo # profile demo 로 하면 컴포넌트를 쭈루룩 설치한다.
-</span><span style="color:#f1fa8c">  components:
-</span><span style="color:#f1fa8c">    pilot:
-</span><span style="color:#f1fa8c">      k8s:
-</span><span style="color:#f1fa8c">        resources:
-</span><span style="color:#f1fa8c">          requests:
-</span><span style="color:#f1fa8c">            memory: 3072Mi # pilot 에는 메모리를 넉넉하게 할당하였다. 
-</span><span style="color:#f1fa8c">    egressGateways:
-</span><span style="color:#f1fa8c">    - name: istio-egressgateway # 외부로 나가는 트래픽을 egressgateway 를 통하도록 활성화 한다.
-</span><span style="color:#f1fa8c">      enabled: true
-</span><span style="color:#f1fa8c">EOF</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl create ns istio-system
+</span></span><span style="display:flex;"><span>$ kubectl apply -f - <span style="color:#f1fa8c">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">apiVersion: install.istio.io/v1alpha1
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">kind: IstioOperator
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  namespace: istio-system
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  name: example-istiocontrolplane
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">spec:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  profile: demo # profile demo 로 하면 컴포넌트를 쭈루룩 설치한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">  components:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    pilot:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      k8s:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">          requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">            memory: 3072Mi # pilot 에는 메모리를 넉넉하게 할당하였다. 
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    egressGateways:
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    - name: istio-egressgateway # 외부로 나가는 트래픽을 egressgateway 를 통하도록 활성화 한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      enabled: true
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">EOF</span>
+</span></span></code></pre></div><ul>
 <li>profile 에 따라서 설치되는 컴포넌트의 차이가 난다. 지금은 동작 확인을 위해서 <code>demo profile</code> 로 설치하지만 production 에서는
 customization 이 필요할 수도 있다. 자세한 프로필 옵션은 <a href="https://istio.io/latest/docs/setup/additional-setup/config-profiles/">매뉴얼 링크</a>를 참고하자.</li>
 <li>위의 예시로 설치하면 다음의 컴포넌트가 설치된다.
@@ -351,104 +351,102 @@ egress-gateway 가 구동되는 위치를 일부 node들로 제한하고 이 Nod
 이 녀석들도 버전업이 빨라서 demo profile 에 같이 포함시켰더니 버전업 대응하기가 어려웠다고 한다. 따라서
 그 때그때 필요한 사람들이 add components 하라고 안내하고 있다.)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ <span style="color:#8be9fd;font-style:italic">cd</span> istio/samples/addons 
-$ kubectl apply -f prometheus.yml
-$ kubectl apply -f kiali.yml
-$ kubectl apply -f grafana.yml
-$ kubectl apply -f jaeger.yaml
-
-</code></pre></div><h3 id="설치-확인">설치 확인</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ <span style="color:#8be9fd;font-style:italic">cd</span> istio/samples/addons 
+</span></span><span style="display:flex;"><span>$ kubectl apply -f prometheus.yml
+</span></span><span style="display:flex;"><span>$ kubectl apply -f kiali.yml
+</span></span><span style="display:flex;"><span>$ kubectl apply -f grafana.yml
+</span></span><span style="display:flex;"><span>$ kubectl apply -f jaeger.yaml
+</span></span></code></pre></div><h3 id="설치-확인">설치 확인</h3>
 <p><em>Service</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
-NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      
-grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     
-istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     
-istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   
-istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        
-jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          
-kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           
-prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     
-tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       
-zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     
-</code></pre></div><p><em>Pods</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">NAME                                   READY   STATUS    RESTARTS  
-grafana-f766d6c97-5gj64                1/1     Running   <span style="color:#bd93f9">0</span>          
-istio-egressgateway-5d748f86d5-2drv7   1/1     Running   <span style="color:#bd93f9">0</span>          
-istio-ingressgateway-67d647b4-xhjh5    1/1     Running   <span style="color:#bd93f9">0</span>          
-istiod-69ccd7b848-9vwck                1/1     Running   <span style="color:#bd93f9">0</span>          
-jaeger-7f78b6fb65-xp4sm                1/1     Running   <span style="color:#bd93f9">0</span>          
-kiali-59c8574c55-zvlcr                 1/1     Running   <span style="color:#bd93f9">0</span>          
-prometheus-69f7f4d689-4cswz            2/2     Running   <span style="color:#bd93f9">0</span>          
-
-</code></pre></div><h3 id="네임스페이스에-istio-injection-라벨-추가">네임스페이스에 istio-injection 라벨 추가</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get svc -n istio-system
+</span></span><span style="display:flex;"><span>NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      
+</span></span><span style="display:flex;"><span>grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     
+</span></span><span style="display:flex;"><span>istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     
+</span></span><span style="display:flex;"><span>istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   
+</span></span><span style="display:flex;"><span>istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        
+</span></span><span style="display:flex;"><span>jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          
+</span></span><span style="display:flex;"><span>kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           
+</span></span><span style="display:flex;"><span>prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     
+</span></span><span style="display:flex;"><span>tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       
+</span></span><span style="display:flex;"><span>zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     
+</span></span></code></pre></div><p><em>Pods</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>NAME                                   READY   STATUS    RESTARTS  
+</span></span><span style="display:flex;"><span>grafana-f766d6c97-5gj64                1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>istio-egressgateway-5d748f86d5-2drv7   1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>istio-ingressgateway-67d647b4-xhjh5    1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>istiod-69ccd7b848-9vwck                1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>jaeger-7f78b6fb65-xp4sm                1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>kiali-59c8574c55-zvlcr                 1/1     Running   <span style="color:#bd93f9">0</span>          
+</span></span><span style="display:flex;"><span>prometheus-69f7f4d689-4cswz            2/2     Running   <span style="color:#bd93f9">0</span>          
+</span></span></code></pre></div><h3 id="네임스페이스에-istio-injection-라벨-추가">네임스페이스에 istio-injection 라벨 추가</h3>
 <p>사이드카를 활성화할 <code>default</code> namespace 에 <code>istio-injection=enable</code> 라벨을 적용한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl label namespace default istio-injection<span style="color:#ff79c6">=</span>enabled
-namespace/default labeled
-</code></pre></div><h2 id="bookinfo-예제-실행">BookInfo 예제 실행</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl label namespace default istio-injection<span style="color:#ff79c6">=</span>enabled
+</span></span><span style="display:flex;"><span>namespace/default labeled
+</span></span></code></pre></div><h2 id="bookinfo-예제-실행">BookInfo 예제 실행</h2>
 <h3 id="sample-yml-예제-적용">sample yml 예제 적용</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
-service/details created
-serviceaccount/bookinfo-details created
-deployment.apps/details-v1 created
-service/ratings created
-serviceaccount/bookinfo-ratings created
-deployment.apps/ratings-v1 created
-service/reviews created
-serviceaccount/bookinfo-reviews created
-deployment.apps/reviews-v1 created
-deployment.apps/reviews-v2 created
-deployment.apps/reviews-v3 created
-service/productpage created
-serviceaccount/bookinfo-productpage created
-deployment.apps/productpage-v1 created
-</code></pre></div><h4 id="bookinfo-서비스-확인">bookinfo 서비스 확인</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>    AGE
-details       ClusterIP   10.110.253.197   &lt;none&gt;        9080/TCP   7s
-kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    2d
-productpage   ClusterIP   10.109.81.216    &lt;none&gt;        9080/TCP   7s
-ratings       ClusterIP   10.109.38.26     &lt;none&gt;        9080/TCP   7s
-reviews       ClusterIP   10.101.176.215   &lt;none&gt;        9080/TCP   7s
-</code></pre></div><h4 id="pods-확인">pods 확인</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+</span></span><span style="display:flex;"><span>service/details created
+</span></span><span style="display:flex;"><span>serviceaccount/bookinfo-details created
+</span></span><span style="display:flex;"><span>deployment.apps/details-v1 created
+</span></span><span style="display:flex;"><span>service/ratings created
+</span></span><span style="display:flex;"><span>serviceaccount/bookinfo-ratings created
+</span></span><span style="display:flex;"><span>deployment.apps/ratings-v1 created
+</span></span><span style="display:flex;"><span>service/reviews created
+</span></span><span style="display:flex;"><span>serviceaccount/bookinfo-reviews created
+</span></span><span style="display:flex;"><span>deployment.apps/reviews-v1 created
+</span></span><span style="display:flex;"><span>deployment.apps/reviews-v2 created
+</span></span><span style="display:flex;"><span>deployment.apps/reviews-v3 created
+</span></span><span style="display:flex;"><span>service/productpage created
+</span></span><span style="display:flex;"><span>serviceaccount/bookinfo-productpage created
+</span></span><span style="display:flex;"><span>deployment.apps/productpage-v1 created
+</span></span></code></pre></div><h4 id="bookinfo-서비스-확인">bookinfo 서비스 확인</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get svc
+</span></span><span style="display:flex;"><span>NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>    AGE
+</span></span><span style="display:flex;"><span>details       ClusterIP   10.110.253.197   &lt;none&gt;        9080/TCP   7s
+</span></span><span style="display:flex;"><span>kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP    2d
+</span></span><span style="display:flex;"><span>productpage   ClusterIP   10.109.81.216    &lt;none&gt;        9080/TCP   7s
+</span></span><span style="display:flex;"><span>ratings       ClusterIP   10.109.38.26     &lt;none&gt;        9080/TCP   7s
+</span></span><span style="display:flex;"><span>reviews       ClusterIP   10.101.176.215   &lt;none&gt;        9080/TCP   7s
+</span></span></code></pre></div><h4 id="pods-확인">pods 확인</h4>
 <ul>
 <li>pod 상태를 확인하자. docker desktop 에서 띄우려니 사이드카 뜨는데 시간이 좀 걸린다. ready 2/2 보려고 조금 기다렸다.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get pods -w 
-NAME                              READY   STATUS    RESTARTS   AGE
-details-v1-79f774bdb9-v7wq7       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
-productpage-v1-6b746f74dc-sgwxh   2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
-ratings-v1-b6994bb9-mjhkg         2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
-reviews-v1-545db77b95-p9lkm       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
-reviews-v2-7bf8c9648f-gmckn       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
-reviews-v3-84779c7bbc-qtrc8       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
-</code></pre></div><h4 id="curl-요청-결과-확인">curl 요청 결과 확인</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get pods -w 
+</span></span><span style="display:flex;"><span>NAME                              READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>details-v1-79f774bdb9-v7wq7       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+</span></span><span style="display:flex;"><span>productpage-v1-6b746f74dc-sgwxh   2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
+</span></span><span style="display:flex;"><span>ratings-v1-b6994bb9-mjhkg         2/2     Running   <span style="color:#bd93f9">0</span>          3m26s
+</span></span><span style="display:flex;"><span>reviews-v1-545db77b95-p9lkm       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+</span></span><span style="display:flex;"><span>reviews-v2-7bf8c9648f-gmckn       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+</span></span><span style="display:flex;"><span>reviews-v3-84779c7bbc-qtrc8       2/2     Running   <span style="color:#bd93f9">0</span>          3m27s
+</span></span></code></pre></div><h4 id="curl-요청-결과-확인">curl 요청 결과 확인</h4>
 <p>다음과 같이 <code>Simple Bookstore App</code> 이라는 문자열을 확인할 수 있으면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>kubectl get pod -l <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>ratings -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -c ratings -- curl -sS productpage:9080/productpage | grep -o <span style="color:#f1fa8c">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
-&lt;title&gt;Simple Bookstore App&lt;/title&gt;
-</code></pre></div><h3 id="네트워킹-설정-추가">네트워킹 설정 추가</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>kubectl get pod -l <span style="color:#8be9fd;font-style:italic">app</span><span style="color:#ff79c6">=</span>ratings -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -c ratings -- curl -sS productpage:9080/productpage | grep -o <span style="color:#f1fa8c">&#34;&lt;title&gt;.*&lt;/title&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>&lt;title&gt;Simple Bookstore App&lt;/title&gt;
+</span></span></code></pre></div><h3 id="네트워킹-설정-추가">네트워킹 설정 추가</h3>
 <p>아직 브라우저에서 편하게 접속하기가 어렵다. 네트워킹 설정을 추가하자</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
-gateway.networking.istio.io/bookinfo-gateway created
-virtualservice.networking.istio.io/bookinfo created
-</code></pre></div><p>설치된 gateway 를 확인할 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get gateway
-NAME               AGE
-bookinfo-gateway   6s
-</code></pre></div><h2 id="접속-확인">접속 확인</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+</span></span><span style="display:flex;"><span>gateway.networking.istio.io/bookinfo-gateway created
+</span></span><span style="display:flex;"><span>virtualservice.networking.istio.io/bookinfo created
+</span></span></code></pre></div><p>설치된 gateway 를 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get gateway
+</span></span><span style="display:flex;"><span>NAME               AGE
+</span></span><span style="display:flex;"><span>bookinfo-gateway   6s
+</span></span></code></pre></div><h2 id="접속-확인">접속 확인</h2>
 <h3 id="external-ip-확인">External IP 확인</h3>
 <p>현재 Docker desktop 환경에서는 LoadBalancer 의 External IP 가 localhost 로 나온다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl get svc -n istio-system
-NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      AGE
-grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     12h
-istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     3h16m
-istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   3h16m
-istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        3h16m
-jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          12h
-kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           12h
-prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     12h
-tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       12h
-zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     12h
-</code></pre></div><p>따라서 현재 istio-ingressgateway 가 LoadBalancer 타입으로 활성화 되어 localhost 를 통해서 접속이 가능하다는 것을 의미한다. 만약 minikube와 같이 다른 환경인 경우에는 각각의 external IP 또는
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ kubectl get svc -n istio-system
+</span></span><span style="display:flex;"><span>NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span style="color:#ff79c6">(</span>S<span style="color:#ff79c6">)</span>                                                                      AGE
+</span></span><span style="display:flex;"><span>grafana                ClusterIP      10.96.62.176     &lt;none&gt;        3000/TCP                                                                     12h
+</span></span><span style="display:flex;"><span>istio-egressgateway    ClusterIP      10.97.243.254    &lt;none&gt;        80/TCP,443/TCP,15443/TCP                                                     3h16m
+</span></span><span style="display:flex;"><span>istio-ingressgateway   LoadBalancer   10.96.161.146    localhost     15021:30511/TCP,80:30544/TCP,443:31492/TCP,31400:30865/TCP,15443:32030/TCP   3h16m
+</span></span><span style="display:flex;"><span>istiod                 ClusterIP      10.103.241.162   &lt;none&gt;        15010/TCP,15012/TCP,443/TCP,15014/TCP                                        3h16m
+</span></span><span style="display:flex;"><span>jaeger-collector       ClusterIP      10.106.227.172   &lt;none&gt;        14268/TCP,14250/TCP                                                          12h
+</span></span><span style="display:flex;"><span>kiali                  ClusterIP      10.109.82.172    &lt;none&gt;        20001/TCP,9090/TCP                                                           12h
+</span></span><span style="display:flex;"><span>prometheus             ClusterIP      10.106.47.148    &lt;none&gt;        9090/TCP                                                                     12h
+</span></span><span style="display:flex;"><span>tracing                ClusterIP      10.99.41.58      &lt;none&gt;        80/TCP                                                                       12h
+</span></span><span style="display:flex;"><span>zipkin                 ClusterIP      10.105.51.116    &lt;none&gt;        9411/TCP                                                                     12h
+</span></span></code></pre></div><p>따라서 현재 istio-ingressgateway 가 LoadBalancer 타입으로 활성화 되어 localhost 를 통해서 접속이 가능하다는 것을 의미한다. 만약 minikube와 같이 다른 환경인 경우에는 각각의 external IP 또는
 NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <a href="https://istio.io/latest/docs/setup/getting-started/#determining-the-ingress-ip-and-ports">매뉴얼 링크</a></p>
 <h3 id="브라우저-확인">브라우저 확인</h3>
 <p>정상적으로 작업이 완료되었다면</p>
@@ -459,27 +457,27 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 </figure>
 <h3 id="추가-컴포넌트-확인">추가 컴포넌트 확인</h3>
 <h4 id="kiali">Kiali</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard kiali
-</code></pre></div><figure class="full-width caption"  >
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard kiali
+</span></span></code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/kiali.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
 <h4 id="jaeger">Jaeger</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard jaeger
-</code></pre></div><figure class="full-width caption"  >
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard jaeger
+</span></span></code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/jaeger.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
 <h4 id="garafana">garafana</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ istioctl dashboard garafana
-</code></pre></div><figure class="full-width caption"  >
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard garafana
+</span></span></code></pre></div><figure class="full-width caption"  >
     <img src="/images/posts/istio/install/grafana.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
 <h3 id="주의사항">주의사항</h3>
 <p>만약 진행에서 잘 되지 않는 부분이 있다면 <code>istioctl analyze</code> 를 실행해서 문제가 없는지 살펴볼 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">istioctl analyze
-</code></pre></div><h3 id="기타">기타</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>istioctl analyze
+</span></span></code></pre></div><h3 id="기타">기타</h3>
 <p>이건 스터디에서 안승규님이 알려주신 내용이다.</p>
 <ol>
 <li>
@@ -490,19 +488,19 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 </li>
 <li>
 <p>IstioOperator 를 설치할 때 spec 에 revision 을 지정해주어야 다음버전으로 올라갈 때 수월하다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">apiVersion</span>: isntall.istio.io/v1alpha1
-<span style="color:#ff79c6">kind</span>: IstioOperator
-...
-<span style="color:#ff79c6">spec</span>:
-  <span style="color:#ff79c6">revision</span>: <span style="color:#f1fa8c">&#34;1-9-1&#34;</span> <span style="color:#6272a4"># 이부분이 리비전 지정</span>
-  <span style="color:#ff79c6">profile</span>: default
-  ....
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: isntall.istio.io/v1alpha1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: IstioOperator
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">revision</span>: <span style="color:#f1fa8c">&#34;1-9-1&#34;</span> <span style="color:#6272a4"># 이부분이 리비전 지정</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">profile</span>: default
+</span></span><span style="display:flex;"><span>  ....
+</span></span></code></pre></div></li>
 <li>
 <p>리비전을 지정하면 <code>istio-injection=enabled</code> 이 동작하지 않는다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#6272a4"># 다음처럼 지정해야된다.</span>
-$ kubectl label ns default istio.io/rev=1-9-1 
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#6272a4"># 다음처럼 지정해야된다.</span>
+</span></span><span style="display:flex;"><span>$ kubectl label ns default istio.io/rev=1-9-1 
+</span></span></code></pre></div></li>
 <li>
 <p>IstioOperator Kind 를 여러개 설치해서 (profile : default / profile: empty 와 같이)</p>
 <ul>
@@ -561,7 +559,7 @@ $ kubectl label ns default istio.io/rev=1-9-1
 
 <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -868,6 +866,12 @@ $ kubectl label ns default istio.io/rev=1-9-1
                         
                         
                         
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/how-do-i-work" title="how-do-i-work">
                         how-do-i-work
                         </a>
@@ -912,6 +916,12 @@ $ kubectl label ns default istio.io/rev=1-9-1
                         
                         <a href="/tags/iterm" title="iterm">
                         iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
                         </a>
                         
                         
