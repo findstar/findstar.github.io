@@ -6,7 +6,19 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 10 Jul 2022 13:23:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 31 Jul 2022 14:01:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>새로운 M1 macbook 장비 개인 셋팅</title>
+            <link>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</link>
+            <pubDate>Sun, 31 Jul 2022 14:01:03 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</guid>
+            <description>기다리고 기다리던 새로운 맥북 PRO M1 MAX를 받았다. 반도체 대란(?!)의 영향으로 6개월을 기다린 끝에 새로 받은 장비였다. 새로 받은 맥북의 환경설정을 정리해보았다.</description>
+            
+            <category>m1 macbook pro</category>
+            
+        </item>
+        
         <item>
             <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
             <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>
