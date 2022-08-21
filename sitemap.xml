@@ -2,16 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://findstar.pe.kr/tags/m1-macbook-pro/</loc>
-    <lastmod>2022-07-31T14:01:03+09:00</lastmod>
+    <loc>https://findstar.pe.kr/tags/eks/</loc>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</loc>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/instance-type/</loc>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2022-07-31T14:01:03+09:00</lastmod>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2022-07-31T14:01:03+09:00</lastmod>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/m1-macbook-pro/</loc>
     <lastmod>2022-07-31T14:01:03+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</loc>

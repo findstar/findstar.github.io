@@ -6,7 +6,21 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 31 Jul 2022 14:01:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 21 Aug 2022 16:13:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>EKS를 구축할 때 어떤 인스턴스 타입이 적합할까?</title>
+            <link>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</link>
+            <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</guid>
+            <description>AWS에서 EKS 클러스터를 생성할 때 어떤 인스턴스 타입이 적당한지 고민이 되었는데, 인스턴스를 선택하는 과정을 정리해보았다.</description>
+            
+            <category>eks</category>
+            
+            <category>instance type</category>
+            
+        </item>
+        
         <item>
             <title>새로운 M1 macbook 장비 개인 셋팅</title>
             <link>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</link>
@@ -828,17 +842,7 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
 &lt;ul&gt;
 &lt;li&gt;참고 매뉴얼 : &lt;a href=&#34;https://www.jetbrains.com/help/idea/recording-macros.html&#34;&gt;Jetbrains Recording Macros&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;
-&lt;p&gt;1 먼저 phpstorm 의 Edit -&amp;gt; Macros 를 살펴보자.&lt;/p&gt;
-&lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_edit_window.png&#34; alt=&#34;phpstorm edit widdow&#34;  /&gt;
-    
-&lt;/figure&gt;
-&lt;p&gt;2 다음으로 Macros 에서 Start Macro Recording 을 선택하자.&lt;/p&gt;
-&lt;figure class=&#34;full-width caption&#34;  &gt;
-    &lt;img src=&#34;https://findstar.pe.kr/images/posts/til/2018-01-03/phpstorm_start_macro_recording.png&#34; alt=&#34;phpstorm start macro recording&#34;  /&gt;
-    
-&lt;/figure&gt;</description>
+&lt;p&gt;phpstorm의 버전을 올렸는데 지정해놓은 macro key mapping 이 이상해졌다. 지우고 새로 만들려니 macro 설정 하는 방법을 까먹어서 기억을 더듬어서 다시 한번 정리해본다.&lt;/p&gt;</description>
             
             <category>phpstorm</category>
             

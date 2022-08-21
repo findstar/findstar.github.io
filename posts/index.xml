@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 31 Jul 2022 14:01:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Aug 2022 16:13:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EKS를 구축할 때 어떤 인스턴스 타입이 적합할까?</title>
+      <link>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</link>
+      <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</guid>
+      <description>AWS에서 EKS 클러스터를 생성할 때 어떤 인스턴스 타입이 적당한지 고민이 되었는데, 인스턴스를 선택하는 과정을 정리해보았다.</description>
+    </item>
+    
     <item>
       <title>새로운 M1 macbook 장비 개인 셋팅</title>
       <link>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</link>
