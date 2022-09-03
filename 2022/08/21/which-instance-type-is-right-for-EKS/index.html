@@ -269,10 +269,10 @@
 <li>
 <p>기능별 구분
 : 인스턴스를 표현할 때 흔히 <code>t3.micro</code>, <code>m4.large</code>, <code>c2.medium</code> 와 같이 표현하는데 이런 표현은 기능별 유형을 나타낸다.
-예를들어 <code>C2.medium</code> 이라면 <code>C</code>는 인스턴스 family 라고 해서 어떤 특성을 가진 compute 자원인지 나타낸다.
+예를들어 <code>c2.medium</code> 이라면 <code>c</code>는 인스턴스 family 라고 해서 어떤 특성을 가진 compute 자원인지 나타낸다.
 <code>2</code> 는 몇세대 인스턴스인지 표시한다. 여기서는 2세대 인스턴스라는 의미가 된다. 시간이 지남에 따라 AWS에서는 새로운 세대의 인스턴스가 계속 출시된다.
 (새로운 세대가 나오면 성능이 향상되기 마련이라, 가성비가 좋아진다.) <code>medium</code>은 인스턴스의 사이즈를 나타낸다.
-따라서 <code>C2.medium</code> 이라는 표현은 컴퓨팅에 최적화된 2세대 Medium 사이즈의 인스턴스 라는 의미가 된다.</p>
+따라서 <code>c2.medium</code> 이라는 표현은 컴퓨팅에 최적화된 2세대 Medium 사이즈의 인스턴스 라는 의미가 된다.</p>
 <ul>
 <li>family 구분
 <ul>
@@ -304,15 +304,15 @@ AWS 클라우드 전체로보면 리전 내부에 사용하지 않는 인스턴�
 <li>EKS 쿠버네티스의 Pod는 한 개 이상의 컨테이너를 구성하고
 같은 Node의 Network 스택을 공유한다.</li>
 <li>그리고 클러스터 내부의 여러 Node에 걸쳐 생성된 Pod은
-Overlay Network를 통해 서로 통신하게 됩니다.</li>
+Overlay Network를 통해 서로 통신한다.</li>
 <li>이 말은 Pod는 AWS VPC의 네트워크를 차지한다는 뜻이 된다.</li>
 <li>즉 하나의 EC2 인스턴스(노드) 가 차지하는 네트워크 IP가
-여러개가 될 수 있음을 의미한다.</li>
-<li>그런데 EC2 인스턴스는 타입 사이즈에 따라서 연결할 수 있는 네트워크 인터페이스 (ENI)의 갯수가 정해져있다.
+여러개가 될 수 있다.</li>
+<li>그런데 EC2 인스턴스는 타입 사이즈에 따라서 연결할 수 있는 네트워크 인터페이스 (ENI)의 갯수가 정해져있고,
 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">매뉴얼 링크</a></li>
 <li>사이즈에 따라 사용할 수 있는 네트워크 대역폭도 차이가 있다.</li>
 <li>따라서 xlarge 이상의 사이즈를 선택해야 POD를 배포했을 때 무리 없이 활용할 수 있다.
-(너무 작은 사이즈는 EKS 노드로 활용하기 힘들다는 말이 된다. 실제 노드 그룹을 생성할 때 <code>T3.nano</code> 같은 타입은 선택 옵션에 나오지도 않는다.)</li>
+(너무 작은 사이즈는 EKS 노드로 활용하기 힘들다는 말이 된다. 실제 노드 그룹을 생성할 때 <code>t3.nano</code> 같은 타입은 선택 옵션에 나오지도 않는다.)</li>
 </ul>
 <figure class="full-width caption"  >
     <img src="/images/posts/eks/instance-selection.png" alt="eks 노드 그룹의 instance 선택"  />
@@ -352,11 +352,11 @@ Overlay Network를 통해 서로 통신하게 됩니다.</li>
 </span></span><span style="display:flex;"><span>|  <span style="color:#bd93f9">4</span>       |  <span style="color:#bd93f9">2</span>      |  <span style="color:#bd93f9">4096</span>       |  m6g.medium    |  <span style="color:#bd93f9">1</span>         |
 </span></span><span style="display:flex;"><span>+----------+---------+-------------+----------------+------------+
 </span></span></code></pre></div><h2 id="eks-에서-사용하기로한-기준-인스턴스">EKS 에서 사용하기로한 기준 인스턴스</h2>
-<p>결과적으로 우리 팀에서 사용하기로한 기준 인스턴스 타입은 <code>M6i.xlarge</code> - 온디멘드 유형으로 결정하였다.</p>
+<p>결과적으로 우리 팀에서 사용하기로한 기준 인스턴스 타입은 <code>m6i.xlarge</code> - 온디멘드 유형으로 결정하였다.</p>
 <ul>
-<li>인스턴스 Family 중에서 범용타입인 <code>M</code> 타입으로 결정한다. (현재 애플리케이션 개발 단계라 <code>C</code>, <code>M</code> 타입보다는 범용성을 고려하기로 했다.)</li>
-<li><code>M</code> 타입중에서 최신 세대인 6세대를 선택하기로 했다. (가성비가 제일 뒤어나다.)</li>
-<li>6세대 <code>M</code> 타입은 다시 <code>M6i</code>, <code>M6a</code>, <code>M6g</code> 로 나뉘는데 각각 <code>intel</code>, <code>amd</code>, <code>arm(Graviton2)</code> cpu를 의미한다.</li>
+<li>인스턴스 Family 중에서 범용타입인 <code>m</code> 타입으로 결정한다. (현재 애플리케이션 개발 단계라 <code>c</code>, <code>r</code> 타입보다는 범용성을 고려하기로 했다.)</li>
+<li><code>m</code> 타입중에서 최신 세대인 6세대를 선택하기로 했다. (가성비가 제일 뛰어나다.)</li>
+<li>6세대 <code>m</code> 타입은 다시 <code>m6i</code>, <code>m6a</code>, <code>m6g</code> 로 나뉘는데 각각 <code>intel</code>, <code>amd</code>, <code>arm(Graviton2)</code> cpu를 의미한다.</li>
 <li>cpu 중에서는 가장 일반적인 <code>intel</code> 을 선택했다. (arm을 써볼까 했지만.. 선택안했다. )</li>
 <li>사이즈는 <code>xlarge</code> 를 기준점으로 삼기로 했다.</li>
 </ul>
@@ -381,7 +381,7 @@ NODE (EC2 Instance) 가 가질 수 있는 네트워크 ENI는
 <p>CPU 유형은 제일 무난한 인텔</p>
 </li>
 <li>
-<p>최종 선택은 <code>M6i.xlarge</code></p>
+<p>최종 선택은 <code>m6i.xlarge</code></p>
 </li>
 </ol>
 <p>기준이 되는 인스턴스를 정했지만, 이 기준은 만들고자 하는 애플리케이션의 특성, 예상 트래픽 정도, 인프라의 구성에 따라 달라질 수 있다.
