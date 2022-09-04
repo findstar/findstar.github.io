@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aws on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/aws/</link>
+    <description>Recent content in aws on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 03 Sep 2022 19:51:32 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gossm 을 사용하여 Private RDS 인스턴스에 접근하기</title>
+      <link>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</link>
+      <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</guid>
+      <description>Private 서브넷에 있는 RDS 인스턴스는 외부에서 직접적으로 접근이 불가능하다. 이럴 때 데이터베이스에 접근하기 위한 SSM (gossm)사용법을 알아보았다.</description>
+    </item>
+    
+    <item>
+      <title>EKS를 구축할 때 어떤 인스턴스 타입이 적합할까?</title>
+      <link>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</link>
+      <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</guid>
+      <description>AWS에서 EKS 클러스터를 생성할 때 어떤 인스턴스 타입이 적당한지 고민이 되었는데, 인스턴스를 선택하는 과정을 정리해보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>system manager on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/system-manager/</link>
+    <description>Recent content in system manager on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 03 Sep 2022 19:51:32 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/system-manager/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gossm 을 사용하여 Private RDS 인스턴스에 접근하기</title>
+      <link>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</link>
+      <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</guid>
+      <description>Private 서브넷에 있는 RDS 인스턴스는 외부에서 직접적으로 접근이 불가능하다. 이럴 때 데이터베이스에 접근하기 위한 SSM (gossm)사용법을 알아보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

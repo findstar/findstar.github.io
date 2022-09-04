@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="gossm 을 사용하여 Private RDS 인스턴스에 접근하기" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/aws/rds/aws_rds_with_ssm.png">
+
+
+<meta property="og:title" content="gossm 을 사용하여 Private RDS 인스턴스에 접근하기" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/aws/rds/aws_rds_with_ssm.png" />
+
+
+<meta property="twitter:title" content="gossm 을 사용하여 Private RDS 인스턴스에 접근하기" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="Private 서브넷에 있는 RDS 인스턴스는 외부에서 직접적으로 접근이 불가능하다. 이럴 때 데이터베이스에 접근하기 위한 SSM (gossm)사용법을 알아보았다." />
+
+
+<meta property="article:title" content="gossm 을 사용하여 Private RDS 인스턴스에 접근하기" />
+
+
+
+<meta property="article:tag" content="aws" />
+<meta property="article:tag" content="rds" />
+<meta property="article:tag" content="system manager" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>gossm 을 사용하여 Private RDS 인스턴스에 접근하기 - Soo Story</title>
+<link rel="canonical" href="/2022/09/03/accessing-private-rds-instance-using-ssm/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        <a class="tag" href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        <a class="tag" href="/tags/system-manager" title="system manager">
+                        system manager
+                        </a>
+                        
+                    </div>
+                    <h1>gossm 을 사용하여 Private RDS 인스턴스에 접근하기</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2022-09-03
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ssm을-사용하여-private-rds-인스턴스에-접근하기">SSM을 사용하여 Private RDS 인스턴스에 접근하기</a>
+      <ul>
+        <li><a href="#private-rds">Private RDS</a></li>
+        <li><a href="#로컬에서의-접근-불가-문제">로컬에서의 접근 불가 문제</a></li>
+        <li><a href="#aws-system-manager---aws-ssm">AWS System Manager - AWS SSM</a></li>
+        <li><a href="#gossm-활용하기">gossm 활용하기</a></li>
+        <li><a href="#결론">결론</a></li>
+        <li><a href="#참고자료">참고자료</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="ssm을-사용하여-private-rds-인스턴스에-접근하기">SSM을 사용하여 Private RDS 인스턴스에 접근하기</h1>
+<h2 id="private-rds">Private RDS</h2>
+<p>AWS에서 RDS(데이터베이스) 인스턴스를 생성하면 외부에서 접근이 되지 않는 VPC 내부의 Private subnet 에 위치시키는 것이 일반적이다. RDS 인스턴스가 public subnet에 존재하여 public IP를 통해서
+외부에서 접근할 수 있게 되면 보안입장에서 좋지 않기 때문이다. 따라서 간단한 웹 애플리케이션을 구동한다고 가정하면 RDS 인스턴스는 다음의 그림처럼 private subnet에 들어간다.</p>
+<figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/aws_rds_with_private_subnet.png" alt="rds instance in private subnet"  />
+    
+    <figcaption class="caption-text">rds instance in private subnet</figcaption>
+    
+</figure>
+<h2 id="로컬에서의-접근-불가-문제">로컬에서의 접근 불가 문제</h2>
+<p>보안을 위해서 private subnet 안에 RDS 인스턴스를 생성한 것 까지는 좋은데, 한 가지 불편한 점이 있다. 바로 <strong>나의 로컬 환경에서 RDS 데이터베이스에 접근이 안된다는 점이다.</strong> public subnet에 있는 인스턴스에서만 RDS에 접근이 가능하기 때문에
+나의 로컬 환경(노트북)에서는 private subnet 안에 있는 RDS 데이터베이스에 한번에 접근이 안되는 것이다. 생각해보면 당연한 것이지만, 개발환경에서 또는 일부 작업을 위해서 종종 RDS 데이터베이스에 직접 접속해야할 필요가 있는데 이 경우 매번
+EC2 인스턴스를 거쳐서 접근해야하기 때문에 불편하다.</p>
+<figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/can_not_access_direct_rds.png" alt="can not access direct to rds"  />
+    
+    <figcaption class="caption-text">로컬 머신에서는 접근이 불가능하다.</figcaption>
+    
+</figure>
+<h2 id="aws-system-manager---aws-ssm">AWS System Manager - AWS SSM</h2>
+<p>이런 문제를 좀 더 쉽게 해결하기 위해서 AWS에서는 <code>AWS System Manager(SSM)</code>(<a href="https://aws.amazon.com/ko/systems-manager/">https://aws.amazon.com/ko/systems-manager/</a>) 이라는 기능을 제공한다. (AWS System Manager 의 줄임말 인데 ASM 이 아니라 SSM인지는 모르겠다.)
+SSM 에는 기능이 여러가지가 있지만 그 중에서 <code>Session Manager</code>(<a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html</a>) 기능을 활용할 수 있다.
+쉽게 요약하자면, public subnet에 있는 EC2 인스턴스에 SSH를 통해서 접근한 다음에 RDS에 접근하는 방법을 간략하게 실행할 수 있게 만들어 놓은 편의 기능정도로 이해할 수 있다. (다른 기능들도 많지만, 이게 제일 많이 사용되는 것 같다.)</p>
+<h3 id="ssm을-사용하기-위한-사전-조건">SSM을 사용하기 위한 사전 조건</h3>
+<p>SSM을 사용하기 위해서는 먼저 다음의 준비사항들이 필요하다.</p>
+<ol>
+<li>SSM-Agent 가 설치된 인스턴스가 있어야 한다.
+<ul>
+<li>amazone linux image를 기반으로 인스턴스를 생성했다면 이미 설치되어 있다.(<a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/ami-preinstalled-agent.html">링크</a>)</li>
+<li>따라서 대부분의 경우에는 특별한 작업이 필요없다.</li>
+<li>필요하다면 SSM 을 위한 전용 인스턴스를 생성하기도 한다. (t3.micro 도 충분하다)</li>
+</ul>
+</li>
+<li>EC2 인스턴스에 부여된 Role(역할)에 SSM 사용을 위한 <code>AmazonSSMManagedInstanceCore</code> Policy 가 존재해야한다.
+<figure class="full-width caption  large-width "  style="border: 1px solid #ededed;" >
+       <img src="/images/posts/aws/rds/attach_ssm_policy_to_ec2_role.png" alt="ssm policy for ec2 role"  />
+       
+       <figcaption class="caption-text">EC2 인스턴스에 부여된 Role 에 SSM Policy를 추가한다.</figcaption>
+       
+   </figure>
+<ul>
+<li>policy를 추가한 다음에는 ssm agent 재시작이 필요하다.</li>
+<li>amazone linux 라면 <code>sudo systemctl restart amazon-ssm-agent</code></li>
+<li>다른 인스턴스 이미지라면 <a href="https://docs.aws.amazon.com/ko_kr/systems-manager/latest/userguide/ssm-agent-status-and-restart.html">매뉴얼</a> 참고</li>
+</ul>
+</li>
+<li>AWS CLI 가 필요하다.
+<ul>
+<li><a href="https://aws.amazon.com/ko/cli/">https://aws.amazon.com/ko/cli/</a></li>
+<li>aws cli 사용을 위한 <code>aws configure</code> 는 미리 완료해놓아야 한다.</li>
+</ul>
+</li>
+</ol>
+<h3 id="ssm-사용하기">SSM 사용하기</h3>
+<p>SSM을 사용하려면 다음과 같이 입력하면 된다. 뒤에 붙는 target 은 SSM Agent 가 설치된 인스턴스 ID이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; aws ssm start-session --target i-aabbccddeeffgg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Starting session with SessionId: aws-cli-user-hhiijjkkllmmnn
+</span></span><span style="display:flex;"><span>$ whoami
+</span></span><span style="display:flex;"><span>ssm-user
+</span></span><span style="display:flex;"><span>$ sudo su -l ubuntu
+</span></span><span style="display:flex;"><span>ubuntu@ip-10-232-193-202:~$
+</span></span></code></pre></div><p>SSM을 사용하면 이렇게 ssh를 위한 key 가 없이도 EC2 인스턴스에 접근할 수 있다. 이후에 private subnet에 있는 인스턴스에 접근할 수 있다.</p>
+<h3 id="ssm-에서-리모트-포트포워딩-기능-사용하기">SSM 에서 리모트 포트포워딩 기능 사용하기</h3>
+<p>SSM 을 사용해서 에이전트가 설치된 EC2 인스턴스에 접근하는 것만으로는 충분하지 않기 때문에 포트포워딩 기능을 사용할 수 있다. 이 기능을 사용하면 다음과 같이 SSM Agent 가 설치된 인스턴스가 트래픽을 리모트 호스트로 포트포워딩해준다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>aws ssm start-session --target <span style="color:#8be9fd;font-style:italic">$INSTANCE_ID</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>                       --document-name AWS-StartPortForwardingSessionToRemoteHost <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>                       --parameters <span style="color:#f1fa8c">&#39;{&#34;portNumber&#34;:[&#34;3306&#34;],&#34;localPortNumber&#34;:[&#34;3306&#34;],&#34;host&#34;:[&#34;aws-remote-rds-instance.aabbccddee.ap-northeast-2.rds.amazonaws.com&#34;]}&#39;</span>
+</span></span><span style="display:flex;"><span>                       
+</span></span><span style="display:flex;"><span>Starting session with SessionId: aws-cli-user-0c2856a4240a4e548
+</span></span><span style="display:flex;"><span>Port <span style="color:#bd93f9">3306</span> opened <span style="color:#ff79c6">for</span> sessionId aws-cli-user-0c2856a4240a4e548.
+</span></span><span style="display:flex;"><span>Waiting <span style="color:#ff79c6">for</span> connections... 
+</span></span></code></pre></div><h3 id="데이터베이스-커넥션-테스트">데이터베이스 커넥션 테스트</h3>
+<p>이제 로컬 머신의 3306 포트에 연결하면 private subnet 에 있는 RDS 인스턴스(<code>aws-remote-rds-instance.aabbccddee.ap-northeast-2.rds.amazonaws.com</code>)의 3306 포트로 연결된다.</p>
+<p><figure class="full-width caption  small-width "  >
+    <img src="/images/posts/aws/rds/datagrip-add-datasource.png" alt="datagrip add datasource"  />
+    
+    <figcaption class="caption-text">datagrip 에서 datasource 추가</figcaption>
+    
+</figure>
+<figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/datagrip-add-remote-rds-instance-datasource.png" alt="datagrip add remote rds instance datasource.png"  />
+    
+    <figcaption class="caption-text">localhost 3306으로 연결하지만 실제로는 remote rds에 연결된다.</figcaption>
+    
+</figure>
+<figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/datagrip-test-connection.png" alt="test connection for localhost to remote host"  />
+    
+    <figcaption class="caption-text">로컬 커넥션 테스트 OK (실제로 remote로 연결된다.)</figcaption>
+    
+</figure></p>
+<h3 id="트러블슈팅">트러블슈팅</h3>
+<p>cli 명령어를 사용해 리모트 호스트로 포트포워딩하려는데 다음과 같이 <code>doesn't support port forwarding to remote hosts</code> 에러가 나오는 경우가 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>aws ssm start-session --target <span style="color:#8be9fd;font-style:italic">$INSTANCE_ID</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>                       --document-name AWS-StartPortForwardingSessionToRemoteHost <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c"></span>                       --parameters <span style="color:#f1fa8c">&#39;{&#34;portNumber&#34;:[&#34;3306&#34;],&#34;localPortNumber&#34;:[&#34;3306&#34;],&#34;host&#34;:[&#34;aws-remote-rds-instance.aabbccddee.ap-northeast-2.rds.amazonaws.com&#34;]}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>An error occurred <span style="color:#ff79c6">(</span>BadRequest<span style="color:#ff79c6">)</span> when calling the StartSession operation: The version of the SSM agent installed on this instance doesn&#39;t support port forwarding to remote hosts. Install the latest version of the SSM agent to use port forwarding sessions to remote hosts.
+</span></span></code></pre></div><p>이 에러의 원인은 SSM Agent 의 버전이 너무 낮아서 발생하는 문제이다. &ldquo;AWS Systems Manager &gt; 노드 관리 &gt; 플릿 관리자&rdquo; 에서 버전을 확인할 수 있다.</p>
+<figure class="full-width caption  large-width "  >
+    <img src="/images/posts/aws/rds/ssm_manager_version_list.png" alt="SSM Manager agent version list"  />
+    
+    <figcaption class="caption-text">설치된 SSM Agent 들의 버전 목록을 확인할 수 있다.</figcaption>
+    
+</figure>
+<p>에이전트 버전이 <strong>3.1.1374.0</strong> 이상이어야만 리모트 호스트로의 포트포워딩이 가능하다. 에이전트의 버전을 올려보자. 제일 쉬운 방법은 수동으로 업데이트를 사용하는 방법이다.</p>
+<p><figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/ssm_agent_instance_command_execute.png" alt="ssm instance command execution"  />
+    
+    <figcaption class="caption-text">ssm agent 가 설치된 instance 에 명령을 실행한다.</figcaption>
+    
+</figure>
+<figure class="full-width caption  middle-width "  >
+    <img src="/images/posts/aws/rds/update_ssm_agent_command.png" alt="update agent command"  />
+    
+    <figcaption class="caption-text">ssm agent 가 설치된 instance 에 명령을 실행한다.</figcaption>
+    
+</figure>
+<figure class="full-width caption  large-width "  >
+    <img src="/images/posts/aws/rds/updated_ssm_agent_version.png" alt="updated agent version"  />
+    
+    <figcaption class="caption-text">ssm agent 버전이 올라갔다.</figcaption>
+    
+</figure></p>
+<h2 id="gossm-활용하기">gossm 활용하기</h2>
+<p>aws cli 의 ssm 명령어를 사용하면 리모트 호스트로 접속이 가능하지만, 매번 인스턴스의 ID를 확인하고 명령어도 복잡하고 길어서 불편한점이 있다. 이를 간편하게 해결해주는 <code>gossm</code> 을 사용해보자.</p>
+<h3 id="gossm-설치방법">gossm 설치방법</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ brew tap gjbae1212/gossm
+</span></span><span style="display:flex;"><span>$ brew install gossm
+</span></span></code></pre></div><h3 id="gossm-사용방법">gossm 사용방법</h3>
+<p>다음과 같이 <code>gossm fwdrem</code> 명령어를 입력하면 ssm agent 가 설치된 인스턴스 목록이 표시된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ gossm fwdrem
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>region <span style="color:#ff79c6">(</span>ap-northeast-2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>? Choose a target in AWS:  <span style="color:#ff79c6">[</span>Use arrows to move, <span style="color:#8be9fd;font-style:italic">type</span> to filter<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>&gt; my-ssm-agent-micro-instance	<span style="color:#ff79c6">(</span>i-aabbccddeeffgg<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>some-ec2-instance-a	<span style="color:#ff79c6">(</span>i-aabbccddeeffgg<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>some-ec2-instance-b	<span style="color:#ff79c6">(</span>i-abcedfghijklmn<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>some-ec2-instance-c	<span style="color:#ff79c6">(</span>i-abcedfghijklmo<span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p>이 다음에 ssm agent 로 사용할 인스턴스를 선택하면 포트포워딩을 연결할 포트번호(리모트, 로컬), 그리고 연결할 리모트 호스트를 입력받는다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ gossm fwdrem
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>region <span style="color:#ff79c6">(</span>ap-northeast-2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>? Choose a target in AWS: my-ssm-agent-micro-instance	<span style="color:#ff79c6">(</span>i-aabbccddeeffgg<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>? Remote port to access: <span style="color:#bd93f9">3306</span>
+</span></span><span style="display:flex;"><span>? Local port number to forward: <span style="color:#bd93f9">3306</span>
+</span></span><span style="display:flex;"><span>? Type your host address you want to forward to: aws-remote-rds-instance.aabbccddee.ap-northeast-2.rds.amazonaws.com
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>start-port-forwarding <span style="color:#bd93f9">3306</span> -&gt; 3306<span style="color:#ff79c6">]</span> region: ap-northeast-2, target: i-aabbccddeeffgg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Starting session with SessionId: aws-cli-user-0c2856a4240a4e548
+</span></span><span style="display:flex;"><span>Port <span style="color:#bd93f9">3306</span> opened <span style="color:#ff79c6">for</span> sessionId aws-cli-user-0c2856a4240a4e548.
+</span></span><span style="display:flex;"><span>Waiting <span style="color:#ff79c6">for</span> connections...
+</span></span></code></pre></div><p>그 다음은 <code>aws ssm</code> 명령어와 동일하게 로컬에서 데이터베이스 연결을 수행할 수 있다.</p>
+<blockquote>
+<p>aws 명령과 gossm 모두 aws configure 가 설정된 상태에서 사용이 가능하다.</p>
+</blockquote>
+<h2 id="결론">결론</h2>
+<p>결론적으로 ssm (gossm)을 사용하면 private subnet 에 있는 RDS 인스턴스에 접근하여 데이터베이스 작업을 수행할 수 있다.</p>
+<ol>
+<li>ssm을 사용하면 기존의 복잡한 ec2 인스턴스를 통한 ssh 연결을 대체하여 손쉽게 인스턴스를 관리할 수 있다</li>
+<li>ssh 키를 관리하지 않아도 된다.</li>
+<li>리모트 포트포워딩 기능을 사용하여 Private RDS 인스턴스에 접근할 수도 있다.</li>
+<li>ssm 명령어가 복잡하다면 gossm 을 활용할 수 있다.</li>
+</ol>
+<h2 id="참고자료">참고자료</h2>
+<ul>
+<li><a href="https://musma.github.io/2019/11/29/about-aws-ssm.html#%EC%8B%A4%EC%8A%B5-aws-system-manager-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1%ED%95%98%EA%B8%B0">https://musma.github.io/2019/11/29/about-aws-ssm.html#%EC%8B%A4%EC%8A%B5-aws-system-manager-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1%ED%95%98%EA%B8%B0</a></li>
+<li>ssm 포트포워딩 지원 발표(<a href="https://aws.amazon.com/ko/about-aws/whats-new/2022/05/aws-systems-manager-support-port-forwarding-remote-hosts-using-session-manager/">https://aws.amazon.com/ko/about-aws/whats-new/2022/05/aws-systems-manager-support-port-forwarding-remote-hosts-using-session-manager/</a>)</li>
+<li><a href="https://github.com/gjbae1212/gossm">gossm</a></li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/systems-manager/latest/userguide/ssm-agent-get-version.html">AWS SSM Agent 버전 확인 방법</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/" data-toggle="tooltip" data-placement="top" title="EKS를 구축할 때 어떤 인스턴스 타입이 적합할까?">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful-deploy">
+                        graceful-deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance-type">
+                        instance-type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
+                        m1-macbook-pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2022
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

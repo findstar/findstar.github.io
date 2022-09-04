@@ -278,7 +278,7 @@ deployment yml 설정에서 이런 옵션들을 살펴보고 안전하게 pod를
 </span></span><span style="display:flex;"><span>            - <span style="color:#ff79c6">containerPort</span>: <span style="color:#bd93f9">8080</span>
 </span></span></code></pre></div><p>기본적인 Deployment 설정을 하고 나면 배포할 때 마다 순간적으로 5XX 오류를 확인할 수 있다. 이유는 POD는 시작하자마자 트래픽을 처리할 수 없기 때문이다.
 POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 위해서 Probe 설정을 추가해보자.</p>
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/kubernetes/deployment-phase.gif" alt="deployment phase"  />
     
     <figcaption class="caption-text">K8S deployment</figcaption>
@@ -308,7 +308,7 @@ POD가 정상적으로 트래픽을 받을 수 있는지 없는지 확인하기 
 </span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">failureThreshold</span>: <span style="color:#bd93f9">5</span>
 </span></span></code></pre></div><blockquote>
 <p><code>Probe</code> 라는 건 중학교 건전지 회로 실험에서 사용해보았던, 전류가 흐르는지 확인하는 도구라고 생각하면 이해가 쉽다. 탐침, 조사하다는 의미로 해석할 수 있다.
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/kubernetes/what_is_probe.jpg" alt="what is probe"  />
     
     <figcaption class="caption-text">오늘쪽 바늘 모양 도구가 probe</figcaption>
@@ -359,7 +359,7 @@ pod 가 종료될 때 즉각적으로 pod를 제거해버리면, 처리하고 �
 따라서 위와 같이 약 10초의 딜레이를 주어서 현재 처리중이던 응답을 반환할 충분한 시간을 주면 사용자에게는 5XX에러 상황이 발생하지 않을 수 있다.</p>
 <h2 id="전체-시퀀스-도식화">전체 시퀀스 도식화</h2>
 <p>말로만 하면 이해가 잘 안될것 같아, 그림으로 도식화 해보았다.</p>
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/kubernetes/graceful-shutdown.gif" alt="graceful shutdown"  />
     
     <figcaption class="caption-text">전체 pod 전환 순서</figcaption>
@@ -531,6 +531,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         <a href="/tags/architecture" title="architecture">
                         architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
                         </a>
                         
                         
@@ -1057,6 +1063,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         
                         
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/reindex" title="reindex">
                         reindex
                         </a>
@@ -1119,6 +1131,12 @@ pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지
                         
                         <a href="/tags/study" title="study">
                         study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
                         </a>
                         
                         

@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/aws/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/rds/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/system-manager/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2022-09-03T19:51:32+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/eks/</loc>
     <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
@@ -9,15 +30,6 @@
     <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/instance-type/</loc>
-    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2022-08-21T16:13:22+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2022-08-21T16:13:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/m1-macbook-pro/</loc>

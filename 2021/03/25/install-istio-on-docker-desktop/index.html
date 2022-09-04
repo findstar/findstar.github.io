@@ -259,14 +259,14 @@ docker desktop 에서 istio 를 설치해보았다.</p>
 <ol>
 <li>
 <p>먼저 resource 에서 CPU 4cpu 이상, RAM 할당을 8G 로 늘려주자.
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/istio/install/step1-docker-desktop-resource.png" alt="docker desktop resource setup"  />
     
 </figure></p>
 </li>
 <li>
 <p>그 다음으로 kubernetes 클러스터를 활성화 시켜주자.
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/istio/install/step2-enable-kubernetes-cluster.png" alt="docker desktop kubernetes cluster enable"  />
     
 </figure></p>
@@ -339,7 +339,7 @@ customization 이 필요할 수도 있다. 자세한 프로필 옵션은 <a href
 egress-gateway 가 구동되는 위치를 일부 node들로 제한하고 이 Node 들에 대해서만 ACL 을 열어주는 용도로 사용될 수 있다.</p>
 <h4 id="istiod">istiod</h4>
 <p>istio 의 컨트롤 플랜 (pilot - discovery , citadel - certification, galley - configuration management)</p>
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/istio/istio-arch.svg" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
@@ -451,26 +451,26 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
 <h3 id="브라우저-확인">브라우저 확인</h3>
 <p>정상적으로 작업이 완료되었다면</p>
 <p><code>http://localhost/productpage</code> 로 접속이 잘 된다. 여러번 새로고침해보면서 rating 영역이 바뀌는 것을 볼 수 있다.</p>
-<figure class="full-width caption"  >
+<figure class="full-width caption "  >
     <img src="/images/posts/istio/install/bookinfo-sample-view.png" alt="bookinfo sample app"  />
     
 </figure>
 <h3 id="추가-컴포넌트-확인">추가 컴포넌트 확인</h3>
 <h4 id="kiali">Kiali</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard kiali
-</span></span></code></pre></div><figure class="full-width caption"  >
+</span></span></code></pre></div><figure class="full-width caption "  >
     <img src="/images/posts/istio/install/kiali.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
 <h4 id="jaeger">Jaeger</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard jaeger
-</span></span></code></pre></div><figure class="full-width caption"  >
+</span></span></code></pre></div><figure class="full-width caption "  >
     <img src="/images/posts/istio/install/jaeger.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
 <h4 id="garafana">garafana</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ istioctl dashboard garafana
-</span></span></code></pre></div><figure class="full-width caption"  >
+</span></span></code></pre></div><figure class="full-width caption "  >
     <img src="/images/posts/istio/install/grafana.png" alt="bookinfo sample app kiali dashboard"  />
     
 </figure>
@@ -628,6 +628,12 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
                         
                         <a href="/tags/architecture" title="architecture">
                         architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
                         </a>
                         
                         
@@ -1154,6 +1160,12 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
                         
                         
                         
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/reindex" title="reindex">
                         reindex
                         </a>
@@ -1216,6 +1228,12 @@ NodePort 를 활용하여 접속해야하므로 추가 작업이 필요하다. <
                         
                         <a href="/tags/study" title="study">
                         study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
                         </a>
                         
                         
