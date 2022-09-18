@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="스프링 이벤트 기능을 사용할 때의 고려할 점" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/spring/Spring_Framework_Logo_2018.png">
+
+
+<meta property="og:title" content="스프링 이벤트 기능을 사용할 때의 고려할 점" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/spring/Spring_Framework_Logo_2018.png" />
+
+
+<meta property="twitter:title" content="스프링 이벤트 기능을 사용할 때의 고려할 점" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="처음에는 간단하게 작성한 도메인 로직이 시간이 지나면서 여러가지 추가 로직이 늘어나 복잡해지는 경험을 해본적이 있다. 이런 코드를 리팩토링하면서 스프링의 `Event` 기능을 사용할 수 있는데 스프링 이벤트를 사용할 때 어떤 점을 고려해야하는지 정리해보았다." />
+
+
+<meta property="article:title" content="스프링 이벤트 기능을 사용할 때의 고려할 점" />
+
+
+
+<meta property="article:tag" content="spring" />
+<meta property="article:tag" content="spring event" />
+<meta property="article:tag" content="event driven" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>스프링 이벤트 기능을 사용할 때의 고려할 점 - Soo Story</title>
+<link rel="canonical" href="/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        <a class="tag" href="/tags/spring-event" title="spring event">
+                        spring event
+                        </a>
+                        
+                        <a class="tag" href="/tags/event-driven" title="event driven">
+                        event driven
+                        </a>
+                        
+                    </div>
+                    <h1>스프링 이벤트 기능을 사용할 때의 고려할 점</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2022-09-17
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#배경">배경</a></li>
+    <li><a href="#spring-event">Spring Event</a>
+      <ul>
+        <li><a href="#개요">개요</a></li>
+        <li><a href="#트랜잭션과-이벤트-처리">트랜잭션과 이벤트 처리</a></li>
+        <li><a href="#결론">결론</a></li>
+        <li><a href="#더-고민해볼-내용">더 고민해볼 내용</a></li>
+      </ul>
+    </li>
+    <li><a href="#참고자료">참고자료</a></li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="배경">배경</h1>
+<p>애플리케이션의 코드를 작성하다보면, 처음에는 간단하게 시작한 도메인 로직이 시간이 지나면서 여러가지 추가 로직이 늘어나 복잡해지는 경험을 하게된다.<br>
+예를 들어서 velog, medium 과 같은 블로그 애플리케이션을 만든다고 가정하고 다음의 코드를 살펴보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// 초기 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Service
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">open</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PostService</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>    @Transactional
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// post 저장
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        postRepository.save(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// 시간이 지나고 나서
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// 복잡해진 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Service
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">open</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PostService</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>    @Transactional
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 추천 시스템을 위한 콘텐츠 풀에 전송
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        recommendPoolSender.send(post)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 통계 시스템의 카운팅
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        statisticsCounter.count(post)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 보다 빠른 검색을 위한 ElasticSearch 검색엔진 연동
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        elasticSearch.indexing(post)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// post 저장
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        postRepository.save(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>위의 코드는 상당한 비약을 섞어 놓은 코드이지만 예시로는 충분하다. 이런 로직들은 핵심 로직과 부가적인 코드가 묶여 있어서 쉽게 분리하기 어려울 때도 있다.
+위의 예제를 정리해보면 다음과 같은 비지니스 로직을 표현하고 있다.</p>
+<ul>
+<li>블로그의 포스트가 저장될 때
+<ul>
+<li>추천 시스템을 위한 콘텐츠 풀 전송</li>
+<li>서비스 전체의 통계를 위한 카운팅 작업 수행</li>
+<li>서비스 전체의 글 검색을 위한 ElasticSearch 인덱싱</li>
+</ul>
+</li>
+</ul>
+<p>여기에서 핵심은 블로그의 포스트를 저장하는 로직이고 나머지는 이와 연관된 코드라고 정의할 수 있다. 이를 리팩토링하는데 스프링에서 제공하는 <code>Event</code> 기능을 사용할 수 있다.</p>
+<h1 id="spring-event">Spring Event</h1>
+<h2 id="개요">개요</h2>
+<p>Spring Event란 스프링 프레임워크를 사용할 때 내부에서 데이터를 전달하는 방법 중 하나이다. 이를 사용하면 각각의 코드의 관심사를 분리할 수 있다.
+스프링 이벤트 기능은 이벤트를 발생시키고(publish) 이벤트를 수신하는(subscribe)하는 로직을 분리해서 작성할 수 있다. 다음의 로직을 살펴보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>@Service
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">open</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PostService</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    @Autowired
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> applicationEventPublisher: ApplicationEventPublisher
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @Transactional
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// post 저장
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        postRepository.save(post)
+</span></span><span style="display:flex;"><span>        applicationEventPublisher.publishEvent(PostCreatedEvent(post))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">//이벤트 리스너. 일반 이벤트 리스너를 사용하여 핵심 로직과 부가로직을 분리시켰다.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Component
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PostCreateEventListener</span> {
+</span></span><span style="display:flex;"><span>    @Autowired
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> recommendPoolSender: RecommendPoolSender
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @EventListener
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">sendContentPool</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>        recommendPoolSender.send(event.post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>}
+</span></span></code></pre></div><p>핵심은 스프링이 Event를 발생시키고 이를 처리하는 로직(Listener)들 사이에 데이터(Event)를 전달해주는 역할을 해줌으로써 개발자가 각각 분리된
+코드를 작성할 수 있다는 것이다. 이를 통해서 초기의 핵심 로직인 블로그 포스트를 저장하는 로직은 간결하게 유지하고 이 이벤트가 발생했을 때 추가적으로
+처리해야하는 부가적인 코드들은 Listener 를 통해서 처리할 수 있기 때문에 하나의 Service 클래스(위 예시에서는 PostService) 안에 코드가
+계속적으로 증가하는 문제를 해결할 수 있다.</p>
+<ul>
+<li>요약
+<ul>
+<li>PostService 는 Post 처리에 집중</li>
+<li>부가적인 코드들은 Event Listener 를 통해서 호출</li>
+<li>이벤트의 발생과 전달은 Spring 이 해결해줌</li>
+</ul>
+</li>
+</ul>
+<p>이런 구조를 흔히들 pub / sub 구조라고 이야기한다.</p>
+<h2 id="트랜잭션과-이벤트-처리">트랜잭션과 이벤트 처리</h2>
+<p>그런데 위의 코드는 한 가지 고민해보아야 할 문제가 있다. 바로 트랜잭션 안에서 Post 가 저장된다는 사실이다. 따라서 부가적인 코드(추천 연동, 검색 연동, 통계 연동..)는
+트랜잭션이 성공적으로 수행된 이후에 실행되어야만 하는데, 위의 코드로는 트랜잭션의 성공적인 수행을 보장할 수 없다는 문제가 발생한다.</p>
+<p>이를 위해서 스프링에서는 <code>EventListener</code> 대신 <code>TransactionalEventListener</code> 제공한다. 말 그대로 트랜잭션 안에서 이벤트를 발생시킬 때 트랜잭션 처리와 결합하여
+이벤트를 수신하는 로직을 처리할 수 있다. 따라서 위의 로직은 다음과 같이 변경할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// 이벤트 리스너. 트렌젝션 이벤트 리스너를 사용했다.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// 스프링이 이를 식별할 수 있도록 @Component 어노테이션을 붙여주어야 한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Component
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PostCreateEventListener</span> {
+</span></span><span style="display:flex;"><span>    @Autowired
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> recommendPoolSender: RecommendPoolSender
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">sendContentPool</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>        recommendPoolSender.send(event.post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>}
+</span></span></code></pre></div><p><code>@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)</code> 어노테이션을 자세히 보면 <code>phase</code> 옵션이 있는데 이를 해석하자면
+<code>AFTER_COMMIT</code> 즉 트랜잭션이 성공적으로 commit 된 이후에 리스너 로직을 처리하라는 의미가 된다.</p>
+<p><code>phase</code> 값은 다음의 4가지 옵션을 지정할 수 있고, 일반적으로 <code>AFTER_COMMIT</code> 이 적용하기 적합한 경우가 많다.</p>
+<ul>
+<li>AFTER_COMMIT (트랜잭션이 성공했을 때 실행)</li>
+<li>AFTER_ROLLBACK (트랜잭션 롤백시 실행)</li>
+<li>AFTER_COMPLETE 트랜잭션 완료시 (AFTER_COMMIT+AFTER_ROLLBACK)</li>
+<li>BEFORE_COMMIT (트랜잭션 commit 되기전에)</li>
+</ul>
+<p>결과적으로 <code>TransactionalEventListener</code> 어노테이션을 사용하면 원하는 대로 트랜잭션 처리를 보장하면서 로직을 분리해서 관리할 수 있게 된다.</p>
+<p>하!지!만! 이 어노테이션의 <code>phase</code>를 <code>AFTER_COMMIT</code> 로 사용할 때 주의하지 않으면 문제가 발생할 수 있다.</p>
+<h3 id="이벤트-리스너의-트랜잭션-처리-주의사항">이벤트 리스너의 트랜잭션 처리 주의사항</h3>
+<p><code>TransactionalEventListener</code>을 사용하여 이벤트 구조를 도입하여 간결한 코드 구조를 유지할 수 있어서 장점이 있지만, 트랜잭션과 함께 이벤트를 처리할 때 주의사항이 있다.
+<code>phase</code> 값이 <code>AFTER_COMMIT</code> 으로 정의해놓은 경우 리스너 코드 안에서 다시 트랜잭션을 처리하면 해당 트랜잭션은 커밋되지 않는 현상이 발생한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 정상적으로 트랜잭션이 commit 되지 않는다.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      statisticsCounter.count(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span></code></pre></div><p>이 현상에 대한 원인은 TransactionSynchronization 의 afterCommit 주석부분에 설명되어 있다.</p>
+<pre tabindex="0"><code>/**
+* Invoked after transaction commit. Can perform further operations right
+* &lt;i&gt;after&lt;/i&gt; the main transaction has &lt;i&gt;successfully&lt;/i&gt; committed.
+* &lt;p&gt;Can e.g. commit further operations that are supposed to follow on a successful
+* commit of the main transaction, like confirmation messages or emails.
+* &lt;p&gt;&lt;b&gt;NOTE:&lt;/b&gt; The transaction will have been committed already, but the
+* transactional resources might still be active and accessible. As a consequence,
+* any data access code triggered at this point will still &#34;participate&#34; in the
+* original transaction, allowing to perform some cleanup (with no commit following
+* anymore!), unless it explicitly declares that it needs to run in a separate
+* transaction. Hence: &lt;b&gt;Use {@code PROPAGATION_REQUIRES_NEW} for any
+* transactional operation that is called from here.&lt;/b&gt;
+* @throws RuntimeException in case of errors; will be &lt;b&gt;propagated to the caller&lt;/b&gt;
+* (note: do not throw TransactionException subclasses here!)
+**/
+</code></pre><p>요약하자면, 이전의 이벤트를 publish 하는 코드에서 트랜잭션이 이미 커밋 되었기 때문에 <code>AFTER_COMMIT</code> 이후에 새로운 트랜잭션을 수행하면 해당 데이터소스 상에서는 트랜잭션을 커밋하지 않는다는 것이다.
+따라서 <code>@Transactional</code> 어노테이션을 적용한 코드에서 <code>PROPAGATION_REQUIRES_NEW</code> 옵션을 지정하지 않는다면 (매번 새로운 트랜잭션을 열어서 로직을 처리하라는 의미) 이벤트 리스너에서 트랜잭션에 의존한 로직을 실행했을 경우
+이 트랜잭션은 커밋되지 않는다.</p>
+<figure class="full-width caption  medium-width "  >
+    <img src="/images/posts/spring/you_activated_my_trap_card.png" alt="spring TransactionalEventListener"  />
+    
+    <figcaption class="caption-text">매뉴얼을 안읽으면 이렇게 되기 쉽다.</figcaption>
+    
+</figure>
+<p>이를 해결할 수 있는 추가적인 방법이 필요하다.</p>
+<h3 id="문제-해결-방법">문제 해결 방법</h3>
+<p>위 문제를 해결하는 첫 번째 방법으로는 <code>AFTER_COMMIT</code> 이후에 동일한 데이터소스를 사용하지 않는 방법이 있다. 이를 위해서는 이벤트 리스너를 별도의 스레드에서 실행하는 방법이 있다. 바로 <code>@Async</code> 어노테이션을 추가하는 방법이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>  @Async
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// AFTER_COMMIT 이라서 이후의 트랜잭션은 커밋되지 않지만, 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// @Async 어노테이션으로 인해서 별도의 스레드에서 처리하므로 커밋이 정상적으로 실행됨
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      statisticsCounter.count(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span></code></pre></div><p>이렇게 하면 이벤트 리스너 로직이 별도의 스레드에서 실행되어 트랜잭션이 커밋되기 때문에 의도한 결과를 얻을 수 있다. 단 이렇게 하면 테스트코드를 작성하기는 좀 까다로울 수 있다.</p>
+<p>다른 방법으로는 <code>AFTER_COMMIT</code> 대신 <code>BEFORE_COMMIT</code> 을 사용하는 방법이다. 이렇게 되면 커밋이 되기 전에 리스너 로직이 실행되기 때문에 정상적으로 리스너 로직의 트랜잭션이 커밋될 수 있다.
+하지만 이 경우 리스너 로직에서 예외가 발생하면 이벤트를 발생시키는 핵심 로직의 트랜잭션에 영향을 줄 수 있기 때문에 주의해서 사용해야한다.</p>
+<h2 id="결론">결론</h2>
+<ul>
+<li>스프링 이벤트기능을 사용하여 복잡한 로직을 별도의 리스너 로직으로 분리해서 핵심 로직은 간결하게 유지할 수 있다.</li>
+<li>스프링 이벤트의 핵심은 이벤트의 발생(publish)와 이벤트의 처리(listener)를 연결해주는 역할이며 이런 구조를 pub/sub 구조로 이해할 수 있다.</li>
+<li>개발자는 이벤트 listener 로직을 필요할 때마다 추가할 수 있으므로 핵심로직은 간결하게, 리스너도 분리된 메서드로 유지할 수 있어서 구조를 이해하기 용이해진다.</li>
+<li>트랜잭션과 함께 사용할 때는 <code>AFTER_COMMIT</code> 이 일반적으로 사용되지만, 리스너 로직에서 트랜잭션이 필요한 경우 <code>@Async</code> 등으로 우회할 수 있다. 다만 테스트가 불편해질 수 있다.</li>
+</ul>
+<h2 id="더-고민해볼-내용">더 고민해볼 내용</h2>
+<p>스프링 이벤트를 사용하여 핵심 로직과 리스너 로직을 분리하고, 이벤트의 전달은 스프링 이벤트가 책임지게 하여 간결한 코드를 유지할 수 있게 되었다. 하지만 추가적으로 더 고민해보아야할 이슈들이 있다.</p>
+<h3 id="이벤트-리스너-로직의-예외처리-및-재처리">이벤트 리스너 로직의 예외처리 및 재처리</h3>
+<p>이벤트 리스너 로직을 수행하는데 예외가 발생하는 경우 분리된 구조로 인해서 핵심 로직에는 영향을 주지 않을 수 있다. 그래서 리스너 안에서 예외처리에 주의를 기울여야 한다. 그리고 리스너로 처리하는 로직이
+핵심로직과 함께 중요도가 높은 로직이라면 별도의 재시도 처리등을 수행해야 하는 경우가 발생한다. 이런 경우는 이벤트 리스너안에 복잡한 처리를 추가하기 어렵다.
+따라서 이런 경우라면 메세지 큐를 도입하여 이벤트 발생시 kafka 등으로 메세지를 보내고, 이에 대한 처리는 별도의 분리된 마이크로 서비스가 처리하게 하는 것이 나을 수도 있다.</p>
+<h3 id="메세지-큐-도입시-메세지-발행-실패에-대한-처리">메세지 큐 도입시 메세지 발행 실패에 대한 처리</h3>
+<p>만약 스프링 이벤트를 메세지 큐로의 메세지 발행을 처리하는 용도로 사용한다면, 이후에 연결되는 로직들은 메세지 큐에 의존적이게 되고, 이 메세지 큐는 트랜잭션과 함께 아주 중요한 인프라 자원이된다.
+그리고 트랜잭션과 함께 메세지 큐의 발행이 실패하면 안되게 되는데, 이 때 딜레마가 발생한다. 바로 DB 트랜잭션과 메세지 큐 발행이 동시에 성공해야하는데 둘 중 하나만 성공하는 경우에 대한 처리가 어렵다는 점이다.
+이런 경우라면 <code>Transactional outbox pattern</code> 같은 기법을 도입하여 이벤트의 발행 신뢰도를 높일 수도 있다. 다만 이렇게 까지 해야하는가에 대한 고민은
+비지니스 요구사항과, 애플리케이션의 복잡성, 중요도등을 고려해서 결정해야한다.</p>
+<h1 id="참고자료">참고자료</h1>
+<ul>
+<li>Baeldung Srping event : <a href="https://www.baeldung.com/spring-events">https://www.baeldung.com/spring-events</a></li>
+<li><a href="https://kwonnam.pe.kr/wiki/springframework/transaction/transactional_event_listener">https://kwonnam.pe.kr/wiki/springframework/transaction/transactional_event_listener</a></li>
+<li>Transactional outbox pattern : <a href="https://microservices.io/patterns/data/transactional-outbox.html">https://microservices.io/patterns/data/transactional-outbox.html</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/" data-toggle="tooltip" data-placement="top" title="gossm 을 사용하여 Private RDS 인스턴스에 접근하기">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event-driven">
+                        event-driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful-deploy">
+                        graceful-deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance-type">
+                        instance-type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
+                        m1-macbook-pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring-event">
+                        spring-event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2022
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

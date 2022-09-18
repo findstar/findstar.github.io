@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring event on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/spring-event/</link>
+    <description>Recent content in spring event on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 17 Sep 2022 16:22:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/spring-event/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링 이벤트 기능을 사용할 때의 고려할 점</title>
+      <link>https://findstar.pe.kr/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/</link>
+      <pubDate>Sat, 17 Sep 2022 16:22:01 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/</guid>
+      <description>처음에는 간단하게 작성한 도메인 로직이 시간이 지나면서 여러가지 추가 로직이 늘어나 복잡해지는 경험을 해본적이 있다. 이런 코드를 리팩토링하면서 스프링의 &lt;code&gt;Event&lt;/code&gt; 기능을 사용할 수 있는데 스프링 이벤트를 사용할 때 어떤 점을 고려해야하는지 정리해보았다.</description>
+    </item>
+    
+  </channel>
+</rss>
