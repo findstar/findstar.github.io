@@ -256,7 +256,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
 </span></span><span style="display:flex;"><span>    @Transactional
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(post: Post) {
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// post 저장
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        postRepository.save(post)
 </span></span><span style="display:flex;"><span>    }
@@ -270,7 +270,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
 </span></span><span style="display:flex;"><span>    @Transactional
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(post: Post) {
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 추천 시스템을 위한 콘텐츠 풀에 전송
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        recommendPoolSender.send(post)
 </span></span><span style="display:flex;"><span>        
@@ -307,7 +307,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> applicationEventPublisher: ApplicationEventPublisher
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    @Transactional
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(psot: Post) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">open</span> <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">savePost</span>(post: Post) {
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// post 저장
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        postRepository.save(post)
 </span></span><span style="display:flex;"><span>        applicationEventPublisher.publishEvent(PostCreatedEvent(post))
