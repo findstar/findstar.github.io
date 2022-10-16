@@ -1,7 +1,7 @@
 [
 {
-	"permalink": "https://findstar.pe.kr/tags/event-driven/",
-	"title": "event driven",
+	"permalink": "https://findstar.pe.kr/tags/database/",
+	"title": "database",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -24,6 +24,46 @@
 	"contents": ""
 },
 {
+	"permalink": "https://findstar.pe.kr/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/ulid/",
+	"title": "ulid",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/uuid/",
+	"title": "uuid",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2022/10/14/resource-id-generation/",
+	"title": "리소스의 고유한 식별자는 어떤 형식을 사용해야할까?",
+	"tags": ["database", "ulid", "uuid"],
+	"description": "",
+	"type": "post",
+	"contents": "고유한 식별자를 가지는 리소스 일반적인 웹 애플리케이션을 설계하다 보면 많은 Entity, 도메인 모델, 데이터베이스 테이블을 정의하게 된다. 이 때 특정 리소스가 고유한 값을 가져야 되는 요구사항은 너무나도 자주 마주친다. 예를 들어 사용자 정보를 저장하기 위한 ID 라던지 (사용자가 입력하는 UserID와 구분한다.), 작성한 글의 번호 라던지, URL을 통해서 접근하는 대부분의 리소스의 구분자가 모두 고유한 값을 가지고 있어야만 하는 경우라고 할 수 있다.\n이런 리소스를 구분하기 위해서는 고유한 식별자 (Identifier)를 가져야 하는에 이 식별자를 생성하는 방식은 여러가지가 있다.\nAuto Incremental ID - Sequential Auto Incremental ID란?\n데이터베이스가 자동으로 생성해주는 number ID 이다. mysql 기준으로하면 int : -2147483648 ~ 2147483647 ( 4 바이트 ) bigint -9223372036854775808 ~ 9223372036854775807 (8바이트) 의 값을 가진다. 장점\n순차적인 값을 가지고 데이터베이스가 알아서 고유한 id 를 생성해주기 때문에 크게 고민하지 않고 사용할 수 있다. 생성 순서대로 정렬하기 용이하다. 단점\n외부 노출의 문제 : URL을 통해서 외부에 노출 되었을 때 서비스의 주요 지표가 드러나게 되는 상황이 발생할 수 있다. 예를 들어 사용자의 프로필을 조회하는 URL이 https://myservice.app/users/12345와 같이 표현된다면 경쟁사 입장에서는 전체 회원수가 몇명인지 금방 알아낼 수 있다. 새로운 user가 등록될 때마다 id값도 1씩 오르기 때문인데 이를 회피하기 위해서는 auto incremental id 를 노출하지 않도록 신경써야하거나 다른 id 형식을 사용해야한다. 불필요한 내부 정보 추정이 가능해지는 문제 이외에도 보안 취약점을 위한 스캔이나, 웹 공격 대상으로 지정되는 경우 타겟 리소스의 주소가 추정이 가능하기 쉬운 문제도 있다. JPA 쓰기 지연 활용 불가 : 만약 Spring JPA같은 기술을 사용한다면 실제 Identification Key 가 Insert 쿼리가 실행된 이후에 결정되버린다는 특징에 영향을 받는다. 영속성관리 타이밍상 mysql 의 auto increment id 를 사용하면 IDENTITY 식별자 생성 전략(mysql의 auto-increment 등)은 어쩔 수 없이, 쓰기 지연이 동작하지 않고 영속화 할 때 insert 쿼리가 먼저 데이터베이스로 나간다 (즉 JPA의 쓰기 지연 효과를 누릴 수 없다) UUID - Universally Unique Identifier UUID란?\n문자형 ID RFC4122에 정의되어 있는 ID 생성 방식이다.(https://tools.ietf.org/html/rfc4122) 여러가지 버전이 있지만 그 중에서 UUID4를 많이 사용함 ex) 83fda883-86d9-4913-9729-91f20973fa52 128bit(16바이트)를 사용한다. 장점\n위의 Auto incremental ID가 순차적인 특성 때문에 가지는 단점을 극복할 수 있다. 노출되더라도 서비스의 주요 지표가 노출되는 일이 없다. JPA 기술을 사용할 때 소스코드레벨에서 ID를 결정할 수 있기 때문에 쓰기 지연을 활용할 수 있다. 단점\n순차 정렬을 사용할 수 없다. 128비트이기 때문에 int id 값보다 보다 4배나 크다. ID라는 특성상 참조하는 테이블이 많아질 수록 스토리지의 용량이 많이 필요하다. 이에 따라서 메모리 사용량이 커지고, 성능에 영향을 끼칠 수도 있다. percona 블로그 포스트에 따르면 평균 2.5배, 최악의 경우, UUID가 Auto Increment에 비해 28배 느린 경우도 발생할 수 있다고 한다. 인덱스 테이블에서는 기본키를 포인터로 해서 보조 인덱스가 저장되므로 5개의 보조 인덱스의 UUID기반 스키마의 경우 총 6번 저장. 총 1억 개의 테이블에서 216G, 즉 스토리지의 70%를 차지할 수도 있음 (https://percona.com/blog/2019/11/2) 어떤 방식을 선택할 것인가에 대한 고민 각각의 장단점이 있기 때문에 어떤 방식을 선택할지는 상황에 맞게 결정해야한다. 다만 생각해볼 것은, 고민하지 않고 그냥 가장 익숙한 방식을 선택하지는 말자는 것이다. ID가 외부에 노출되기 부담스러운 경우에는 auto incremental id 보다는 UUID 방식이 나을 수 있고, 그 반대라면 auto incremental id 가 더 나을 수도 있다.\n추가적으로 생각해볼 것들 만약 아주 큰 사이즈의 데이터를 담게되는 경우 아주 많은 데이터를 저장해야하는 경우, 그러니까 경험적으로는 데이터의 갯수가 수천만건~1억건 사이에서 부터 데이터를 어떻게 분산해서 저장할지에 대한 고민이 필요해진다. 이럴 때에도 키를 어떤 방식을 사용했느냐에 따라고 고민이 달라질 수 있다.\n분산 데이터베이스에서의 키 관리 spanner 와 같은 분산 데이터베이스를 고려한다면 구글의 아티클에서 권장하는 UUID 방식이 적합해보인다. https://cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots Redis 에서 key 를 적극적으로 사용하는 경우 redis와 같은 캐싱 시스템을 활용하는경우 엔티티의 id 값을 저장하게 되는데, 경우에 따라서는 bitmap 구조를 활용할 수도 있다. 리멤버 블로그 - 유저 목록을 Redis Bitmap 구조로 저장하여 메모리 절약하기 그런데 이렇게 bitmap 을 활용하기 위해서는 id 구조가 number id 구조, 즉 auto incremental 인 경우를 가정해야한다. 따라서 UUID 방식이라면 bitmap을 활용한 목록 캐싱은 불가능하다.\n다른 대안은 없을까? ID를 어떤 방식으로 선택할 것인가에 대한 문제는 오랫동안 논의되어온 주제인 만큼 여러가지 대안들도 존재한다.\nHashIDs (https://hashids.org/) 이 선택지의 주요 컨셉은 auto incremental ID를 선택했을 때 외부에 노출되는 것이 문제라면, 외부에 노출될 때 hashing 을 통해서 노출하자라는 것이다. 예를 들면 ID가 12345 일 때 hashing 을 통해서 \u0026lsquo;3sy561e\u0026rsquo; 와 같이 변환해서 노출할 수 있다. 해싱에서는 salt 로 사용되는 값을 정할 수 있는데 이 값을 관리하여 \u0026lsquo;3sy561e\u0026rsquo; 라는 값을 다시 12345 와 같이 변환할 수 있다. 따라서 이 값은 외부에 노출되면 안된다.\nSnowflake 이 선택지의 주요 컨셉은 ID를 생성하는 것 자체가 독립적인 별도의 서비스를 사용해서 처리한다는 것이다. 트위터에서 선택하는 방식으로 알려져있다. UUID에 비해서 절반인 64비트이며, 앞부분에 시간값을 입력하여 정렬도 가능하도록 설계되어 있다. discord, instagram에서 사용했다고 알려졌다. 현재 github 주소는 아카이빙 처리되었다. (https://github.com/twitter/snowflake)\nULID (https://github.com/ulid/spec) Universally Unique Lexicographically Sortable Identifier 이 선택지의 주요 컨셉은 UUID의 단점을 개선하는데 초점이 맞춰져 있다. UUID 128비트 구조와 호환하면서, 정렬이 가능하며, 특수문자를 포함하지 않아 URL에서 사용해도 안전하다. 다양한 언어별 구현체가 있다. 결론 고유한 식별을 위한 리소스 ID를 선택할 때, 다양한 방식을 선택할 수 있다는 것을 알고 있으면 되겠다. 꼭 어떤 방식이 무조건적으로 선택될 수도 없고, 각각의 상황에 맞게 선택하면 된다고 생각한다. 그리고 그 상황에는 분산처리, 외부 노출의 허용정도, 캐싱에서의 활용, JPA등에서 사용하는 쓰기 지연의 활용등을 고려하여 선택할 수 있다. 물론 지금 만들고 있는 아주 작은 볼륨을 가진 서비스에는 이렇게 생각하는 것이 오버엔지니어링일 수도 있다.\n참고자료 : PK-를-auto-increment자동-증가-할-경우-생기는-문제점 (https://ssunw.tistory.com/entry/14-PK-%EB%A5%BC-auto-increment%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EC%83%9D%EA%B8%B0%EB%8A%94-%EB%AC%B8%EC%A0%9C%EC%A0%90) UUID vs Auto Increment (https://velog.io/@qnfmtm666/DevTip-UUID-vs-Auto-Increment) UUID 퍼포먼스 이슈 - percona (mysql 8.0 미만) - (링크) ycombinator.com ULID 토론 (2018.12 시작) - https://news.ycombinator.com/item?id=18768909 sequential-uuid-generators (https://www.2ndquadrant.com/en/blog/sequential-uuid-generators/) ulid-creator (https://github.com/f4b6a3/ulid-creator) google colud spanner 스키마 설계 권장사항 (https://cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) 가상의 상황 트위터 (https://twitter.com/dylayed/status/1496020581610778625 ) JPA Auto incremet 가 포함된 Insert 쿼리는 언제 나갈까? (https://velog.io/@sangwoo0727/JPA-Auto-Increment%EA%B0%80-%ED%8F%AC%ED%95%A8%EB%90%9C-Insert%EC%BF%BC%EB%A6%AC%EB%8A%94-%EC%96%B8%EC%A0%9C-%EB%82%98%EA%B0%88%EA%B9%8C) sharing \u0026amp; IDs at instagram (https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c) hashids (https://hashids.org/) "
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/event-driven/",
+	"title": "event driven",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
 	"permalink": "https://findstar.pe.kr/tags/spring/",
 	"title": "spring",
 	"tags": [],
@@ -34,14 +74,6 @@
 {
 	"permalink": "https://findstar.pe.kr/tags/spring-event/",
 	"title": "spring event",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/",
-	"title": "Tags",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1502,14 +1534,6 @@
 	"description": "blog migration from wordpress to jekyll",
 	"type": "post",
 	"contents": "사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.\n하지만 최근에 와서는 조금씩 생각이 달라지기 시작했는데, 나 스스로가 알게된 사실이나 내용을 기억에만 의존하기에는 무리가 따르기 시작했고, 보다 체계적으로 정리하지 않으면, 효율성이 떨어진다고 느껴졌다. 그래서 이번에 새롭게 마음을 다잡고, 블로그를 새롭게 시작해 보기로 했다. 사실 년초에 블로그를 다시 해볼까 하는 막연한 생각을, 올해가 저물어 가는 11월에 와서야 행동으로 옮기기 시작한 것이다.\n블로그 플랫폼 이전에 있었던 블로그의 최신글은 무려 2014년도 글이다. 그 사이 스스로의 역할이나 업무 방식도 많이 바뀌었고, 사용하는 툴들도 달라졌다보니. 이왕 새롭게 할꺼 마크다운 방식으로 글을 작성해보는게 좋겠다 싶어서 Github Page 기반으로 시작해 보려고 한다. 그렇게 선택한 도구는 Jekyll! 주위의 많은 분들이 사용하고 있기도 했고, 레퍼런스가 많아 선택하게 되었다. 손에 익숙하지 않은 Ruby 기반이라는게 마음에 걸리긴 했지만, 이것보다 더 나은 대안이 없는 상태라서 일단 Jekyll 기반으로 사용하기로 했다.\n이전 포스트 마이그레이션 기존에 개설했던 블로그의 글들을 옮겨올까도 고민해봤지만, 마이그레이션 결과물이 썩 마음에 들지도 않고, 딱히 건질만한 내용도 없다고 생각되어(정리가 안되어 중구난방인 상태) 새롭게 작성하고 기회가 될 때마다 하나씩 다시 글을 작성해 보기로 했다. 처음 작성했던 블로그 글이 2010년 이고, 가장 최근글이 2014년이니. 거의 2년간 방치된 셈이다.\n지금까지 사용했던 플랫폼 SpringNote : 지금은 역사속으로 사라진 서비스 - 에디터는 좀 아깝다는 생각이 들었다. Tistory : 참 좋아하지만, 뭔가 내마음대로 더 꾸미고 싶다는 생각에 옮겨탔다. WordPress : 유용하게 사용해 왔지만, 내 마음에 들지 않았다. "
-},
-{
-	"permalink": "https://findstar.pe.kr/posts/2022-09-17-how-to-make-id/",
-	"title": "",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": " auto incremental ID 란? -\u0026gt; 데이터베이스가 자동으로 생성해주는 number id -\u0026gt; mysql 에서는 bigint 타입을 사용함 (사내 권장)\nmysql 의 int 는 -2147483648 ~ 2147483647 ( 4 바이트 ) 21억 4천만\u0026hellip; 해보니 넘는 경우가 생김 bigint 로 -9223372036854775808 ~ 9223372036854775807 (8바이트) -\u0026gt; 비교 vs Char, Varchar 1개의 문자열 저장 Char 1바이트, varchar 2바이트 auto increment id 를 쓰면 좋은점 -\u0026gt; 순차적인 증가가 가능 -\u0026gt; 고유값. -\u0026gt; 주로 Entity ID로 사용함 -\u0026gt; primary key 로 사용\n외부 노출의 문제 ex) 서비스의 중요 지표인 user, message 의 카운트를 id값으로 추정할 수 있음. 새로운 user, message가 등록될 때마다 id값도 1씩 오르기 때문임 -\u0026gt; 불필요한 내부 정보 추정이 가능해짐 -\u0026gt; 지표의 노출/ 공격 대상의 지정이 쉬워지는 문제 발생\nJPA에서는 실제 Identification Key 가 Insert 쿼리가 실행된 이후에 결정되버린다. -\u0026gt; 영속성관리 타이밍상 mysql 의 autoincremtid 를 사용하면 IDENTITY 식별자 생성 전략(mysql의 auto-increment 등)은 어쩔 수 없이, 쓰기 지연이 동작하지 않고 영속화 할 때 insert 쿼리가 먼저 데이터베이스로 나간다\nString ID를 사용하자.\nUUID (Universally Unique ID) - RFC4122 - tools.ietf.org/html/rfc4122 UUID4 많이 사용함 ex) 83fda883-86d9-4913-9729-91f20973fa52 UUID는 128bit(16바이트), 즉 int id 값보다 보다 4배나 큼 따라서 디스크/메모리 사용이 커지고, 성능에 영향이 있다.\n(평균 2.5배, 최악의 경우, UUID가 Auto Increment에 비해 28배 느림 클러스터드 인덱스 테이블에서는 기본키를 포인터로 해서 보조 인덱스가 저장되므로 5개의 보조 인덱스의 UUID기반 스키마의 경우 , 총 6번 저장. 총 1억 개의 테이블에서 216G, 즉 스토리지의 70%를 차지할 수도 있음 https://percona.com/blog/2019/11/2)\n분산 데이터베이스에서의 키 관리 부하집중을 방지해야함 =\u0026gt; UUID4 권장 https://cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots\n키가 완전한 랜덤이 되면서 오는 문제\n키를 기반으로한 sorting 이 불가능해짐. autoincremt primary key 를 기반으로 max 값을 스냅샷 해서 지표로 저장하는 기능 불가능 적당한 타협점을 찾을 수 없는가? uuid 처럼 랜덤한 문자열 형태이면서 오름차순, 내림차순 정렬이 가능한 형태이면서 128bit 보다 적은 사이즈 ULID https://github.com/ulid/spec#monotonicity\n멀티 리전\n미국 \u0026lt;\u0026mdash;\u0026ndash;\u0026gt; 영국 auto auto entity 1 entity 1\n=\u0026gt; \u0026lt;=\n통합 DB Skip to end of metadata james.star(안정수)/kakao님이 작성, 2022/08/25에 최종 변경Go to start of metadata 데이터베이스의 엔티티를 설계할 때 primary ID를 어떻게 해야하는가에 대한 고민 과정입니다.\nAuto incremnt ID\n흔히 사용하는 auto incremental ID 란? -\u0026gt; 데이터베이스가 자동으로 생성해주는 number id -\u0026gt; mysql 에서는 bigint 타입을 사용함 (사내 권장)\nmysql 의 int 는 -2147483648 ~ 2147483647 ( 4 바이트 ) 21억 4천만\u0026hellip; 해보니 넘는 경우가 생김 bigint 로 -9223372036854775808 ~ 9223372036854775807 (8바이트) -\u0026gt; 비교 vs Char, Varchar 1개의 문자열 저장 Char 1바이트, varchar 2바이트 auto increment id 를 쓰면 좋은점 -\u0026gt; 순차적인 증가가 가능 -\u0026gt; 고유값. -\u0026gt; 주로 Entity ID로 사용함 -\u0026gt; primary key 로 사용\nAuto incremnt ID 를 사용할 때의 단점 3. 외부 노출의 문제 ex) 서비스의 중요 지표인 user, message 의 카운트를 id값으로 추정할 수 있음. 새로운 user, message가 등록될 때마다 id값도 1씩 오르기 때문임 -\u0026gt; 불필요한 내부 정보 추정이 가능해짐 -\u0026gt; 지표의 노출/ 공격 대상의 지정이 쉬워지는 문제 발생\nJPA에서는 실제 Identification Key 가 Insert 쿼리가 실행된 이후에 결정되버린다. -\u0026gt; 영속성관리 타이밍상 mysql 의 autoincremtid 를 사용하면 IDENTITY 식별자 생성 전략(mysql의 auto-increment 등)은 어쩔 수 없이, 쓰기 지연이 동작하지 않고 영속화 할 때 insert 쿼리가 먼저 데이터베이스로 나간다\n만약 멀티 리전을 운영하면서 독립 DB를 사용하고, 통합 DB를 운영하는 식으로 DB를 구성하려고 할 때\n미국 \u0026lt;\u0026mdash;\u0026ndash;\u0026gt; 영국 auto auto entity 1 entity 1\n=\u0026gt; \u0026lt;=\n통합 DB 통합 DB에서 Key 충돌이 있을 수 있음\n(충돌 회피를 위해서는 별도의 auto increment step 을 2, 3씩 증가하도록 설정할 수도 있음..)\n=\u0026gt; 멀티 리전, 멀티 디비를 쓸지 말지도 모르는 상태에서 고민하지는 말자.\nAuto incremnt ID 단점 극복 전략 5. String ID를 사용하자.\nUUID (Universally Unique ID) - RFC4122 - tools.ietf.org/html/rfc4122 UUID4 많이 사용함 ex) 83fda883-86d9-4913-9729-91f20973fa52 String UUID4 의 단점\nUUID는 128bit(16바이트), 즉 int id 값보다 보다 4배나 큼 따라서 디스크/메모리 사용이 커지고, 성능에 영향이 있다.\n(평균 2.5배, 최악의 경우, UUID가 Auto Increment에 비해 28배 느림 클러스터드 인덱스 테이블에서는 기본키를 포인터로 해서 보조 인덱스가 저장되므로 5개의 보조 인덱스의 UUID기반 스키마의 경우 , 총 6번 저장. 총 1억 개의 테이블에서 216G, 즉 스토리지의 70%를 차지할 수도 있음 https://percona.com/blog/2019/11/2)\n분산 데이터베이스에서의 키 관리 부하집중을 방지해야함 =\u0026gt; UUID4 권장 https://cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots\n키가 완전한 랜덤이 되면서 오는 문제\n키를 기반으로한 sorting 이 불가능해짐. autoincremt primary key 를 기반으로 max 값을 스냅샷 해서 지표로 저장하는 기능 불가능 최근의 Key generation 전략중 새로운 ULID\n적당한 타협점을 찾을 수 없는가? uuid 처럼 랜덤한 문자열 형태이면서 오름차순, 내림차순 정렬이 가능한 형태이면서 128bit 보다 적은 사이즈 ULID https://github.com/ulid/spec#monotonicity https://velog.io/@injoon2019/UUID-vs-ULID\n요약 :\nEntity Primary ID Key 를 생성할 때도 이런 고민을 할 수도 있음 여기까지 생각하는 것은 오버엔지니어링일 수 있음\n참고자료 :\nPK-를-auto-increment자동-증가-할-경우-생기는-문제점 (https://ssunw.tistory.com/entry/14-PK-%EB%A5%BC-auto-increment%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-%ED%95%A0-%EA%B2%BD%EC%9A%B0-%EC%83%9D%EA%B8%B0%EB%8A%94-%EB%AC%B8%EC%A0%9C%EC%A0%90) UUID vs Auto Increment (https://velog.io/@qnfmtm666/DevTip-UUID-vs-Auto-Increment) UUID 퍼포먼스 이슈 - percona (mysql 8.0 미만) - (링크) ycombinator.com ULID 토론 (2018.12 시작) - https://news.ycombinator.com/item?id=18768909 sequential-uuid-generators (https://www.2ndquadrant.com/en/blog/sequential-uuid-generators/) ulid-creator (https://github.com/f4b6a3/ulid-creator) google colud spanner 스키마 설계 권장사항 (https://cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) 가상의 상황 트위터 (https://twitter.com/dylayed/status/1496020581610778625 ) JPA Auto incremet 가 포함된 Insert 쿼리는 언제 나갈까? (https://velog.io/@sangwoo0727/JPA-Auto-Increment%EA%B0%80-%ED%8F%AC%ED%95%A8%EB%90%9C-Insert%EC%BF%BC%EB%A6%AC%EB%8A%94-%EC%96%B8%EC%A0%9C-%EB%82%98%EA%B0%88%EA%B9%8C)\n"
 },
 {
 	"permalink": "https://findstar.pe.kr/about/",

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>database on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/database/</link>
+    <description>Recent content in database on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Fri, 14 Oct 2022 23:26:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>리소스의 고유한 식별자는 어떤 형식을 사용해야할까?</title>
+      <link>https://findstar.pe.kr/2022/10/14/resource-id-generation/</link>
+      <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/10/14/resource-id-generation/</guid>
+      <description>서비스를 설계할 때 데이터베이스의 저장되는 리소스의 Key를 어떤 방식으로 생성해야하는지에 대한 고민을 정리해보았다. 찾아보면서 알게된 것이지만 생각보다 고려할 점이 많았다.</description>
+    </item>
+    
+  </channel>
+</rss>

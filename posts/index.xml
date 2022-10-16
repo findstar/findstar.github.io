@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 17 Sep 2022 16:22:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Oct 2022 23:26:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>리소스의 고유한 식별자는 어떤 형식을 사용해야할까?</title>
+      <link>https://findstar.pe.kr/2022/10/14/resource-id-generation/</link>
+      <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2022/10/14/resource-id-generation/</guid>
+      <description>서비스를 설계할 때 데이터베이스의 저장되는 리소스의 Key를 어떤 방식으로 생성해야하는지에 대한 고민을 정리해보았다. 찾아보면서 알게된 것이지만 생각보다 고려할 점이 많았다.</description>
+    </item>
+    
     <item>
       <title>스프링 이벤트 기능을 사용할 때의 고려할 점</title>
       <link>https://findstar.pe.kr/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/</link>
@@ -453,15 +462,6 @@ Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야
       
       <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
       <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://findstar.pe.kr/posts/2022-09-17-how-to-make-id/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/posts/2022-09-17-how-to-make-id/</guid>
-      <description>auto incremental ID 란? -&amp;gt; 데이터베이스가 자동으로 생성해주는 number id -&amp;gt; mysql 에서는 bigint 타입을 사용함 (사내 권장) mysql 의 int 는 -2147483648 ~ 2147483647 ( 4 바이트 ) 21억 4천만&amp;hellip; 해</description>
     </item>
     
   </channel>
