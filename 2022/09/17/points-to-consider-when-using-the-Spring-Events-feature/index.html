@@ -424,15 +424,42 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span><span style="color:#6272a4">// ...
-</span></span></span></code></pre></div><p>이렇게 하면 이벤트 리스너 로직이 별도의 스레드에서 실행되어 트랜잭션이 커밋되기 때문에 의도한 결과를 얻을 수 있다. 단 이렇게 하면 테스트코드를 작성하기는 좀 까다로울 수 있다.</p>
-<p>다른 방법으로는 <code>AFTER_COMMIT</code> 대신 <code>BEFORE_COMMIT</code> 을 사용하는 방법이다. 이렇게 되면 커밋이 되기 전에 리스너 로직이 실행되기 때문에 정상적으로 리스너 로직의 트랜잭션이 커밋될 수 있다.
+</span></span></span></code></pre></div><p>이렇게 하면 이벤트 리스너 로직이 별도의 스레드에서 실행되어 트랜잭션이 커밋되기 때문에 의도한 결과를 얻을 수 있다. 단 이렇게 하면 테스트코드를 작성하기는 좀 까다로울 수 있다.
+그리고 이 방법을 사용하면 EventListener 는 별도의 쓰레드에서 실행되기 때문에 Listener 로직이 실행되는 시간이 사용자의 응답을 느리게 만들지 않는다.</p>
+<p>두 번재 방법으로는 <code>AFTER_COMMIT</code> 대신 <code>BEFORE_COMMIT</code> 을 사용하는 방법이다. 이렇게 되면 커밋이 되기 전에 리스너 로직이 실행되기 때문에 정상적으로 리스너 로직의 트랜잭션이 커밋될 수 있다.
 하지만 이 경우 리스너 로직에서 예외가 발생하면 이벤트를 발생시키는 핵심 로직의 트랜잭션에 영향을 줄 수 있기 때문에 주의해서 사용해야한다.</p>
-<h2 id="결론">결론</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// BEFORE_COMMIT 이기 떄문에 이벤트를 발생시킨 트랜잭션 안에서 이 로직이 실행된다. 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      statisticsCounter.count(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span></code></pre></div><p>세 번째 방법으로는 <code>@TransactionalEventListener</code> 어노테이션에 추가로 <code>@Transactional(propagation = Propagation.REQUIRES_NEW)</code> 을 붙여주는 방법이다.
+이렇게 하면 이벤트 리스너의 로직 안에서 실행되는 <code>@Transactional</code> 로직을 위한 새로운 트랜잭션이 이전의 트랜잭션과 구분되어 새롭게 시작한다. (<code>Propagation.REQUIRES_NEW</code>가 이를 알려줌)
+따라서 이벤트를 발생시킨 트랜잭션과는 별도의 분리된 트랜잭션 안에서 이벤트 리스너 로직이 실행된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>  @Transactional(propagation = Propagation.REQUIRES_NEW)
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
+</span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// Propagation.REQUIRES_NEW 옵션에 의해서 아래의 로직을 실행하기 위한 새로운 트랜잭션이 시작된다. 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이전의 트랜잭션은 이벤트 리스너의 시작시점만 알려줄뿐 트랜잭션을 공유하지 않는다.
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      statisticsCounter.count(post)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// ...
+</span></span></span></code></pre></div><h2 id="결론">결론</h2>
 <ul>
 <li>스프링 이벤트기능을 사용하여 복잡한 로직을 별도의 리스너 로직으로 분리해서 핵심 로직은 간결하게 유지할 수 있다.</li>
 <li>스프링 이벤트의 핵심은 이벤트의 발생(publish)와 이벤트의 처리(listener)를 연결해주는 역할이며 이런 구조를 pub/sub 구조로 이해할 수 있다.</li>
 <li>개발자는 이벤트 listener 로직을 필요할 때마다 추가할 수 있으므로 핵심로직은 간결하게, 리스너로 분리된 메서드로 유지할 수 있어서 구조를 이해하기 용이해진다.</li>
-<li>트랜잭션과 함께 사용할 때는 <code>AFTER_COMMIT</code> 이 일반적으로 사용되지만, 리스너 로직에서 트랜잭션이 필요한 경우 <code>@Async</code> 등으로 우회할 수 있다. 다만 테스트가 불편해질 수 있다.</li>
+<li>트랜잭션과 함께 사용할 때는 <code>AFTER_COMMIT</code> 이 기본값으로 사용되지만, 리스너 로직에서 트랜잭션이 필요한 경우 <code>BEFORE_COMMIT</code>, <code>Propagation.REQUIRES_NEW</code>, <code>@Async</code> 등을 사용하여 처리할 수 있다.</li>
+<li>비동기 처리를 사용하여 사용자 응답에 영향을 주고 싶지 않다면 <code>@Async</code>를 사용할 수 있으나, 테스트가 까다로울 수 있다.</li>
 </ul>
 <h2 id="더-고민해볼-내용">더 고민해볼 내용</h2>
 <p>스프링 이벤트를 사용하여 핵심 로직과 리스너 로직을 분리하고, 이벤트의 전달은 스프링 이벤트가 책임지게 하여 간결한 코드를 유지할 수 있게 되었다. 하지만 추가적으로 더 고민해보아야할 이슈들이 있다.</p>
@@ -450,6 +477,8 @@
 <li>Baeldung Srping event : <a href="https://www.baeldung.com/spring-events">https://www.baeldung.com/spring-events</a></li>
 <li><a href="https://kwonnam.pe.kr/wiki/springframework/transaction/transactional_event_listener">https://kwonnam.pe.kr/wiki/springframework/transaction/transactional_event_listener</a></li>
 <li>Transactional outbox pattern : <a href="https://microservices.io/patterns/data/transactional-outbox.html">https://microservices.io/patterns/data/transactional-outbox.html</a></li>
+<li><a href="https://velog.io/@znftm97/%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B8%B0%EB%B0%98-%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%84-%EA%B0%95%EA%B2%B0%ED%95%A9-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-ApplicationEventPublisher">https://velog.io/@znftm97/%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EA%B8%B0%EB%B0%98-%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%84-%EA%B0%95%EA%B2%B0%ED%95%A9-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-ApplicationEventPublisher</a></li>
+<li><a href="https://www.youtube.com/watch?v=b65zIH7sDug&amp;t=1s&amp;ab_channel=%EC%9A%B0%EC%95%84%ED%95%9CTech">https://www.youtube.com/watch?v=b65zIH7sDug&amp;t=1s&amp;ab_channel=%EC%9A%B0%EC%95%84%ED%95%9CTech</a></li>
 </ul>
 
 
