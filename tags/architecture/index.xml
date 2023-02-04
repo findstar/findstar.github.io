@@ -6,7 +6,16 @@
     <description>Recent content in architecture on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 26 Jan 2022 23:39:41 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 15:46:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>신규 서비스 개발을 위한 AWS 사용 경험기</title>
+      <link>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</link>
+      <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</guid>
+      <description>지난 몇달간 신규 서비스를 개발을 위해서 AWS를 사용하여 서비스를 설계하고 개발하였다. 아쉽게도 도중에 프로젝트가 중단되어 더 이상 사용을 할 수 없지만, 개발 중 사용한 AWS를 경험을 정리해보았다.</description>
+    </item>
+    
     <item>
       <title>[북리뷰] 만들면서 배우는 클린 아키텍처</title>
       <link>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</link>

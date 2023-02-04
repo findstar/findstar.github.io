@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 14 Oct 2022 23:26:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 15:46:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>architecture</title>
+      <link>https://findstar.pe.kr/tags/architecture/</link>
+      <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aws</title>
+      <link>https://findstar.pe.kr/tags/aws/</link>
+      <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>experience</title>
+      <link>https://findstar.pe.kr/tags/experience/</link>
+      <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/experience/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>database</title>
       <link>https://findstar.pe.kr/tags/database/</link>
@@ -58,15 +85,6 @@
       <pubDate>Sat, 17 Sep 2022 16:22:01 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/spring-event/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>aws</title>
-      <link>https://findstar.pe.kr/tags/aws/</link>
-      <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/aws/</guid>
       <description></description>
     </item>
     
@@ -202,15 +220,6 @@
       <pubDate>Fri, 29 Apr 2022 23:39:11 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/mm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>architecture</title>
-      <link>https://findstar.pe.kr/tags/architecture/</link>
-      <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/architecture/</guid>
       <description></description>
     </item>
     

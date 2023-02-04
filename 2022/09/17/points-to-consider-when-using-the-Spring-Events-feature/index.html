@@ -355,7 +355,7 @@
 </span></span><span style="display:flex;"><span>    @Autowired
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">private</span> <span style="color:#ff79c6">lateinit</span> <span style="color:#ff79c6">var</span> recommendPoolSender: RecommendPoolSender
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>    @TransactionalEventListener(phase = <span style="color:#50fa7b">TransactionPhase</span>.AFTER_COMMIT)
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">sendContentPool</span>(event: PostCreatedEvent) {
 </span></span><span style="display:flex;"><span>        recommendPoolSender.send(event.post)
 </span></span><span style="display:flex;"><span>    }
@@ -377,7 +377,7 @@
 <p><code>TransactionalEventListener</code>을 사용하여 이벤트 구조를 도입하여 간결한 코드 구조를 유지할 수 있어서 장점이 있지만, 트랜잭션과 함께 이벤트를 처리할 때 주의사항이 있다.
 <code>phase</code> 값이 <code>AFTER_COMMIT</code> 으로 정의해놓은 경우 리스너 코드 안에서 다시 트랜잭션을 처리하면 해당 트랜잭션은 커밋되지 않는 현상이 발생한다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = <span style="color:#50fa7b">TransactionPhase</span>.AFTER_COMMIT)
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
 </span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
@@ -415,7 +415,7 @@
 <h3 id="문제-해결-방법">문제 해결 방법</h3>
 <p>위 문제를 해결하는 첫 번째 방법으로는 <code>AFTER_COMMIT</code> 이후에 동일한 데이터소스를 사용하지 않는 방법이 있다. 이를 위해서는 이벤트 리스너를 별도의 스레드에서 실행하는 방법이 있다. 바로 <code>@Async</code> 어노테이션을 추가하는 방법이다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = <span style="color:#50fa7b">TransactionPhase</span>.AFTER_COMMIT)
 </span></span><span style="display:flex;"><span>  @Async
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
 </span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
@@ -431,7 +431,7 @@
 <p>두 번재 방법으로는 <code>AFTER_COMMIT</code> 대신 <code>BEFORE_COMMIT</code> 을 사용하는 방법이다. 이렇게 되면 커밋이 되기 전에 리스너 로직이 실행되기 때문에 정상적으로 리스너 로직의 트랜잭션이 커밋될 수 있다.
 하지만 이 경우 리스너 로직에서 예외가 발생하면 이벤트를 발생시키는 핵심 로직의 트랜잭션에 영향을 줄 수 있기 때문에 주의해서 사용해야한다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = <span style="color:#50fa7b">TransactionPhase</span>.BEFORE_COMMIT)
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
 </span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
@@ -444,8 +444,8 @@
 이렇게 하면 이벤트 리스너의 로직 안에서 실행되는 <code>@Transactional</code> 로직을 위한 새로운 트랜잭션이 이전의 트랜잭션과 구분되어 새롭게 시작한다. (<code>Propagation.REQUIRES_NEW</code>가 이를 알려줌)
 따라서 이벤트를 발생시킨 트랜잭션과는 별도의 분리된 트랜잭션 안에서 이벤트 리스너 로직이 실행된다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#6272a4">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-</span></span><span style="display:flex;"><span>  @Transactional(propagation = Propagation.REQUIRES_NEW)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  @TransactionalEventListener(phase = <span style="color:#50fa7b">TransactionPhase</span>.AFTER_COMMIT)
+</span></span><span style="display:flex;"><span>  @Transactional(propagation = <span style="color:#50fa7b">Propagation</span>.REQUIRES_NEW)
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">fun</span> <span style="color:#50fa7b">updateCounterForStatistics</span>(event: PostCreatedEvent) {
 </span></span><span style="display:flex;"><span>      <span style="color:#6272a4">// 통계 시스템의 카운팅 갱신
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>      <span style="color:#6272a4">// 이 코드는 @Transactional 코드
@@ -744,6 +744,12 @@
                         
                         <a href="/tags/event-driven" title="event-driven">
                         event-driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
                         </a>
                         
                         
@@ -1391,7 +1397,7 @@
             
                 </ul>
 		<p class="copyright text-muted">
-                    Soo Story &copy; 2022
+                    Soo Story &copy; 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe
