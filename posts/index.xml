@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 25 Feb 2023 22:50:05 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Mar 2023 15:49:05 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BlockHound - Webflux를 사용할 때 Blocking 코드가 사용되고 있는지 검출하는 방법</title>
+      <link>https://findstar.pe.kr/2023/03/25/block-hound-for-webflux/</link>
+      <pubDate>Sat, 25 Mar 2023 15:49:05 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2023/03/25/block-hound-for-webflux/</guid>
+      <description>Spring Webflux 기반의 애플리케이션을 작성할 때에는 모든 코드가 reactive 해야 최상의 성능(처리량)이 나온다. 그런데 일부 구간에서 blocking 코드가 존재하는지 일일이 눈으로 확인하기는 매우 어렵다. 그래서 이를 자동으로 검출해주는 &lt;code&gt;BlockHound&lt;/code&gt; 를 사용하여 blocking 코드를 검출해보았다.</description>
+    </item>
+    
     <item>
       <title>&#39;일을 잘하기 위한 환경&#39;과 리더쉽</title>
       <link>https://findstar.pe.kr/2023/02/25/environment-to-do-well/</link>
@@ -480,15 +489,6 @@ Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야
       
       <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
       <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://findstar.pe.kr/posts/2023-02-onboarding/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://findstar.pe.kr/posts/2023-02-onboarding/</guid>
-      <description>얼마전 조직이동을 통해서 새로운 조직에 합류하였다. 바쁘게 돌아가는 큰 조직이다 보니, 계속 소개하고 인사해야할 동료분들도 많고, 새롭게 알아야할 정보도 많았다</description>
     </item>
     
   </channel>
