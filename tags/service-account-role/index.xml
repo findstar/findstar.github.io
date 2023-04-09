@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>service account &amp; role on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/service-account-role/</link>
+    <description>Recent content in service account &amp; role on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 06 Apr 2023 21:03:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/service-account-role/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기</title>
+      <link>https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/</link>
+      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/</guid>
+      <description>쿠버네티스 클러스터 환경에서 애플리케이션을 구성하다보면, 경우에 따라 POD 에서 클러스터 API에 접근하여 클러스터에서 제공하는 다양한 기능들을 활용해야할 때가 있다. 이런 경우 어떤 준비가 필요한지 살펴보았다.</description>
+    </item>
+    
+  </channel>
+</rss>
