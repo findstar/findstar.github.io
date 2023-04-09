@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 25 Mar 2023 15:49:05 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Apr 2023 21:03:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k8s</title>
+      <link>https://findstar.pe.kr/tags/k8s/</link>
+      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s api</title>
+      <link>https://findstar.pe.kr/tags/k8s-api/</link>
+      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/k8s-api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://findstar.pe.kr/tags/kubernetes/</link>
+      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>blockhound</title>
       <link>https://findstar.pe.kr/tags/blockhound/</link>
@@ -220,15 +247,6 @@
       <pubDate>Fri, 27 May 2022 21:21:12 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/graceful-deploy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>k8s</title>
-      <link>https://findstar.pe.kr/tags/k8s/</link>
-      <pubDate>Fri, 27 May 2022 21:21:12 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/k8s/</guid>
       <description></description>
     </item>
     
@@ -490,15 +508,6 @@
       <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/istio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://findstar.pe.kr/tags/kubernetes/</link>
-      <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/kubernetes/</guid>
       <description></description>
     </item>
     

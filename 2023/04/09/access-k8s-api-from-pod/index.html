@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png">
+
+
+<meta property="og:title" content="쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png" />
+
+
+<meta property="twitter:title" content="쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="쿠버네티스 클러스터 환경에서 애플리케이션을 구성하다보면, 경우에 따라 POD 에서 클러스터 API에 접근하여 클러스터에서 제공하는 다양한 기능들을 활용해야할 때가 있다. 이런 경우 어떤 준비가 필요한지 살펴보았다." />
+
+
+<meta property="article:title" content="쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기" />
+
+
+
+<meta property="article:tag" content="k8s" />
+<meta property="article:tag" content="kubernetes" />
+<meta property="article:tag" content="k8s api" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기 - Soo Story</title>
+<link rel="canonical" href="/2023/04/09/access-k8s-api-from-pod/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        <a class="tag" href="/tags/k8s-api" title="k8s api">
+                        k8s api
+                        </a>
+                        
+                    </div>
+                    <h1>쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2023-04-06
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#k8s-클러스터-pod에서-k8s-api-사용하기">K8S 클러스터 POD에서 K8S API 사용하기</a>
+      <ul>
+        <li><a href="#배경">배경</a></li>
+        <li><a href="#1-k8s-클러스터-살펴보기">1. K8S 클러스터 살펴보기</a></li>
+        <li><a href="#2-k8s-api를-사용하기-위한-인증방법-이해하기-로컬에서-호출해보기">2. K8S API를 사용하기 위한 인증방법 이해하기 (로컬에서 호출해보기)</a></li>
+        <li><a href="#3-pod-에서-k8s-api-호출하기-첫번째">3. POD 에서 K8S API 호출하기 (첫번째)</a></li>
+        <li><a href="#4-서비스-어카운트와-role-이해하기">4. 서비스 어카운트와 Role 이해하기</a></li>
+        <li><a href="#5-서비스-어카운트-지정하여-pod-실행하기">5. 서비스 어카운트 지정하여 Pod 실행하기</a></li>
+        <li><a href="#6-api-client-사용하기">6. API Client 사용하기</a></li>
+        <li><a href="#정리요약">정리요약</a></li>
+        <li><a href="#참고자료">참고자료</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="k8s-클러스터-pod에서-k8s-api-사용하기">K8S 클러스터 POD에서 K8S API 사용하기</h1>
+<h2 id="배경">배경</h2>
+<p>쿠버네티스(줄여서 k8s라고 부르는) 클러스터에서 애플리케이션을 운영하다보면, 경우에 따라 K8S 클러스터 자체의 API를 사용하고 싶을 때가 있다. 예를 들어 &lsquo;클러스터의 동작 일부를 직접 모니터링 한다던가&rsquo;, &lsquo;동적으로 POD 또는 서비스의 라이프사이클을 관리한다던가&rsquo; 하는 경우가 그렇다.
+나의 경우에는 단순히 POD의 목록을 확인하려는 필요가 있어서 API 사용방법을 찾아보았는데, 생각보다 고려할 부분이 많아서 글로 정리해보았다.</p>
+<h2 id="1-k8s-클러스터-살펴보기">1. K8S 클러스터 살펴보기</h2>
+<h3 id="k8s-클러스터의-노드-구성">K8S 클러스터의 노드 구성</h3>
+<p>기본적으로 K8S 클러스터는 다음의 2가지 노드로 구분될 수 있다.</p>
+<ul>
+<li>Master Node</li>
+<li>Worker Node</li>
+</ul>
+<p>필요에 따라서는 더 세분화할 수도 있지만(Ingress Node 라던가, Node 그룹핑으로 나눌 수도 있다), 최소한 위와 같이 2가지로 구분되며, Master Node 가 클러스터 전체를 관리하는 역할을 수행하며 클러스터 API를 제공하고, Worker Node 는 실제 우리가 원하는 Pod 가 실행되는 역할을 수행한다.</p>
+<h3 id="k8s-api란">K8S API란?</h3>
+<p>쿠버네티스 클러스터를 학습하게 되면 배우게 되는 CLI 명령어가 바로 <code>kubectl</code> 이다. 알고보면 이 <code>kubectl</code> 명령어는 K8S 클러스터의 마스터 노드의 REST API를 사용하여 각종 작업을 처리하는데
+이 때 사용하는 API가 바로 <strong>K8S API</strong> 이다.</p>
+<h2 id="2-k8s-api를-사용하기-위한-인증방법-이해하기-로컬에서-호출해보기">2. K8S API를 사용하기 위한 인증방법 이해하기 (로컬에서 호출해보기)</h2>
+<p><code>kubectl</code> 도 결국 동작원리를 살펴보면 K8S Master Node API를 호출하는 것을 알게되었지만, 아무런 준비없이 K8S API를 호출한다고 해서 클러스터에게 다양한 작업을 처리하도록 지시할 수는 없다.
+먼저 기본적인 개념이해를 위해서 로컬에서 다음과 같이 하나씩 확인해보자. (미리 준비되어 있는 k8s 클러스터가 있고, 로컬에서 kubectl 을 사용할 수 있는 환경이라고 가정한다.)</p>
+<ol>
+<li>
+<p>클러스터의 정보 획득
+<code>kubectl</code> 을 사용중이라면 다음과 같이 명령어를 입력하여 클러스터의 정보를 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl cluster-info
+</span></span><span style="display:flex;"><span>Kubernetes control plane is running at https://192.168.55.300:8443
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 클러스터의 Control plane 이 Master Node 로 연결되기 위한 주소이다.</span>
+</span></span></code></pre></div></li>
+<li>
+<p>클러스터의 API 조회해보기
+클러스터의 주소를 확인하였으면, <code>HTTPS</code> 를 사용한다는 점을 알 수 있다. HTTPS 통신을 위해서는 인증서가 필요한데 지금 당장은 이를 확인할 수 없으니 무시하고 CURL로 API를 요청해보자 .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl https://192.168.55.300:8443 <span style="color:#6272a4"># 그냥 호출해본다.</span>
+</span></span><span style="display:flex;"><span> curl: <span style="color:#ff79c6">(</span>60<span style="color:#ff79c6">)</span> SSL certificate problem: unable to get <span style="color:#8be9fd;font-style:italic">local</span> issuer certificate
+</span></span><span style="display:flex;"><span> More details here: https://curl.se/docs/sslcerts.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> curl failed to verify the legitimacy of the server and therefore could not
+</span></span><span style="display:flex;"><span> establish a secure connection to it. To learn more about this situation and
+</span></span><span style="display:flex;"><span> how to fix it, please visit the web page mentioned above.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ curl https://192.168.55.300:8443 -k <span style="color:#6272a4"># insecure 옵션을 추가해서 https 인증서 오류 무시하여 요청</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;kind&#34;</span>: <span style="color:#f1fa8c">&#34;Status&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;apiVersion&#34;</span>: <span style="color:#f1fa8c">&#34;v1&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;metadata&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;status&#34;</span>: <span style="color:#f1fa8c">&#34;Failure&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;message&#34;</span>: <span style="color:#f1fa8c">&#34;forbidden: User \&#34;system:anonymous\&#34; cannot get path \&#34;/\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;reason&#34;</span>: <span style="color:#f1fa8c">&#34;Forbidden&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;details&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;code&#34;</span>: <span style="color:#bd93f9">403</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 또는 단순하게 &#39;Unauthorized&#39; 라고 응답될 수도 있다. </span>
+</span></span></code></pre></div></li>
+<li>
+<p>토큰을 포함하여 요청해보기
+<code>~/.kube/config</code> 파일을 확인해보면 클러스터에 연결하기 위한 token 을 확인할 수 있다. 이 토큰을 복사하여 다음과 같이 직접 curl 을 요청해보면 사용가능한 클러스터 API 목록을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -H <span style="color:#f1fa8c">&#34;Authorization: Bearer JWT_형태의_TOKEN_내용을_이곳에_넣는다&#34;</span> https://192.168.55.300:8443 -k
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;paths&#34;</span>: <span style="color:#ff79c6">[</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;/api&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;/api/v1&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;/apis&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f1fa8c">&#34;/apis/&#34;</span>,
+</span></span><span style="display:flex;"><span> .....
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>kubectl proxy 사용해보기
+매번 이렇게 힘들게 API를 요청하려면 불편하다. 로컬에서 HTTP 연결을 쉽게 하기 위해서 kubectl 의 proxy 기능을 활용해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl proxy
+</span></span><span style="display:flex;"><span>Starting to serve on 127.0.0.1:8001
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 새로운 터미널에서 확인해보자.</span>
+</span></span><span style="display:flex;"><span>$ curl http://localhost:8001
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f1fa8c">&#34;paths&#34;</span>: <span style="color:#ff79c6">[</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f1fa8c">&#34;/api&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f1fa8c">&#34;/api/v1&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f1fa8c">&#34;/apis&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f1fa8c">&#34;/apis/&#34;</span>,
+</span></span><span style="display:flex;"><span>   .....
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p>복잡하게 토큰을 전달하지 않아도 클러스터 API 호출이 가능하다. 반환된 API 목록을 살펴보면서 내가 필요한 API를 선택할 수 있다.</p>
+</li>
+</ol>
+<h3 id="로컬-호출-정리">로컬 호출 정리</h3>
+<ul>
+<li>K8S API 호출은 기본적으로 HTTP API 이고 이 호출을 위해서는 HTTPS 인증서 확인, JWT 토큰을 활용한 인증처리가 필요하다.</li>
+<li>로컬에서는 <code>kubectl proxy</code> 를 통해서 쉽게 확인할 수 있다.</li>
+</ul>
+<h2 id="3-pod-에서-k8s-api-호출하기-첫번째">3. POD 에서 K8S API 호출하기 (첫번째)</h2>
+<h3 id="curl로-api-호출해보기">CURL로 API 호출해보기</h3>
+<p>로컬에서 K8S API 호출을 위한 기본적인 개념을 이해했으니, 이제 POD 안에서 호출하는 방법을 살펴보자.</p>
+<ol>
+<li>
+<p>pod 는 기본적으로 <code>kubectl</code> 과 같은 명령어를 가지고 있지 않다. 따라서 pod 에서 다음의 3가지를 알아내야 한다.</p>
+<ul>
+<li>API 서버의 위치</li>
+<li>API 서버의 HTTPS 인증서 대응</li>
+<li>API 서버에 요청하기 위한 인증토큰</li>
+</ul>
+</li>
+<li>
+<p>테스트용 POD 구동하기
+동작 확인을 위해서 간단한 curl POD를 띄워보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl run curl -it --rm --image curlimages/curl -- sh
+</span></span></code></pre></div></li>
+<li>
+<p>POD 에서 API 주소 찾기
+Pod 에서는 k8s 관련 정보가 환경변수로 제공된다. 다음과 같이 확인해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ env | grep KUBERNETES
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">KUBERNETES_SERVICE_PORT</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">443</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">KUBERNETES_SERVICE_HOST</span><span style="color:#ff79c6">=</span>10.0.0.1
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">KUBERNETES_SERVICE_PORT_HTTPS</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">443</span>
+</span></span><span style="display:flex;"><span>...그 밖의 다른 환경변수들...
+</span></span></code></pre></div><p>정보를 확인하였으면 다음과 같이 호출해보자</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl https://<span style="color:#8be9fd;font-style:italic">$KUBERNETES_SERVICE_HOST</span>:<span style="color:#8be9fd;font-style:italic">$KUBERNETES_SERVICE_PORT</span> -k
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;kind&#34;</span>: <span style="color:#f1fa8c">&#34;Status&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;apiVersion&#34;</span>: <span style="color:#f1fa8c">&#34;v1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;metadata&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;status&#34;</span>: <span style="color:#f1fa8c">&#34;Failure&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;message&#34;</span>: <span style="color:#f1fa8c">&#34;forbidden: User \&#34;system:anonymous\&#34; cannot get path \&#34;/\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;reason&#34;</span>: <span style="color:#f1fa8c">&#34;Forbidden&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;details&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;code&#34;</span>: <span style="color:#bd93f9">403</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>클러스터 내부의 DNS 활용하여 API 질의하기
+Pod 내부에서 매번 환변경수를 사용하기는 불편하다 이 때는 클러스터에서 제공하는 내부 DNS 를 사용할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl https://kubernetes -k
+</span></span><span style="display:flex;"><span>... 응답 확인...
+</span></span></code></pre></div></li>
+<li>
+<p>https 인증서 처리(서버 인원 확인)
+매번 <code>-k</code> 옵션을 붙이자니 찜찜하다. 이를 해결해보자. 먼저 k8s 클러스터에서 제공하는 secret 를 확인하자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls /var/run/secrets/kubernetes.io/serviceaccount/ 
+</span></span><span style="display:flex;"><span>ca.crt namespace token
+</span></span></code></pre></div><p>바로 여기에 있는 <code>ca.crt</code> 가 서버 인증서이다. 인증서를 사용해서 접근해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt https://kubernetes 
+</span></span><span style="display:flex;"><span>... 응답 확인...
+</span></span></code></pre></div><p>매번 <code>--cacert</code> 옵션을 주려니 귀찮다. CURL 환경변수로 등록해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">CURL_CA_BUNDLE</span><span style="color:#ff79c6">=</span>/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+</span></span></code></pre></div></li>
+<li>
+<p>여기까지 실행하면 curl 클라이언트가 API 서버를 신뢰할 수 있게 되었다. 하지만 아직 token 을 전달하지 않았기 때문에 API 응답이 권한이 없다고 나온다. 토큰도 전달해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#8be9fd;font-style:italic">TOKEN</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>cat /var/run/secrets/kubernetes.io/serviceaccount/token<span style="color:#ff79c6">)</span> 
+</span></span><span style="display:flex;"><span>$ curl -H <span style="color:#f1fa8c">&#34;Authorization: Bearer </span><span style="color:#8be9fd;font-style:italic">$TOKEN</span><span style="color:#f1fa8c">&#34;</span> https://kubernetes/ 
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 응답 확인...</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;kind&#34;</span>: <span style="color:#f1fa8c">&#34;Status&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;apiVersion&#34;</span>: <span style="color:#f1fa8c">&#34;v1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;metadata&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;status&#34;</span>: <span style="color:#f1fa8c">&#34;Failure&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;message&#34;</span>: <span style="color:#f1fa8c">&#34;forbidden: User \&#34;system:serviceaccount:default:default\&#34; cannot get path \&#34;/\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;reason&#34;</span>: <span style="color:#f1fa8c">&#34;Forbidden&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;details&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;kind&#34;</span>: <span style="color:#f1fa8c">&#34;pods&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;code&#34;</span>: <span style="color:#bd93f9">403</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>서비스 어카운트 권한이 필요함
+위와 같이 ca.crt, token 을 모두 전달하였을 때 로컬에서 호출했을 때와 동일한 결과를 기대하였지만, 실제로는 그렇지 않다. 그 이유는 POD에 제공된 서비스 어카운트 <code>system:serviceaccount:default:default</code> 에 <strong>권한이 부여되어 있지 않기 때문</strong>이다.
+이를 위해서는 서비스 어카운트와 role 을 부여해야한다.</p>
+</li>
+</ol>
+<h3 id="pod-에서-curl로-api-호출하기-정리">pod 에서 curl로 API 호출하기 정리</h3>
+<ul>
+<li>pod 에서 curl 로 API를 호출하려면 내부 dns 를 사용하여 <code>https://kubernetes</code> 로 호출하면된다.</li>
+<li>서버 신원 확인을 위한 ca.crt, API 인증을 위한 token 정보는 <code>/var/run/secrets/kubernetes.io/serviceaccount/</code> 디렉토리에 있다.</li>
+<li>하지만 pod 에 연결된 서비스 어카운트에 제대로된 role 이 부여되어 있지 않다면 (권한이 없다면) API를 정상적으로 호출할 수 없고 403 응답을 받는다.</li>
+</ul>
+<h2 id="4-서비스-어카운트와-role-이해하기">4. 서비스 어카운트와 Role 이해하기</h2>
+<h3 id="rbac---role-based-access-control">RBAC - Role Based Access Control</h3>
+<p>초기 버전의 k8s 클러스터는 <code>RBAC</code>가 비활성화 되어 있어서 모든 POD에서 K8S API를 호출할 수 있었다. 그러나 최근의 K8s 클러스터에서는 <code>RBAC</code>가 기본적으로 활성화 되어 있고,
+이 때문에 POD 안에서 K8S API를 호출하려면 해당 POD에게 부여된 서비스 어카운트가 API를 호출할 수 있는 <code>Role</code> 을 부여받고 있어야 한다. <code>Role</code> 이라는 것은 말 그대로 어떤 역할을 부여 해준다는 것이며
+<code>RBAC</code>는 <strong>부여한 역할에 따라서 접근을 제어하는 기능</strong>을 말한다.</p>
+<h3 id="서비스-어카운트와-기본-서비스-어카운트">서비스 어카운트와 기본 서비스 어카운트</h3>
+<p>서비스 어카운트는 말 그대로 Account 즉, K8S API 서버에 접근하기 위한 계정을 말한다. Pod 가 구동될 때에는 자동으로 Pod 에게 서비스 어카운트가 부여된다.
+부여되는 서비스 어카운트는 다음과 같이 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl get sa <span style="color:#6272a4"># serviceaccoutn 의 약어</span>
+</span></span><span style="display:flex;"><span>NAME      SECRETS   AGE
+</span></span><span style="display:flex;"><span>default   <span style="color:#bd93f9">1</span>         7d
+</span></span></code></pre></div><p>서비스 어카운트는 네임스페이스 단위로 관리되며 새로운 k8s 리소스가 생성될 때 서비스 어카운트가 없다면 자동으로 <code>default</code> 서비스 어카운트가 생성된다. 앞서 Pod 안에서 curl 로 API 호출했을 때 403 이 반환되는데
+이 때 서비스 어카운트를 다음과 같이 표현한다는 것을 알 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>system:serviceaccount:&lt;namespace&gt;:&lt;service account name&gt;
+</span></span><span style="display:flex;"><span>system:serviceaccount:default:default
+</span></span></code></pre></div><h3 id="새로운-서비스-어카운트-생성하기">새로운 서비스 어카운트 생성하기</h3>
+<p><code>system:serviceaccount:default:default</code> 서비스 어카운트는 <code>default</code> 네임스페이스의 모든 pod 가 공통으로 사용하는 서비스 어카운트다. API 호출이 필요한 POD를 위한 새로운 서비스 어카운트를 생성해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl create serviceaccount my-serviceaccount
+</span></span><span style="display:flex;"><span>serviceaccount/my-serviceaccount created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ kubectl describe serviceaccount my-serviceaccount
+</span></span><span style="display:flex;"><span>Name:                my-serviceaccount
+</span></span><span style="display:flex;"><span>Namespace:           default
+</span></span><span style="display:flex;"><span>Labels:              &lt;none&gt;
+</span></span><span style="display:flex;"><span>Annotations:         &lt;none&gt;
+</span></span><span style="display:flex;"><span>Image pull secrets:  &lt;none&gt;
+</span></span><span style="display:flex;"><span>Mountable secrets:   my-serviceaccount-token-5wch8
+</span></span><span style="display:flex;"><span>Tokens:              my-serviceaccount-token-5wch8
+</span></span><span style="display:flex;"><span>Events:              &lt;none&gt;
+</span></span></code></pre></div><h3 id="role-을-생성하여-권한-부여하기">Role 을 생성하여 권한 부여하기</h3>
+<p>서비스 어카운트만으로는 앞서 기본으로 제공된 <code>default:default</code> 서비스 어카운트와 다를게 없다. 권한을 부여하기 위한 Role 을 생성하고 이 Role 을 서비스 어카운트에 연결해보자. 이 과정을 RoleBinding 이라고 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: rbac.authorization.k8s.io/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Role
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: role-for-k8s-api-call
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">namespace</span>: default
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">rules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#ff79c6">apiGroups</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f1fa8c">&#34;&#34;</span> <span style="color:#6272a4"># 리소스에 그룹을 지정할 수 있으나, 여기에서는 사용하지 않으므로 &#34;&#34; 으로 입력한다.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">resources</span>:
+</span></span><span style="display:flex;"><span>  - pods <span style="color:#6272a4"># 어떤 리소스를 확인할 것인지 지정할 수 있다 복수형으로 입력해야한다. ex) services, configmaps, secrets ..., 여기에서는 pod 를 대상으로 한다.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">verbs</span>: <span style="color:#6272a4"># 개별 Pod를 이름으로 가져오고, 목록을 확인할 수 있는</span>
+</span></span><span style="display:flex;"><span>  - get
+</span></span><span style="display:flex;"><span>  - list
+</span></span></code></pre></div><p>( 내용이 길어서 yaml 로 작성했지만 다음과 같이 명령어로도 가능하다.)</p>
+<p><code>kubectl create role role-for-k8s-api-call --verb=get --verb=list --resource=pods -n default</code></p>
+<p>작성한 yaml 을 적용하고, 생성한 role 을 서비스 어카운트에 연결한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl apply -f role-for-k8s-api-call.yaml
+</span></span><span style="display:flex;"><span>role.rbac.authorization.k8s.io/role-for-k8s-api-call created
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ kubectl create rolebinding api-call --role<span style="color:#ff79c6">=</span>role-for-k8s-api-call --serviceaccount<span style="color:#ff79c6">=</span>default:my-serviceaccount -n default
+</span></span><span style="display:flex;"><span>rolebinding <span style="color:#f1fa8c">&#34;api-call&#34;</span> created
+</span></span></code></pre></div><h3 id="서비스-어카운트와-role-정리">서비스 어카운트와 Role 정리</h3>
+<ul>
+<li>역할에 따라 API 에 접근할 수 있는 체계를 RBAC 라고 한다.</li>
+<li>K8S API에 접근하기 위한 계정을 서비스 어카운트라고 한다.</li>
+<li>서비스 어카운트는 지정되지 않으면 <code>default</code> 가 부여된다.</li>
+<li>별도의 서비스 어카운트를 만들고 Role 을 생성하여 연결하는 것을 롤바인딩이라고 한다.</li>
+</ul>
+<h2 id="5-서비스-어카운트-지정하여-pod-실행하기">5. 서비스 어카운트 지정하여 Pod 실행하기</h2>
+<p>자 이제 필요한 서비스 어카운트도 생성하였고, Role 도 생성하여 롤바인딩도 마쳤다. 생성한 서비스 어카운트를 Pod 에 적용해보자.</p>
+<ul>
+<li>서비스 어카운트는 Pod 가 생성될 때 지정되며 도중에 변경할 수 없다.</li>
+<li>그리고 Pod 는 하나의 서비스 어카운트만 가질 수 있다.</li>
+<li>Pod 에 서비스 어카운트를 지정하는건 명령어로는 불가능하다. yaml 파일을 작성하자.</li>
+</ul>
+<h3 id="서비스-어카운트가-적용된-pod-생성">서비스 어카운트가 적용된 Pod 생성</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Pod
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: curl-with-serviceaccount
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">serviceAccountName</span>: my-serviceaccount
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">containers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">image</span>: curlimages/curl
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">command</span>: <span style="color:#6272a4"># pod 가 바로 종료되지 않도록 하는 명령어</span>
+</span></span><span style="display:flex;"><span>        - sleep
+</span></span><span style="display:flex;"><span>        - <span style="color:#f1fa8c">&#34;999999&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: curl-with-serviceaccount 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl apply -f curl-with-serviceaccount.yaml
+</span></span><span style="display:flex;"><span>pod/curl-with-serviceaccount created
+</span></span></code></pre></div><h3 id="다시-pod-내부에서-api-호출하기">다시 Pod 내부에서 API 호출하기</h3>
+<p>다시 pod 안에서 K8S API를 호출해보자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl <span style="color:#8be9fd;font-style:italic">exec</span> -it curl-with-serviceaccount -- sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/ $ <span style="color:#6272a4"># pod 안으로 들어옴</span>
+</span></span><span style="display:flex;"><span>/ $ <span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">TOKEN</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>car /var/run/secrets/kubernetes.io/serviceaccount/token<span style="color:#ff79c6">)</span> <span style="color:#6272a4"># TOKEN 을 변수에 등록</span>
+</span></span><span style="display:flex;"><span>/ $ <span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">CURL_CA_BUNDLE</span><span style="color:#ff79c6">=</span>/var/run/secrets/kubernetes.io/serviceaccount/ca.crt <span style="color:#6272a4"># ca.crt 를 curl 이 신뢰할 수 있도록 curl 변수에 등록</span>
+</span></span><span style="display:flex;"><span>/ $ curl -H <span style="color:#f1fa8c">&#34;Authorization: Bearer </span><span style="color:#8be9fd;font-style:italic">$TOKEN</span><span style="color:#f1fa8c">&#34;</span> https://kubernetes/api/v1/namespaces/default/pods <span style="color:#6272a4"># pod 목록을 조회하는 k8s 클러스터 API 호출</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;kind&#34;</span>: <span style="color:#f1fa8c">&#34;PodList&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;apiVersion&#34;</span>: <span style="color:#f1fa8c">&#34;v1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;metadata&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;selfLink&#34;</span>: <span style="color:#f1fa8c">&#34;/api/v1/namespaces/default/pods&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;resourceVersion&#34;</span>: <span style="color:#f1fa8c">&#34;184545912&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#34;items&#34;</span>: <span style="color:#ff79c6">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f1fa8c">&#34;metadata&#34;</span>: <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;bb-5c747f77c8-mw5nw&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;generateName&#34;</span>: <span style="color:#f1fa8c">&#34;bb-5c747f77c8-&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;namespace&#34;</span>: <span style="color:#f1fa8c">&#34;default&#34;</span>,
+</span></span><span style="display:flex;"><span>        ....
+</span></span><span style="display:flex;"><span>        .... <span style="color:#6272a4"># 전체 pod 목록이 출력된다.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p>이제 원하는대로 Pod 안에서 K8S API를 호출하고 그 결과를 확인할 수 있다.</p>
+<h2 id="6-api-client-사용하기">6. API Client 사용하기</h2>
+<p>위와 같이 curl 을 사용하여 Pod 안에서 K8S API를 호출할 수 있지만, 매번 수동으로 호출할 수는 없다. K8S 공식 사이트에서 안내하고 있는 언어별 Client 라이브러리를 사용해보자.</p>
+<ul>
+<li><a href="https://github.com/kubernetes/client-go/">Go 라이브러리</a></li>
+<li><a href="https://github.com/kubernetes-client/python/">Python 라이브러리</a></li>
+<li><a href="https://github.com/kubernetes-client/java/">Java 라이브러리</a></li>
+</ul>
+<p>나의 경우에는 Spring Boot 애플리케이션에서 사용하기 위해서 Java 라이브러리를 선택했고, 코드는 Kotlin 으로 작성하였다. &ldquo;default&rdquo; 네임스페이스의 전체 pod 목록을 확인하는 샘플코드는 다음과 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#ff79c6">val</span> client: ApiClient = <span style="color:#50fa7b">Config</span>.defaultClient()
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">Configuration</span>.setDefaultApiClient(client)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> api = CoreV1Api()
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">val</span> list = api.listNamespacedPod(<span style="color:#f1fa8c">&#34;default&#34;</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">null</span>, <span style="color:#ff79c6">false</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> (item <span style="color:#ff79c6">in</span> list.items) {
+</span></span><span style="display:flex;"><span>    println(item.metadata<span style="color:#ff79c6">!!</span>.name)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="정리요약">정리요약</h2>
+<p>K8S 클러스터 안에서 Pod 가 K8S API를 호출하기 위해서는 <code>서비스 어카운트</code>, <code>Role</code>, <code>RoleBinding</code> 이 필요하다.
+pod 내부에서 curl 과 같이 직접 raw 하게 호출하려면 token, ca.crt 값을 신경써야 한다.
+하지만 K8S 공식 사이트에서 안내하고 있는 API Client 라이브러리르 사용하면 손쉽게 API를 호출하고 그 결과를 확인할 수 있다.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/kubernetes/serviceaccount/diagram.png" alt="Pod 가 호출할 때 연결구조"  />
+    
+</figure>
+<p>k8s API를 호출하기 위한 작업들이 복잡하게 나열된것 같지만, 알고나면 크게 어렵지는 않다. 다만 k8s 에 대해서 잘 이해하고 있지 않다면, 개념을 잡는데 시간이 걸린다.
+이렇게 또 서비스 어카운트와 Role, RoleBnding 에 대해서 좀 더 이해하게 되었다.</p>
+<h2 id="참고자료">참고자료</h2>
+<ul>
+<li>쿠버네티스 API 설명 : <a href="https://kubernetes.io/ko/docs/concepts/overview/kubernetes-api/">https://kubernetes.io/ko/docs/concepts/overview/kubernetes-api/</a></li>
+<li>access cluster api : <a href="https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/">https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/</a></li>
+<li>kubernetes api reference : <a href="https://kubernetes.io/docs/reference/kubernetes-api/">https://kubernetes.io/docs/reference/kubernetes-api/</a></li>
+<li>API Client 설명 : <a href="https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/#using-official-client-libraries">https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/#using-official-client-libraries</a></li>
+<li>클라이언트 라이브러리 소개 페이지 : <a href="https://kubernetes.io/docs/reference/using-api/client-libraries/">https://kubernetes.io/docs/reference/using-api/client-libraries/</a></li>
+</ul>
+<p><a href="https://kubernetes.io/ko/docs/tasks/run-application/access-api-from-pod/">https://kubernetes.io/ko/docs/tasks/run-application/access-api-from-pod/</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2023/03/25/block-hound-for-webflux/" data-toggle="tooltip" data-placement="top" title="BlockHound - Webflux를 사용할 때 Blocking 코드가 사용되고 있는지 검출하는 방법">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blockhound" title="blockhound">
+                        blockhound
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blocking-code" title="blocking-code">
+                        blocking-code
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/database" title="database">
+                        database
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/environment-to-do-well" title="environment-to-do-well">
+                        environment-to-do-well
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event-driven">
+                        event-driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful-deploy">
+                        graceful-deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance-type">
+                        instance-type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s-api" title="k8s-api">
+                        k8s-api
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/leadership" title="leadership">
+                        leadership
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
+                        m1-macbook-pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring-event">
+                        spring-event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ulid" title="ulid">
+                        ulid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/uuid" title="uuid">
+                        uuid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/webflux" title="webflux">
+                        webflux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
