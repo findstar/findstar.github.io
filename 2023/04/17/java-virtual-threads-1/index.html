@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="Virtual Thread란 무엇일까? (1)" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/java/java-logo.gif">
+
+
+<meta property="og:title" content="Virtual Thread란 무엇일까? (1)" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/java/java-logo.gif" />
+
+
+<meta property="twitter:title" content="Virtual Thread란 무엇일까? (1)" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="2023년 9월 릴리즈 예정인 JDK 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다." />
+
+
+<meta property="article:title" content="Virtual Thread란 무엇일까? (1)" />
+
+
+
+<meta property="article:tag" content="java" />
+<meta property="article:tag" content="jdk 21" />
+<meta property="article:tag" content="virtual thread" />
+<meta property="article:tag" content="throughput" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>Virtual Thread란 무엇일까? (1) - Soo Story</title>
+<link rel="canonical" href="/2023/04/17/java-virtual-threads-1/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        <a class="tag" href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
+                        </a>
+                        
+                        <a class="tag" href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
+                        </a>
+                        
+                        <a class="tag" href="/tags/throughput" title="throughput">
+                        throughput
+                        </a>
+                        
+                    </div>
+                    <h1>Virtual Thread란 무엇일까? (1)</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2023-04-17
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#virtual-thread">Virtual Thread</a>
+      <ul>
+        <li><a href="#virtual-thread-란">Virtual Thread 란?</a></li>
+        <li><a href="#배경">배경</a></li>
+        <li><a href="#목적">목적</a></li>
+        <li><a href="#구조">구조</a></li>
+        <li><a href="#사용법">사용법</a></li>
+        <li><a href="#정리">정리</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="virtual-thread">Virtual Thread</h1>
+<p>2023년 9월에 릴리즈될 예정인 <strong>JDK 21</strong> (2023.09 월 릴리즈 예정) 는 Java 8 이후 세번째 LTS 버전이다(11, 17, 21). 이 버전에서는 많은 사람들이 기다리고 있는 <code>Virtual Thread</code> 라는 기능이 추가될 에정이다.
+이 <code>Virtual Thread</code> 가 어떤 의미가 있기 때문에 많은 사람들이 기다리고 있는지 알아보고 그 의미를 정리해보았다. 이 글은 <code>Virtual Thread</code>의 첫 번째 글이고 다음 글에서 계속 이어진다.</p>
+<h2 id="virtual-thread-란">Virtual Thread 란?</h2>
+<p><code>Virtual Thread</code> 란 기존의 전통적인 Java Thread 에 더하여 새롭게 추가되는 경량 Thread 이다. <code>Project Loom</code>의 결과물로 추가된 기능으로 OS Thread를 그대로 사용하지 않고
+JVM 자체적으로 내부 스케줄링을 통해서 사용할 수 있는 경량의 스레드를 제공한다. 하나의 Java 프로세스가 수십만~ 수백만개의 스레드를 동시에 실행할 수 있게끔 설계되었다.</p>
+<blockquote>
+<p>Project Loom 이란?
+<code>Virtual Thread</code>를 비롯하여 경량의 스레드를 JDK에 추가하기 위한 여러가지 기능들을 개발하는 프로젝트로 <strong>Loom</strong>이란 Thread 의 사전적 정의가 &lsquo;<strong>실</strong>&rsquo; 이라는데 착안하여
+실을 엮어 &lsquo;<strong>직물을 만든다는 뜻</strong>&lsquo;이다.<br>
+Loom 프로젝트의 결과로 탄생한 Virtual Thread도 처음에는 Fiber-섬유 라고하는 별도의 기능으로 개발되었으나, 최종적으로는 Thread와의 호환될 수 있는 Virtual Thread로 발전했다.</p>
+</blockquote>
+<p>먼저 이 <code>Virtual Thread</code> 가 왜 필요하게 되었는지 그 배경과 <code>Virtual Thread</code> 가 해결하고자 하는 문제에 대해서 알아보자.</p>
+<h2 id="배경">배경</h2>
+<ol>
+<li>
+<p><strong>자바의 Thread 는 OS의 warpping</strong></p>
+<ul>
+<li>자바의 전통적인 Thread 는 OS Thread의 wrapping 으로 이를 Platform Thread 라고 정의한다.</li>
+<li>따라서 Java 애플리케이션에서 Thread를 사용하는 코드는 실제적으로는 OS Thread를 이용하는 방식으로 동작했다.</li>
+<li>OS 커널에서 사용할 수 있는 스레드는 갯수가 제한적이고 생성과 유지 비용이 비싸다.</li>
+<li>이 때문에 기존에 애플리케이션들은 비싼 자원인 Platform Thread를 효율적으로 사용하기 위해서 <strong>Thread Pool</strong> 통해서 사용해왔다.</li>
+</ul>
+</li>
+<li>
+<p><strong>처리량의 한계</strong></p>
+<ul>
+<li>Spring Boot 의 기본적인 사용자 요청 처리 방식은 전통적인 처리 모델인 thread per request (요청당 스레드)이다. 이는 하나의 request(요청)을 처리하기 위해서 하나의 thread를 소비한다.</li>
+<li>애플리케이션에서 처리량을 늘리려면 thread를 늘려야 하지만 전통적인 thread는 무한정 늘릴 수 없다. (OS 스레드를 무한정 늘릴 수 없기 때문)</li>
+<li>따라서 애플리케이션의 처리량(throughput)은 Thread, 그리고 Thread Pool 에서 감당할 수 있는 범위를 넘어서 늘어날 수 없다.</li>
+</ul>
+</li>
+<li>
+<p><strong>Blocking 코드로 인한 리소스 낭비</strong></p>
+<ul>
+<li>Thread per Request 모델에서는 요청을 처리하는 스레드에서 IO 작업 처리를 위한 Blocking 이 일어난다.</li>
+<li>이 때문에 Thread 는 IO 작업이 마칠 때까지 다른 요청을 처리하지 못하고 기다려야 한다.(Blocking 동안 대기)</li>
+<li>애플리케이션에 유입되는 요청이 많지 않거나 또는 스케일 아웃으로 충분히 커버할 수 있는 정도라면 문제가 없지만</li>
+<li>아주 많은 요청을 처리해야하는 상황이라면 Blocking 방식으로 인해 발생하는 낭비를 줄여야 할 필요가 있다.</li>
+<li>이 때문에 Blocking 이 아니라 Non-blocknig 방식의 reactive 패러다임이 발전하였다.</li>
+</ul>
+</li>
+<li>
+<p><strong>reactive 스타일의 단점</strong></p>
+<ul>
+<li>처리량을 높이기 위한 방법으로 비동기 방식의 reactive 프로그래밍이 발전해왔다.</li>
+<li>한정된 자원인 Platform Thread가 Blocking 되면서 대기하는 데 소요된 스레드 자원을 non blocking 방식으로 변경하면서 다른 요청을 처리하는데 사용할 수 있게 되었다.</li>
+<li>대표적으로 reactive 스타일의 webflux 가 이렇게 동작한다.</li>
+<li>다만 이런 reactive 스타일의 코드는 작성하고 이해하는 비용을 높게 만들었다.</li>
+<li>그리고 기존의 자바 프로그래밍의 패러다임은 스레드를 기반으로 하기 때문에 thread per request 에 맞춰져 있던 라이브러리들 모두 reactive 스타일로 새롭게 작성되어야 하는 문제가 있다.</li>
+</ul>
+</li>
+<li>
+<p><strong>자바 플랫폼의 디자인</strong></p>
+<ul>
+<li>자바 플랫폼은 전통적으로 Thread를 중심으로 구성되어 있었다.</li>
+<li>Thread 호출 스택은 thread local을 사용하여 데이터와 컨텍스트를 연결하도록 설계되어 있다.</li>
+<li>이 외에도 Exception, Debugger, Profile(JFR)이 모두 스레드를 기반으로 하고 있다.</li>
+<li>Reactive 스타일로 코드를 작성하면 이 Thread를 넘나들면서 사용자의 요청이 처리되는데 이 때문에 하나의 요청을 처리하는 여러개의 Thread의 상황이 발생할 수 있고 결국 degugging 이 어려워 졌다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="목적">목적</h2>
+<p>Project Loom 의 결과로 탄생한 Virtual Thread는 다음과 같은 목적을 가지고 있는데, 기존의 Reactive Programming 과 비교해서 생각해보자.</p>
+<h3 id="해결하고자-하는-문제">해결하고자 하는 문제</h3>
+<ol>
+<li>
+<p>Java 개발자가 하드웨어의 성능을 잘 활용하는 높은 처리량(쓰루풋)의 서버를 작성하는 것</p>
+<ul>
+<li>Virtual Thread는 Blocking 이 발생하면 내부적으로 스케줄링을 활용하여 Platform Thread가 그냥 대기하게 두지 않고 다른 Virtual Thread가 작업할 수 있도록 한다.</li>
+<li>따라서 reactive programming 의 non-blcking 과 동일하게 Platform Thread의 리소스를 낭비하지 않는다.</li>
+</ul>
+</li>
+<li>
+<p>동시에 자바 플랫폼의 디자인과 조화를 이루는 코드를 생성할 수 있도록 하는 것</p>
+<ul>
+<li>기존 Reactive Programming 의 장점에도 불구하고 전통적인 자바 언어의 구조는 Thread를 기반으로 하였기 때문에 Webflux등을 사용할 때 디버깅이 어려웠다.</li>
+<li>하지만 Virtual Thread는 Thread 구조를 그대로 사용하기 때문에 디버깅, 프로파일링등 기존의 도구도 그대로 사용할 수 있다.</li>
+</ul>
+</li>
+</ol>
+<h3 id="reactive-programming-과의-비교">Reactive Programming 과의 비교</h3>
+<ul>
+<li>
+<p>reactive programming 이 달성하고자 리소스를 효율적으로 사용하여 높은 처리량(throughput)을 달성하고자 하는 목적은 동일하다.</p>
+</li>
+<li>
+<p>Virtual Thread를 사용하면 Non blocking 에 대한 처리를 JVM 레벨에서 담당해준다.</p>
+</li>
+<li>
+<p>따라서 Spring Web MVC 스타일로 코드를 작성하더라도 내부에서 Virtual Thread가 기존의 Platform Thread를 직접 사용하는 방식보다 효율적으로 스케줄링하여 처리량을 높일 수 있다.</p>
+</li>
+<li>
+<p>결론적으로 Virtual Thread 는 기존 Thread 방식의 이점을 누리면서도 Reactive Programming 의 장점을 취할 수 있다.</p>
+</li>
+</ul>
+<figure class="full-width caption "  >
+    <img src="/images/posts/java/virtual-thread/virtual-thread.png" alt="Virtual Thread와 기존 방식의 비교"  />
+    
+</figure>
+<h2 id="구조">구조</h2>
+<p>그럼 어떻게 Virtual Thread 가 이런 목표를 달성할 수 있는지 그 구조를 살펴보자.</p>
+<h3 id="platform-thread와-virtual-thread-의-구조-차이">Platform Thread와 Virtual Thread 의 구조 차이</h3>
+<p>앞서 Platform Thread는 OS Thread의 Warpping 이라고 설명했다. 애플리케이션 코드가 Platform Thread를 사용하면 실제로는
+OS Thread를 사용하는 것이다. 이 때 Thread는 비용이 비싸기 때문에 Thread Pool 을 사용하여 접근하는 방식으로 사용해왔다.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/java/virtual-thread/traditional-thread.png" alt="전통적인 Thread 사용방법"  />
+    
+</figure>
+<p>이에 반해 Virtual Thread는 OS Thread의 Warpping 이 아니기 때문에 애플리케이션 코드는 Virtual Thread Pool 없이 사용하고
+JVM 자체적으로 Virtual Thread를 OS Thread와 연결하는 스케줄링한다. 이 작업을 mount / unmount 라고 하고 기존에 Platform Thread라고 하던 부분을
+Carrier Thread라고 한다. (Virtual Thread를 실제 OS Thread로 연결해준다는 의미)</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/java/virtual-thread/virtual-thread-structure.png" alt="Virtual Thread 사용방법"  />
+    
+</figure>
+<p>구조적으로 보자면 OS Thread를 사용하기 전에 하나의 레이어가 더 있는 것 처럼 보인다. (Virtual Thread Scheduling)
+하지만 이 자체적인 Scheduling 을 통해서 큰 차이가 발생한다. <strong>기존의 Thread 는 Blocking 이 발생하면 그냥 기다려야</strong> 했는데,
+<strong>Virtual Thread는 Blocking 이 발생하면 내부의 Scheduling 을 통해서 실제 작업을 처리하는 Carrier Thread는 다른 Virtual Thread의 작업을 처리하면 된다.</strong>
+따라서 Non-Blocking 이 누리는 장점을 동일하게 누릴 수 있다. 이를 도식화 하면 다음과 같다.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/java/virtual-thread/virtual-thread-mount-and-unmount.png" alt="Virtual Thread Scheduling"  />
+    
+</figure>
+<p>다만 위와 같은 구조는 Virtual Thread가 수십~수백만까지 늘어날 수 있기 때문에 전통적인 Thread와 동일한 메모리 비용, 컨텍스트 비용이 발생하면 감당하기 어렵다.
+따라서 내부적으로는 전통적인 Thread와 Virtual Thread는 자원 사용량의 차이가 있다.</p>
+<h3 id="사용하는-자원의-차이">사용하는 자원의 차이</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Platform Thread</th>
+<th>Virtual Thread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metadata size</td>
+<td>약 2kb(OS별로 차이있음)</td>
+<td>200~300 B</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>미리 할당된 Stack 사용</td>
+<td>필요시 마다 Heap 사용</td>
+</tr>
+<tr>
+<td>컨텍스트 스위칭 비용</td>
+<td>1~10us (커널영역에서 발생하는 작업)</td>
+<td>ns (or 1us 미만)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="사용법">사용법</h2>
+<p><code>Virtual Thread</code>의 배경과, 목적, 구조에 대해서 알아보았으니 실제 <code>Virtual Thread</code> 를 사용하는 코드를 실행시켜보자.</p>
+<h3 id="준비과정">준비과정</h3>
+<p>아직 JDK 21은 정식 릴리즈 되지 않은 EAP 단계이기 때문에 <a href="https://sdkman.io/">SDKMan</a> 을 사용하여 21 EAP (OpenJDK) 를 설치한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sdk install java 21.ea.18-open
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Downloading: java 21.ea.18-open
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>In progress...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">################################################################################################ 100.0%</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Repackaging Java 21.ea.18-open...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Done repackaging...
+</span></span><span style="display:flex;"><span>Cleaning up residual files...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Installing: java 21.ea.18-open
+</span></span><span style="display:flex;"><span>Done installing!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Setting java 21.ea.18-open as default.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ java --version
+</span></span><span style="display:flex;"><span>openjdk 21-ea 2023-09-19
+</span></span><span style="display:flex;"><span>OpenJDK Runtime Environment <span style="color:#ff79c6">(</span>build 21-ea+18-1480<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>OpenJDK 64-Bit Server VM <span style="color:#ff79c6">(</span>build 21-ea+18-1480, mixed mode, sharing<span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p>다음은 <code>Virtual Thread</code> 를 사용하는 코드를 작성해보자. IntelliJ 에서 아직 JDK 21 문법을 지원하지 않아 빌드가 잘 되지 않아 CLI 에서 실행하였다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span><span style="color:#ff79c6">(</span>String<span style="color:#ff79c6">[]</span> args<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 1
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">startVirtualThread</span><span style="color:#ff79c6">(()</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>	        System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Hello Virtual Thread&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">});</span>
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 2
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Runnable runnable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">()</span> <span style="color:#ff79c6">-&gt;</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Hi Virtual Thread&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         Thread virtualThread1 <span style="color:#ff79c6">=</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofVirtual</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">start</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 이름 지정
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">Builder</span> builder <span style="color:#ff79c6">=</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofVirtual</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">name</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;JVM-Thread&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         Thread virtualThread2 <span style="color:#ff79c6">=</span> builder<span style="color:#ff79c6">.</span><span style="color:#50fa7b">start</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java --version
+</span></span><span style="display:flex;"><span>openjdk 21-ea 2023-09-19
+</span></span><span style="display:flex;"><span>OpenJDK Runtime Environment <span style="color:#ff79c6">(</span>build 21-ea+18-1480<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>OpenJDK 64-Bit Server VM <span style="color:#ff79c6">(</span>build 21-ea+18-1480, mixed mode, sharing<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>$ javac Main.java
+</span></span><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>Main.class Main.java
+</span></span><span style="display:flex;"><span>$ java Main
+</span></span><span style="display:flex;"><span>Hello Virtual Thread
+</span></span><span style="display:flex;"><span>Hi Virtual Thread
+</span></span><span style="display:flex;"><span>Hi Virtual Thread
+</span></span></code></pre></div><p>기존의 Thread를 생성하던 문법과 큰 차이가 없이 <code>Virtual Thread</code>를 만들 수 있다는 걸 알수 있다. 이번에는 Executors 를 사용하여 10만개의 <code>Virtual Thread</code>를 만들고
+2초간 대기하도록 한뒤에 전체 실행시간을 측정해보자. Blocking 이 발생하면 다른 <code>Virtual Thread</code>가 실행되기 때문에 제대로 동작한다면 약 2초를 조금 넘기는 시간 안에 완료되어야 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span><span style="color:#ff79c6">(</span>String<span style="color:#ff79c6">[]</span> args<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">while</span> <span style="color:#ff79c6">(</span><span style="color:#ff79c6">true</span><span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> start <span style="color:#ff79c6">=</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentTimeMillis</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">try</span> <span style="color:#ff79c6">(</span>var executor <span style="color:#ff79c6">=</span> Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4">// 10만개의 Virtual Thread 실행 
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">;</span> i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">100_000</span><span style="color:#ff79c6">;</span> i<span style="color:#ff79c6">++)</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>                    executor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(()</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>                        Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">sleep</span><span style="color:#ff79c6">(</span>Duration<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofSeconds</span><span style="color:#ff79c6">(</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">));</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span><span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#ff79c6">});</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> end <span style="color:#ff79c6">=</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentTimeMillis</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">((</span>end <span style="color:#ff79c6">-</span> start<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;ms&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p>마찬가지로 cli 에서 실행해보았다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java --version
+</span></span><span style="display:flex;"><span>openjdk 21-ea 2023-09-19
+</span></span><span style="display:flex;"><span>OpenJDK Runtime Environment <span style="color:#ff79c6">(</span>build 21-ea+18-1480<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>OpenJDK 64-Bit Server VM <span style="color:#ff79c6">(</span>build 21-ea+18-1480, mixed mode, sharing<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>$ javac Main.java
+</span></span><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>Main.class Main.java
+</span></span><span style="display:flex;"><span>$ java Main
+</span></span><span style="display:flex;"><span>2550ms
+</span></span><span style="display:flex;"><span>2562ms
+</span></span><span style="display:flex;"><span>2073ms
+</span></span><span style="display:flex;"><span>2089ms
+</span></span><span style="display:flex;"><span>2102ms
+</span></span><span style="display:flex;"><span>2099ms
+</span></span></code></pre></div><p>결과를 보면 알 수 있지만 2초에 가까운 시간이 출력된다. <code>Thread.sleep</code> 에 의해서 Blocking 되었지만 내부 <code>Virtual Thread</code> 스케줄러에 의해서
+다음 <code>Virtual Thread</code>가 실행되기 때문에 전체 처리 시간은 2초에 가깝게 나온다. 이 것을 통해서 Blcoking 코드가 있더라도 <code>Virtual Thread</code>를 사용하면 처리량이 늘어날 수 있다는 것을 예상할 수 있다.</p>
+<h2 id="정리">정리</h2>
+<h3 id="요약">요약</h3>
+<ul>
+<li>높은 처리량을 높이기 위해서 기존에는 Reactive Programming 과 같은 방식을 사용했지만,</li>
+<li><code>Virtual Thread</code> 를 사용하면 Reactive Programming 이 추구하는 Nonblocking을 통한 효율적인 자원 사용이 가능해진다.</li>
+<li><code>Virtual Thread</code> 가 JVM 내부에서 알아서 스케줄링 해주기 때문에 Virtual Thread Pool 을 사용하지 않는다.</li>
+<li>Reactive Programming 보다 가독성 좋은 코드를 유지할 수 있고, 기존 Thread 와 동일하게 동작하므로 디버깅이 용이하다.</li>
+</ul>
+<h3 id="생각해볼-부분">생각해볼 부분</h3>
+<ol>
+<li><code>Virtual Thread</code> 기능이 추가되었다고 해서 기존의 Thread를 사용하지 못하는 것은 아니다.
+<ul>
+<li>기존의 Thread도 사용가능하고, 추가된 <code>Virtual Thread</code> 도 사용가능하다. 서로 대치되는 것이 아니라 공존하는 것이다.</li>
+</ul>
+</li>
+<li><code>Virtual Thread</code> 를 사용하더라도 응답속도가 빨라지지는 않는다. (오히려 약간 느려질 수도). 다만 처리량이 늘어날 수 있다.</li>
+<li>실제 Thread를 직접 다루거나 Executors를 사용하는 코드를 많이 작성하지는 않는다. 오히려 기존의 라이브러리들이 <code>Virtual Thread</code>를 사용할 수 있도록 개선될 것같다.</li>
+<li>Reactive Programming 과 같이 높은 처리량을 필요로하는 부분들은 <code>Virtual Thread</code>를 사용하는 방식으로 전환될 수도 있을것 같다.</li>
+</ol>
+<h3 id="소감">소감</h3>
+<p><code>Virtual Thread</code> 를 알아보면서 JDK 21 버전이 기대되기 시작했다. 더욱이 <strong>JDK 21</strong> 버전이 <strong>LTS</strong> (Long Term Support)로 출시되기 때문에
+새로운 프로젝트들은 JDK 21 을 기반으로 시작한다면 <code>Virtual Thread</code>의 이점을 적용할 수 있을 것이다. 그리고 기존 프로젝트들도 높은 처리량(throughput)을 필요로 하는 경우에
+JDK 버전업을 고려해볼만 하다고 생각된다.</p>
+<p>자료를 정리하면서 <strong>Project Loom</strong> 에서 <code>Virtual Thread</code> 기능을 구현하기까지 5년 넘게 개발했다는 것을 알게되었다. 기존의 Thread 사용성을 해치지 않으면서도
+단점만을 개선한 <code>Virtual Thread</code> 를 내놓기 까지 얼마나 많은 고민을 했을까 생각해았다. 쉽지 않은 일이었을텐데 결국 이렇게 JDK 21에 포함되는 기능을 내놓은 것이 대단하다고 느껴졌다.</p>
+<p>내용이 길어져 다음 글에서 실제 Spring Boot 에 <code>Virtual Thread</code> 적용한뒤 실제로 기존 Thread Pool 방식과 비교하여 처리량이 늘어나는지, 그리고 <code>Virtual Thread</code>를 사용할 때 주의해야할 점에 대해서 추가 내용을 정리해보겠다.</p>
+<h3 id="참고-자료">참고 자료</h3>
+<ul>
+<li><a href="https://openjdk.org/jeps/444">https://openjdk.org/jeps/444</a></li>
+<li><a href="https://spring.io/blog/2022/10/11/embracing-virtual-threads">https://spring.io/blog/2022/10/11/embracing-virtual-threads</a></li>
+<li><a href="https://www.infoq.com/articles/java-virtual-threads/">https://www.infoq.com/articles/java-virtual-threads/</a></li>
+<li><a href="https://dev.to/jorgetovar/virtual-threads-in-java-23mf">https://dev.to/jorgetovar/virtual-threads-in-java-23mf</a></li>
+<li><a href="https://howtodoinjava.com/java/multi-threading/virtual-threads/">https://howtodoinjava.com/java/multi-threading/virtual-threads/</a></li>
+<li><a href="https://www.infoq.com/news/2023/04/virtual-threads-arrives-jdk21/">https://www.infoq.com/news/2023/04/virtual-threads-arrives-jdk21/</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/" data-toggle="tooltip" data-placement="top" title="쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine-linux">
+                        alpine-linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible-tower">
+                        ansible-tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
+                        beautiful-goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining-docker">
+                        begining-docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blockhound" title="blockhound">
+                        blockhound
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blocking-code" title="blocking-code">
+                        blocking-code
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew-cask">
+                        brew-cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build-cache">
+                        build-cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/database" title="database">
+                        database
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker-desktop">
+                        docker-desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos-attack">
+                        dos-attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty-string">
+                        empty-string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/environment-to-do-well" title="environment-to-do-well">
+                        environment-to-do-well
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event-driven">
+                        event-driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file-upload">
+                        file-upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded-option">
+                        forwarded-option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful-deploy">
+                        graceful-deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy-new-year">
+                        happy-new-year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
+                        haproxy-1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
+                        haproxy-acl-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
+                        haproxy-custom-variable-logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy-metric">
+                        haproxy-metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
+                        haproxy-reload-fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy-stat">
+                        haproxy-stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap-memory">
+                        heap-memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how-do-i-work">
+                        how-do-i-work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index-alias">
+                        index-alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance-type">
+                        instance-type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted-index">
+                        inverted-index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jdk-21" title="jdk-21">
+                        jdk-21
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
+                        jekyll-to-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s-api" title="k8s-api">
+                        k8s-api
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/leadership" title="leadership">
+                        leadership
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning-in-2019">
+                        learning-in-2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="lets-encrypt">
+                        lets-encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
+                        m1-macbook-pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
+                        macro-key-mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
+                        microservice-설계-및-구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi-datasource">
+                        multi-datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx-ingress">
+                        nginx-ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx-regexp">
+                        nginx-regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial-matching">
+                        partial-matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query-dsl">
+                        query-dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate-limit">
+                        rate-limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate-litmiting">
+                        rate-litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss-template">
+                        rss-template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless-reload">
+                        seamless-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search-on-hugo">
+                        search-on-hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/service-account-role" title="service-account-role">
+                        service-account-role
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar-search">
+                        sidebar-search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed-up">
+                        speed-up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring-boot">
+                        spring-boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring-event">
+                        spring-event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system-manager">
+                        system-manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd-reload">
+                        systemd-reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/throughput" title="throughput">
+                        throughput
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic-management">
+                        traffic-management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ulid" title="ulid">
+                        ulid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused-plugins">
+                        unused-plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/uuid" title="uuid">
+                        uuid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux-consideration">
+                        ux-consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/virtual-thread" title="virtual-thread">
+                        virtual-thread
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm-options">
+                        vm-options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/webflux" title="webflux">
+                        webflux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero-downtime">
+                        zero-downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
+                        만들면서-배우는-클린-아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
+                        시작하세요-도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
+                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
+                        쿠버네티스-시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-10324076-5', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content in java on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 10 Jul 2022 13:23:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Apr 2023 19:30:00 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Virtual Thread란 무엇일까? (1)</title>
+      <link>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</link>
+      <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</guid>
+      <description>2023년 9월 릴리즈 예정인 JDK 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다.</description>
+    </item>
+    
     <item>
       <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
       <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>

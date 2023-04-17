@@ -200,6 +200,50 @@
             
 
 <div class="post-preview">
+    <a href="https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/">
+        <h2 class="post-title">
+            Fluentd 를 로컬에서 테스트 해보는 방법
+        </h2>
+        
+
+        <span class="post-list-summary">
+            <p><h1 id="1월-02일-화-til">1월 02일 (화) TIL</h1>
+<ul>
+<li><a href="https://www.fluentd.org/">Fluentd</a></li>
+</ul>
+<p>fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.
+<code>/etc/td-agent/td-agent.conf</code> 가 다음과 같을 때:</p>
+<pre tabindex="0"><code>&lt;source&gt;
+.....
+.....
+.....
+&lt;/source&gt;
+
+# 결과 값에 hostname 을 추가로 덧붙임.
+&lt;filter accesslog&gt;
+  @type record_transformer
+  &lt;record&gt;
+    source &#34;#{Socket.gethostname}&#34;
+    path ${record[&#34;host&#34;]}
+  &lt;/record&gt;
+&lt;/filter&gt;
+
+# Local 에서 테스트 해볼 때 사용할 수 있는 match
+&lt;match accesslogs&gt;
+ type stdout
+&lt;/match&gt;
+</code></pre></p>
+        </span>
+        <p class="post-meta">
+        2018-01-02
+        
+        
+        </p>
+    </a>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="https://findstar.pe.kr/2017/01/03/itermocil/">
         <h2 class="post-title">
             itermocil을 사용해서 다수의 서버에 SSH 접속하기
@@ -325,6 +369,14 @@
         
         
             
+            <a href="https://findstar.pe.kr/tags/java/">java</a>
+            
+            <a href="https://findstar.pe.kr/tags/jdk-21/">jdk 21</a>
+            
+            <a href="https://findstar.pe.kr/tags/throughput/">throughput</a>
+            
+            <a href="https://findstar.pe.kr/tags/virtual-thread/">virtual thread</a>
+            
             <a href="https://findstar.pe.kr/tags/k8s/">k8s</a>
             
             <a href="https://findstar.pe.kr/tags/k8s-api/">k8s api</a>
@@ -336,14 +388,6 @@
             <a href="https://findstar.pe.kr/tags/blockhound/">blockhound</a>
             
             <a href="https://findstar.pe.kr/tags/blocking-code/">blocking code</a>
-            
-            <a href="https://findstar.pe.kr/tags/webflux/">webflux</a>
-            
-            <a href="https://findstar.pe.kr/tags/environment-to-do-well/">environment to do well</a>
-            
-            <a href="https://findstar.pe.kr/tags/leadership/">leadership</a>
-            
-            <a href="https://findstar.pe.kr/tags/architecture/">architecture</a>
             
         
 

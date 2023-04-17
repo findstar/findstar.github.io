@@ -6,7 +6,43 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 06 Apr 2023 21:03:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Apr 2023 19:30:00 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java</title>
+      <link>https://findstar.pe.kr/tags/java/</link>
+      <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdk 21</title>
+      <link>https://findstar.pe.kr/tags/jdk-21/</link>
+      <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/jdk-21/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>throughput</title>
+      <link>https://findstar.pe.kr/tags/throughput/</link>
+      <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/throughput/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtual thread</title>
+      <link>https://findstar.pe.kr/tags/virtual-thread/</link>
+      <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/tags/virtual-thread/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>k8s</title>
       <link>https://findstar.pe.kr/tags/k8s/</link>
@@ -220,15 +256,6 @@
       <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/tags/heap-memory/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>java</title>
-      <link>https://findstar.pe.kr/tags/java/</link>
-      <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/java/</guid>
       <description></description>
     </item>
     
