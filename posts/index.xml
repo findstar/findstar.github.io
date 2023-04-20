@@ -13,7 +13,7 @@
       <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
       
       <guid>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</guid>
-      <description>2023년 9월 릴리즈 예정인 JDK 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다.</description>
+      <description>2023년 9월 릴리즈 예정인 Java 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다.</description>
     </item>
     
     <item>
