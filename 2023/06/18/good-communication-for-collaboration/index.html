@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="title" content="ArgoCD 설치" />
+<meta name="title" content="협업을 위한 &#39;좋은 커뮤니케이션&#39;" />
 
 
 <meta name="description" content="Software Developer, I love code.">
@@ -15,32 +15,33 @@
 <meta property="og:site_name" content="Soo Story">
 <meta property="og:type" content="article">
 
-<meta property="og:image" content="https://findstar.pe.kr/images/posts/argocd/argocd-logo.png">
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/communication/communication-on-messenger.jpg">
 
 
-<meta property="og:title" content="ArgoCD 설치" />
+<meta property="og:title" content="협업을 위한 &#39;좋은 커뮤니케이션&#39;" />
 
 
 <meta property="og:description" content="Software Developer, I love code." />
 
 
-<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/argocd/argocd-logo.png" />
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/communication/communication-on-messenger.jpg" />
 
 
-<meta property="twitter:title" content="ArgoCD 설치" />
+<meta property="twitter:title" content="협업을 위한 &#39;좋은 커뮤니케이션&#39;" />
 
 
 <meta property="twitter:description" content="Software Developer, I love code." />
 
 
-<meta property="twitter:card" content="k8s 클러스터를 운영하면서 애플리케이션을 배포하는 방법은 각각의 상황에 따라 다양하게 존재한다. 많은 배포 방식중에서 ArgoCD에 대해서 알아보고 설치 방법을 정리해보았다." />
+<meta property="twitter:card" content="일을 잘하기 위해서, 협업을 잘하기 위해서 갖추어야 할 역량 중에 좋은 커뮤니케이션을 빼놓을 수 없다. 그렇다면 좋은 커뮤니케이션이란 무엇일까? 생각을 정리해보았다." />
 
 
-<meta property="article:title" content="ArgoCD 설치" />
+<meta property="article:title" content="협업을 위한 &#39;좋은 커뮤니케이션&#39;" />
 
 
 
-<meta property="article:tag" content="argocd" />
+<meta property="article:tag" content="communication" />
+<meta property="article:tag" content="collaboration" />
 
 
 <link rel="shortcut icon" href="/favicon.ico">
@@ -66,8 +67,8 @@
 <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
 <link rel="shortcut icon" href="/img/favicon.ico">
-<title>ArgoCD 설치 - Soo Story</title>
-<link rel="canonical" href="/2023/06/04/argocd-installation/">
+<title>협업을 위한 &#39;좋은 커뮤니케이션&#39; - Soo Story</title>
+<link rel="canonical" href="/2023/06/18/good-communication-for-collaboration/">
 <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 
 <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -181,15 +182,19 @@
                     <div class="tags">
                         <i class="fa fa-tags" title="태그"></i>
                         
-                        <a class="tag" href="/tags/argocd" title="argocd">
-                        argocd
+                        <a class="tag" href="/tags/communication" title="communication">
+                        communication
+                        </a>
+                        
+                        <a class="tag" href="/tags/collaboration" title="collaboration">
+                        collaboration
                         </a>
                         
                     </div>
-                    <h1>ArgoCD 설치</h1>
+                    <h1>협업을 위한 &#39;좋은 커뮤니케이션&#39;</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        2023-06-04
+                        2023-06-18
                         
                         
                         
@@ -221,11 +226,11 @@
                         </summary>
                         <nav id="TableOfContents">
   <ul>
-    <li><a href="#argocd">ArgoCD</a>
+    <li><a href="#협업을-위한-좋은-커뮤니케이션-능력">&lsquo;협업을 위한&rsquo; 좋은 커뮤니케이션 능력</a>
       <ul>
-        <li><a href="#설치-방법">설치 방법</a></li>
+        <li><a href="#왜-좋은-커뮤니케이션-능력이-필요할까">왜 좋은 커뮤니케이션 능력이 필요할까?</a></li>
+        <li><a href="#좋은-커뮤니케이션이란">좋은 커뮤니케이션이란?</a></li>
         <li><a href="#정리">정리</a></li>
-        <li><a href="#참고자료">참고자료</a></li>
       </ul>
     </li>
   </ul>
@@ -233,247 +238,82 @@
                     </details>
                 </div>
                 
-                <h1 id="argocd">ArgoCD</h1>
-<p>최근 K8S 클러스터를 정비할 일이 있어서 새롭게 구성을 마치고 배포를 위해서 ArgoCD를 재설치 해보았다.</p>
-<p>ArgoCD는 <strong>GitOps</strong>를 기반으로 하는 CD 도구로, k8s 애플리케이션의 CD(지속적인 배포)를 지원한다.</p>
-<blockquote>
-<p>GitOps라는 건 ArgoCD가 Git Repository와 연동하여 애플리케이션 배포를 자동화하고, 롤백과 같은 작업을 수행한다는 걸 의미한다.
-따라서 애플리케이션이 빌드되고 컨테이너 이미지가 생성되는 과정에서 Git Manifest의 내용을 수정하면 K8S 클러스터에 자동으로 애플리케이션이 배포된다.</p>
-</blockquote>
-<p>도식화 하면 다음과 같은 순서가 된다.</p>
+                <h1 id="협업을-위한-좋은-커뮤니케이션-능력">&lsquo;협업을 위한&rsquo; 좋은 커뮤니케이션 능력</h1>
+<p>흔히 회사에서 업무를 수행하는데 있어서 갖추어야할 필수 역량의 하나로 &lsquo;<strong>커뮤니케이션 능력</strong>&lsquo;을 꼽는다.
+소프트웨어 엔지니어로 일하면서, 애플리케이션을 작성하는 코딩 스킬, 문제 해결능력과 더불어 협업에 꼭 필요한 역량이라고 생각한다.
+그런데, 이렇게 업무를 수행하기 위한 &lsquo;<strong>협업</strong>&rsquo; 과정에서 필요한 &lsquo;<strong>좋은 커뮤니케이션</strong>&lsquo;이란 무엇일까? 몇가지 생각들을 정리해보았다.</p>
+<h2 id="왜-좋은-커뮤니케이션-능력이-필요할까">왜 좋은 커뮤니케이션 능력이 필요할까?</h2>
+<p>좋은 커뮤니케이션 능력을 갖추고 있다면 <code>협업</code>이 수월해진다. 동료와 소통하여 공통의 목표를 위해서 일하는 과정에서
+자신의 의도를 이야기하고, 문제상황을 전달하는 과정에서 가장 많이 일어나는 일이 바로 커뮤니케이션이기 때문에, 커뮤니케이션의 효율이 좋으면 좋을 수록 시간과 에너지가 절약된다.
+요약하자면 &lsquo;<strong>좋은 커뮤니케이션 역량</strong>&lsquo;을 가지고 있을 수록 <strong>커뮤니케이션에 들어가는 시간과 에너지가 줄어들어 협업이 수월</strong>해진다.</p>
+<h2 id="좋은-커뮤니케이션이란">좋은 커뮤니케이션이란?</h2>
+<p>그렇다면 좋은 커뮤니케이션이란 무엇일까? 커뮤니케이션을 대화라고 정의하면 말을 유창하게 하는 것이 좋은 커뮤니케이션일까? 요즘은 말보다는 업무 메신저 (슬랙, 잔디, 카카오톡(?))으로 이야기 하는 경우가 많은데,
+메세지를 작성을 잘 해야한다는 것일까? 간단하게 세 가지를 꼽아보았다.</p>
+<p>먼저 첫 번째로 상대방의 시간과 에너지를 아껴줄 수 있는 커뮤니케이션이 협업을 위한 좋은 커뮤니케이션이라고 생각한다.</p>
+<h3 id="1-상대방의-시간을-아껴주는-커뮤니케이션">1. 상대방의 시간을 아껴주는 커뮤니케이션</h3>
+<p>상대방의 시간을 아껴주는 커뮤니케이션이란, 커뮤니케이션의 목적을 명확히 하여 상대방이 <strong>&lsquo;기다리는&rsquo;</strong> 시간을 줄여주는 커뮤니케이션을 말한다. 흔히 업무 메신저와 같은 협업툴을 사용할 때가 많은데 이런 경우 효과를 발휘한다.
+다음의 예시를 살펴보자</p>
 <figure class="full-width caption "  >
-    <img src="/images/posts/argocd/argocd-diagram.png" alt="ArgoCD 도식화"  />
+    <img src="/images/posts/communication/communication-bad-case1.png" alt="의식하지 않은 상태의 커뮤니케이션"  />
     
 </figure>
-<ul>
-<li>쉽게 말해서 ArgoCD 는 K8S 클러스터를 위한 <strong>애플리케이션 배포 도구</strong>이고 <strong>Gitops</strong> 방식으로 배포한다는 특징을 가지고 있다.</li>
-</ul>
-<p>K8S를 운영하면 애플리케이션을 어떻게 배포할지는 사실 케이스별로 각각 다른 도구를 사용할 수도 있다. 각각의 상황에 따라 사용 가능한 도구가 제한될 수도 있다. (사내 도구를 사용해야한다던가, 이미 운영중인 도구가 있을 수도 있다.)
-그만큼 다양한 배포 방식이 존재하고, 다양한 도구들이 있기 때문에 어느 것이 더 좋다고 말하기는 어렵다. 나의 경우에는 <strong>ArgoCD</strong>를 가장 익숙하게 사용하고 있다.</p>
-<h2 id="설치-방법">설치 방법</h2>
-<h3 id="준비사항">준비사항</h3>
-<ul>
-<li>
-<p>먼저 ArgoCD가 설치될 K8S 클러스터를 준비한다.</p>
-<ul>
-<li>나의 경우에는 ArgoCD가 설치되어 동작할 별도의 K8S 클러스터를 준비했다.</li>
-<li>그 이유는 ArgoCD의 동작이 실제 Production 애플리케이션이 구동되는 클러스터에 영향을 주지 않도록 하고 싶었기 때문이다.</li>
-<li>참고로 애플리케이션은 dev, cbt, prod 를 위한 클러스터가 독립적으로 존재했다.</li>
-</ul>
-</li>
-<li>
-<p>ArgoCD 설치 가이드 확인</p>
-<ul>
-<li>설치 시점에 2.6을 사용했다. (그 사이 2.7이 릴리즈 되었다.)</li>
-<li><a href="https://argo-cd.readthedocs.io/en/release-2.6/getting_started/">https://argo-cd.readthedocs.io/en/release-2.6/getting_started/</a></li>
-</ul>
-</li>
-<li>
-<p>ArgoCD CLI 설치</p>
-<ul>
-<li>설치도중 사용할 CLI 명령어를 준비한다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install argocd
-</span></span></code></pre></div></li>
-</ul>
-<h3 id="설치-순서">설치 순서</h3>
-<ol>
-<li>
-<p>공식 가이드 문서를 참고하여 클러스터에 ArgoCD를 설치한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create namespace argocd
-</span></span><span style="display:flex;"><span>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-</span></span></code></pre></div></li>
-<li>
-<p>도메인부여</p>
-<ul>
-<li>각각 환경이 달라서 세부 설정은 생략한다.</li>
-<li>다만 Ingress 를 설정하여 http 접근으로 ArgoCD에 접근가능하게 하였다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.k8s.io/v1
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Ingress
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
-</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">name</span>: argocd-server-http-ingress
-</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">namespace</span>: argocd
-</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">annotations</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">kubernetes.io/ingress.class</span>: <span style="color:#f1fa8c">&#34;nginx&#34;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">nginx.ingress.kubernetes.io/force-ssl-redirect</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">nginx.ingress.kubernetes.io/backend-protocol</span>: <span style="color:#f1fa8c">&#34;https&#34;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">nginx.ingress.kubernetes.io/ssl-passthrough</span>: <span style="color:#f1fa8c">&#34;true&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
-</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">rules</span>:
-</span></span><span style="display:flex;"><span> - <span style="color:#ff79c6">http</span>:
-</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">paths</span>:
-</span></span><span style="display:flex;"><span>     - <span style="color:#ff79c6">path</span>: /
-</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">pathType</span>: Prefix
-</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">backend</span>:
-</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">service</span>:
-</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">name</span>: argocd-server
-</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">port</span>:
-</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">name</span>: http
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">host</span>: my-argocd.my-domain.com
-</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">tls</span>:
-</span></span><span style="display:flex;"><span> - <span style="color:#ff79c6">hosts</span>:
-</span></span><span style="display:flex;"><span>   - <span style="color:#f1fa8c">&#39;my-argocd.my-domain.com&#39;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">secretName</span>: my-domain-secret
-</span></span></code></pre></div></li>
-<li>
-<p>접속확인</p>
-<ul>
-<li>Ingress 에서 설정한 &ldquo;my-argocd.my-domain.com&rdquo; 으로 접속해본다.</li>
-<li>로그인 창이 표시되면 정상적으로 설치된 것이다.</li>
-<li>기본 계정은 <code>admin</code> 이고 패스워드가 필요한데, 패스워드는 ArgoCD가 설치될 때 임의의 값으로 생성된다.</li>
-<li>ArgoCD가 생성한 임의의 패스워드를 확인하기 위해서 다음과 같이 명령어를 입력해서 확인한다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl -n argocd get secret argocd-initial-admin-secret -o <span style="color:#8be9fd;font-style:italic">jsonpath</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">``</span><span style="color:#f1fa8c">&#34;{.data.password}&#34;</span> | base64 -d; <span style="color:#8be9fd;font-style:italic">echo</span>
-</span></span></code></pre></div><figure class="full-width caption "  >
-       <img src="/images/posts/argocd/argocd-login.png" alt="ArgoCD 로그인"  />
-       
-   </figure>
-</li>
-<li>
-<p>Github 연결 (optional)</p>
-<ul>
-<li>admin 사용자로 ArgoCD를 사용할 수 있지만, 팀에서 운영한다면 개별 계정을 사용해서 접근하는 것이 권한관리도 쉽고 관리 이력상 좋다.</li>
-<li>계정연동 방법은 여러방법이 있지만, 개발자라면 모두 Github 계정은 있을테니 Github 과 연동해서 로그인해보도록 설정해보았다.</li>
-<li>신규 OAuth App 등록
-<ul>
-<li>&ldquo;<a href="https://github.com/organizations/%7Bmy-org%7D/settings/applications%22">https://github.com/organizations/{my-org}/settings/applications&quot;</a> 에 접속하여 새로운 OAuth 앱을 생성하자</li>
-<li>생성한 OAuth App 의 ClientId, ClientSecret 를 복사해놓는다.</li>
-</ul>
-</li>
-<li>ArgoCD ConfigMap 등록
-<ul>
-<li>다음과 같이 ArgoCD가 설치된 클러스터에 ConfigMap 을 등록한다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: ConfigMap
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">annotations</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">labels</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app.kubernetes.io/name</span>: argocd-cm
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">app.kubernetes.io/part-of</span>: argocd
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: argocd-cm
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">namespace</span>: argocd
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">data</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">url</span>: https://my-argocd.my-domain.com
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">dex.config</span>: |<span style="color:#f1fa8c">
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">    connectors:
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">      - type: github
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        id: github
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        name: github
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">        config:
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">          hostName: github.com
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">          clientId: &#34;깃헙에서 복사한 client Id&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">          clientSecret: &#34;깃헙에서 복사한 client secret&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">          orgs:
-</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">            - name: &#34;github organization&#34;</span>    
-</span></span></code></pre></div></li>
-<li>Rbac ConfigMap 등록
-<ul>
-<li>rbac 를 위한 ConfigMap 도 등록한다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: ConfigMap
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: argocd-rbac-cm
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">namespace</span>: argocd
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">data</span>:
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">policy.default</span>: role:admin
-</span></span></code></pre></div></li>
-<li>이제 다시 ArgoCD 웹 UI에 접속하면 Github 계정을 사용해서 로그인 할 수 있다.</li>
-<li><figure class="full-width caption "  >
-    <img src="/images/posts/argocd/argocd-login-with-github.png" alt="ArgoCD Github 로그인"  />
-    
-</figure></li>
-</ul>
-</li>
-<li>
-<p>Gitops Manifest Repo 연결</p>
-<ul>
-<li>ArgoCD에서 변경을 감지하고 K8S 클러스터의 형상을 동기화할 Gitops Manifest Repo를 연결한다.</li>
-<li><figure class="full-width caption "  >
-    <img src="/images/posts/argocd/argocd-repo-setting.png" alt="ArgoCD Repo Setting"  />
-    
-</figure></li>
-</ul>
-</li>
-<li>
-<p>타겟 K8S 클러스터 등록</p>
-<ul>
-<li>ArgoCD 가 애플리케이션을 배포할 대상이 되는 Target K8S Cluster 를 등록해야한다.</li>
-<li>이 과정은 Web UI에서 불가능하기 때문에 앞서 준비과정에서 설치한 ArgoCD CLI를 사용한다.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>argocd login my-argocd.my-domain.com --username admin <span style="color:#ff79c6">(</span>패스워드입력필요<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>argocd cluster add my-prod-target-cluster-context
-</span></span></code></pre></div><ul>
-<li>context 를 추가하는 부분에서 알 수 있듯이 cli 를 실행하는 시점에 context 정보가 로컬에 있어야 한다</li>
-</ul>
-</li>
-<li>
-<p>프로젝트 등록</p>
-<ul>
-<li>이제 프로젝트를 등록해야한다.</li>
-<li>프로젝트는 일종의 애플리케이션의 그룹을 지정한다고 이해하면 된다.</li>
-</ul>
-</li>
-<li>
-<p>애플리케이션 등록</p>
-<ul>
-<li>마지막으로 애플리케이션을 등록해보자. 입력할 항목이 많은데 다음의 부분만 입력하면 된다.
-<ul>
-<li>GENERAL - Application Name (애플리케이션 이름)</li>
-<li>GENERAL - Project Name (소속될 프로젝트 이름)</li>
-<li>GENERAL - SYNC POLICY (Gitops Repo 에 변경이 일어 났을 시 자동으로 클러스터에 동기화 할것인지, 수동으로 할것인지 결정)</li>
-<li>SOURCE - Repository URL (Gitops Repo 선택)</li>
-<li>SOURCE - Path (애플리케이션이 참조할 YAML Path 선택)</li>
-<li>DESTINATION - Cluster URL (클러스터 등록이 잘되었다면 대상 K8S 클러스터의 Master Node 주소가 나온다.)</li>
-<li>DESTINATION - Namespace (애플리케이션을 배포할 네임스페이스 지정)</li>
-</ul>
-</li>
-<li>나머지 부분은 그대로 두고 등록하면 된다.</li>
-</ul>
-</li>
-</ol>
-<h3 id="동기화가-진행된-애플리케이션-샘플">동기화가 진행된 애플리케이션 샘플</h3>
-<p>동기화가 진행되면 다음과 같이 애플리케이션의 상태를 확인할 수 있다.
+<p>얼핏보기에는 별다른 문제가 없어보인다. 하지만, 자세히 보면 상대방에게 용건을 전달하는데 까지 여러번 메세지를 전달했다는 것을 알 수 있다. 좀 더 직관적으로 알수 있도록 <strong>시간을 추가</strong>해보면 다음과 같다.</p>
 <figure class="full-width caption "  >
-    <img src="/images/posts/argocd/argocd-app-detail.png" alt="ArgoCD Application Sample"  />
+    <img src="/images/posts/communication/communication-bad-case2.png" alt="목적을 전달하기 까지 시간이 오래걸리는 커뮤니케이션"  />
     
-</figure></p>
-<p>이제 컨테이너 이미지를 빌드하고 Gitops Repo 에 변경사항을 업데이트 하면 ArgoCD가 자동으로 클러스터에 애플리케이션을 배포해준다.</p>
-<h3 id="기타">기타</h3>
-<ul>
-<li>ArgoCD는 자체적으로 대상 Gitops Repo를 감시하다가, 변경사항이 있다면 확인하여 클러스터에 적용한다.</li>
-<li>하지만 이 과정은 Gitops repo 가 변경되는 즉시 적용되지 않고 약간의 시간텀이 필요하다.</li>
-<li>따라서 좀 더 빠른 배포를 위해서 Github 에 Webhook 을 전달하는 방법을 고려할 수 있다.</li>
-</ul>
-<ul>
-<li>Github Organization 에 Webhook 등록
-<ul>
-<li>Github Org 셋팅 페이지 - &ldquo;<a href="https://github.com/organizations/%7Bmy-org%7D/settings/hooks%22">https://github.com/organizations/{my-org}/settings/hooks&quot;</a> 에서 Webhook 등록</li>
-<li>다음과 같이 Webhook 을 등록한다. 등록 주소는 &ldquo;<a href="https://my-argocd.my-domain.com/api/webhook%22">https://my-argocd.my-domain.com/api/webhook&quot;</a> 의 형식이된다.</li>
-<li><figure class="full-width caption "  >
-    <img src="/images/posts/argocd/argocd-github-webhook.png" alt="ArgoCD Github Webhook"  />
+</figure>
+<p>이제 문제점을 명확하게 확인할 수 있다. 위의 경우에는 &lsquo;커뮤니케이션의 목적&rsquo;을 전달하는데 까지 무려 1시간 20여분이 소요된다. 따라서 상대방과 나의 시간이 낭비된다.</p>
+<p>만약 도중에 점심시간이라도 있게되면, 아침에 시작한 &lsquo;커뮤니케이션&rsquo;은 점심시간이 지나서야 목적을 전달할 수 있게 된다.</p>
+<p>이런 커뮤니케이션 방식보다는 &lsquo;두괄식&rsquo;으로 용건을 전달하는 방법을 사용하면 상대방과 나의 시간을 아껴줄 수 있다. 두괄식을 사용하면 &lsquo;커뮤니케이션의 목적&rsquo;을 처음부터 명확하게 전달할 수 있다.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/communication/communication-good-case1.png" alt="두괄식 커뮤니케이션"  />
     
-</figure></li>
-<li>이렇게 하면 ArgoCD가 좀 더 빠르게 반응한다.</li>
+</figure>
+<p>메신저나, 사내 업무툴은 비동기로 업무를 수행할 수 있게 해주는 장점이 있다. 다만 커뮤니케이션 방식을 의식하지 않으면 일상생활에서 사용하듯이 진행되버리고, <strong>상대와 나의 시간을 소모하는 결과</strong>를 가져온다.
+아주 사소한 내용이지만, 의식적으로 &lsquo;<strong>목적을 명확히 앞부분에 전달</strong>&lsquo;하는 <code>두괄식</code> 커뮤니케이션을 진행하는 것이 좋다.</p>
+<blockquote>
+<p>상대방과 커뮤니케이션할 때 &lsquo;목적&rsquo;을 제일 앞부분에 전달하자.</p>
+</blockquote>
+<h3 id="2-상대방의-에너지를-아껴주는-커뮤니케이션">2. 상대방의 에너지를 아껴주는 커뮤니케이션</h3>
+<p>두 번째로는 상대방의 에너지를 아껴주는 커뮤니케이션을 생각해 볼 수 있다. &lsquo;두괄식&rsquo;으로 목적을 명확하게 전달하더라도 &lsquo;커뮤니케이션 효율이&rsquo; 낮은 경우가 발생할 수 있다.</p>
+<p>상대방이 목적을 분명하게 이해했음에도 추가적인 정보가 필요한 경우가 있기 때문이다. 대부분 &lsquo;<strong>맥락</strong>&lsquo;이 생략된 상태로 커뮤니케이션하는 경우로 볼 수 있다. 다음의 예시를 살펴보자.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/communication/communication-bad-case3.png" alt="맥락 전달이 부족한 커뮤니케이션"  />
+    
+</figure>
+<p>도움을 필요로 하는 입장에 빌드 에러를 해결해달라고 요청하는 커뮤니케이션을 시작하였지만, 상황에 대한 구체적인 &lsquo;맥락&rsquo;이 생략되어 있기 때문에 상대방인 &lsquo;B&rsquo;는 적절한 대응을 하기가 어렵다.
+이 때문에 추가적으로 상황에 대한 자세한 확인과정이 필요하고 그만큼 에너지를 소모할 수 밖에 없다. 따라서 이 경우에는 다음과 같이 &lsquo;맥락&rsquo;을 포함하여 커뮤니케이션 하는 것이 좋다.</p>
+<figure class="full-width caption "  >
+    <img src="/images/posts/communication/communication-good-case2.png" alt="맥락을 잘 전달한 커뮤니케이션"  />
+    
+</figure>
+<p>이런 방식을 <code>저맥락(low context)</code> 커뮤니케이션이라고 한다. 한국어는 특성상 &lsquo;고맥락(high context)&rsquo; 문화를 표현하기 좋기 때문에 명시적이지 않아도 상황에 따라서
+상대방이 대화를 이해하는데 문제없는 경우가 많다. 그러나, 업무를 처리하는데 있어서는 다양한 이슈를 동시에 처리하는 경우가 많기 때문에 특정 경우의 맥락을 계속 유지하기가 어렵다.</p>
+<p>따라서 &lsquo;명시적&rsquo;이고 &lsquo;배경에 대한 설명&rsquo;을 충분히 추가하여 &lsquo;저맥락&rsquo;으로 커뮤니케이션 하는 것이 좋다.</p>
+<blockquote>
+<p>명시적이고 상황을 충분히 설명한 &lsquo;저맥락&rsquo; 커뮤니케이션을 고민하자.</p>
+</blockquote>
+<ul>
+<li>고맥락, 저맥락에 대해서 자세히 알아보려면 다음의 글을 읽어보자 <a href="https://blog.naver.com/cjylingua/221273733217">링크</a></li>
 </ul>
-</li>
-</ul>
+<h3 id="3-친절하게">3. 친절하게</h3>
+<p>마지막으로 너무도 당연하지만 잊기 쉬운 &lsquo;친절하게&rsquo; 이다. 누구나 자신의 업무가 바쁘고 스트레쓰를 받기 쉽기 때문에 누군가 말을 걸어오거나, 업무를 요청받을 때 날카로워지기 쉽다.</p>
+<p>이건 나 자신의 경우도 똑같기 때문에, 의식적으로 상대방에게 &lsquo;친절하게&rsquo; 대화하려는 노력이 필요하다. 그렇지 않으면 나도모르게 차갑고 대하기 어려운 동료가 되어 있을 수 있다.</p>
+<p>플라톤은 이런말을 했다고 한다.</p>
+<blockquote>
+<p>&ldquo;친절하라. 당신이 만나는 사람들은 다 힘겨운 싸움을 하고 있는 중이다.&rdquo;</p>
+<p>&ldquo;Be kind, everyone you meet is fighting a hard battle.&rdquo;</p>
+</blockquote>
 <h2 id="정리">정리</h2>
-<ol>
-<li>K8S 클러스터를 운영할 때 애플리케이션 배포를 위해서 ArgoCD를 운영할 수 있다.</li>
-<li>ArgoCD는 Prod 클러스터에 영향을 주지 않기 위해서 별도의 클러스터에서 운영하기로 하였다.</li>
-<li>로그인을 쉽게 하기 위해서 Github OAuth 연동을 하였다</li>
-<li>클러스터 추가는 CLI에서만 가능하다.</li>
-<li>애플리케이션을 추가하여 Sync 를 확인한다.</li>
-<li>Gitops repo 가 변경되면 자동으로 클러스터에 애플리케이션 형상이 동기화된다.</li>
-<li>Webhook 을 등록하면 좀 더 빠르게 동기화된다.</li>
-</ol>
-<h2 id="참고자료">참고자료</h2>
 <ul>
-<li><a href="https://argo-cd.readthedocs.io/en/stable/">ArgoCD</a></li>
+<li>&lsquo;목적을 앞부분에 두고 분명하게 표현한&rsquo; - &lsquo;두괄식&rsquo; 커뮤니케이션</li>
+<li>&lsquo;배경과 맥락을 명시적으로 드러낸&rsquo; - &lsquo;저맥락&rsquo; 커뮤니케이션</li>
+<li>그리고 친절하게</li>
 </ul>
+<p>이 세 가지를 잘 기억한다면 협업하는데 있어서 &lsquo;좋은 커뮤니케이션 스킬&rsquo;을 발휘할 수 있다.</p>
+<p>물론 커뮤니케이션 상황은 앞서 예시로 든 경우보다 훨씬 더 다양하고 복잡하며, 상대방이 누구냐에 따라서 또 달라질 수 있다.
+그렇지만 기본적으로 위의 세 가지는 의식적으로 몸에 익혀야 동료와 협업하는 데 있어서 상대방의 시간과, 에너지를 아껴줄 수 있는 커뮤니케이션을 진행할 수 있다고 생각한다.</p>
+<p>비단 소프트웨어 엔지니어링 분야가 아니더라도, 커뮤니케이션 능력은 필수적이다. &lsquo;좋은 커뮤니케이션 역량을 갖추어&rsquo; 동료와의 협업을 원활하게 진행해보자.</p>
 
 
                 
@@ -482,15 +322,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="https://findstar.pe.kr/2023/04/24/spring-camp-2023/" data-toggle="tooltip" data-placement="top" title="Spring Camp 2023 참여 후기">&larr;
+                        <a href="https://findstar.pe.kr/2023/06/04/argocd-installation/" data-toggle="tooltip" data-placement="top" title="ArgoCD 설치">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="https://findstar.pe.kr/2023/06/18/good-communication-for-collaboration/" data-toggle="tooltip" data-placement="top" title="협업을 위한 &#39;좋은 커뮤니케이션&#39;">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
