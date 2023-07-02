@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>benchmark on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/benchmark/</link>
+    <description>Recent content in benchmark on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 02 Jul 2023 19:29:00 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Virtual Thread란 무엇일까? (2)</title>
+      <link>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</link>
+      <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</guid>
+      <description>이전 글에 이어서 Virtual Thread에 대해서 알아보았다. 성능 테스트를 수행해보고, 사용시 주의사항, 그리고 Virtual Thread를 사용하는데 제약사항에 대해서 살펴보았다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,19 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/benchmark/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/java/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/jdk-21/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/throughput/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/virtual-thread/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</loc>
+    <lastmod>2023-07-02T19:29:00+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/collaboration/</loc>
     <lastmod>2023-06-18T15:59:23+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/communication/</loc>
-    <lastmod>2023-06-18T15:59:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2023-06-18T15:59:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2023-06-18T15:59:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2023-06-18T15:59:23+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2023/06/18/good-communication-for-collaboration/</loc>
@@ -25,9 +43,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/2023/06/04/argocd-installation/</loc>
     <lastmod>2023-06-04T19:24:13+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/java/</loc>
-    <lastmod>2023-04-24T00:26:13+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/spring/</loc>
     <lastmod>2023-04-24T00:26:13+09:00</lastmod>
@@ -40,15 +55,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/2023/04/24/spring-camp-2023/</loc>
     <lastmod>2023-04-24T00:26:13+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/jdk-21/</loc>
-    <lastmod>2023-04-17T19:30:00+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/throughput/</loc>
-    <lastmod>2023-04-17T19:30:00+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/virtual-thread/</loc>
-    <lastmod>2023-04-17T19:30:00+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</loc>
     <lastmod>2023-04-17T19:30:00+09:00</lastmod>

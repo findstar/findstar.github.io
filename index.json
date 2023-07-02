@@ -1,15 +1,23 @@
 [
 {
-	"permalink": "https://findstar.pe.kr/tags/collaboration/",
-	"title": "collaboration",
+	"permalink": "https://findstar.pe.kr/tags/benchmark/",
+	"title": "benchmark",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/tags/communication/",
-	"title": "communication",
+	"permalink": "https://findstar.pe.kr/tags/java/",
+	"title": "java",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/jdk-21/",
+	"title": "jdk 21",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -40,6 +48,46 @@
 	"contents": ""
 },
 {
+	"permalink": "https://findstar.pe.kr/tags/throughput/",
+	"title": "throughput",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/virtual-thread/",
+	"title": "virtual thread",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/",
+	"title": "Virtual Thread란 무엇일까? (2)",
+	"tags": ["java", "jdk 21", "virtual thread", "throughput", "benchmark"],
+	"description": "",
+	"type": "post",
+	"contents": "Virtual Thread (2) 이전글 에서 가상스레드에 대한 배경과, 목적, 간단한 사용법에 대해서 알아보았다. 이번에는 자주 사용하는 Spring Boot 애플리케이션에서 가상스레드를 사용하는 방법과 기존 스레드 풀 방식에 비해서 실제로 처리량이 늘어나는지 확인해보았다. 마지막으로 가상 스레드를 사용할 때 주의할 점도 정리해보았다.\n스프링 부트에서 사용하기 먼저 Spring Boot에서 가상 스레드를 적용하는 방법을 살펴보기 전에 몇가지 알아두어야 할 것들이 있다.\n주의사항\n현재 JDK 21 은 정식 릴리즈 전이다. (Early Access) 2023년 7월 현재 JDK 20를 지원하는 Gradle 버전도 8.1.1 막 릴리즈된 상태이다. Gradle 이 JDK 21을 공식 지원할 때까지는 조금 더 시간이 필요하다. Spring Boot 3 부터 JDK 17을 필요로 하고 현재 20까지 호환된다. Spring Boot 3에서 가상스레드 기능을 사용할 수 있게 되었지만 Preview 기능이다. 따라서 Gradle 8.1 이상, Spring Boot 3.0.5 버전 환경에서 가상 스레드를 제대로 확인할 수 있다고 가정하고 테스트를 진행하였다.\n적용방법 생각보다 적용방법은 간단하다. 다음과 같은 가상 스레드 Executor Bean 을 등록해주면 된다. 이 Bean 은 Tomcat이 사용자의 요청(Request)을 처리하기 위해 스레드를 사용할 때 플랫폼 스레드(OS 스레드) 대신 가상 스레드 를 사용하게 한다. // Web Request 를 처리하는 Tomcat 이 Virtual Thread를 사용하여 유입된 요청을 처리하도록 한다. @Bean public TomcatProtocolHandlerCustomizer\u0026lt;?\u0026gt; protocolHandlerVirtualThreadExecutorCustomizer() { return protocolHandler -\u0026gt; { protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor()); }; } // Async Task에 Virtual Thread 사용 @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME) public AsyncTaskExecutor asyncTaskExecutor() { return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor()); } 이렇게만 해주면 기존의 플랫폼 스레드를 사용하지 않고 가상 스레드 를 사용하게 된다.\n그럼 이제 실제로 처리량이 좋아지는지 한번 확인해보자.\n성능 테스트 테스트 환경 Ubuntu 20 Java 21 eap (sdkman) Gradle 8.1.1 build VM 인스턴스 머신 4 Core / 8 GiB memory 별도의 mariadb instance (hikari connection pool 50) Max heap 2G 별도 인스턴스에서 JMeter로 성능 테스트 (Aggregate Report 를 기준으로 수치 확인) @GetMapping(\u0026#34;/\u0026#34;) public String getOk() throws InterruptedException { // Thread sleep 1초 Thread.sleep(1000); return \u0026#34;OK\u0026#34;; } @GetMapping(\u0026#34;/thread-name\u0026#34;) public String getThreadName() { return Thread.currentThread().toString(); } @GetMapping(\u0026#34;/query\u0026#34;) public String queryAndReturn() { // 쿼리 질의가 1초 걸린다고 가정 return jdbcTemplate.queryForList(\u0026#34;select sleep(1);\u0026#34;).toString(); } 시나리오 테스트는 3개의 API Endpoint 를 호출하였다. (thread sleep, get thread name, sleep query) 모든 API 응답이 200 OK 확인될 때까지 VU를 높여보았다. 200 OK 가 유지되는 동안 virtual thread 와 platform thread 의 throughput 을 비교해보았다. 결과 Thread sleep 호출\n구분 throughput virtual users loop count Virtual Thread(1회차) 2072.3 3000 5 Virtual Thread(2회차) 2225.0 3000 5 Virtual Thread(3회차) 2171.1 3000 5 Platform Thread(1회차) 198.2 3000 5 Platform Thread(2회차) 198.0 3000 5 Platform Thread(3회차) 197.2 3000 5 Thread name 을 Callable 으로 조회\n구분 throughput virtual users loop count Virtual Thread(1회차) 4654.0 3000 5 Virtual Thread(2회차) 5611.7 3000 5 Virtual Thread(3회차) 6048.4 3000 5 Platform Thread(1회차) 2821.1 3000 5 Platform Thread(2회차) 5832.0 3000 5 Platform Thread(3회차) 5838.8 3000 5 Sleep 이 걸려 있는 쿼리 호출 (Hikari connection pool - max 50) (VU 3000 은 계속 에러가 발생하여 둘다 500, loop 는 2로 줄였다.)\n구분 throughput virtual users loop count Virtual Thread(1회차) 49.5 500 2 Virtual Thread(2회차) 49.7 500 2 Virtual Thread(3회차) 40.9 500 2 Platform Thread(1회차) 48.1 500 2 Platform Thread(2회차) 47.1 500 2 Platform Thread(3회차) 36.2 500 2 결론 모든 코드가 동일하게 적용되어 있는 상태에서 Virtual Thread를 사용할 때 Thread Block 이 발생하는 코드의 경우 처리량이 극명하게 차이가 났다. (약 200 vs 2000) AsyncTaskExecutor 를 등록했기 때문에 Callable 를 반환하는 코드에 큰 차이가 발생할줄 알았는데 생각보다 크게 변경되지 않는것 같다. DB 에 대해서는 큰 차이를 느낄 수 없었다. 실제 produciton 코드는 테스트 환경과 다르고 구동 환경도 다르기 때문에 참고용임을 감안하더라도 Virtual Thread 가 Platform Thread 에 비해서 처리량이 늘어날 수 있다는 점을 확인했다. Virtual Thread 사용시 기존 Platform Thread 보다 일정영역에서 처리량이 늘어나는 것을 확인할 수 있다.\n주의사항 가상 스레드 를 사용하여 높은 처리량을 얻으려면 이를 잘 사용해야한다. 막연하게 설정을 활성화 하고 처리량이 높아지기를 기대하면 안된다. 몇가지 주의사항을 살펴보자. 기존 스레드 풀을 사용하지 말고, 개별 작업에 가상 스레드 를 할당하는 형태로 변경하자.\nourExecutor.submit(task1); ourExecutor.submit(task2); ===\u0026gt;\u0026gt;\u0026gt;\u0026gt; try (var executor = Executors.newVirtualThreadPerTaskExecutor()) { executor.submit(task1); executor.submit(task2); } ThreadLocals 에 값비싼 객체를 캐싱하지 말자\n가상 스레드 또한 자바 Thread 이므로 ThreadLocal을 지원한다. 기존에 플랫폼 스레드는 비싸기 때문에, 여러 작업 사이에 공유하는 형태로 개발해왔다 (Thread Pool). 그래서 기존에는 스레드 로컬 내부에 값비싼 객체를 캐시하는 것이 일반적인 패턴으로 활용되었다. 모든 작업이 해당 스레드의 객체를 공유하도록 유도하였다. 하지만 가상 스레드는 작업당 하나를 활용하는 것이 권장되며, 내부의 객체를 공유하지 않는다. 따라서 내부에 값비싼 객체를 캐싱하는 것은 도움이 되지 않는다. 오히려 가상 스레드가 예상보다 더 많은 메모리를 사용하게 만드는 주범이 된다. static final ThreadLocal\u0026lt;SimpleDateFormat\u0026gt; cachedFormatter = ThreadLocal.withInitial(SimpleDateFormat::new); ... cachedFormatter.get().format(...); =====\u0026gt;\u0026gt;\u0026gt;\u0026gt;\u0026gt;\u0026gt;\u0026gt; static final DateTimeFormatter formatter = DateTimeFormatter....; ... formatter.format(...); synchronized 키워드 사용시 주의가 필요하다. (Pinning 이슈)\nsynchronized 키워드를 사용한 코드 블럭 안에서 blocking IO작업을 수행하는 경우에는 가상 스레드 를 unmount 할 수 없어서 Carrier Thread(Platform Thread)까지 Blocking 되는 현상이 발생한다. (이를 pinning 이라고 지칭함) 이런 경우에는 가상 스레드 의 이점을 누릴 수가 없다. synchronized가 필요한 경우 자바의 동시성 유틸리티에 있는 lock 을 사용하자. 이렇게 되면 pinning의 영향에서 벗어날 수 있다. 이런 제약은 현재 개선작업이 진행중이긴 하지만 JDK21에서는 이를 주의해야한다. (JEP 425 에서 synchronized 키워드를 사용해도 쓰레드가 pinning 되지 않도록 개선하고 있다.) pinning 이 발생하는지 탐지하려면 JFR을 사용하거나 -Djdk.tracePinnedThread 옵션을 사용하면 pinning을 탐지할 수 있다. synchronized(lockObj) { frequentIO(); } =====\u0026gt;\u0026gt;\u0026gt;\u0026gt; lock.lock(); try { frequentIO(); } finally { lock.unlock(); } 정리 요약 지금까지 JDK21 (LTS)에 추가될 가상 스레드에 대해서 알아보았다. 가상 스레드 는 리액티브 프로그래밍과 동일한 결과를 좀 더 쉽게, 덜 장황하게 달성한다. 가상 스레드 가 더 좋은 이유는 기다림에 대한 방식이 개선되기 때문이다. 가상 스레드는 기존의 플랫폼 스레드(전통적인 스레드)를 대체하려는 것이 아니며 둘다 사용이 가능하다. 가상 스레드를 사용시 처리량을 증가시킬 수 있다. Spring Boot 3.x 에서 JDK21과 호환 작업이 적용되면, 기존 코드 그대로 사용하면서 혜택을 누릴 수 있을 것이다. Profject Loom 의 결과물은 가상 스레드만 있는 것은 아니다. 앞으로 추가 JEP가 더 개발될 예정이다. 소감 두 번째 글을 작성하는 사이 JDK 21 의 릴리즈 날짜가 9월 19일로 예정되었다. 가을이 오면 EAP가 아닌 실제 릴리즈 버전을 가지고 테스트를 해보고 싶다.\n가상 스레드가 아무리 좋아보여도 실제 production 에 적용되기 까지는 시간이 필요할 것이다. Spring Boot 의 버전업과 기존에 다양한 라이브러리들이 호환 작업을 진행하고 또 이런 내용들이 안정화 될 때까지 시간이 필요하기 때문이다.\n가상 스레드는 은빛 총알이 아니다. 막연하게 적용만 하면 처리량이 늘어날 것을 기대하면 안된다. 잘 알고 사용하고 또 한계점에 대해서 인지해야한다.\n약간 아쉬운 부분 중 하나는 가상 스레드는 아직 추가 JEP들의 도움을 받아야 기술이 성숙해질 것 같다는 점이고, 다른 하나는 Golang 의 고루틴 과 같은 완전한 경량 스레드는 아니라는 점이다.\n그렇지만 5년내내 묵묵히 개발을 진행해온 Project Loom 개발팀에 박수를 보내며 앞으로 추가로 릴리즈될 JEP를 기대해본다. 👏👏👏👏👏👏\n(+코틀린에서의 지원, 코루틴과 궁합은 또 어떻게 될지..?)\n참고자료 https://www.youtube.com/watch?v=YQ6EpIk7KgY https://www.youtube.com/watch?v=n8uGsc4y6W4 https://medium.com/@zakgof/a-simple-benchmark-for-jdk-project-looms-virtual-threads-4f43ef8aeb1 https://medium.com/naukri-engineering/virtual-thread-performance-gain-for-microservices-760a08f0b8f3 https://perfectacle.github.io/2022/12/29/look-over-java-virtual-threads/ https://blog.devgenius.io/spring-boot-3-with-java-19-virtual-threads-ca6a03bc511d https://howtodoinjava.com/java/multi-threading/virtual-threads/ https://www.linkedin.com/pulse/virtual-threads-java-any-benefit-all-use-cases-arvind-kumar/ https://www.youtube.com/watch?v=zluKcazgkV4\u0026amp;ab_channel=KotlinbyJetBrains "
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/collaboration/",
+	"title": "collaboration",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/communication/",
+	"title": "communication",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
 	"permalink": "https://findstar.pe.kr/2023/06/18/good-communication-for-collaboration/",
 	"title": "협업을 위한 &#39;좋은 커뮤니케이션&#39;",
 	"tags": ["communication", "collaboration"],
@@ -62,14 +110,6 @@
 	"description": "",
 	"type": "post",
 	"contents": "ArgoCD 최근 K8S 클러스터를 정비할 일이 있어서 새롭게 구성을 마치고 배포를 위해서 ArgoCD를 재설치 해보았다.\nArgoCD는 GitOps를 기반으로 하는 CD 도구로, k8s 애플리케이션의 CD(지속적인 배포)를 지원한다.\nGitOps라는 건 ArgoCD가 Git Repository와 연동하여 애플리케이션 배포를 자동화하고, 롤백과 같은 작업을 수행한다는 걸 의미한다. 따라서 애플리케이션이 빌드되고 컨테이너 이미지가 생성되는 과정에서 Git Manifest의 내용을 수정하면 K8S 클러스터에 자동으로 애플리케이션이 배포된다.\n도식화 하면 다음과 같은 순서가 된다.\n쉽게 말해서 ArgoCD 는 K8S 클러스터를 위한 애플리케이션 배포 도구이고 Gitops 방식으로 배포한다는 특징을 가지고 있다. K8S를 운영하면 애플리케이션을 어떻게 배포할지는 사실 케이스별로 각각 다른 도구를 사용할 수도 있다. 각각의 상황에 따라 사용 가능한 도구가 제한될 수도 있다. (사내 도구를 사용해야한다던가, 이미 운영중인 도구가 있을 수도 있다.) 그만큼 다양한 배포 방식이 존재하고, 다양한 도구들이 있기 때문에 어느 것이 더 좋다고 말하기는 어렵다. 나의 경우에는 ArgoCD를 가장 익숙하게 사용하고 있다.\n설치 방법 준비사항 먼저 ArgoCD가 설치될 K8S 클러스터를 준비한다.\n나의 경우에는 ArgoCD가 설치되어 동작할 별도의 K8S 클러스터를 준비했다. 그 이유는 ArgoCD의 동작이 실제 Production 애플리케이션이 구동되는 클러스터에 영향을 주지 않도록 하고 싶었기 때문이다. 참고로 애플리케이션은 dev, cbt, prod 를 위한 클러스터가 독립적으로 존재했다. ArgoCD 설치 가이드 확인\n설치 시점에 2.6을 사용했다. (그 사이 2.7이 릴리즈 되었다.) https://argo-cd.readthedocs.io/en/release-2.6/getting_started/ ArgoCD CLI 설치\n설치도중 사용할 CLI 명령어를 준비한다. brew install argocd 설치 순서 공식 가이드 문서를 참고하여 클러스터에 ArgoCD를 설치한다.\nkubectl create namespace argocd kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 도메인부여\n각각 환경이 달라서 세부 설정은 생략한다. 다만 Ingress 를 설정하여 http 접근으로 ArgoCD에 접근가능하게 하였다. apiVersion: networking.k8s.io/v1 kind: Ingress metadata: name: argocd-server-http-ingress namespace: argocd annotations: kubernetes.io/ingress.class: \u0026#34;nginx\u0026#34; nginx.ingress.kubernetes.io/force-ssl-redirect: \u0026#34;true\u0026#34; nginx.ingress.kubernetes.io/backend-protocol: \u0026#34;https\u0026#34; nginx.ingress.kubernetes.io/ssl-passthrough: \u0026#34;true\u0026#34; spec: rules: - http: paths: - path: / pathType: Prefix backend: service: name: argocd-server port: name: http host: my-argocd.my-domain.com tls: - hosts: - \u0026#39;my-argocd.my-domain.com\u0026#39; secretName: my-domain-secret 접속확인\nIngress 에서 설정한 \u0026ldquo;my-argocd.my-domain.com\u0026rdquo; 으로 접속해본다. 로그인 창이 표시되면 정상적으로 설치된 것이다. 기본 계정은 admin 이고 패스워드가 필요한데, 패스워드는 ArgoCD가 설치될 때 임의의 값으로 생성된다. ArgoCD가 생성한 임의의 패스워드를 확인하기 위해서 다음과 같이 명령어를 입력해서 확인한다. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=``\u0026#34;{.data.password}\u0026#34; | base64 -d; echo Github 연결 (optional)\nadmin 사용자로 ArgoCD를 사용할 수 있지만, 팀에서 운영한다면 개별 계정을 사용해서 접근하는 것이 권한관리도 쉽고 관리 이력상 좋다. 계정연동 방법은 여러방법이 있지만, 개발자라면 모두 Github 계정은 있을테니 Github 과 연동해서 로그인해보도록 설정해보았다. 신규 OAuth App 등록 \u0026ldquo;https://github.com/organizations/{my-org}/settings/applications\u0026quot; 에 접속하여 새로운 OAuth 앱을 생성하자 생성한 OAuth App 의 ClientId, ClientSecret 를 복사해놓는다. ArgoCD ConfigMap 등록 다음과 같이 ArgoCD가 설치된 클러스터에 ConfigMap 을 등록한다. apiVersion: v1 kind: ConfigMap metadata: annotations: labels: app.kubernetes.io/name: argocd-cm app.kubernetes.io/part-of: argocd name: argocd-cm namespace: argocd data: url: https://my-argocd.my-domain.com dex.config: | connectors: - type: github id: github name: github config: hostName: github.com clientId: \u0026#34;깃헙에서 복사한 client Id\u0026#34; clientSecret: \u0026#34;깃헙에서 복사한 client secret\u0026#34; orgs: - name: \u0026#34;github organization\u0026#34; Rbac ConfigMap 등록 rbac 를 위한 ConfigMap 도 등록한다. apiVersion: v1 kind: ConfigMap metadata: name: argocd-rbac-cm namespace: argocd data: policy.default: role:admin 이제 다시 ArgoCD 웹 UI에 접속하면 Github 계정을 사용해서 로그인 할 수 있다. Gitops Manifest Repo 연결\nArgoCD에서 변경을 감지하고 K8S 클러스터의 형상을 동기화할 Gitops Manifest Repo를 연결한다. 타겟 K8S 클러스터 등록\nArgoCD 가 애플리케이션을 배포할 대상이 되는 Target K8S Cluster 를 등록해야한다. 이 과정은 Web UI에서 불가능하기 때문에 앞서 준비과정에서 설치한 ArgoCD CLI를 사용한다. argocd login my-argocd.my-domain.com --username admin (패스워드입력필요) argocd cluster add my-prod-target-cluster-context context 를 추가하는 부분에서 알 수 있듯이 cli 를 실행하는 시점에 context 정보가 로컬에 있어야 한다 프로젝트 등록\n이제 프로젝트를 등록해야한다. 프로젝트는 일종의 애플리케이션의 그룹을 지정한다고 이해하면 된다. 애플리케이션 등록\n마지막으로 애플리케이션을 등록해보자. 입력할 항목이 많은데 다음의 부분만 입력하면 된다. GENERAL - Application Name (애플리케이션 이름) GENERAL - Project Name (소속될 프로젝트 이름) GENERAL - SYNC POLICY (Gitops Repo 에 변경이 일어 났을 시 자동으로 클러스터에 동기화 할것인지, 수동으로 할것인지 결정) SOURCE - Repository URL (Gitops Repo 선택) SOURCE - Path (애플리케이션이 참조할 YAML Path 선택) DESTINATION - Cluster URL (클러스터 등록이 잘되었다면 대상 K8S 클러스터의 Master Node 주소가 나온다.) DESTINATION - Namespace (애플리케이션을 배포할 네임스페이스 지정) 나머지 부분은 그대로 두고 등록하면 된다. 동기화가 진행된 애플리케이션 샘플 동기화가 진행되면 다음과 같이 애플리케이션의 상태를 확인할 수 있다. 이제 컨테이너 이미지를 빌드하고 Gitops Repo 에 변경사항을 업데이트 하면 ArgoCD가 자동으로 클러스터에 애플리케이션을 배포해준다.\n기타 ArgoCD는 자체적으로 대상 Gitops Repo를 감시하다가, 변경사항이 있다면 확인하여 클러스터에 적용한다. 하지만 이 과정은 Gitops repo 가 변경되는 즉시 적용되지 않고 약간의 시간텀이 필요하다. 따라서 좀 더 빠른 배포를 위해서 Github 에 Webhook 을 전달하는 방법을 고려할 수 있다. Github Organization 에 Webhook 등록 Github Org 셋팅 페이지 - \u0026ldquo;https://github.com/organizations/{my-org}/settings/hooks\u0026quot; 에서 Webhook 등록 다음과 같이 Webhook 을 등록한다. 등록 주소는 \u0026ldquo;https://my-argocd.my-domain.com/api/webhook\u0026quot; 의 형식이된다. 이렇게 하면 ArgoCD가 좀 더 빠르게 반응한다. 정리 K8S 클러스터를 운영할 때 애플리케이션 배포를 위해서 ArgoCD를 운영할 수 있다. ArgoCD는 Prod 클러스터에 영향을 주지 않기 위해서 별도의 클러스터에서 운영하기로 하였다. 로그인을 쉽게 하기 위해서 Github OAuth 연동을 하였다 클러스터 추가는 CLI에서만 가능하다. 애플리케이션을 추가하여 Sync 를 확인한다. Gitops repo 가 변경되면 자동으로 클러스터에 애플리케이션 형상이 동기화된다. Webhook 을 등록하면 좀 더 빠르게 동기화된다. 참고자료 ArgoCD "
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/java/",
-	"title": "java",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring/",
@@ -102,30 +142,6 @@
 	"description": "",
 	"type": "post",
 	"contents": "Spring Camp 2023 지난 2023.04.22일 토요일 KSUB에서 진행한 Spring Camp 2023 행사에 참석하였다. 이전까지 종종 영상과 발표자료로만 들었던 행사였는데 직접 오프라인으로 참석하니 현장분위기를 느낄 수 있었다.\n총 7개의 세션을 들었는데, 각 세션에 대한 간략한 내용과 인상깊었던 부분들을 정리해보았다.\n세션 정리 1. \u0026ldquo;어느 월급쟁이 개발자의 스프링 부트 따라잡기\u0026rdquo; 첫 세션은 김지헌 님의 발표였다. 스프링 부트의 변천사를 이야기 해주셨는데, 그 뒤에 숨어있을 발표자분의 삽질내공이 느껴져서 즐겁게 들을 수 있었다.\n특히 최근에 출시된 Spring Boot 3 버전에 대해서 여러가지를 설명해주셨는데 다음 내용들을 더 살펴봐야겠다고 생각했다.\nNative Support Micrometer Observability Hibernate ORM 6.1 R2DBC 1.0 지원 그리고 Java 17 버전 출시와 함께 Spring 에서 굳이 Kotlin 을 사용하지 않아도 충분히 좋다고 느끼고 있다고 하셨는데 어느정도 공감되는 말이었다.\n\u0026ldquo;인생은 Build 와 Deploy 사이의 Code\u0026rdquo; - 이제 스프링캠프에서 그만 발표하고 싶다고 하시던 김지헌님.\n발표자료 2. \u0026ldquo;글로벌 서비스를 위한 Timezone/DST\u0026rdquo; 두 번째로는 김대겸님이 발표해주신 발표로, 글로벌 서비스를 출시할 때 고민해보아야할 Timezone/DST 에 대한 내용이었다. 나 또한 글로벌 서비스를 출시해본 경험이 있어서 시간값을 ZonedDateTime 으로 고정해서 사용했던적이 있었는데, 그 때의 경험이 떠올라서 반가운 마음으로 세션을 들었다.\n또한 LocalDateTime 과 ZonedDateTime 과의 관계, 그 사이에 OffsetDateTime 차이까지 상세히 알려주셔서 좋았다. DST는 잘 모르던 개념이었는데 이 발표를 통해서 Daily Saving Time (일명 써머타임) 이라는 것을 알게되었고 왜 사용하는지도 알게되었다. (여름에는 일조시간이 길어서 하루 시작을 일찍 하게 하려고 사용)\n글로벌 서비스를 한다면 클라이언트와의 통신에서 ZonedDateTime 을 사용하고 표시는 상황에 맞게 LocalTime 기준으로 표시하는 것을 권장\n발표자료 3. 대규모 엔터프라이즈 시스템 개선 경험기 - 1부 - 달리는 기차의 바퀴 갈아 끼우기 세 번째로는 임형태님이 네이버 쇼핑의 레거시 시스템을 새로운 시스템으로 전환하는 경험담을 소개해주셨다. 역시나 남이 삽질한 경험담이 제일 재미있는 법! 스프링 캠프 2023 세션중에서 제일 재미있었던 세션이었다. 달리는 기차의 바퀴를 갈아 끼우기란 얼마나 어려운지 새삼스럽게 느끼게 되었다.\nstrangler pattern 에 대해서 기원과 상세한 비유를 이미지를 통해서 소개해주셔서 쉽게 이해할 수 있었다. 그리고 이전 시스템과, 신규 시스템의 전환을 어떤 타이밍에 진행해야하고, 전환과정에서 겪을 수 있는 문제들을 차근차근 소개해주셔서 많은 도움이 되었던 발표였다. 또한 재미난 발표장표와 더불어 적절한 유머 코드를 겸비한 깔끔한 진행으로 감탄이 절로나왔다. 이어지는 2부 세션을 위한 적절한 안배도 돋보였던 세션이었다.\n\u0026ldquo;우리는 개발팀으로서 서비스 성장에 놓은 품질의 소프트웨어와 개발과정으로 기여하는 것을 중요한 책임으로 여깁니다.\u0026rdquo;\n나중에 제목 때문인지 인터넷밈이 자꾸 생각났다.\n발표자료 4. 대규모 엔터프라이즈 시스템 개선 경험기 - 2부 - 새 술 담을 새 부대 마련하기 앞서 임형태님이 시니어 입장에서의 발표를 진행했다면, 함께 참여한 주니어 입장에서 김선철님이 발표해주신 세션이다. (매트릭스의 빨간약을 드셨다고..) 역시나 팀웤이 돋보였다고 느낄 수 있었는데, 앞선 세션의 위트와 유머가 적절히 유지되어서 보는 내내 웃을 수 있었다.\n본인의 경험에서 느껴지는 디테일한 내용을 잘 설명해주셔서 많은 참고가 되었던 세션이었다. 특히나 패키지 구조의 경우에는 항상 고민스러운 부분인데, 김선철 님과 임형태 님이 생각하는 최선의 방향이 무엇이었는지 알수 있어서 좋았다.\n아래의 \u0026ldquo;포트 앤 어댑터\u0026rdquo; 패턴에 대한 정리 장표도 인상깊었다.\n이벤트와 관련해서는 Kafka payload를 어떻게 구성하셨는지 궁금했었는데 따로 질문할 시간이 없어서 못물어봤다.\n발표자료 무사히 기존 레거시를 걷어내고 새로운 시스템으로의 개선을 마무리 하시길.\n5. 실무에서 적용하는 테스트 코드 작성 방법과 노하우 다섯 번째로 블로그로 익숙한 김남윤님의 발표였다.\n먼저 테스트 코드 작성이 어렵다고 느껴지는 경우를 예시로 들고, 단계적으로 대안을 제시하면서 각각 대안의 장단점을 설명해주셨는데 이해하기 쉬웠다. 테스트 코드에 대한 내용은 들어도 들어도 어려운데 이 세션은 그렇지 않아서 좋았다\n특히 테스트 코드 작성이 어렵다면 그건 테스트 코드가 피드백을 주는 거라고 말씀해주신 부분이 인상깊었는데, 마음속에서 \u0026ldquo;테스트 코드 짜기 어렵다고? 그럼 니가 잘못 짠거야\u0026rdquo; 라고 들려서 많이 찔렸던(?) 세션이었다.\n\u0026ldquo;테스트 코드가 피드백을 준다.\u0026rdquo;\n발표자료 6. 구현부터 테스트까지 - 대용량 트래픽 처리 시스템 여섯 번째로 이경일님의 발표로 본인을 잡부(?)로 소개하셨지만, 전혀 잡부(?)로 보이지 않는 시니어 개발자분이셨다. 무려 3개의 프로젝트를 겸직하시면서(!) 대용량 트래픽을 처리할 수 있는 효율적인 시스템을 고민하신 결과를 공유해주셨다\n로컬캐시와 K8S 환경에서 적용하기 위한 방법들을 경험담과 함께 소개해주셨는데, 몇몇 부분에서는 잘 알지 못하는 기술들이 소개되어서 흐름을 놓쳤었다. 나중에 발표 영상이 올라오면 다시 볼 예정.\n동기화를 설명해주시면서 Volatile은 막연하게 알던 내용을 이해하기 쉽게 소개해주셔서 좋았었다. (Volatile 발음은 어떻게 하는건지.)\n함께할 동료를 찾으신다고 하셨지만, 새벽에 코딩하는 이야기를 해주셔서 당황 ㅎㅎ\n발표자료 7. Journey to Modern Spring (클라우드 시대를 맞이하는 스프링의 자세) 마지막으로 박용권님의 발표로 스프링의 변천사를 한눈에 볼 수 있는 세션이었다. 시작하면서 말씀하실 내용이 많아서 말을 빨리하겠다고 말씀하셔서 정신을 바짝차리고 들었다.\n전체적인 스프링의 변화를 짚어주시면서 왜 그렇게 변화해왔는지 설명해주셔서 좋았다. 중간에 내가 최근에 관심있어하는 Virtual Thread 도 소개되어 반가운 마음이 들었다. 스프링 6와 스프링 부트 3의 주요 변경사항을 잘 정리해주셨고, 특히나 Native 기술에 대해서 강조해주셨는데, 아직은 테스트 중이시라고.. 발표를 듣고 나니, 올 하반기에 나올 JDK21, Spring 6.1 가 더욱 기대되었다.\n여담으로 발표를 많이 하신분답게 내공이 어마어마하구나라는 걸 느낄 수 있었다. (시의적절한 이미지가 너무 잘 좋았어요.)\n발표자료 소감 무려 6시간 넘는 행사인데, 세션 하나하나 즐겁게 들을 수 있었고, 새로운 내용들도 알게되어 좋았었다. 간만에 서울 나들이라 돌아가는 길에 녹초가 되었지만, 뿌듯한 마음이 남아 있었다. 다음의 스프링 캠프도 기대해본다.\n그외에 행사에 대해서 장소\nSKT 타워는 좋았지만, 인원대비 약간 작은 느낌 (특히나 화장실..) 좌석마다 콘센트가 제공이라니! 😍 하지만 와이파이는 없었다. 부스\n인프런, 그리고 연예인 앨리스님 실물로 봄(이벤트 진행하는데 목소리가 너무 또렷하게 들려서 잊을 수 없었다.) DEVOCEAN - 요즘 열심히 프로모션 하는 느낌으로 자주 보인다. 현대자동차 - 채용을 열심히 하고 계셨다. Azure 진행\n입장시 물이없어서 힘들었다. 커피 브레이크는 적절했음. 시작과 마지막에 약간 어수선한 분위기였는데, 개회사-폐회사가 뚜렷하게 없어서 그런 느낌이 들었던 것 같다. 세션의 Q\u0026amp;A가 너무 짧게 진행되어서 아쉬웠다. 참고 나중에 발표영상은 다음 링크에 올라올 것 같다.\n스프링캠프 2023 스프링 캠프 유튜브 "
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/jdk-21/",
-	"title": "jdk 21",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/throughput/",
-	"title": "throughput",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/virtual-thread/",
-	"title": "virtual thread",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
 },
 {
 	"permalink": "https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/",
