@@ -213,6 +213,8 @@
                         
                         
                         
+                        (수정 :2023-07-07 22:48:00)
+                        
                     </span>
                 </div>
             </div>
@@ -298,21 +300,22 @@
 <li>Java 21 eap (sdkman)</li>
 <li>Gradle 8.1.1 build</li>
 <li>VM 인스턴스 머신 4 Core / 8 GiB memory</li>
-<li>별도의 mariadb instance (hikari connection pool 50)</li>
+<li>별도의 mariadb instance (max connection size 151)</li>
 <li>Max heap 2G</li>
-<li>별도 인스턴스에서 JMeter로 성능 테스트 (Aggregate Report 를 기준으로 수치 확인)</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getOk</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> InterruptedException <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// Thread sleep 1초
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">sleep</span><span style="color:#ff79c6">(</span><span style="color:#bd93f9">1000</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;OK&#34;</span><span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getThreadName</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 단순히 스레드 이름을 반환 아무런 blocking 코드 없음  
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentThread</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">toString</span><span style="color:#ff79c6">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/thread-name&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getThreadName</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentThread</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">toString</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/block&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getBlockedResponse</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> InterruptedException <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// Thread sleep 1초
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// 비지니스 로직 처리에 thread 가 blocking 되는 환경 가정
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">sleep</span><span style="color:#ff79c6">(</span><span style="color:#bd93f9">1000</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;OK&#34;</span><span style="color:#ff79c6">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/query&#34;</span><span style="color:#ff79c6">)</span>
@@ -320,163 +323,143 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 쿼리 질의가 1초 걸린다고 가정
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> jdbcTemplate<span style="color:#ff79c6">.</span><span style="color:#50fa7b">queryForList</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;select sleep(1);&#34;</span><span style="color:#ff79c6">).</span><span style="color:#50fa7b">toString</span><span style="color:#ff79c6">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    
 </span></span></code></pre></div><h3 id="시나리오">시나리오</h3>
 <ul>
-<li>테스트는 3개의 API Endpoint 를 호출하였다. (<strong>thread sleep</strong>, <strong>get thread name</strong>, <strong>sleep query</strong>)</li>
+<li>테스트는 3개의 API Endpoint 를 호출하였다. (<strong>simple response</strong>, <strong>block response</strong>, <strong>sleep query</strong>)</li>
 <li>모든 API 응답이 <code>200 OK</code> 확인될 때까지 VU를 높여보았다.</li>
 <li><code>200 OK</code> 가 유지되는 동안 <code>virtual thread</code> 와 <code>platform thread</code> 의 <code>throughput</code> 을 비교해보았다.</li>
 </ul>
 <h3 id="결과">결과</h3>
 <ul>
 <li>
-<p>Thread sleep 호출</p>
+<p>Simple response 호출</p>
 <table>
 <thead>
 <tr>
 <th>구분</th>
 <th style="text-align:center">throughput</th>
 <th style="text-align:center">virtual users</th>
-<th style="text-align:center">loop count</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>2072.3</strong></td>
+<td style="text-align:center"><strong>24360.88</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>2225.0</strong></td>
+<td style="text-align:center"><strong>24608.85</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>2171.1</strong></td>
+<td style="text-align:center"><strong>24455.14</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>198.2</strong></td>
+<td style="text-align:center"><strong>36085.42</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>198.0</strong></td>
+<td style="text-align:center"><strong>36396.71</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>197.2</strong></td>
+<td style="text-align:center"><strong>36107.85</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
-<p>Thread name 을 Callable<!-- raw HTML omitted --> 으로 조회</p>
+<p>Thread.sleep(1000) - Blocking 호출</p>
 <table>
 <thead>
 <tr>
 <th>구분</th>
 <th style="text-align:center">throughput</th>
 <th style="text-align:center">virtual users</th>
-<th style="text-align:center">loop count</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>4654.0</strong></td>
+<td style="text-align:center"><strong>2975.38</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>5611.7</strong></td>
+<td style="text-align:center"><strong>2979.87</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>6048.4</strong></td>
+<td style="text-align:center"><strong>2978.39</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>2821.1</strong></td>
+<td style="text-align:center"><strong>199.78</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>5832.0</strong></td>
+<td style="text-align:center"><strong>199.58</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 <tr>
 <td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>5838.8</strong></td>
+<td style="text-align:center"><strong>199.6</strong></td>
 <td style="text-align:center">3000</td>
-<td style="text-align:center">5</td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
-<p>Sleep 이 걸려 있는 쿼리 호출 (Hikari connection pool - max 50) (VU 3000 은 계속 에러가 발생하여 둘다 500, loop 는 2로 줄였다.)</p>
+<p>Sleep 이 걸려 있는 쿼리 호출 (Hikari connection pool - max 150)</p>
 <table>
 <thead>
 <tr>
 <th>구분</th>
 <th style="text-align:center">throughput</th>
 <th style="text-align:center">virtual users</th>
-<th style="text-align:center">loop count</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>49.5</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 <tr>
 <td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>49.7</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 <tr>
 <td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>40.9</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 <tr>
 <td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>48.1</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>149.26</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 <tr>
 <td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>47.1</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>149.53</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 <tr>
 <td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>36.2</strong></td>
-<td style="text-align:center">500</td>
-<td style="text-align:center">2</td>
+<td style="text-align:center"><strong>149.53</strong></td>
+<td style="text-align:center">3000</td>
 </tr>
 </tbody>
 </table>
@@ -484,9 +467,10 @@
 </ul>
 <h3 id="결론">결론</h3>
 <ul>
-<li>모든 코드가 동일하게 적용되어 있는 상태에서 Virtual Thread를 사용할 때 Thread Block 이 발생하는 코드의 경우 처리량이 극명하게 차이가 났다. (약 200 vs 2000)</li>
-<li><strong>AsyncTaskExecutor</strong> 를 등록했기 때문에 <strong>Callable<!-- raw HTML omitted --></strong> 를 반환하는 코드에 큰 차이가 발생할줄 알았는데 생각보다 크게 변경되지 않는것 같다.</li>
-<li>DB 에 대해서는 큰 차이를 느낄 수 없었다.</li>
+<li>Thread Blocking 이 발생하지 않는 경우 Platform Thread 가 더 처리량이 높다. (Virtual Thread Scheduling 을 위한 오버헤드의 영향으로 보인다.)</li>
+<li>Thread Blocking 이 발생하는 경우 Virtual Thread를 사용할 때가 처리량이 더 높다.</li>
+<li>DB Query 에 대해서는 Virtual Thread를 사용할 때 <strong>SQLTransientConnectionException</strong> 이 발생했는데, Tomcat 이후로 로직이 넘어갔는데 DB Connection 을 얻으려다가 timeout (30s)이 발생하는 것으로 추정된다.</li>
+<li>DB Connection 과 같은 한정된 자원에 접근을 제한하려면 semaphores를 도입하는걸 고려해야할것 같다.</li>
 <li>실제 produciton 코드는 테스트 환경과 다르고 구동 환경도 다르기 때문에 참고용임을 감안하더라도 <code>Virtual Thread</code> 가 <code>Platform Thread</code> 에 비해서 처리량이 늘어날 수 있다는 점을 확인했다.</li>
 </ul>
 <blockquote>
