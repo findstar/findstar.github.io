@@ -253,7 +253,7 @@
                 
                 <h1 id="virtual-thread-1">Virtual Thread (1)</h1>
 <p>2023년 9월에 릴리즈될 예정인 <strong>Java 21</strong> (2023.09 월 릴리즈 예정) 는 Java 8 이후 세번째 LTS 버전이다(11, 17, 21). 이 버전에서는 많은 사람들이 기다리고 있는 <code>가상 스레드</code> 라는 기능이 추가될 예정이다.
-이 <code>Virtual Thread</code>(이하 가상스레드) 가 어떤 의미가 있기 때문에 많은 사람들이 기다리고 있는지 알아보고 그 의미를 정리해보았다. 이 글은 <code>가상 스레드</code>의 첫 번째 글이고 다음 글에서 계속 이어진다.</p>
+이 <code>Virtual Thread</code>(이하 가상스레드) 가 어떤 의미가 있기 때문에 많은 사람들이 기다리고 있는지 알아보고 그 의미를 정리해보았다. 이 글은 <code>가상 스레드</code>의 첫 번째 글이고 <a href="/2023/07/02/java-virtual-threads-2">다음 글</a>에서 계속 이어진다.</p>
 <h2 id="가상-스레드-란">가상 스레드 란?</h2>
 <p><code>가상 스레드</code> 란 기존의 전통적인 Java 스레드에 더하여 새롭게 추가되는 경량 스레드이다. <code>Project Loom</code>의 결과물로 추가된 기능으로 OS 스레드를 그대로 사용하지 않고
 JVM 자체적으로 내부 스케줄링을 통해서 사용할 수 있는 경량의 스레드를 제공한다. 하나의 Java 프로세스가 수십만~ 수백만개의 스레드를 동시에 실행할 수 있게끔 설계되었다.</p>
@@ -455,6 +455,12 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 </span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// 스레드가 Virtual Thread인지 확인하여 출력
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Thread is Virtual? &#34;</span> <span style="color:#ff79c6">+</span> virtualThread2<span style="color:#ff79c6">.</span><span style="color:#50fa7b">isVirtual</span><span style="color:#ff79c6">());</span> 
 </span></span><span style="display:flex;"><span>         
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// ExecutorService 사용
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         <span style="color:#ff79c6">try</span> <span style="color:#ff79c6">(</span>ExecutorService executorService <span style="color:#ff79c6">=</span> Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">;</span> i <span style="color:#ff79c6">&lt;</span><span style="color:#bd93f9">3</span><span style="color:#ff79c6">;</span> ㅑ<span style="color:#ff79c6">++)</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>                executorService<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java --version
@@ -469,6 +475,9 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 </span></span><span style="display:flex;"><span>Hi Virtual Thread
 </span></span><span style="display:flex;"><span>Hi Virtual Thread
 </span></span><span style="display:flex;"><span>Thread is Virtual? <span style="color:#8be9fd;font-style:italic">true</span>
+</span></span><span style="display:flex;"><span>Hi Virtual Thread
+</span></span><span style="display:flex;"><span>Hi Virtual Thread
+</span></span><span style="display:flex;"><span>Hi Virtual Thread
 </span></span></code></pre></div><p>기존의 스레드(플랫폼 스레드)를 생성하던 문법과 큰 차이가 없이 <code>가상 스레드</code>를 만들 수 있다는 걸 알수 있다. 이번에는 Executors 를 사용하여 10만개의 <code>가상 스레드</code>를 만들고
 2초간 대기하도록 한뒤에 전체 실행시간을 측정해보자. Blocking 이 발생하면 다른 <code>가상 스레드</code>가 실행되기 때문에 제대로 동작한다면 약 2초를 조금 넘기는 시간 안에 완료되어야 한다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
