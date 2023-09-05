@@ -443,7 +443,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 </span></span><span style="display:flex;"><span>openjdk 21-ea 2023-09-19
 </span></span><span style="display:flex;"><span>OpenJDK Runtime Environment <span style="color:#ff79c6">(</span>build 21-ea+18-1480<span style="color:#ff79c6">)</span>
 </span></span><span style="display:flex;"><span>OpenJDK 64-Bit Server VM <span style="color:#ff79c6">(</span>build 21-ea+18-1480, mixed mode, sharing<span style="color:#ff79c6">)</span>
-</span></span></code></pre></div><p>다음은 <code>가상 스레드</code> 를 사용하는 코드를 작성해보자. IntelliJ 에서 아직 Java 21 문법을 지원하지 않아 빌드가 잘 되지 않아 CLI 에서 실행하였다.</p>
+</span></span></code></pre></div><p>다음은 <code>가상 스레드</code> 를 사용하는 코드를 작성해보자. IntelliJ 에서 아직 Java 21 문법을 지원하지 않아 빌드가 잘 되지 않아 CLI 에서 실행하였다.
+(2023.11월에 출시예정인 2023.03 버전부터 지원한다고 한다.<a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/13049784815250-Planned-release-date-of-2023-3-with-Java-21-support">링크</a>)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span><span style="color:#ff79c6">(</span>String<span style="color:#ff79c6">[]</span> args<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
 </span></span><span style="display:flex;"><span>        run<span style="color:#ff79c6">();</span>
