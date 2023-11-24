@@ -225,7 +225,7 @@
                         
                         
                         
-                        (수정 :2023-09-05 23:30:00)
+                        (수정 :2023-11-24 20:18:00)
                         
                     </span>
                 </div>
@@ -272,23 +272,36 @@
                 <h1 id="virtual-thread-2">Virtual Thread (2)</h1>
 <p><a href="/2023/04/17/java-virtual-threads-1">이전글</a> 에서 <code>가상스레드</code>에 대한 <strong>배경</strong>과, <strong>목적</strong>, <strong>간단한 사용법</strong>에 대해서 알아보았다.
 이번에는 자주 사용하는 Spring Boot 애플리케이션에서 <code>가상스레드</code>를 사용하는 방법과 기존 <strong>스레드 풀</strong> 방식에 비해서 실제로 처리량이 늘어나는지 확인해보았다.
-마지막으로 <code>가상 스레드</code>를 사용할 때 주의할 점도 정리해보았다.</p>
+마지막으로 <code>가상 스레드</code>를 사용할 때 주의할 점도 정리해보았다. 이 글은 <code>가상 스레드</code>와 관련된 두 번째 글이다.</p>
+<ul>
+<li>시리즈
+<ul>
+<li><a href="/2023/04/17/java-virtual-threads-1">Virtual Thread란 무엇일까? (1)</a></li>
+<li><a href="/2023/07/02/java-virtual-threads-2">Virtual Thread란 무엇일까? (2)</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="스프링-부트에서-사용하기">스프링 부트에서 사용하기</h2>
 <p>먼저 <strong>Spring Boot</strong>에서 <code>가상 스레드</code>를 적용하는 방법을 살펴보기 전에 몇가지 알아두어야 할 것들이 있다.</p>
 <p><strong>주의사항</strong></p>
 <ol>
-<li>현재 JDK 21 은 정식 릴리즈 전이다. (2023.09.19일 예정)</li>
-<li>2023년 7월 현재 JDK 20를 지원하는 Gradle 버전도 8.1.1 막 릴리즈된 상태이다.</li>
-<li>Gradle 이 JDK 21을 공식 지원할 때까지는 조금 더 시간이 필요하다. (아마도 8.4 부터? <a href="https://github.com/gradle/gradle/issues/25573">참고링크</a>)</li>
-<li>Spring Boot 3 부터 JDK 17을 필요로 하고 현재 20까지 호환된다. (Spring Boot 3.2 부터 Virtual Thread 지원 - 2023.09.05 기준 preview)</li>
-<li>Spring Boot 3에서 가상스레드 기능을 사용할 수 있게 되었지만 Preview 기능이다.</li>
+<li>JDK 21 은 2023.09.19 정식 릴리즈되었다.</li>
+<li>Gradle 버전은 8.4 버전 이상에서 JDK 21을 지원한다.</li>
+<li>Spring Boot 3.2 가 2023.11.23 정식 릴리즈되어 JDK 21을 지원한다.</li>
 </ol>
-<p><strong>따라서 Gradle 8.1 이상, Spring Boot 3.0.5 버전 환경에서 <code>가상 스레드</code>를 제대로 확인할 수 있다고 가정하고 테스트를 진행하였다.</strong></p>
+<p><strong><code>가상 스레드</code>를 제대로 확인하려면 버전을 꼭 확인하기 바란다.</strong></p>
 <h3 id="적용방법">적용방법</h3>
 <ul>
-<li>생각보다 적용방법은 간단하다. 다음과 같은 <code>가상 스레드</code> Executor Bean 을 등록해주면 된다. 이 Bean 은 Tomcat이 사용자의 요청(Request)을 처리하기 위해 스레드를 사용할 때
+<li>생각보다 적용방법은 간단하다. Spring Boot 3.2 버전 부터는 <code>spring.threads.virtual.enabled</code> 옵션을 <code>true</code> 설정해주면 된다. <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes#support-for-virtual-threads">링크</a></li>
+<li>만약 3.2 버전 보다 낮은 버전을 사용중이라면 <code>가상 스레드</code> Executor Bean 을 등록해주면 된다. 이 Bean 은 Tomcat이 사용자의 요청(Request)을 처리하기 위해 스레드를 사용할 때
 <strong>플랫폼 스레드(OS 스레드)</strong> 대신 <code>가상 스레드</code> 를 사용하게 한다.</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#6272a4"># application.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">threads</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">virtual</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">enabled</span>: <span style="color:#ff79c6">true</span>
+</span></span></code></pre></div><p>Sprinb Boot 3.2 보다 낮은 버전 사용중이라면 아래와 같이 직접 Bean 을 등록해주면 된다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#6272a4">// Web Request 를 처리하는 Tomcat 이 Virtual Thread를 사용하여 유입된 요청을 처리하도록 한다.
 </span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Bean
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> TomcatProtocolHandlerCustomizer<span style="color:#ff79c6">&lt;?&gt;</span> protocolHandlerVirtualThreadExecutorCustomizer<span style="color:#ff79c6">()</span> 
@@ -303,17 +316,14 @@
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> AsyncTaskExecutor <span style="color:#50fa7b">asyncTaskExecutor</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> TaskExecutorAdapter<span style="color:#ff79c6">(</span>Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">());</span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
-</span></span></code></pre></div><blockquote>
-<p>(updated - Spring Boot 3.2 부터는 <code>spring.threads.virtual.enabled</code> 옵션을 <code>true</code> 로 주면 위의 코드처럼 직접 Bean 을 등록하지 않아도 된다.)</p>
-</blockquote>
-<p>이렇게만 해주면 기존의 <strong>플랫폼 스레드</strong>를 사용하지 않고 <code>가상 스레드</code> 를 사용하게 된다.</p>
+</span></span></code></pre></div><p>이렇게만 해주면 기존의 <strong>플랫폼 스레드</strong>를 사용하지 않고 <code>가상 스레드</code> 를 사용하게 된다.</p>
 <p>그럼 이제 실제로 처리량이 좋아지는지 한번 확인해보자.</p>
 <h2 id="성능-테스트">성능 테스트</h2>
 <h3 id="테스트-환경">테스트 환경</h3>
 <ul>
 <li>Ubuntu 20</li>
-<li>Java 21 eap (sdkman)</li>
-<li>Gradle 8.1.1 build</li>
+<li>Java 21 (sdkman)</li>
+<li>Gradle 8.4 build</li>
 <li>VM 인스턴스 머신 4 Core / 8 GiB memory</li>
 <li>별도의 mariadb instance (max connection size 151)</li>
 <li>Max heap 2G</li>
@@ -559,21 +569,28 @@
 <h2 id="정리">정리</h2>
 <h3 id="요약">요약</h3>
 <ul>
-<li>지금까지 JDK21 (LTS)에 추가될 <code>가상 스레드</code>에 대해서 알아보았다.</li>
+<li>지금까지 JDK21 (LTS)에 추가된 <code>가상 스레드</code>에 대해서 알아보았다.</li>
 <li><code>가상 스레드</code> 는 리액티브 프로그래밍과 동일한 결과를 좀 더 쉽게, 덜 장황하게 달성한다.</li>
 <li><code>가상 스레드</code> 가 더 좋은 이유는 <strong>기다림</strong>에 대한 방식이 개선되기 때문이다.</li>
 <li><code>가상 스레드</code>는 기존의 플랫폼 스레드(전통적인 스레드)를 대체하려는 것이 아니며 둘다 사용이 가능하다.</li>
 <li><code>가상 스레드</code>를 사용시 <strong>처리량</strong>을 증가시킬 수 있다.</li>
-<li>Spring Boot 3.x 에서 JDK21과 호환 작업이 적용되면, 기존 코드 그대로 사용하면서 혜택을 누릴 수 있을 것이다.</li>
+<li>Spring Boot 3.2 에서 JDK21과 호환 작업이 적용되었다. Sprinb Boot 버전업을 진행하면 기존 코드 그대로 사용하면서 혜택을 누릴 수 있을 것이다.</li>
 <li>Profject Loom 의 결과물은 <code>가상 스레드</code>만 있는 것은 아니다. 앞으로 추가 JEP가 더 개발될 예정이다.</li>
 </ul>
 <h3 id="소감">소감</h3>
-<p>두 번째 글을 작성하는 사이 JDK 21 의 릴리즈 날짜가 9월 19일로 예정되었다. 가을이 오면 EAP가 아닌 실제 릴리즈 버전을 가지고 테스트를 해보고 싶다.</p>
 <p><code>가상 스레드</code>가 아무리 좋아보여도 실제 production 에 적용되기 까지는 시간이 필요할 것이다. Spring Boot 의 버전업과 기존에 다양한 라이브러리들이 호환 작업을 진행하고 또 이런 내용들이 안정화 될 때까지 시간이 필요하기 때문이다.</p>
 <p><code>가상 스레드</code>는 <a href="https://en.wikipedia.org/wiki/No_Silver_Bullet">은빛 총알</a>이 아니다. 막연하게 적용만 하면 처리량이 늘어날 것을 기대하면 안된다. 잘 알고 사용하고 또 한계점에 대해서 인지해야한다.</p>
 <p>약간 아쉬운 부분 중 하나는 <code>가상 스레드</code>는 아직 추가 JEP들의 도움을 받아야 기술이 성숙해질 것 같다는 점이고, 다른 하나는 Golang 의 <strong>고루틴</strong> 과 같은 완전한 경량 스레드는 아니라는 점이다.</p>
 <p>그렇지만 5년내내 묵묵히 개발을 진행해온 <code>Project Loom</code> 개발팀에 박수를 보내며 앞으로 추가로 릴리즈될 JEP를 기대해본다. 👏👏👏👏👏👏</p>
 <p>(+코틀린에서의 지원, 코루틴과 궁합은 또 어떻게 될지..?)</p>
+<ul>
+<li>시리즈
+<ul>
+<li><a href="/2023/04/17/java-virtual-threads-1">Virtual Thread란 무엇일까? (1)</a></li>
+<li><a href="/2023/07/02/java-virtual-threads-2">Virtual Thread란 무엇일까? (2)</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="참고자료">참고자료</h2>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=YQ6EpIk7KgY">https://www.youtube.com/watch?v=YQ6EpIk7KgY</a></li>

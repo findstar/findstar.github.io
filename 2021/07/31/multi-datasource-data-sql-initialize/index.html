@@ -286,7 +286,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties<span style="color:#ff79c6">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">....</span>이하 생략<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">....</span><span style="color:#50fa7b">이하</span> 생략<span style="color:#ff79c6">...</span>
 </span></span></code></pre></div><p>이 상태에서 <code>data.sql</code> 을 작성한 뒤 테스트를 실행하면 바로 이 <em>AccountDataSource</em> 에 작성한 SQL 스크립트가 실행된다.</p>
 <h2 id="멀티-데이터소스-연결">멀티 데이터소스 연결</h2>
 <p>위의 상황에서 추가적으로 비지니스 로직을 구현하면서 필요한 콘텐츠를 담아두는 데이터소스를 추가한다고 생각해보자.</p>
@@ -307,7 +307,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties<span style="color:#ff79c6">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>이하 생략<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span><span style="color:#50fa7b">이하</span> 생략<span style="color:#ff79c6">...</span>
 </span></span></code></pre></div><p>이 다음에는 content data source 에서 실행하고자 하는 <code>data.sql</code> 스크립트 내용을 추가로 작성해야하는데 이를 구분해서 적용하는 방법이 매뉴얼에는 안내되어 있지 않다. (매뉴얼에는 <em>While we do not recommend using multiple data source initialization technologies</em> 라고 하며 멀티 데이터소스에서 초기화 스크립트를 실행하는 것을 권장하지 않는다고 나와있다.) 이 상태에서 테스트를 실행하면 IllegalArgumentException 이 발생하거나 DataSourceInitializationConfiguration 에서 정상적으로 처리되지 않는다.
 따라서 다음의 순서대로 적용해보았다.</p>
 <h2 id="datasourceinitializer-역할-확인">DataSourceInitializer 역할 확인</h2>
