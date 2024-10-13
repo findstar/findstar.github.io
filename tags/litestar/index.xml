@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>litestar on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/litestar/</link>
+    <description>Recent content in litestar on Soo Story</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 13 Oct 2024 18:05:13 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/litestar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Litestar: 새로운 Python 웹 프레임워크</title>
+      <link>https://findstar.pe.kr/2024/10/13/introduce-litestar-python-framework/</link>
+      <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
+      
+      <guid>https://findstar.pe.kr/2024/10/13/introduce-litestar-python-framework/</guid>
+      <description>python 웹 프로그래밍을 하면서 새로운 프레임워크를 찾아보았다. Flask, Django, FastAPI 등 다양한 선택지가 있지만, 새로운 프레임워크인 Litestar를 사용해보고 나서 소감을 정리해보았다.</description>
+    </item>
+    
+  </channel>
+</rss>
