@@ -1,5 +1,69 @@
 [
 {
+	"permalink": "https://findstar.pe.kr/tags/adaptive-growth/",
+	"title": "adaptive growth",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/hedgehog-sharp/",
+	"title": "hedgehog sharp",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/portfolio-expansion/",
+	"title": "portfolio expansion",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/posts/",
+	"title": "Posts",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/product-strategy/",
+	"title": "product strategy",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/",
+	"title": "Soo Story",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2024/10/25/hedgehog-style-expansion/",
+	"title": "고슴도치의 가시처럼 뾰족하게 나아가기",
+	"tags": ["product strategy", "hedgehog sharp", "portfolio expansion", "adaptive growth"],
+	"description": "",
+	"type": "post",
+	"contents": "제품 확장 전략: 고슴도치의 가시처럼 뾰족하게 나아가기 새로운 제품을 만드는 일은 언제나 흥미롭고 도전적인 과정이다. 특히나 시장이 빠르게 변화하는 이 IT업계의 특성상 제품의 가치를 높이기 위해서는, 다양한 실험을 통해서 가설을 검증하고 기능을 확장하는 일이 중요하다고 생각한다.\n작년부터 신규 팀의 리더가 되어서 팀원들과 함께 제품을 성장시키기 위해서 많은 고민을 했었다. 그 중 하나가 어떻게 제품의 기능을 확장해 나갈 것인가 였다. 이 글에서는 우리 팀이 새로운 프로덕트 개발을 위해 설정한 전략과 접근 방식을 소개하고자 한다.\n우리는 이 전략을 \u0026lsquo;고슴도치의 가시처럼 뾰족하게 나아가기\u0026rsquo;라고 지칭하고 기능을 확장하는 기본 컨셉으로 고려하고 있다.\n기본 전제 정의하기 : 제품의 영역을 확장에 대한 생각 우리팀이 개발하는 제품은 최근의 가장 주목받는 LLM을 기반으로한 MLOps 영역이다. 신기술이 매우 빠르게 발표되고 있기 때문에, 이에 대응되는 사용자들의 요구사항도 다양함과 동시에 변경이 잦다. 이런 상황속에서 제품의 기능을 개발하는데 변화가 발생할 때마다 대응하기 보다는 어느정도 정돈된 전략이 필요함을 느꼈다. 그래서 시장에서의 제품의 포지션을 설정하고 커버리지를 높이기 위해서 다음과 같이 생각을 정리해보았다.\n\u0026ldquo;제품의 커버리지를 높이는 것 = 땅따먹기\u0026rdquo;\n우리가 개발하는 제품이 시장에서 차지하고 있는 시작 포지션은 작은 영역이고, 이를 확장하는 것은 땅따먹기 게임 (paper.io) 에 비유할 수 있다. 그리고 이런 게임에서는 한번에 한 방향으로만 영역을 확장할 수 있다. 한번에 모든 부분을 전방위적으로 확장하는 것은 불가능하다.\n땅따먹기 게임에서는 한번에 모든 영역을 확장할 수 없다. 제품의 영역을 확장하기 위한 기본 전제를 정의한 다음 이를 확장하기 위해서는 다음과 같이 나아가야겠다고 정리했다.\n제품의 커버리지를 넓히기 위한 전략 수립 확장하려는 영역을 지정하고 이를 바탕으로 추가하려는 기능 영역을 정한다. 해당 영역에 대한 핵심적인 목적을 정의하고 검증하려는 가설을 뾰족하게 다듬는다. 최소한의 리소스로 가설을 검증하여 워킹하는 scene 을 만들어본다. 사용자들의 피드백을 통해서 가설이 검증되었는지 확인한다. 피드백에서 기능이 가치가 있다고 판단된다면, 뾰족한 가시위에 연결된 영역을 보강하여 두텁게 만들어서 안정적으로 개선한다. 그렇게 되면 최종적으로 목표로 했던 영역을 커버하는 피처를 제품에 추가할 수 있게된다. 우리는 이런 전략을 \u0026lsquo;고슴도치 가시처럼 뾰족하게 나아가기\u0026lsquo;라고 지칭했다.\n너무나 당연한 소리로 들릴 수 있지만, 신규 피처를 추가하는데 있어서 많은 과제를 동시에 진행하게 되면 다음 문제가 쉽게 발생하고는 했다.\n구성원들 사이의 정보의 불일치 원활하지 않은 커뮤니케이션 협업하기 어려운 구조 고슴도치의 가시처럼 뾰족하게 확장하기: 철저한 검증과 신속한 피봇 이 전략의 장점은, 시장의 요구와 환경 변화에 즉각적으로 대응할 수 있는 힘을 키울 수 있다는 점이다. 변화와 불확실성이 존재하는 상황 속에서 한 번에 큰 도전을 감행하기보다는, 작은 영역을 하나씩 확보해나가며 단계를 밟아가면서 가치를 추가할 수 있다.\n각 영역의 피처를 개별적으로 실험하며 점진적으로 확장을 시도하는 PoC(Proof oc Concept) 단계를 거치면, 투입되는 리소스를 최소화 할 수 있게 되고 아낀 리소스는 이전 단계에서 검증한 기능을 탄탄하고 안정적이게 만드는데 사용할 수 있다.\n또한 검증 과정에서 불필요한 자원 낭비를 줄이고 결과에 따라 신속히 확장하거나 조정할 수 있는 장점이 있다.\n고슴도치가 가시 하나씩 각각 영역을 탭핑한다. 하지만 이런 전략을 사용할 때 주의할점도 있다.\n\u0026lsquo;최첨단 수동\u0026rsquo; 작업이 중요함 고슴도치 전략을 실현하기 위해서는 최소한의 리소스로 최대의 검증 결과를 얻는 것이 중요하다. 이를 위해 각 피처가 동작하는지 확인할 때, 완벽한 자동화나 대규모 시스템을 구축하기보다는 “최첨단 수동” 작업을 활용하게 된다. (\u0026rsquo;최첨단 수동\u0026rsquo; 이라는 말은 우리팀의 누군가가 먼저 이야기 했는데 너무나 찰떡같이 알아듣기 쉬운 말이라 모두가 자주 사용하고 있는 단어이다.)\n이 “최첨단 수동” 방식은 기능을 검증하되 PoC 과정에서는 기능이 유지되는데 필요한 자동화 과정을 과감하게 생략하는 것이다. 예를 들어, 신규 기능에 대한 통계라던지, 운영기능을 위한 \u0026ldquo;백오피스-운영툴\u0026rdquo; 은 생략하고 기능을 출시한다던지 하는 방식이다.\n기능이 워킹하는지 확인하기 위한 최소한의 장치는 필요하지만, 이 기능이 안정적으로 돌아가기 위한 운영기능등은 우선순위를 미뤄두고 제품의 기능을 출시하는 것이다.\n실제로 큰 기능을 개발하면 운영을 위한 작업들을 개발하는데 시간과 에너지가 많이 들게 되는데, 막상 기능 출시 이후에 사용자의 반응이 좋지 않다던가, 전혀 다른 니즈가 발생해서 기능을 피벗해야하는경우가 발생한다. 그렇게 되면 그 동안 공들인 노력이 빛을 보지 못하는 경우가 발생하는데 이런 것도 하나의 리소스 낭비라고 보았다.\n수면아래에서 최첨단 수동으로 운영하는 신규 피처 팀워크와 피드백 고슴도치 전략을 성공시키기 위해서 중요한 또다른 요소는 팀워크와 피드백이다. 뾰족하게 하나의 PoC를 만드는 과정이 반복되는 데, 이 과정에서 구성원들과 사용자의 피드백을 통해서 아이디어를 가다듬고 기능이 가치있는지 판단하려면 구성원들 모두가 시장에 대한 높은 이해도와 자신의 역할에 대한 충실한 수행이 중요하다. 이를 가능하게 하는 것은 팀이 하나의 방향으로 뾰족하게 찌르기 위해서 이를 뒷받침해줄 팀워크이다.\n하나의 팀으로 움직이는 것, 그리고 구성원들의 아이디어와 사용자의 피드백을 열린 자세로 받아들이는 것 모두 쉽지 않은 일이지만 계속해서 의식적으로 리마인드 하면서 나아가고 있다.\n그래서 하나의 PoC를 시작하기 위한 과제 선정에는 구성원 모두가 반드시 참여하여 더 이상 문제에 대한 의문점이 없을 때까지 의견을 교환하는 자리를 가진다.\n흔들릴 마음가짐 우리의 전략은 빠르게 변화하는 환경 속에서 유연하게 대응하고, 새로운 기회를 모색하면서도, 각자의 위치에서 최선을 다하기 위한 것이다. 시장과 상황의 변화는 너무나 자연스럽기 때문에 변화에 적응해야하는 일은 피할 수 없지만, 개인의 입장에서 이러한 변화를 마주하는 것은 쉽지 않은 일이다.\n열심히 개발한 신규 기능이 생각보다 가치가 없다고 판단될 때, 빠르게 기능을 종료하거나 피벗하자는 이야기는 노력에 공을들인 당사자 입장에서는 납득하기 어려운 일일 수도 있다.\n그래서 이러한 변화를 마주할 때 필요한 것은 고정된 사고가 아닌 ‘흔들릴 마음가짐’이라는 자세이다.\n제품의 가치를 더 하는 일이 바다를 항해하는 일이라고 비유한다면, 파도에 흔들리는 일은 피할 수 없고, 그렇다면 오히려 마음껏 흔들릴 각오가 필요하다.\n\u0026ldquo;흔들릴 마음가짐\u0026rdquo; 이라는 키워드는 팀에 누군가 합류하면 꼭 거치는 온보딩의 마지막에 있는 \u0026ldquo;메세지\u0026quot;로 우리팀에서 추구하는 \u0026ldquo;변화에 유연하게 대응하는 자세\u0026quot;이다.\n앞서 이야기한 제품의 확장전략을 땅따먹기와 같이 이해하고, 고슴도치의 가시 같은 전략이 성공하기 위해서는 이러한 열린 사고가 필수적이다.\n어차피 바다에서 파도는 피할 수 없다. 마무리하며 우리의 전략은 빠르게 변화하는 환경 속에서 유연하게 대응하면서도, 뚜렷한 목표를 가지고 단단히 자리 잡으려는 노력이다.\n땅따먹기와 고슴도치의 가시처럼 뾰족하게 확장하는 방식을 통해서, 우리는 하나하나 영역을 확장하며 새로운 제품을 만들어 나가고 있다.\n물론 매 순간이 쉽지 않고 다양한 문제들이 쏟아지지만 이 전략이 제품 개발과정에서 든든한 나침반 역할이 되기를 바라며 팀원들과 의지를 다진다.\n앞으로도 여전히 흔들리겠지만, 그래도 뾰족하게 가시를 세워보자.\n참고사항 https://www.rhythmsystems.com/blog/real-example-of-how-a-hedgehog-supports-a-bhag "
+},
+{
 	"permalink": "https://findstar.pe.kr/tags/asgi/",
 	"title": "ASGI",
 	"tags": [],
@@ -32,32 +96,8 @@
 	"contents": "Litestar: 새로운 파이썬 프레임워크 소개 웹 개발을 위한 파이썬 웹 프레임워크는 많다. Django, Flask 부터 최근에 부쩍(?) 많이 보이는 FastAPI 까지 다양한 선택지가 있다. 나 또한 1년전부터 파이썬으로 애플리케이션을 개발하면서 FastAPI를 업무에 사용하고 있다.\n하지만 FastAPI를 사용하면서 몇 가지 불편함이 있어서 새로운 프레임워클 찾던 중 Litestar 라는 새로운 프레임워크를 발견했다. 가벼우면서도 확장가능한 구조가 마음에 들어 간단하게 사용해본 소감을 정리해보았다.\n이 글에서는 Litestar의 특징과 간단한 사용법, 그리고 사용하면서 느낀 장단점을 공유하고자 한다.\n0. 새로운 프레임워크를 찾게된 이유 작년 하반기 부터 python 을 사용하여 웹 애플리케이션을 개발하고 있다. 신규 프로젝트를 구성하는데 있어서 어떤 프레임워크를 사용할지 고민이 있었는데, 당시에 주변에서 FastAPI 를 많이 추천받았다. 개발하려던 애플리케이션이 AI Model 의 Serving을 지원하는 용도인데, 이쪽 분야에서는 대부분이 FastAPI를 사용하고 있어서 업계의 트렌드를 따르고자(?) FastAPI를 선택했다.\n다만 시간이 지날 수록 FastAPI의 단점을 느끼게 되었는데, 대표적으로 다음과 같이 정리해볼 수 있다.\n기능 부족 먼저 FastAPI 프레임워크 레벨에서 제공되는 기능이 부족하다는 아쉬움이 있었다. 예를 들면 특정 Route 에서만 동작하는 미들웨어를 설정하고 싶었는데 FastAPI는 글로벌 미들웨어만 사용해서 특정 path 에서만 동작하는 미들웨어를 적용하기 어려웠다. 프레임워크 레벨에서 Event Listener 기능을 제공하지 않아 도메인영역별 관심사 분리하려고 할 때 별도의 라이브러리를 연결해야했다. 또한 Depends 에 의존하는 route 정의 방식은 HTTP 테스트를 할 때 Mocking 을 어렵게해 테스트 작성하기 어렵다고 느껴졌다. Cache 에 대한 지원이 부족했다. 방향성의 차이 개발하면서 느낀 점은 FastAPI는 말 그대로 Fast 하게 API를 작성하는데 초점을 두고, 나머지 필요한 기능은 직접 구현하거나 다른 라이브러리를 사용하는 것이 일반적이라는 것이다. 하지만 나의 경우에는 시간도 촉박하고 팀 구성원중에 Python이 익숙하신 분이 한 분 밖에 없어 추가 기능 구현을 위한 리서치에 시간을 들이기 어려웠다. 검색해보면 FastAPI 레퍼런스를 많이 찾을 수 있었지만, 이 대안이 우리에게 적절한 해법이 될지 검토하는데 시간이 많이 들었다. 1인 개발 거버넌스 우려 FastAPI의 개발이 tiangolo에게 의존적이라는 점도 우려스러운 부분이었다. (1.0 은 언제 나오는 것인가..) 물론 최근에는 팀의 지원을 받고 있고 스폰서쉽도 활발히 진행되는 것을 보면 프레임워크 발전이 더디다고 보기는 어렵다. 하지만 대부분의 기능과 관련된 PR은 creator 인 tiangolo 가 진행하고 있는 것으로 보인다. 한 사람이 코드를 주로 관리하는 상황자체가 꼭 문제가 있는 것은 아니지만 이 때문에 PR 머지가 느려지거나 중요한 버그 픽스가 지연되는 것에 대한 불만글을 보게 되어 신경이 쓰였다. 이런 단점들 때문에 다른 대안을 찾았고, 그 중에 Litestar 프레임워크를 알게되었다.\n1. Litestar 프레임워크 소개 Litestar는 ASGI를 잘 지원하고, FastAPI와 유사하게 타입 힌트를 적극적으로 활용하고 있다. 스타일을 따져보면 FastAPI와 유사한 부분이 많아 FastAPI 사용자는 큰 어려움 없이 적응할 수 있다. 2021년 12월 7일 시작했고 1.0 버전까지는 \u0026ldquo;Starlite\u0026quot;라는 이름으로 릴리즈 하다가, Starlette과 혼동된다는 피드백을 수용해서 지금의 Litestar로 이름을 변경했다. 2024년 10월 현재는 버전 2.12.1 이 최신버전이다.\nMaintainer 는 총 5명으로 Litestar Org 에서 관리하고 있다.\n포지션으로만 보면 Django와 FastAPI의 중간정도에 위치한게 아닌가 라는 생각이 드는데, Django와 같이 전체 기능을 모두 아우르는 에코시스템을 추구하지 않으면서도 FastAPI와 같은 단순함을 가지고 지향하고 있다. 사용해보면서 프레임워크의 기능들에 대한 커스터마이징 하기 수월하도록 많은 신경을 쓰고 있구나 라고 느껴졌다.\n2. 설치 및 기본 사용법 다음과 같이 설치하면 된다.\n$ pip install \u0026#34;litestar[standard]\u0026#34; 간단하게 \u0026ldquo;Hello world\u0026rdquo; 를 출력하는 웹 API를 작성해보면 다음과 같다.\n# app.py from litestar import Litestar, get @get(\u0026#34;/\u0026#34;) async def index() -\u0026gt; str: return \u0026#34;Hello, world!\u0026#34; app = Litestar([index]) 그리고 cli 에서 litestar run 명령어를 입력하면 다음과 같은 화면을 확인할 수 있다.\n$ litestar run --reload Using Litestar app from app:app Starting server process ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ┌──────────────────────────────┬──────────────────────┐ │ Litestar version │ 2.12.1 │ │ Debug mode │ Disabled │ │ Python Debugger on exception │ Disabled │ │ CORS │ Disabled │ │ CSRF │ Disabled │ │ OpenAPI │ Enabled path=/schema │ │ Compression │ Disabled │ └──────────────────────────────┴──────────────────────┘ INFO: Started server process [9697] INFO: Waiting for application startup. INFO: Application startup complete. INFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit) Route 를 등록할 때 함수를 등록할 수도 있지만, Controller 클래스 기반으로 등록할 수도 있다.\n# controller.py from litestar import Controller, get from litestar.exceptions import NotFoundException from dataclasses import dataclass @dataclass class Todo: id: int title: str content: str todos = [ Todo(1, \u0026#34;마트 장보기\u0026#34;, \u0026#34;계란 2개, 우유 1개, 당근 1개 사기\u0026#34;), Todo(2, \u0026#34;도서관 책 반납하기\u0026#34;, \u0026#34;계란 2개, 우유 1개, 당근 1개 사기\u0026#34;), ] class TodoController(Controller): path = \u0026#34;/todos\u0026#34; @get() async def list_todos(self) -\u0026gt; list[Todo]: return todos @get(\u0026#34;/{todo_id:int}\u0026#34;) async def get_todo(self, todo_id: int) -\u0026gt; Todo: # todo_id에 해당하는 Todo 객체를 찾기 for todo in todos: if todo.id == todo_id: return todo # 해당하는 Todo가 없으면 404 에러 반환 raise NotFoundException(f\u0026#34;Todo id {todo_id} 를 찾을 수 없습니다 \u0026#34;) # app.py from litestar import Litestar, get from controller import TodoController @get(\u0026#34;/\u0026#34;) async def index() -\u0026gt; str: return \u0026#34;Hello, world!\u0026#34; app = Litestar([index, TodoController]) 3. Litestar 의 장점 ASGI 지원 Litestar의 가장 큰 장점 중 하나는 최신(?!) 프레임워크답게 Python ASGI를 프레임워크 레벨에서 잘 지원하고 있다는 점이다. Route 등록할 때 async 로 등록해도 프레임워크가 알아서 잘 처리해준다.\nfrom litestar import Litestar, get @get(\u0026#34;/\u0026#34;) def hello_world() -\u0026gt; dict[str, str]: \u0026#34;\u0026#34;\u0026#34;def 로 생성해도 라우트 등록에 문제가 없다.\u0026#34;\u0026#34;\u0026#34; return {\u0026#34;hello\u0026#34;: \u0026#34;world\u0026#34;} app = Litestar(route_handlers=[hello_world]) 다양한 기능 그리고 FastAPI 에서 아쉬원던 다양한 기능들을 out of box(크게 설정하지 않고도 기본적으로) 잘 제공하고 있다. 대표적으로 편리하다고 생각하는 기능은 아래와 같다.\nDI 애플리케이션 레벨 / 라우터 레벨 / 컨트롤러 레벨에서 다양하게 의존성을 정의할 수 있다. scope 에 맞게 의존성 override 가 되는 기능도 지원해서 장점이라고 생각한다. 애플리케이션 bootstrapping 과정에서 필요한 dependency 를 register 해놓으면 컨트롤러에서는 편리하게 사용할 수 있다. 살짝(?) 적응이 되지 않았던 건 TypeHint 기반이 아닌 parameter name 기반으로 DI가 동작한다는 점이다. Event 객체지향/DDD 스타일로 코드를 작성할 때 도메인 영역간의 의존성 방향을 정하는 것은 아주 중요하다고 생각한다. 이 때 의존하는 도메인 영역의 이벤트를 전송할 수 있는 수단이 꼭 필요하다고 느끼는데, Litestar 에서는 프레임워크 레벨에서 이벤트 기능을 제공해서 좋았다. 특히나 async 로 정의해놓으면 이벤트를 발생시키는 쪽에서 이벤트를 수신하는 로직을 기다리지 않아도 되게끔 잘 지원하고 있어서 좋았다. OpenAPI FastAPI 에서는 Swagger를 기본 API 문서화 도구로 지원하는데 Litestar 역시 이를 지원한다. Swagger 기본 주소는 /schema/swagger 가 된다. 이 밖에 다양한 Redoc, Scalar, Repidoc 도 지원하고 커스텀 설정도 쉽게 할 수 있다. 이 밖에 Cache / Guard / OpenTelemetry 지원도 유용하다고 느껴졌다. 유용한 라이브러리와의 연결 Litestar는 SQLAlchemy와의 연결을 지원하고 있고, 추가 Plugin 기능도 제공하고 있다. Litestar는 FastAPI처럼 Pydantic을 통해 데이터 검증을 할 수 있다. 거기에 더해 MessageSpec 도 지원하고 있다. 템플린 엔진은 Jinja2, Mako, Minijinja 를 지원한다. 컨셉 Litestar는 FastAPI와 비슷하게 빠르게 시작하고 간단한 설정만으로 웹애플리케이션을 작성이 가능하다. Litestar와 Flask, FastAPI와 같은 프레임워크의 다른점은 마이크로프레임워크를 지향하지 않는 다는 점이다. 웹애플리케이션 개발에 필요한 다양한 기능을 제공하고 필요한 부분들을 손쉽게 커스터마이징 할 수 있는 인터페이스를 제공한다. 다만 \u0026ldquo;차세대 Django\u0026quot;가 되는 것을 목표로 하지도 않기 때문에 자체적인 전체 에코시스템을 형성한다기 보다 여러 기능들을 잘 조합하고 적제적소에 연결할 수 있는 프레임워크라고 보는 것이 좋다. 그래서 전체적으로는 \u0026ldquo;Django\u0026rdquo; 와 \u0026ldquo;FastAPI\u0026quot;의 중간지점이 아닐까 한다. 4. 단점 Litestar가 장점만 있으면 좋겠지만, 모든 요구사항을 만족하는 프레임워크는 없다. 그래서 사용해보면서 체감하는 단점을 생각해보았다.\n레퍼런스 부족 아직은 다른 프레임워크에 비해서 사용자 수가 작기 때문에 레퍼런스를 찾기 어렵다. Github Star 를 비교해보면, Django 가 79.6k, FastAPI 76.5k 인데 비해서 Litestar 는 5.4k 밖게 되지 않는다. 그래서 레퍼런스를 찾는 주요한 수단이 공식 Repo 로 제공하는 Litestar-Fullstack 예제 혹은 Discord 커뮤니티에 직접 참여해서 물어보는 방법이다.\n문서화 문서가 아직 정돈되어 있지 않다고 느끼는데 목차가 조금 더 정리되어 그룹핑되면 좋겠다고 생각한다. 그리고 문서에 예제코드가 간단한 구조로만 되어 있어서 좀 더 상세한 예시와 설명이 있으면 좋겠다고 느끼고 있다.\n5. 정리 및 소감 Litestar는 Python 웹 개발을 위한 새로운 가능성을 제시하는 프레임워크이다. FastAPI처럼 ASGI를 잘 지원하며, 사용하기 쉬운 구조 덕분에 빠르게 적응할 수 있었다. 나의 바램은 FastAPI 보다는 프레임워크에서 지원하는 기능이 풍부하고 그러면서도 Django 만큼 허들이 높지 않은 그럼 프레임워크를 필요로 했는데 여기에 부합한다고 느껴졌다. 굳이 표현하자면 프레임워크 포지션상 FastAPI 와 Django 의 중간정도에 있다고 느껴졌다. FastAPI를 사용하면서 느꼈던 다양한 단점들을 Litestar 쓰면서 쉽게 해소될 수 있다고 느껴져 앞으로 활용처를 늘려볼 생각이다. 하지만, 이 프레임워크는 아직 초기 단계이기 때문에 큰 프로젝트에서 사용하기에는 아직 레퍼런스가 많이 부족하다. 문서도 빈약한 부분이 많아서 개선의 여지가 많다고 느껴진다. 그럼에도 Litestar가 어떻게 발전할지 기대가 되며, 다른 한국의 Python 웹 개발자 분들도 Litestar를 사용해보며 그 매력을 느껴보면 좋겠다. 참고사항 Litestar 공식 사이트 Litestar Dicord Exploring LiteStar: A Python Framework for Lightweight Web Development Python Litestar Introduction Youtube Litestar for Python API Development / Pydantic Model Integration Litestar: Effortlessly Build Performant APIs - Talk Python to Me Ep.433 https://dev.to/v3ss0n/litestar-20-beta-speed-of-light-power-of-stars-1j62 "
 },
 {
-	"permalink": "https://findstar.pe.kr/posts/",
-	"title": "Posts",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
 	"permalink": "https://findstar.pe.kr/tags/python/",
 	"title": "python",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/",
-	"title": "Soo Story",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/",
-	"title": "Tags",
 	"tags": [],
 	"description": "",
 	"type": "base",
