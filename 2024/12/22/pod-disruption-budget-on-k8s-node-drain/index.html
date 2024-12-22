@@ -337,10 +337,12 @@
 node drain 보다 시간이 오래걸리고, node 에 위치한 여러 pod 모두 작업을 해주어야 해서 번거롭다.</p>
 <p>상황에 맞게 선택해서 사용하도록 하자.</p>
 <h2 id="결론">결론</h2>
-<p>K8s에서 pod를 배포하는 과정에서는
-pod 가 시작할 때 준비과정(rediness), warmup (initialDelay)에 대한 고민이 필요하고
-pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지 기다리기 위한 preStop 과 같은 설정이 필요하다.
-이를 잘 이해하고 사용한다면 배포과정에서 사용자가 5XX 에러를 확인하는 일은 없을꺼라고 생각한다.</p>
+<ul>
+<li>k8s 클러스터를 운영할 때 node drain 과정에서 replica 에 따라서 서비스가 중단되는 경우가 발생할 수 있다.</li>
+<li>이를 방지하기 위해서 <code>PodDisruptionBudget</code> 를 설정할 수 있고, 상황에 따라 <code>MinAvailable</code> 또는 <code>MaxUnavailable</code> 를 설정해서 사용하면 된다.</li>
+<li>Pod Eviction 과정에 대해서 이해하는 것이 좋다.</li>
+<li>상황에 따라 노드를 스케줄링 제외하고 deployment rollout restart 로 pod 를 다른 노드에 이동시키기도 한다.</li>
+</ul>
 <h2 id="참고자료">참고자료</h2>
 <ul>
 <li><a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb">https://kubernetes.io/docs/tasks/run-application/configure-pdb</a>.</li>
