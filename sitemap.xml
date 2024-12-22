@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/k8s/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/node-drain/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/poddisruptionbudget/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/adaptive-growth/</loc>
     <lastmod>2024-11-10T18:50:01+09:00</lastmod>
   </url><url>
@@ -11,16 +32,7 @@
     <loc>https://findstar.pe.kr/tags/portfolio-expansion/</loc>
     <lastmod>2024-11-10T18:50:01+09:00</lastmod>
   </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2024-11-10T18:50:01+09:00</lastmod>
-  </url><url>
     <loc>https://findstar.pe.kr/tags/product-strategy/</loc>
-    <lastmod>2024-11-10T18:50:01+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2024-11-10T18:50:01+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2024-11-10T18:50:01+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2024/11/10/personal-thoughts-on-the-criteria-for-engineering-levels/</loc>
@@ -92,16 +104,13 @@
     <loc>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</loc>
     <lastmod>2023-11-24T20:18:00+09:00</lastmod>
   </url><url>
-    <loc>https://findstar.pe.kr/tags/k8s/</loc>
-    <lastmod>2023-04-06T21:03:22+09:00</lastmod>
-  </url><url>
     <loc>https://findstar.pe.kr/tags/k8s-api/</loc>
     <lastmod>2023-04-06T21:03:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/kubernetes/</loc>
     <lastmod>2023-04-06T21:03:22+09:00</lastmod>
   </url><url>
-    <loc>https://findstar.pe.kr/tags/service-account-role/</loc>
+    <loc>https://findstar.pe.kr/tags/service-account--role/</loc>
     <lastmod>2023-04-06T21:03:22+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/</loc>

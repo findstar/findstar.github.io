@@ -1,23 +1,31 @@
 [
 {
-	"permalink": "https://findstar.pe.kr/tags/adaptive-growth/",
-	"title": "adaptive growth",
+	"permalink": "https://findstar.pe.kr/tags/k8s/",
+	"title": "K8s",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/tags/hedgehog-sharp/",
-	"title": "hedgehog sharp",
+	"permalink": "https://findstar.pe.kr/tags/node-drain/",
+	"title": "Node Drain",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/tags/portfolio-expansion/",
-	"title": "portfolio expansion",
+	"permalink": "https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/",
+	"title": "Node Drain 작업시 주의사항",
+	"tags": ["k8s", "node drain", "PodDisruptionBudget"],
+	"description": "",
+	"type": "post",
+	"contents": "개요 k8s 클러스터를 운영하다보면, 종종 Node Drain 작업을 수행해야하는 경우가 발생한다. 나의 경우에는 GPU 기반의 AI Workload를 운영하는 플랫폼을 개발하고 있는데 특정 Node 의 GPU에 장애가 발생하는 경우에 이 Node 에서 동작중인 pod 을 다른 노드로 옮긴 뒤에 노드를 재부팅하거나 물리적으로 교체하는 작업을 수행했었다. 이 Node Drain 작업시에 종종 Pod 의 위치에 따라 Service 가 불가능한 상황이 발생하여 이를 제어하기 위해서 PodDisruptionBudget을 알아보았다.\nNode Drain? 노드 드레인이란 특정 노드에서 동작중인 pod를 다른 노드로 이동시키고, 해당 노드를 스케줄링에서 제외 시켜 새로운 Pod 이 배포되지 못하도록 하는 작업이다. 일반적으로 노드의 메인터넌스 작업이 필요한 경우에 수행하는 명령어라고 할 수 있다. Drain 이란 단어가 \u0026lsquo;물을 빼다\u0026rsquo; 라는 의미가 있는데 찰랑거리는 욕조에 마개를 열어 물을 빼는 상황을 생각해보면 이해가 쉽다. 주로 노드의 OS 업데이트, 하드웨어 장애시에 많이 사용하게 된다.\n나의 경우에는 AI 플랫폼을 운영하기 위한 GPU worker를 사용하고 있어서, 특정 GPU Ecc 에러가 감지되어 재부팅 해야하거나, 아예 완전히 GPU를 교체해야하는 하드웨어 장애가 발생하는 경우 많이 사용하게 되었다.\n명령어는 다음과 같이 노드의 이름을 입력하면 된다.\nkubectl drain \u0026lt;NODE_NAME\u0026gt; 드레인 명령어를 입력하면 해당 노드에서 수행중인 pod 이 삭제되어 다른 노드에 다시 스케줄링 된다. 이렇게 노드가 삭제되면 eviction(축출) 되었다고 표현한다 다만 drain 명령어를 실행해도 daemonset 과 같은 pod 는 삭제되지 않는다. 만약 daemonset pod 도 함께 삭제해야한다면 다음과 같이 명령어를 입력하면 된다.\nkubectl drain \u0026lt;NODE_NAME\u0026gt; --ignore-daemonsets=false Node Drain 시에 Service 가 단절되는 상황 pod 이 스케줄링 되어 있는 상황에 따라서 Service 가 단절되는 상황이 발생한다. 다음의 경우를 생각해보자.\ndrain 작업을 수행하려는 node 에 pod 가 몰려 있는 경우 예를 들어 drain 작업을 수행하려는 node 에 replica size 가 2인 pod 가 모두 스케줄링 되어 있는 경우 drain 작업을 수행하면 서비스가 단절된다. K8S Node Drain 왜 그러한지는 pod 의 eviction 과정을 살펴보면 이해할 수 있다.\nPod Eviction 드레인 명령어가 입력되면 먼저 노드는 스케줄링에서 제외어 새로운 pod 이 배치되지 못하도록 한다. 그 다음 pod 가 eviction 된다. pod 는 terminating 상태가 된다. 참고로 eviction 은 pod의 TerminationGracePeriodSeconds 설정에 따라 종료과정을 거친다. preStop 이 설정되어 있다면 이 hook 을 먼저 실행하고 hook 완료시 TERM 시그널을 main container 에 전달한다. TerminationGracePeriodSeconds 안에 완료되지 못하면 SIGKILL 시그널이 main container 에 전달된다. pod 가 terminating 상태임을 감지한 클러스터는 replica 를 유지하기 위해서 신규 pod 를 생성하는데 이미 drain 대상이 된 노드는 스케줄링 제외 되어 있기 때문에 다른 노드에 배치된다. PodDisruptionBudget 를 사용하여 MinAvailable 조정하기 노드 드레인 작업시 서비스를 유지하기 위해 최소한의 pod 수를 유지해야한다. replica size 가 2라면 1 개의 pod 씩 옮겨야 서비스가 유지된다. 이럴 때는 PodDisruptionBudget 의 MinAvailable 을 조정하면 된다.\napiVersion: policy/v1 kind: PodDisruptionBudget metadata: name: my-pdb spec: minAvailable: 1 selector: matchLabels: app: my-gpu-app 최소한 하나의 replica 는 유지하도록 설정하였다.\n이렇게 되면 최소한 하나의 pod replica 는 유지되기 때문에 서비스가 단절되는 상황을 방지할 수 있다. replica 2 의 pod 이라면 1 개의 pod 이 유지되고 나머지 pod 이 다른 노드에 스케줄링되기 때문이다.\n이와 반대로 MaxUnavailable 을 지정할 수도 있다.\napiVersion: policy/v1 kind: PodDisruptionBudget metadata: name: my-pdb spec: maxUnavailable: 1 selector: matchLabels: app: my-gpu-app 이 경우에는 하나씩 다른 노드로 새로운 pod 을 스케줄링 하게 된다. 다만 replica size 가 크다면 하나씩 이동시키는 건 시간이 오래걸리기 때문에 MaxUnavailable 값은 25%와 같이 퍼센트 값을 지정할 수도 있다.\n만약 MaxUnavailable 이 0 이라면? pod 의 eviction 을 생각할 때 MaxUnavailable 이 0 이라면 eviction 이 차단된다. 따라서 노드 드레인 작업이 완료되지 않는다. 따라서 해당 노드에 위치한 pod 를 옮기기 위해서 다른 방법을 사용해야한다.\n노드에서 pod 를 제거하는 다른 방법 PodDisruptionBudget을 생각하지 않고 특정 노드에 스케줄링되어 동작중인 pod 를 다른 노드로 옮기는 다른 방법은 해당 노드를 먼저 스케줄링에서 제외하고 동작중인 pod 가 포함된 deployment 를 rollout restart 하면 된다. 이 방법도 많이 사용한다. 다만 이렇게 하면 deployment 의 replica count 가 많은 경우 다른 노드에 스케줄링된 모든 pod 이 새롭게 스케줄링 되어야 하므로 node drain 보다 시간이 오래걸리고, node 에 위치한 여러 pod 모두 작업을 해주어야 해서 번거롭다.\n상황에 맞게 선택해서 사용하도록 하자.\n결론 K8s에서 pod를 배포하는 과정에서는 pod 가 시작할 때 준비과정(rediness), warmup (initialDelay)에 대한 고민이 필요하고 pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지 기다리기 위한 preStop 과 같은 설정이 필요하다. 이를 잘 이해하고 사용한다면 배포과정에서 사용자가 5XX 에러를 확인하는 일은 없을꺼라고 생각한다.\n참고자료 https://kubernetes.io/docs/tasks/run-application/configure-pdb. https://blog.gruntwork.io/gracefully-shutting-down-pods-in-a-kubernetes-cluster-328aecec90d https://stackoverflow.com/questions/75385965/when-using-kubectl-drain-node-node-pods-it-doesnt-wait-for-new-pods-to-get-h "
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/poddisruptionbudget/",
+	"title": "PodDisruptionBudget",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -26,14 +34,6 @@
 {
 	"permalink": "https://findstar.pe.kr/posts/",
 	"title": "Posts",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/product-strategy/",
-	"title": "product strategy",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -50,6 +50,38 @@
 {
 	"permalink": "https://findstar.pe.kr/tags/",
 	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/adaptive-growth/",
+	"title": "Adaptive Growth",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/hedgehog-sharp/",
+	"title": "Hedgehog Sharp",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/portfolio-expansion/",
+	"title": "Portfolio Expansion",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/product-strategy/",
+	"title": "Product Strategy",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -81,7 +113,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/framework/",
-	"title": "framework",
+	"title": "Framework",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -89,7 +121,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/litestar/",
-	"title": "litestar",
+	"title": "Litestar",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -105,7 +137,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/python/",
-	"title": "python",
+	"title": "Python",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -113,7 +145,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/benchmark/",
-	"title": "benchmark",
+	"title": "Benchmark",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -121,7 +153,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/java/",
-	"title": "java",
+	"title": "Java",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -129,7 +161,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/jdk-21/",
-	"title": "jdk 21",
+	"title": "Jdk 21",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -137,7 +169,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/throughput/",
-	"title": "throughput",
+	"title": "Throughput",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -145,7 +177,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/virtual-thread/",
-	"title": "virtual thread",
+	"title": "Virtual Thread",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -161,7 +193,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/collaboration/",
-	"title": "collaboration",
+	"title": "Collaboration",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -169,7 +201,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/communication/",
-	"title": "communication",
+	"title": "Communication",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -185,7 +217,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/argocd/",
-	"title": "argocd",
+	"title": "Argocd",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -201,7 +233,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring/",
-	"title": "spring",
+	"title": "Spring",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -209,7 +241,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring-camp/",
-	"title": "spring camp",
+	"title": "Spring Camp",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -217,7 +249,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring-camp-2023/",
-	"title": "spring camp 2023",
+	"title": "Spring Camp 2023",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -240,16 +272,8 @@
 	"contents": "Virtual Thread (1) 2023년 9월 19일에 릴리즈된 Java 21 는 Java 8 이후 세번째 LTS 버전이다(11, 17, 21). 이 버전에서는 많은 사람들이 기다리고 있는 가상 스레드 라는 기능이 추가되었다. 이 Virtual Thread(이하 가상스레드) 가 어떤 의미가 있기 때문에 많은 사람들이 기다리고 있는지 알아보고 그 의미를 정리해보았다. 이 글은 가상 스레드와 관련된 첫 번째 글이고 다음 글로 계속 이어진다.\n시리즈 Virtual Thread란 무엇일까? (1) Virtual Thread란 무엇일까? (2) 가상 스레드 란? 가상 스레드 란 기존의 전통적인 Java 스레드에 더하여 새롭게 추가되는 경량 스레드이다. Project Loom의 결과물로 추가된 기능으로 OS 스레드를 그대로 사용하지 않고 JVM 자체적으로 내부 스케줄링을 통해서 사용할 수 있는 경량의 스레드를 제공한다. 하나의 Java 프로세스가 수십만~ 수백만개의 스레드를 동시에 실행할 수 있게끔 설계되었다.\nProject Loom 이란? 경량의 스레드를 Java에 추가하기 위해서 가상 스레드를 비롯한 여러가지 기능들을 개발하는 프로젝트로 Loom이란 단어는 Thread 의 사전적 정의가 \u0026lsquo;실\u0026rsquo; 이라는데 착안하여 실을 엮어 \u0026lsquo;직물을 만든다는 뜻\u0026lsquo;이다. Loom 프로젝트의 결과로 탄생한 \u0026lsquo;Virtual Thread\u0026rsquo;도 처음에는 Fiber-섬유 라고하는 별도의 기능으로 개발되었으나, 최종적으로는 기존 스레드 문법과 호환될 수 있는 형태로 발전했다.\n먼저 이 가상 스레드 가 왜 필요하게 되었는지 그 배경과 가상 스레드 가 해결하고자 하는 문제에 대해서 알아보자.\n배경 자바의 스레드는 OS의 스레드를 기반으로 한다.\n자바의 전통적인 스레드는 OS 스레드를 랩핑(wrapping)한 것으로 이를 플랫폼 스레드 라고 정의한다. (자바의 전통적인 스레드=플랫폼 스레드) 따라서 Java 애플리케이션에서 스레드를 사용하는 코드는 실제적으로는 OS 스레드를 이용하는 방식으로 동작했다. OS 커널에서 사용할 수 있는 스레드는 갯수가 제한적이고 생성과 유지 비용이 비싸다. 이 때문에 기존에 애플리케이션들은 비싼 자원인 플랫폼 스레드를 효율적으로 사용하기 위해서 스레드 풀(Thread Pool) 만들어서 사용해왔다. 처리량(throughput)의 한계\nSpring Boot와 같은 애플리케이션의 기본적인 사용자 요청 처리 방식은 Thread Per Request 이다. 이는 하나의 request(요청)을 처리하기 위해서 하나의 스레드를 사용한다. 애플리케이션에서 처리량을 늘리려면 스레드를 늘려야 하지만 스레드를 무한정 늘릴 수 없다. (OS 스레드를 무한정 늘릴 수 없기 때문) 따라서 애플리케이션의 처리량(throughput)은 스레드 풀에서 감당할 수 있는 범위를 넘어서 늘어날 수 없다. Blocking으로 인한 리소스 낭비\nThread per Request 모델에서는 요청을 처리하는 스레드에서 IO 작업 처리할 때 Blocking 이 일어난다. 이 때문에 스레드는 IO 작업이 마칠 때까지 다른 요청을 처리하지 못하고 기다려야 한다.(Blocking 동안 대기) 애플리케이션에 유입되는 요청이 많지 않거나 또는 스케일 아웃으로 충분히 커버할 수 있는 정도라면 문제가 없지만, 아주 많은 요청을 처리해야하는 상황이라면 Blocking 방식으로 인해 발생하는 낭비를 줄여야 할 필요가 있다. 이 때문에 Blocking 이 아니라 Non-blocknig 방식의 Reactive Programming이 발전하였다. Reactive Programming의 단점\n처리량을 높이기 위한 방법으로 비동기 방식의 Reactive 프로그래밍이 발전해왔다. 한정된 자원인 플랫폼 스레드가 Blocking 되면서 대기하는 데 소요된 스레드 자원을 Non-blocking 방식으로 변경하면서 다른 요청을 처리하는데 사용할 수 있게 되었다. 대표적으로 Webflux 가 이렇게 Non-blocking으로 동작한다. 다만 이런 Reactive 코드는 작성하고 이해하는 비용을 높게 만들었다. (Mono, Flux) 또한 기존의 자바 프로그래밍의 패러다임은 스레드를 기반으로 하기 때문에 라이브러리들 모두 Reactive 방식에 맞게 새롭게 작성되어야 하는 문제가 있다. 자바 플랫폼의 디자인\n자바 플랫폼은 전통적으로 스레드를 중심으로 구성되어 있었다. 스레드 호출 스택은 thread local을 사용하여 데이터와 컨텍스트를 연결하도록 설계되어 있다. 이 외에도 Exception, Debugger, Profile(JFR)이 모두 스레드를 기반으로 하고 있다. Reactive 스타일로 코드를 작성하면 사용자의 요청이 스레드를 넘나들면서 처리되는데, 이 때문에 컨텍스트 확인이 어려워져 결국 디버깅이 힘들어졌다. 목적 Project Loom 의 결과로 탄생한 가상 스레드는 다음과 같은 목적을 가지고 있는데, 기존의 Reactive Programming 과 비교해서 생각해보자.\n해결하고자 하는 문제 Java 개발자가 하드웨어의 성능을 잘 활용하는 높은 처리량(쓰루풋)의 서버를 작성하는 것\n가상 스레드는 Blocking 이 발생하면 내부적으로 스케줄링을 활용하여 플랫폼 스레드가 그냥 대기하게 두지 않고 다른 가상 스레드가 작업할 수 있도록 한다. 따라서 Reactive programming 의 Non-blcking 과 동일하게 플랫폼 스레드의 리소스를 낭비하지 않는다. 동시에 자바 플랫폼의 디자인과 조화를 이루는 코드를 생성할 수 있도록 하는 것\n기존 Reactive programming 의 장점에도 불구하고 전통적인 자바 언어의 구조는 스레드를 기반으로 하였기 때문에 Webflux등을 사용할 때 디버깅, 성능테스트가 어려웠다. 하지만 가상 스레드는 기존 스레드 구조를 그대로 사용하기 때문에 디버깅, 프로파일링등 기존의 도구도 그대로 사용할 수 있다. Reactive Programming 과의 비교 Reactive programming 이 달성하고자 하는, 리소스를 효율적으로 사용하여 높은 처리량(throughput)을 감당하려는 목적은 동일하다.\n가상 스레드를 사용하면 Non-blocking 에 대한 처리를 JVM 레벨에서 담당해준다.\n따라서 Spring Web MVC 스타일로 코드를 작성하더라도 내부에서 가상 스레드가 기존의 플랫폼 스레드를 직접 사용하는 방식보다 효율적으로 스케줄링하여 처리량을 높일 수 있다.\n결론적으로 가상 스레드 는 기존 스레드 방식의 이점을 누리면서도 Reactive programming의 장점을 취할 수 있다.\n구조 그럼 어떻게 가상 스레드 가 이런 목표를 달성할 수 있는지 그 구조를 살펴보자.\n플랫폼 스레드와 가상 스레드의 구조 차이 앞서 플랫폼 스레드는 OS 스레드를 감싼 것이라고 설명했다. 애플리케이션 코드가 플랫폼 스레드를 사용하면 실제로는 OS 스레드를 사용하는 것이다. 이 때 사용하는 스레드는 비용이 비싸기 때문에 스레드 풀 을 사용하여 접근하는 방식으로 사용해왔다.\n이에 반해 가상 스레드는 OS 스레드를 감싼 구조가 아니기 때문에 애플리케이션 코드는 가상 스레드 풀 없이 사용하고 JVM 자체적으로 가상 스레드를 OS 스레드와 연결하는 스케줄링한다. 이 작업을 mount / unmount 라고 하고 기존에 플랫폼 스레드라고 하던 부분을 Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연결해준다는 의미)\n구조적으로 보자면 OS 스레드를 사용하기 전에 하나의 레이어가 더 있는 것 처럼 보인다. (가상 스레드 스케줄링) 하지만 이 자체적인 스케줄링을 통해서 큰 차이가 발생한다. 기존의 스레드는 Blocking 이 발생하면 그냥 기다려야 했는데, 가상 스레드는 Blocking 이 발생하면 내부의 스케줄링을 통해서 실제 작업을 처리하는 Carrier 스레드는 다른 가상 스레드의 작업을 처리하면 된다. 따라서 Non-blocking 이 누리는 장점을 동일하게 누릴 수 있다. 이를 도식화 하면 다음과 같다.\n다만 위와 같은 구조는 가상 스레드가 수십~수백만까지 늘어날 수 있기 때문에 전통적인 플랫폼 스레드와 동일한 메모리 비용, 컨텍스트 비용이 발생하면 감당하기 어렵다. 따라서 플랫폼 스레드와 가상 스레드는 자원 사용량의 차이가 있다.\n사용하는 자원의 차이 플랫폼 스레드 가상 스레드 메타 데이터 사이즈 약 2kb(OS별로 차이있음) 200~300 B 메모리 미리 할당된 Stack 사용 필요시 마다 Heap 사용 컨텍스트 스위칭 비용 1~10us (커널영역에서 발생하는 작업) ns (or 1us 미만) 사용법 가상 스레드의 배경과, 목적, 구조에 대해서 알아보았으니 실제 가상 스레드 를 사용하는 코드를 실행시켜보자.\n준비과정 SDKMan 을 사용하여 JDK 21을 설치한다.\n$ sdk list java ================================================================================ Available Java Versions for macOS ARM 64bit ================================================================================ Vendor | Use | Version | Dist | Status | Identifier -------------------------------------------------------------------------------- Corretto | | 21 | amzn | | 21-amzn | | 21.0.1 | amzn | | 21.0.1-amzn | | 20.0.2 | amzn | | 20.0.2-amzn | | 20.0.1 | amzn | | 20.0.1-amzn | | 8.0.382 | amzn | | 8.0.382-amzn | | 8.0.372 | amzn | | 8.0.372-amzn Gluon | | 22.1.0.1.r17 | gln | | 22.1.0.1.r17-gln | | 22.1.0.1.r11 | gln | | 22.1.0.1.r11-gln GraalVM CE | | 21 | graalce | | 21-graalce | | 21.0.1 | graalce | | 21.0.1-graalce | | 17.0.8 | graalce | | 17.0.8-graalce | | 17.0.7 | graalce | | 17.0.7-graalce GraalVM Oracle| | 21 | graal | | 21-graal | | 21.0.1 | graal | | 21.0.1-graal | | 17.0.8 | graal | | 17.0.8-graal | | 17.0.7 | graal | | 17.0.7-graal Java.net | | 22.ea.25 | open | | 22.ea.25-open | | 22.ea.16 | open | | 22.ea.16-open | | 21 | open | | 21-open | | 21.ea.35 | open | | 21.ea.35-open | | 21.ea.18 | open | | 21.ea.18-open | | 21.0.1 | open | | 21.0.1-open | | 20.0.2 | open | | 20.0.2-open 여러가지 버전을 설치할 수 있지만 OpenJDK 버전의 최신버전인 21.0.1-open 을 설치해보자\n$ sdk install java 21.0.1-open Downloading: java 21.0.1-open In progress... ################################################################################################ 100.0% Repackaging Java 21.0.1-open... Done repackaging... Cleaning up residual files... Installing: java 21.0.1-open Done installing! Do you want java 21.0.1-open to be set as default? (Y/n): Y Setting java 21.0.1-open as default. $ java --version openjdk 21.0.1 2023-10-17 OpenJDK Runtime Environment (build 21.0.1+12-29) OpenJDK 64-Bit Server VM (build 21.0.1+12-29, mixed mode, sharing) 다음으로 가상 스레드 를 사용하는 코드를 작성해보자. IntelliJ 에서는 2023.2.3 이상부터 Java 21 을 지원하기 때문에 버전을 꼭 확인하자. 새로운 프로젝트를 만들고 JDK 21 을 지정한다. 이제 아래와 같이 Main.java 파일을 작성하자.\nimport java.util.concurrent.ExecutorService; import java.util.concurrent.Executors; public class Main { public static void main(String[] args) throws Exception { run(); } public static void run() throws Exception { // Virtual Thread 방법 1 Thread.startVirtualThread(() -\u0026gt; { System.out.println(\u0026#34;Hello Virtual Thread\u0026#34;); }); // Virtual Thread 방법 2 Runnable runnable = () -\u0026gt; System.out.println(\u0026#34;Hi Virtual Thread\u0026#34;); Thread virtualThread1 = Thread.ofVirtual().start(runnable); // Virtual Thread 이름 지정 Thread.Builder builder = Thread.ofVirtual().name(\u0026#34;JVM-Thread\u0026#34;); Thread virtualThread2 = builder.start(runnable); // 스레드가 Virtual Thread인지 확인하여 출력 System.out.println(\u0026#34;Thread is Virtual? \u0026#34; + virtualThread2.isVirtual()); // ExecutorService 사용 try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) { for (int i = 0; i \u0026lt;3; i++) { executorService.submit(runnable); } } } } 이제 Main.java 를 실행해보자. 다음과 같은 결과를 확인할 수 있다.\nHello Virtual Thread Hi Virtual Thread Hi Virtual Thread Thread is Virtual? true Hi Virtual Thread Hi Virtual Thread Hi Virtual Thread 만약에러가 발생하면 Project Structure, Java Compiler 설정을 꼭 확인하자. IntelliJ 를 사용하지 않고 커맨드라인에서 실행하면 다음과 같다.\n$ java --version openjdk 21.0.1 2023-10-17 OpenJDK Runtime Environment (build 21.0.1+12-29) OpenJDK 64-Bit Server VM (build 21.0.1+12-29, mixed mode, sharing) $ javac Main.java $ ls Main.class Main.java $ java Main Hello Virtual Thread Hi Virtual Thread Hi Virtual Thread Thread is Virtual? true Hi Virtual Thread Hi Virtual Thread Hi Virtual Thread 기존의 스레드(플랫폼 스레드)를 생성하던 문법과 큰 차이가 없이 가상 스레드를 만들 수 있다는 걸 알수 있다. 이번에는 Executors 를 사용하여 10만개의 가상 스레드를 만들고 2초간 대기하도록 한뒤에 전체 실행시간을 측정해보자. Blocking 이 발생하면 다른 가상 스레드가 실행되기 때문에 제대로 동작한다면 약 2초를 조금 넘기는 시간 안에 완료되어야 한다.\nimport java.time.Duration; import java.util.concurrent.Executors; public class Main { public static void main(String[] args) throws Exception { run(); } public static void run() throws Exception { while (true) { long start = System.currentTimeMillis(); try (var executor = Executors.newVirtualThreadPerTaskExecutor()) { // 10만개의 Virtual Thread 실행 for (int i = 0; i \u0026lt; 100_000; i++) { executor.submit(() -\u0026gt; { Thread.sleep(Duration.ofSeconds(2)); return null; }); } } long end = System.currentTimeMillis(); System.out.println((end - start) + \u0026#34;ms\u0026#34;); } } } 실행결과는 다음과 같다.\n2542ms 2590ms 2092ms 2129ms 2125ms 2094ms 2101ms 결과를 보면 알 수 있지만 2초에 가까운 시간이 출력된다. Thread.sleep 에 의해서 Blocking 되었지만 내부 가상 스레드 스케줄러에 의해서 다음 가상 스레드가 실행되기 때문에 전체 처리 시간은 2초에 가깝게 나온다. 이 것을 통해서 Blcoking 코드가 있더라도 가상 스레드를 사용하면 처리량이 늘어날 수 있다는 것을 예상할 수 있다.\n정리 요약 높은 처리량을 높이기 위해서 기존에는 Reactive Programming 과 같은 방식을 사용했지만, 가상 스레드 를 사용하면 Reactive Programming 이 추구하는 Non-blocking을 통한 효율적인 자원 사용이 가능해진다. 가상 스레드 가 JVM 내부에서 알아서 스케줄링 해주기 때문에 가상 스레드 풀 을 사용하지 않는다. Reactive Programming 보다 가독성 좋은 코드를 유지할 수 있고, 기존 스레드와 동일하게 동작하므로 디버깅이 용이하다. 생각해볼 부분 가상 스레드 기능이 추가되었다고 해서 기존의 스레드(플랫폼 스레드)를 사용하지 못하는 것은 아니다. 기존의 스레드도 사용가능하고, 추가된 가상 스레드 도 사용가능하다. 서로 대치되는 것이 아니라 공존하는 것이다. 가상 스레드 를 사용하더라도 응답속도가 빨라지지는 않는다. (오히려 약간 느려질 수도). 다만 처리량이 늘어날 수 있다. 일반적으로 애플리케이션을 개발할 때 스레드를 직접 다루거나 Executors를 사용하는 코드를 많이 작성하지는 않는다. 오히려 기존의 라이브러리들이 가상 스레드를 사용할 수 있도록 개선될 것같다. Reactive Programming 과 같이 높은 처리량을 필요로하는 부분들은 가상 스레드를 사용하는 방식으로 전환될 수도 있을것 같다. 소감 가상 스레드 를 알아보면서 Java 21 버전을 사용한 애플리케이션 코드작성이 기대되기 시작했다. 더욱이 Java 21 버전이 LTS (Long Term Support)로 출시되기 때문에 새로운 프로젝트들은 Java 21 을 기반으로 시작한다면 가상 스레드의 이점을 적용할 수 있을 것이다. 그리고 기존 프로젝트들도 높은 처리량(throughput)을 필요로 하는 경우에 사용하는 Java 버전업을 고려해볼만 하다고 생각된다.\n자료를 정리하면서 Project Loom 에서 가상 스레드 기능을 구현하기까지 5년 넘게 개발했다는 것을 알게되었다. 기존의 스레드 사용성을 해치지 않으면서도 단점만을 개선한 가상 스레드 를 내놓기 까지 얼마나 많은 고민을 했을까 생각해았다. 쉽지 않은 일이었을텐데 결국 이렇게 Java 21에 포함되는 기능을 내놓은 것이 대단하다고 느껴졌다.\n내용이 길어져 다음 글에서 실제 Spring Boot 에 가상 스레드 적용한뒤 실제로 기존 스레드 풀 방식과 비교하여 처리량이 늘어나는지, 그리고 가상 스레드를 사용할 때 주의해야할 점에 대해서 추가 내용을 정리해보겠다.\n시리즈 Virtual Thread란 무엇일까? (1) Virtual Thread란 무엇일까? (2) 참고 자료 https://openjdk.org/jeps/444 https://spring.io/blog/2022/10/11/embracing-virtual-threads https://www.infoq.com/articles/java-virtual-threads/ https://dev.to/jorgetovar/virtual-threads-in-java-23mf https://howtodoinjava.com/java/multi-threading/virtual-threads/ https://www.infoq.com/news/2023/04/virtual-threads-arrives-jdk21/ "
 },
 {
-	"permalink": "https://findstar.pe.kr/tags/k8s/",
-	"title": "k8s",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
 	"permalink": "https://findstar.pe.kr/tags/k8s-api/",
-	"title": "k8s api",
+	"title": "K8s Api",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -257,15 +281,15 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/kubernetes/",
-	"title": "kubernetes",
+	"title": "Kubernetes",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/tags/service-account-role/",
-	"title": "service account &amp; role",
+	"permalink": "https://findstar.pe.kr/tags/service-account--role/",
+	"title": "Service Account &amp; Role",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -281,7 +305,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/blockhound/",
-	"title": "blockhound",
+	"title": "Blockhound",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -297,7 +321,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/blocking-code/",
-	"title": "blocking code",
+	"title": "Blocking Code",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -305,7 +329,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/webflux/",
-	"title": "webflux",
+	"title": "Webflux",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -321,7 +345,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/environment-to-do-well/",
-	"title": "environment to do well",
+	"title": "Environment to Do Well",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -329,7 +353,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/leadership/",
-	"title": "leadership",
+	"title": "Leadership",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -337,7 +361,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/architecture/",
-	"title": "architecture",
+	"title": "Architecture",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -345,7 +369,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/aws/",
-	"title": "aws",
+	"title": "Aws",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -353,7 +377,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/experience/",
-	"title": "experience",
+	"title": "Experience",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -369,7 +393,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/database/",
-	"title": "database",
+	"title": "Database",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -377,7 +401,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ulid/",
-	"title": "ulid",
+	"title": "Ulid",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -385,7 +409,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/uuid/",
-	"title": "uuid",
+	"title": "Uuid",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -401,7 +425,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/event-driven/",
-	"title": "event driven",
+	"title": "Event Driven",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -409,7 +433,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring-event/",
-	"title": "spring event",
+	"title": "Spring Event",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -433,7 +457,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/rds/",
-	"title": "rds",
+	"title": "Rds",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -441,7 +465,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/system-manager/",
-	"title": "system manager",
+	"title": "System Manager",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -449,7 +473,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/eks/",
-	"title": "eks",
+	"title": "Eks",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -465,7 +489,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/instance-type/",
-	"title": "instance type",
+	"title": "Instance Type",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -473,7 +497,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/m1-macbook-pro/",
-	"title": "m1 macbook pro",
+	"title": "M1 Macbook Pro",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -489,7 +513,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/heap-memory/",
-	"title": "heap memory",
+	"title": "Heap Memory",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -505,7 +529,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/backoffice/",
-	"title": "backoffice",
+	"title": "Backoffice",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -513,7 +537,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ux-consideration/",
-	"title": "ux consideration",
+	"title": "Ux Consideration",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -529,7 +553,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/graceful-deploy/",
-	"title": "graceful deploy",
+	"title": "Graceful Deploy",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -545,7 +569,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/build-cache/",
-	"title": "build cache",
+	"title": "Build Cache",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -553,7 +577,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/docker/",
-	"title": "docker",
+	"title": "Docker",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -569,7 +593,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/beautiful-goodbye/",
-	"title": "beautiful goodbye",
+	"title": "Beautiful Goodbye",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -577,7 +601,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/mm/",
-	"title": "mm",
+	"title": "Mm",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -601,7 +625,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/book/",
-	"title": "book",
+	"title": "Book",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -641,7 +665,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/forwarded-option/",
-	"title": "forwarded option",
+	"title": "Forwarded Option",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -649,7 +673,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/nginx-ingress/",
-	"title": "nginx ingress",
+	"title": "Nginx Ingress",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -665,7 +689,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/hugo/",
-	"title": "hugo",
+	"title": "Hugo",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -681,7 +705,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/rss-template/",
-	"title": "rss template",
+	"title": "Rss Template",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -689,7 +713,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/dockerize/",
-	"title": "dockerize",
+	"title": "Dockerize",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -697,7 +721,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/maven/",
-	"title": "maven",
+	"title": "Maven",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -705,7 +729,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/spring-boot/",
-	"title": "spring boot",
+	"title": "Spring Boot",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -721,7 +745,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/data.sql/",
-	"title": "data.sql",
+	"title": "Data.sql",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -729,7 +753,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/multi-datasource/",
-	"title": "multi datasource",
+	"title": "Multi Datasource",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -745,7 +769,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/alpine-linux/",
-	"title": "alpine linux",
+	"title": "Alpine Linux",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -761,7 +785,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/timezone/",
-	"title": "timezone",
+	"title": "Timezone",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -769,7 +793,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/fuse.js/",
-	"title": "fuse.js",
+	"title": "Fuse.js",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -785,7 +809,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/search-on-hugo/",
-	"title": "search on hugo",
+	"title": "Search on Hugo",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -793,7 +817,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/developer/",
-	"title": "developer",
+	"title": "Developer",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -801,7 +825,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/how-do-i-work/",
-	"title": "how do I work",
+	"title": "How Do I Work",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -817,7 +841,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/cronjob/",
-	"title": "cronjob",
+	"title": "Cronjob",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -825,7 +849,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/curl/",
-	"title": "curl",
+	"title": "Curl",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -841,7 +865,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/confluence/",
-	"title": "confluence",
+	"title": "Confluence",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -849,7 +873,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/customizing/",
-	"title": "customizing",
+	"title": "Customizing",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -857,7 +881,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/sidebar-search/",
-	"title": "sidebar search",
+	"title": "Sidebar Search",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -873,7 +897,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/istio/",
-	"title": "istio",
+	"title": "Istio",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -889,7 +913,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/traffic-management/",
-	"title": "traffic management",
+	"title": "Traffic Management",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -897,7 +921,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/docker-desktop/",
-	"title": "docker desktop",
+	"title": "Docker Desktop",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -921,7 +945,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/nginx-regexp/",
-	"title": "nginx regexp",
+	"title": "Nginx Regexp",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -937,7 +961,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy/",
-	"title": "haproxy",
+	"title": "Haproxy",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -945,7 +969,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-acl-logging/",
-	"title": "haproxy acl logging",
+	"title": "Haproxy Acl Logging",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -953,7 +977,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-custom-variable-logging/",
-	"title": "haproxy custom variable logging",
+	"title": "Haproxy Custom Variable Logging",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -977,7 +1001,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/kmooc/",
-	"title": "kmooc",
+	"title": "Kmooc",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1017,7 +1041,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/learning-in-2019/",
-	"title": "learning in 2019",
+	"title": "Learning in 2019",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1025,7 +1049,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/brew-cask/",
-	"title": "brew cask",
+	"title": "Brew Cask",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1041,7 +1065,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/openjdk/",
-	"title": "openjdk",
+	"title": "Openjdk",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1057,7 +1081,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/begining-docker/",
-	"title": "begining docker",
+	"title": "Begining Docker",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1073,7 +1097,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-metric/",
-	"title": "haproxy metric",
+	"title": "Haproxy Metric",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1081,7 +1105,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-stat/",
-	"title": "haproxy stat",
+	"title": "Haproxy Stat",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1105,7 +1129,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/happy-new-year/",
-	"title": "happy new year",
+	"title": "Happy New Year",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1113,7 +1137,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/lets-encrypt/",
-	"title": "let&#39;s encrypt",
+	"title": "Let&#39;s Encrypt",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1129,7 +1153,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/letsencrypt/",
-	"title": "letsencrypt",
+	"title": "Letsencrypt",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1137,7 +1161,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-1.8/",
-	"title": "haproxy 1.8",
+	"title": "Haproxy 1.8",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1153,7 +1177,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/seamless-reload/",
-	"title": "seamless reload",
+	"title": "Seamless Reload",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1161,7 +1185,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/zero-downtime/",
-	"title": "zero downtime",
+	"title": "Zero Downtime",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1169,7 +1193,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/haproxy-reload-fail/",
-	"title": "haproxy reload fail",
+	"title": "Haproxy Reload Fail",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1185,7 +1209,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/systemd-reload/",
-	"title": "systemd reload",
+	"title": "Systemd Reload",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1193,7 +1217,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/dos-attack/",
-	"title": "dos attack",
+	"title": "Dos Attack",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1209,7 +1233,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/rate-limit/",
-	"title": "rate limit",
+	"title": "Rate Limit",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1225,7 +1249,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/install/",
-	"title": "install",
+	"title": "Install",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1249,7 +1273,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/match_phrase/",
-	"title": "match_phrase",
+	"title": "Match_phrase",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1257,7 +1281,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ngram/",
-	"title": "ngram",
+	"title": "Ngram",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1273,7 +1297,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/wildcard/",
-	"title": "wildcard",
+	"title": "Wildcard",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1289,7 +1313,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/reindex/",
-	"title": "reindex",
+	"title": "Reindex",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1305,7 +1329,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/mapping/",
-	"title": "mapping",
+	"title": "Mapping",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1313,7 +1337,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/template/",
-	"title": "template",
+	"title": "Template",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1321,7 +1345,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/jekyll-to-hugo/",
-	"title": "jekyll to hugo",
+	"title": "Jekyll to Hugo",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1337,7 +1361,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/migration/",
-	"title": "migration",
+	"title": "Migration",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1345,7 +1369,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/limit_req_zone/",
-	"title": "limit_req_zone",
+	"title": "Limit_req_zone",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1353,7 +1377,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/nginx/",
-	"title": "nginx",
+	"title": "Nginx",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1369,7 +1393,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/rate-litmiting/",
-	"title": "rate litmiting",
+	"title": "Rate Litmiting",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1385,7 +1409,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/index-alias/",
-	"title": "index alias",
+	"title": "Index Alias",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1401,7 +1425,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/filebeat/",
-	"title": "filebeat",
+	"title": "Filebeat",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1409,7 +1433,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/logstash/",
-	"title": "logstash",
+	"title": "Logstash",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1433,7 +1457,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/file-upload/",
-	"title": "file upload",
+	"title": "File Upload",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1449,7 +1473,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/study/",
-	"title": "study",
+	"title": "Study",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1457,7 +1481,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ansible/",
-	"title": "ansible",
+	"title": "Ansible",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1473,7 +1497,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ansible-tower/",
-	"title": "ansible tower",
+	"title": "Ansible Tower",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1481,7 +1505,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/awx/",
-	"title": "awx",
+	"title": "Awx",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1489,7 +1513,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/installation/",
-	"title": "installation",
+	"title": "Installation",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1497,7 +1521,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/difference/",
-	"title": "difference",
+	"title": "Difference",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1513,7 +1537,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/empty-string/",
-	"title": "empty string",
+	"title": "Empty String",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1521,7 +1545,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/null/",
-	"title": "null",
+	"title": "Null",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1545,7 +1569,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/json/",
-	"title": "json",
+	"title": "Json",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1553,7 +1577,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/mysql/",
-	"title": "mysql",
+	"title": "Mysql",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1561,7 +1585,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/struct/",
-	"title": "struct",
+	"title": "Struct",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1577,7 +1601,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/match/",
-	"title": "match",
+	"title": "Match",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1585,7 +1609,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/query-dsl/",
-	"title": "query DSL",
+	"title": "Query DSL",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1593,7 +1617,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/term/",
-	"title": "term",
+	"title": "Term",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1609,7 +1633,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/inverted-index/",
-	"title": "inverted index",
+	"title": "Inverted Index",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1617,7 +1641,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/phpstorm/",
-	"title": "phpstorm",
+	"title": "Phpstorm",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1625,7 +1649,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/speed-up/",
-	"title": "speed up",
+	"title": "Speed Up",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1633,7 +1657,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/vm-options/",
-	"title": "vm options",
+	"title": "Vm Options",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1657,7 +1681,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/unused-plugins/",
-	"title": "unused plugins",
+	"title": "Unused Plugins",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1665,7 +1689,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/jetbrains/",
-	"title": "jetbrains",
+	"title": "Jetbrains",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1673,7 +1697,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/macro-key-mapping/",
-	"title": "macro key mapping",
+	"title": "Macro Key Mapping",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1689,7 +1713,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/fluentd/",
-	"title": "fluentd",
+	"title": "Fluentd",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1705,7 +1729,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/iterm/",
-	"title": "iterm",
+	"title": "Iterm",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1721,7 +1745,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/macro/",
-	"title": "macro",
+	"title": "Macro",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1729,7 +1753,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/ssh/",
-	"title": "ssh",
+	"title": "Ssh",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1737,7 +1761,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/accesscontrol/",
-	"title": "accessControl",
+	"title": "AccessControl",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1753,7 +1777,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/apache2.4/",
-	"title": "apache2.4",
+	"title": "Apache2.4",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1761,7 +1785,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/customlog/",
-	"title": "customLog",
+	"title": "CustomLog",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1769,7 +1793,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/errorlogformat/",
-	"title": "errorLogFormat",
+	"title": "ErrorLogFormat",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1777,7 +1801,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/composer/",
-	"title": "composer",
+	"title": "Composer",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1785,7 +1809,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/speedup/",
-	"title": "speedup",
+	"title": "Speedup",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1793,7 +1817,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/tips/",
-	"title": "tips",
+	"title": "Tips",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -1809,7 +1833,7 @@
 },
 {
 	"permalink": "https://findstar.pe.kr/tags/blog/",
-	"title": "blog",
+	"title": "Blog",
 	"tags": [],
 	"description": "",
 	"type": "base",

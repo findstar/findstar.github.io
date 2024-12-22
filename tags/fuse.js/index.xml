@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>fuse.js on Soo Story</title>
+    <title>Fuse.js on Soo Story</title>
     <link>https://findstar.pe.kr/tags/fuse.js/</link>
-    <description>Recent content in fuse.js on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Fuse.js on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 10 Jul 2021 22:33:16 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/fuse.js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Jul 2021 22:33:16 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/fuse.js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
       <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
       <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</guid>
       <description>그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다</description>
     </item>
-    
   </channel>
 </rss>

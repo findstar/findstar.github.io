@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>file upload on Soo Story</title>
+    <title>File Upload on Soo Story</title>
     <link>https://findstar.pe.kr/tags/file-upload/</link>
-    <description>Recent content in file upload on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in File Upload on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 13 May 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/file-upload/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 May 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/file-upload/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CURL 에서 파일 업로드 하기</title>
       <link>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</link>
       <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</guid>
-      <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;
-&lt;p&gt;작성한 API를 테스트 하기 위해서 &lt;a href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt; 이나 &lt;a href=&#34;https://paw.cloud/&#34;&gt;Paw&lt;/a&gt;를 주로 사용하는데,
-CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 &lt;code&gt;CURL&lt;/code&gt;을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;&#xA;&lt;p&gt;작성한 API를 테스트 하기 위해서 &lt;a href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt; 이나 &lt;a href=&#34;https://paw.cloud/&#34;&gt;Paw&lt;/a&gt;를 주로 사용하는데,&#xA;CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 &lt;code&gt;CURL&lt;/code&gt;을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

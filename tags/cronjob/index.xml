@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cronjob on Soo Story</title>
+    <title>Cronjob on Soo Story</title>
     <link>https://findstar.pe.kr/tags/cronjob/</link>
-    <description>Recent content in cronjob on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Cronjob on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/cronjob/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/cronjob/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
       <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
       <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
       <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
     </item>
-    
   </channel>
 </rss>

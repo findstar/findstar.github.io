@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>java on Soo Story</title>
+    <title>Java on Soo Story</title>
     <link>https://findstar.pe.kr/tags/java/</link>
-    <description>Recent content in java on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Java on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 02 Jul 2023 19:29:00 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Nov 2023 20:18:00 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Virtual Thread란 무엇일까? (2)</title>
       <link>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</guid>
       <description>이전 글에 이어서 Virtual Thread에 대해서 알아보았다. 성능 테스트를 수행해보고, 사용시 주의사항, 그리고 Virtual Thread를 사용하는데 제약사항에 대해서 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Spring Camp 2023 참여 후기</title>
       <link>https://findstar.pe.kr/2023/04/24/spring-camp-2023/</link>
       <pubDate>Mon, 24 Apr 2023 00:26:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/04/24/spring-camp-2023/</guid>
       <description>지난 주말 Spring Camp 2023 행사에 참석했다. 각 세션에 대해서 간략히 정리해보고, 참여 후기를 작성해보았다.</description>
     </item>
-    
     <item>
       <title>Virtual Thread란 무엇일까? (1)</title>
       <link>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</link>
       <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</guid>
       <description>2023년 9월 릴리즈 예정인 Java 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다.</description>
     </item>
-    
     <item>
       <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
       <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>
       <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</guid>
       <description>K8S에서 Java 애플리케이션을 구동할 때에는 리소스 설정과 메모리 설정에 주의하지 않으면 성능에 이슈가 발생할 수 있어, 관련 설정을 정리해보았다.</description>
     </item>
-    
   </channel>
 </rss>

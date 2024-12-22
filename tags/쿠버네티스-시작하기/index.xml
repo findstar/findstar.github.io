@@ -4,17 +4,16 @@
     <title>쿠버네티스 시작하기 on Soo Story</title>
     <link>https://findstar.pe.kr/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/</link>
     <description>Recent content in 쿠버네티스 시작하기 on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 03 Mar 2019 01:03:31 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Mar 2019 01:03:31 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[북 리뷰] 쿠버네티스 시작하기(kubernetes up &amp; running)</title>
       <link>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</link>
       <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
       <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
     </item>
-    
   </channel>
 </rss>

@@ -401,30 +401,30 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 따라서 플랫폼 스레드와 <code>가상 스레드</code>는 자원 사용량의 차이가 있다.</p>
 <h3 id="사용하는-자원의-차이">사용하는 자원의 차이</h3>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>플랫폼 스레드</th>
-<th>가상 스레드</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>메타 데이터 사이즈</td>
-<td>약 2kb(OS별로 차이있음)</td>
-<td>200~300 B</td>
-</tr>
-<tr>
-<td>메모리</td>
-<td>미리 할당된 Stack 사용</td>
-<td>필요시 마다 Heap 사용</td>
-</tr>
-<tr>
-<td>컨텍스트 스위칭 비용</td>
-<td>1~10us (커널영역에서 발생하는 작업)</td>
-<td>ns (or 1us 미만)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>플랫폼 스레드</th>
+          <th>가상 스레드</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>메타 데이터 사이즈</td>
+          <td>약 2kb(OS별로 차이있음)</td>
+          <td>200~300 B</td>
+      </tr>
+      <tr>
+          <td>메모리</td>
+          <td>미리 할당된 Stack 사용</td>
+          <td>필요시 마다 Heap 사용</td>
+      </tr>
+      <tr>
+          <td>컨텍스트 스위칭 비용</td>
+          <td>1~10us (커널영역에서 발생하는 작업)</td>
+          <td>ns (or 1us 미만)</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="사용법">사용법</h2>
 <p><code>가상 스레드</code>의 배경과, 목적, 구조에 대해서 알아보았으니 실제 <code>가상 스레드</code> 를 사용하는 코드를 실행시켜보자.</p>
@@ -492,40 +492,40 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
     
 </figure></p>
 <p>이제 아래와 같이 Main.java 파일을 작성하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.ExecutorService<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.Executors<span style="color:#ff79c6">;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.ExecutorService;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.Executors;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span><span style="color:#ff79c6">(</span>String<span style="color:#ff79c6">[]</span> args<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        run<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>(String<span style="color:#ff79c6">[]</span> args) <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        run();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span>() <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
 </span></span><span style="display:flex;"><span>         
-</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 1
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">startVirtualThread</span><span style="color:#ff79c6">(()</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>	        System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Hello Virtual Thread&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">});</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 1</span>
+</span></span><span style="display:flex;"><span>         Thread.<span style="color:#50fa7b">startVirtualThread</span>(() <span style="color:#ff79c6">-&gt;</span> {
+</span></span><span style="display:flex;"><span>	        System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#f1fa8c">&#34;Hello Virtual Thread&#34;</span>);
+</span></span><span style="display:flex;"><span>         });
 </span></span><span style="display:flex;"><span>         
-</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 2
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Runnable runnable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">()</span> <span style="color:#ff79c6">-&gt;</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Hi Virtual Thread&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>         Thread virtualThread1 <span style="color:#ff79c6">=</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofVirtual</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">start</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 방법 2</span>
+</span></span><span style="display:flex;"><span>         Runnable runnable <span style="color:#ff79c6">=</span> () <span style="color:#ff79c6">-&gt;</span> System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#f1fa8c">&#34;Hi Virtual Thread&#34;</span>);
+</span></span><span style="display:flex;"><span>         Thread virtualThread1 <span style="color:#ff79c6">=</span> Thread.<span style="color:#50fa7b">ofVirtual</span>().<span style="color:#50fa7b">start</span>(runnable);
 </span></span><span style="display:flex;"><span>         
-</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 이름 지정
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">Builder</span> builder <span style="color:#ff79c6">=</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofVirtual</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">name</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;JVM-Thread&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>         Thread virtualThread2 <span style="color:#ff79c6">=</span> builder<span style="color:#ff79c6">.</span><span style="color:#50fa7b">start</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// Virtual Thread 이름 지정</span>
+</span></span><span style="display:flex;"><span>         Thread.<span style="color:#50fa7b">Builder</span> builder <span style="color:#ff79c6">=</span> Thread.<span style="color:#50fa7b">ofVirtual</span>().<span style="color:#50fa7b">name</span>(<span style="color:#f1fa8c">&#34;JVM-Thread&#34;</span>);
+</span></span><span style="display:flex;"><span>         Thread virtualThread2 <span style="color:#ff79c6">=</span> builder.<span style="color:#50fa7b">start</span>(runnable);
 </span></span><span style="display:flex;"><span>         
-</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// 스레드가 Virtual Thread인지 확인하여 출력
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Thread is Virtual? &#34;</span> <span style="color:#ff79c6">+</span> virtualThread2<span style="color:#ff79c6">.</span><span style="color:#50fa7b">isVirtual</span><span style="color:#ff79c6">());</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// 스레드가 Virtual Thread인지 확인하여 출력</span>
+</span></span><span style="display:flex;"><span>         System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>(<span style="color:#f1fa8c">&#34;Thread is Virtual? &#34;</span> <span style="color:#ff79c6">+</span> virtualThread2.<span style="color:#50fa7b">isVirtual</span>()); 
 </span></span><span style="display:flex;"><span>         
-</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// ExecutorService 사용
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         <span style="color:#ff79c6">try</span> <span style="color:#ff79c6">(</span>ExecutorService executorService <span style="color:#ff79c6">=</span> Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">;</span> i <span style="color:#ff79c6">&lt;</span><span style="color:#bd93f9">3</span><span style="color:#ff79c6">;</span> i<span style="color:#ff79c6">++)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>                executorService<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>runnable<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">// ExecutorService 사용</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">try</span> (ExecutorService executorService <span style="color:#ff79c6">=</span> Executors.<span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> 0; i <span style="color:#ff79c6">&lt;</span>3; i<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                executorService.<span style="color:#50fa7b">submit</span>(runnable);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>이제 Main.java 를 실행해보자. 다음과 같은 결과를 확인할 수 있다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Hello Virtual Thread
 </span></span><span style="display:flex;"><span>Hi Virtual Thread
@@ -561,32 +561,32 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 </span></span><span style="display:flex;"><span>Hi Virtual Thread
 </span></span></code></pre></div><p>기존의 스레드(플랫폼 스레드)를 생성하던 문법과 큰 차이가 없이 <code>가상 스레드</code>를 만들 수 있다는 걸 알수 있다. 이번에는 Executors 를 사용하여 10만개의 <code>가상 스레드</code>를 만들고
 2초간 대기하도록 한뒤에 전체 실행시간을 측정해보자. Blocking 이 발생하면 다른 <code>가상 스레드</code>가 실행되기 때문에 제대로 동작한다면 약 2초를 조금 넘기는 시간 안에 완료되어야 한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.time.Duration<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.Executors<span style="color:#ff79c6">;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.time.Duration;
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> java.util.concurrent.Executors;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span><span style="color:#ff79c6">(</span>String<span style="color:#ff79c6">[]</span> args<span style="color:#ff79c6">)</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        run<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Main</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>(String<span style="color:#ff79c6">[]</span> args) <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        run();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> Exception <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">while</span> <span style="color:#ff79c6">(</span><span style="color:#ff79c6">true</span><span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> start <span style="color:#ff79c6">=</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentTimeMillis</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">try</span> <span style="color:#ff79c6">(</span>var executor <span style="color:#ff79c6">=</span> Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#6272a4">// 10만개의 Virtual Thread 실행 
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>                <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">;</span> i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">100</span>_000<span style="color:#ff79c6">;</span> i<span style="color:#ff79c6">++)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>                    executor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(()</span> <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>                        Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">sleep</span><span style="color:#ff79c6">(</span>Duration<span style="color:#ff79c6">.</span><span style="color:#50fa7b">ofSeconds</span><span style="color:#ff79c6">(</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">));</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span><span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>                    <span style="color:#ff79c6">});</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd">void</span> <span style="color:#50fa7b">run</span>() <span style="color:#8be9fd;font-style:italic">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">while</span> (<span style="color:#ff79c6">true</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> start <span style="color:#ff79c6">=</span> System.<span style="color:#50fa7b">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">try</span> (<span style="color:#8be9fd;font-style:italic">var</span> executor <span style="color:#ff79c6">=</span> Executors.<span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span>()) {
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4">// 10만개의 Virtual Thread 실행 </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> 0; i <span style="color:#ff79c6">&lt;</span> 100_000; i<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                    executor.<span style="color:#50fa7b">submit</span>(() <span style="color:#ff79c6">-&gt;</span> {
+</span></span><span style="display:flex;"><span>                        Thread.<span style="color:#50fa7b">sleep</span>(Duration.<span style="color:#50fa7b">ofSeconds</span>(2));
+</span></span><span style="display:flex;"><span>                        <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">null</span>;
+</span></span><span style="display:flex;"><span>                    });
+</span></span><span style="display:flex;"><span>                }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> end <span style="color:#ff79c6">=</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentTimeMillis</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>            System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">((</span>end <span style="color:#ff79c6">-</span> start<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;ms&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">long</span> end <span style="color:#ff79c6">=</span> System.<span style="color:#50fa7b">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>            System.<span style="color:#50fa7b">out</span>.<span style="color:#50fa7b">println</span>((end <span style="color:#ff79c6">-</span> start) <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;ms&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>실행결과는 다음과 같다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>2542ms
 </span></span><span style="display:flex;"><span>2590ms
@@ -664,7 +664,7 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
 <div id="disqus-comment"></div>
 
 <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     
@@ -708,14 +708,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/adaptive-growth" title="adaptive-growth">
-                        adaptive-growth
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
                         </a>
                         
                         
                         
-                        <a href="/tags/alpine-linux" title="alpine-linux">
-                        alpine-linux
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
                         </a>
                         
                         
@@ -726,8 +726,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/ansible-tower" title="ansible-tower">
-                        ansible-tower
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
                         </a>
                         
                         
@@ -774,14 +774,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
-                        beautiful-goodbye
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
                         </a>
                         
                         
                         
-                        <a href="/tags/begining-docker" title="begining-docker">
-                        begining-docker
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
                         </a>
                         
                         
@@ -798,8 +798,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/blocking-code" title="blocking-code">
-                        blocking-code
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
                         </a>
                         
                         
@@ -816,14 +816,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/brew-cask" title="brew-cask">
-                        brew-cask
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
                         </a>
                         
                         
                         
-                        <a href="/tags/build-cache" title="build-cache">
-                        build-cache
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
                         </a>
                         
                         
@@ -906,8 +906,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/docker-desktop" title="docker-desktop">
-                        docker-desktop
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
                         </a>
                         
                         
@@ -918,8 +918,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/dos-attack" title="dos-attack">
-                        dos-attack
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
                         </a>
                         
                         
@@ -936,14 +936,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/empty-string" title="empty-string">
-                        empty-string
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
                         </a>
                         
                         
                         
-                        <a href="/tags/environment-to-do-well" title="environment-to-do-well">
-                        environment-to-do-well
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
                         </a>
                         
                         
@@ -954,8 +954,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/event-driven" title="event-driven">
-                        event-driven
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
                         </a>
                         
                         
@@ -966,8 +966,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/file-upload" title="file-upload">
-                        file-upload
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
                         </a>
                         
                         
@@ -984,8 +984,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/forwarded-option" title="forwarded-option">
-                        forwarded-option
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
                         </a>
                         
                         
@@ -1008,14 +1008,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/graceful-deploy" title="graceful-deploy">
-                        graceful-deploy
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
                         </a>
                         
                         
                         
-                        <a href="/tags/happy-new-year" title="happy-new-year">
-                        happy-new-year
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
                         </a>
                         
                         
@@ -1026,56 +1026,56 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
-                        haproxy-1.8
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
-                        haproxy-acl-logging
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
-                        haproxy-custom-variable-logging
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-metric" title="haproxy-metric">
-                        haproxy-metric
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
-                        haproxy-reload-fail
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-stat" title="haproxy-stat">
-                        haproxy-stat
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
                         </a>
                         
                         
                         
-                        <a href="/tags/heap-memory" title="heap-memory">
-                        heap-memory
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
                         </a>
                         
                         
                         
-                        <a href="/tags/hedgehog-sharp" title="hedgehog-sharp">
-                        hedgehog-sharp
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
                         </a>
                         
                         
                         
-                        <a href="/tags/how-do-i-work" title="how-do-i-work">
-                        how-do-i-work
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
                         </a>
                         
                         
@@ -1086,8 +1086,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/index-alias" title="index-alias">
-                        index-alias
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
                         </a>
                         
                         
@@ -1104,14 +1104,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/instance-type" title="instance-type">
-                        instance-type
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
                         </a>
                         
                         
                         
-                        <a href="/tags/inverted-index" title="inverted-index">
-                        inverted-index
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
                         </a>
                         
                         
@@ -1134,8 +1134,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/jdk-21" title="jdk-21">
-                        jdk-21
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
                         </a>
                         
                         
@@ -1146,8 +1146,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
-                        jekyll-to-hugo
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
                         </a>
                         
                         
@@ -1170,8 +1170,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/k8s-api" title="k8s-api">
-                        k8s-api
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
                         </a>
                         
                         
@@ -1194,14 +1194,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/learning-in-2019" title="learning-in-2019">
-                        learning-in-2019
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
                         </a>
                         
                         
                         
-                        <a href="/tags/lets-encrypt" title="lets-encrypt">
-                        lets-encrypt
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
                         </a>
                         
                         
@@ -1230,8 +1230,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
-                        m1-macbook-pro
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
                         </a>
                         
                         
@@ -1242,8 +1242,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
-                        macro-key-mapping
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
                         </a>
                         
                         
@@ -1272,8 +1272,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
-                        microservice-설계-및-구현
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
                         </a>
                         
                         
@@ -1290,8 +1290,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/multi-datasource" title="multi-datasource">
-                        multi-datasource
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
                         </a>
                         
                         
@@ -1308,20 +1308,26 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/nginx-ingress" title="nginx-ingress">
-                        nginx-ingress
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
                         </a>
                         
                         
                         
-                        <a href="/tags/nginx-regexp" title="nginx-regexp">
-                        nginx-regexp
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
                         </a>
                         
                         
                         
                         <a href="/tags/ngram" title="ngram">
                         ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
                         </a>
                         
                         
@@ -1338,8 +1344,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/partial-matching" title="partial-matching">
-                        partial-matching
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
                         </a>
                         
                         
@@ -1350,20 +1356,26 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/poeaa" title="poeaa">
                         poeaa
                         </a>
                         
                         
                         
-                        <a href="/tags/portfolio-expansion" title="portfolio-expansion">
-                        portfolio-expansion
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
                         </a>
                         
                         
                         
-                        <a href="/tags/product-strategy" title="product-strategy">
-                        product-strategy
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
                         </a>
                         
                         
@@ -1374,20 +1386,20 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/query-dsl" title="query-dsl">
-                        query-dsl
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-limit" title="rate-limit">
-                        rate-limit
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-litmiting" title="rate-litmiting">
-                        rate-litmiting
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
                         </a>
                         
                         
@@ -1404,38 +1416,38 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/rss-template" title="rss-template">
-                        rss-template
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
                         </a>
                         
                         
                         
-                        <a href="/tags/seamless-reload" title="seamless-reload">
-                        seamless-reload
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
                         </a>
                         
                         
                         
-                        <a href="/tags/search-on-hugo" title="search-on-hugo">
-                        search-on-hugo
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
                         </a>
                         
                         
                         
-                        <a href="/tags/service-account-role" title="service-account-role">
-                        service-account-role
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
                         </a>
                         
                         
                         
-                        <a href="/tags/sidebar-search" title="sidebar-search">
-                        sidebar-search
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
                         </a>
                         
                         
                         
-                        <a href="/tags/speed-up" title="speed-up">
-                        speed-up
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
                         </a>
                         
                         
@@ -1452,26 +1464,26 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/spring-boot" title="spring-boot">
-                        spring-boot
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp" title="spring-camp">
-                        spring-camp
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp-2023" title="spring-camp-2023">
-                        spring-camp-2023
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-event" title="spring-event">
-                        spring-event
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
                         </a>
                         
                         
@@ -1494,14 +1506,14 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/system-manager" title="system-manager">
-                        system-manager
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
                         </a>
                         
                         
                         
-                        <a href="/tags/systemd-reload" title="systemd-reload">
-                        systemd-reload
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
                         </a>
                         
                         
@@ -1536,8 +1548,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/traffic-management" title="traffic-management">
-                        traffic-management
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
                         </a>
                         
                         
@@ -1548,8 +1560,8 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/unused-plugins" title="unused-plugins">
-                        unused-plugins
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
                         </a>
                         
                         
@@ -1560,20 +1572,20 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/ux-consideration" title="ux-consideration">
-                        ux-consideration
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
                         </a>
                         
                         
                         
-                        <a href="/tags/virtual-thread" title="virtual-thread">
-                        virtual-thread
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
                         </a>
                         
                         
                         
-                        <a href="/tags/vm-options" title="vm-options">
-                        vm-options
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
                         </a>
                         
                         
@@ -1590,32 +1602,32 @@ Carrier 스레드라고 한다. (가상 스레드를 실제 OS 스레드로 연�
                         
                         
                         
-                        <a href="/tags/zero-downtime" title="zero-downtime">
-                        zero-downtime
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
                         </a>
                         
                         
                         
-                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
-                        만들면서-배우는-클린-아키텍처
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
-                        시작하세요-도커
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
-                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
-                        쿠버네티스-시작하기
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
                         </a>
                         
                         

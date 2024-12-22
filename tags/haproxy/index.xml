@@ -1,68 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>haproxy on Soo Story</title>
+    <title>Haproxy on Soo Story</title>
     <link>https://findstar.pe.kr/tags/haproxy/</link>
-    <description>Recent content in haproxy on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Haproxy on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 08 Sep 2019 23:42:45 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Sep 2019 23:42:45 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Haproxy에서 acl을 log에 기록하기</title>
       <link>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</link>
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
       <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
     </item>
-    
     <item>
       <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
       <link>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</link>
       <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</guid>
-      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
-간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.&#xA;간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
       <link>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</link>
       <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</guid>
       <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail&#34;&gt;Haproxy를 reload fail 해결하기&lt;/a&gt;을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 reload fail 해결하기</title>
       <link>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</link>
       <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</guid>
-      <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)
-Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해결하기 위해서 수행했던 몇일간의 삽질(!)아닌 삽질기를 정리해보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)&#xA;Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해결하기 위해서 수행했던 몇일간의 삽질(!)아닌 삽질기를 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 활용해서 dos 공격 방어하기</title>
       <link>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</link>
       <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</guid>
-      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
-이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.&#xA;이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy 설치해서 로드 밸런서로 활용하기</title>
       <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
       <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
       <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

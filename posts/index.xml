@@ -4,573 +4,450 @@
     <title>Posts on Soo Story</title>
     <link>https://findstar.pe.kr/posts/</link>
     <description>Recent content in Posts on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 10 Nov 2024 18:50:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node Drain 작업시 주의사항</title>
+      <link>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</link>
+      <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</guid>
+      <description>K8S 클러스터를 운영할 때 Node Drain 작업을 수행해야할 때가 있다. 이 경우 특정 Node 에 pod 이 몰려 있는 경우에 문제가 발생할 수 있는데 PodDisruptionBudget 을 사용해서 이를 제어해보자</description>
+    </item>
     <item>
       <title>내맘대로 나눠본 엔지니어 레벨의 기준</title>
       <link>https://findstar.pe.kr/2024/11/10/personal-thoughts-on-the-criteria-for-engineering-levels/</link>
       <pubDate>Sun, 10 Nov 2024 18:50:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2024/11/10/personal-thoughts-on-the-criteria-for-engineering-levels/</guid>
       <description>구글에서는 소프트웨어 엔지니어링 레벨을 L3 부터 L10 까지 나눈다고 한다. 신입부터 미들, 시니어, 그리고 기술책임자 까지를 나타내는 직급체계라고 할 수 있다. 문득 각각의 레벨에 따라서 어떤 점이 달라질까 궁금해서 내 나름대로의 기준을 뽑아보았다. 신입부터 시니어 엔지니어까지의 기준을 하나씩 생각해보았다.</description>
     </item>
-    
     <item>
       <title>고슴도치의 가시처럼 뾰족하게 나아가기</title>
       <link>https://findstar.pe.kr/2024/10/25/hedgehog-style-expansion/</link>
       <pubDate>Fri, 25 Oct 2024 23:38:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2024/10/25/hedgehog-style-expansion/</guid>
       <description>빠르게 변화하는 IT업계에서 새로운 제품을 만들고 안착시키는 일은 흥미롭고 도전적인 과정이다. 제품을 성장시키고 시장에 자리잡게 하기 위해서 우리팀에서 설정한 전략을 소개해본다.</description>
     </item>
-    
     <item>
       <title>Litestar: 새로운 Python 웹 프레임워크</title>
       <link>https://findstar.pe.kr/2024/10/13/introduce-litestar-python-framework/</link>
       <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2024/10/13/introduce-litestar-python-framework/</guid>
       <description>python 웹 프로그래밍을 하면서 새로운 프레임워크를 찾아보았다. Flask, Django, FastAPI 등 다양한 선택지가 있지만, 새로운 프레임워크인 Litestar를 사용해보고 나서 소감을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>Virtual Thread란 무엇일까? (2)</title>
       <link>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/07/02/java-virtual-threads-2/</guid>
       <description>이전 글에 이어서 Virtual Thread에 대해서 알아보았다. 성능 테스트를 수행해보고, 사용시 주의사항, 그리고 Virtual Thread를 사용하는데 제약사항에 대해서 살펴보았다.</description>
     </item>
-    
     <item>
       <title>협업을 위한 &#39;좋은 커뮤니케이션&#39;</title>
       <link>https://findstar.pe.kr/2023/06/18/good-communication-for-collaboration/</link>
       <pubDate>Sun, 18 Jun 2023 15:59:23 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/06/18/good-communication-for-collaboration/</guid>
       <description>일을 잘하기 위해서, 협업을 잘하기 위해서 갖추어야 할 역량 중에 좋은 커뮤니케이션을 빼놓을 수 없다. 그렇다면 좋은 커뮤니케이션이란 무엇일까? 생각을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>ArgoCD 설치</title>
       <link>https://findstar.pe.kr/2023/06/04/argocd-installation/</link>
       <pubDate>Sun, 04 Jun 2023 19:24:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/06/04/argocd-installation/</guid>
       <description>k8s 클러스터를 운영하면서 애플리케이션을 배포하는 방법은 각각의 상황에 따라 다양하게 존재한다. 많은 배포 방식중에서 ArgoCD에 대해서 알아보고 설치 방법을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>Spring Camp 2023 참여 후기</title>
       <link>https://findstar.pe.kr/2023/04/24/spring-camp-2023/</link>
       <pubDate>Mon, 24 Apr 2023 00:26:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/04/24/spring-camp-2023/</guid>
       <description>지난 주말 Spring Camp 2023 행사에 참석했다. 각 세션에 대해서 간략히 정리해보고, 참여 후기를 작성해보았다.</description>
     </item>
-    
     <item>
       <title>Virtual Thread란 무엇일까? (1)</title>
       <link>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</link>
       <pubDate>Mon, 17 Apr 2023 19:30:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/04/17/java-virtual-threads-1/</guid>
       <description>2023년 9월 릴리즈 예정인 Java 21 (LTS) 버전에는 주목할만한 기능이 추가된다. 바로 Virtual Thread다. 이 Virtual Thread 이 탄생한 배경을 살펴보고, 어떤 목적을 가지고 있는지 살펴보았다.</description>
     </item>
-    
     <item>
       <title>쿠버네티스 클러스터의 POD에서 클러스터 API 사용하기</title>
       <link>https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/</link>
       <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/04/09/access-k8s-api-from-pod/</guid>
       <description>쿠버네티스 클러스터 환경에서 애플리케이션을 구성하다보면, 경우에 따라 POD 에서 클러스터 API에 접근하여 클러스터에서 제공하는 다양한 기능들을 활용해야할 때가 있다. 이런 경우 어떤 준비가 필요한지 살펴보았다.</description>
     </item>
-    
     <item>
       <title>BlockHound - Webflux를 사용할 때 Blocking 코드가 사용되고 있는지 검출하는 방법</title>
       <link>https://findstar.pe.kr/2023/03/25/block-hound-for-webflux/</link>
       <pubDate>Sat, 25 Mar 2023 15:49:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/03/25/block-hound-for-webflux/</guid>
       <description>Spring Webflux 기반의 애플리케이션을 작성할 때에는 모든 코드가 reactive 해야 최상의 성능(처리량)이 나온다. 그런데 일부 구간에서 blocking 코드가 존재하는지 일일이 눈으로 확인하기는 매우 어렵다. 그래서 이를 자동으로 검출해주는 &lt;code&gt;BlockHound&lt;/code&gt; 를 사용하여 blocking 코드를 검출해보았다.</description>
     </item>
-    
     <item>
       <title>&#39;일을 잘하기 위한 환경&#39;과 리더쉽</title>
       <link>https://findstar.pe.kr/2023/02/25/environment-to-do-well/</link>
       <pubDate>Sat, 25 Feb 2023 22:50:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/02/25/environment-to-do-well/</guid>
       <description>며칠 전 이전 팀장님과 커피를 마시다가 &amp;lsquo;일을 잘하기 위한 환경과 리더쉽&amp;rsquo;에 대해서 이야기할 기회가 있었다. 최근에 조직을 이동해서 새로운 환경에 적응하고 있던 터라 더 관심이 가는 주제였다. 대화에서 나누었던 내용이 공감가는 부분이 많아서 글로 정리해보았다.</description>
     </item>
-    
     <item>
       <title>신규 서비스 개발을 위한 AWS 사용 경험기</title>
       <link>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</link>
       <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</guid>
       <description>지난 몇달간 신규 서비스를 개발을 위해서 AWS를 사용하여 서비스를 설계하고 개발하였다. 아쉽게도 도중에 프로젝트가 중단되어 더 이상 사용을 할 수 없지만, 개발 중 사용한 AWS를 경험을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>리소스의 고유한 식별자는 어떤 형식을 사용해야할까?</title>
       <link>https://findstar.pe.kr/2022/10/14/resource-id-generation/</link>
       <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/10/14/resource-id-generation/</guid>
       <description>서비스를 설계할 때 데이터베이스의 저장되는 리소스의 Key를 어떤 방식으로 생성해야하는지에 대한 고민을 정리해보았다. 찾아보면서 알게된 것이지만 생각보다 고려할 점이 많았다.</description>
     </item>
-    
     <item>
       <title>스프링 이벤트 기능을 사용할 때의 고려할 점</title>
       <link>https://findstar.pe.kr/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/</link>
       <pubDate>Sat, 17 Sep 2022 16:22:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/09/17/points-to-consider-when-using-the-Spring-Events-feature/</guid>
       <description>처음에는 간단하게 작성한 도메인 로직이 시간이 지나면서 여러가지 추가 로직이 늘어나 복잡해지는 경험을 해본적이 있다. 이런 코드를 리팩토링하면서 스프링의 &lt;code&gt;Event&lt;/code&gt; 기능을 사용할 수 있는데 스프링 이벤트를 사용할 때 어떤 점을 고려해야하는지 정리해보았다.</description>
     </item>
-    
     <item>
       <title>gossm 을 사용하여 Private RDS 인스턴스에 접근하기</title>
       <link>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</link>
       <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/09/03/accessing-private-rds-instance-using-ssm/</guid>
       <description>Private 서브넷에 있는 RDS 인스턴스는 외부에서 직접적으로 접근이 불가능하다. 이럴 때 데이터베이스에 접근하기 위한 SSM (gossm)사용법을 알아보았다.</description>
     </item>
-    
     <item>
       <title>EKS를 구축할 때 어떤 인스턴스 타입이 적합할까?</title>
       <link>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</link>
       <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/08/21/which-instance-type-is-right-for-EKS/</guid>
       <description>AWS에서 EKS 클러스터를 생성할 때 어떤 인스턴스 타입이 적당한지 고민이 되었는데, 인스턴스를 선택하는 과정을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>새로운 M1 macbook 장비 개인 셋팅</title>
       <link>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</link>
       <pubDate>Sun, 31 Jul 2022 14:01:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/07/31/new-macbook-pro-max-configuration/</guid>
       <description>기다리고 기다리던 새로운 맥북 PRO M1 MAX를 받았다. 반도체 대란(?!)의 영향으로 6개월을 기다린 끝에 새로 받은 장비였다. 새로 받은 맥북의 환경설정을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>컨테이너 환경에서의 java 애플리케이션의 리소스와 메모리 설정</title>
       <link>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</link>
       <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/07/10/java-application-memory-size-on-container/</guid>
       <description>K8S에서 Java 애플리케이션을 구동할 때에는 리소스 설정과 메모리 설정에 주의하지 않으면 성능에 이슈가 발생할 수 있어, 관련 설정을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>백엔드 개발자의 운영툴 UX 고민들</title>
       <link>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</link>
       <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/06/12/backoffice-ux-considerations/</guid>
       <description>서비스의 운영툴, 흔히 backoffice라고 하는 기능들을 을 만들 때 어떻게 하면 사용하기 편리한 화면을 구성할 수 있을지 생각한 내용들을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>K8S 환경에서 pod을 안전하게 배포하는 방법</title>
       <link>https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/</link>
       <pubDate>Fri, 27 May 2022 21:21:12 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/05/27/k8s-graceful-deploy-pod/</guid>
       <description>K8S 환경에서 PODS를 배포할 때 안전하게 종료 / 시작하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법</title>
       <link>https://findstar.pe.kr/2022/05/13/gradle-docker-cache/</link>
       <pubDate>Fri, 13 May 2022 20:17:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/05/13/gradle-docker-cache/</guid>
       <description>gradle 을 사용할 때 docker 캐시 레이어를 사용해서 도커 빌드 속도를 빠르게 하는 방법을 알아보았다.</description>
     </item>
-    
     <item>
       <title>서비스 종료 넋두리</title>
       <link>https://findstar.pe.kr/2022/04/29/beautiful-goodbye-mm/</link>
       <pubDate>Fri, 29 Apr 2022 23:39:11 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/04/29/beautiful-goodbye-mm/</guid>
       <description>새롭게 시작한 서비스를 1년을 채우지 못하고 종료했다.</description>
     </item>
-    
     <item>
       <title>[북리뷰] 만들면서 배우는 클린 아키텍처</title>
       <link>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</link>
       <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</guid>
-      <description>&lt;p&gt;스프링 애플리케이션을 작성하면서 항상 아키텍처에 적합한 패키지 구조가 어떤 형태인지에 대한 의문이 있었다. 그러던중 우연찮게 이 책을 읽고나서 많은 부분에서 인사이트를 얻을 수 있었다.
-특히 DDD 에서 말하는 도메인 객체를 설계할 때의 경계에 대한 고민을, 책에서 소개하는 &amp;ldquo;Hexagonal Architecture&amp;rdquo; 를 통해서 이해할 수 있었다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;스프링 애플리케이션을 작성하면서 항상 아키텍처에 적합한 패키지 구조가 어떤 형태인지에 대한 의문이 있었다. 그러던중 우연찮게 이 책을 읽고나서 많은 부분에서 인사이트를 얻을 수 있었다.&#xA;특히 DDD 에서 말하는 도메인 객체를 설계할 때의 경계에 대한 고민을, 책에서 소개하는 &amp;ldquo;Hexagonal Architecture&amp;rdquo; 를 통해서 이해할 수 있었다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>[북리뷰] 엔터프라이즈 애플리케이션 아키텍처패턴</title>
       <link>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</link>
       <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</guid>
       <description>&lt;p&gt;새로운 팀에서 신규 프로젝트를 작성하면서 애플리케이션의 구조에 대해서 고민하게 되었는데, 좀 더 나은 아키텍처를 위해서 참고할만한 서적을 찾던 중 책장에 사놓고 고이 모셔두었던 이 책을 찾아 읽어보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Nginx ingress 에서 X-forwarded header 사용법</title>
       <link>https://findstar.pe.kr/2021/08/22/nginx-ingress-controller-use-forwarded-for-option/</link>
       <pubDate>Sun, 22 Aug 2021 21:22:30 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/08/22/nginx-ingress-controller-use-forwarded-for-option/</guid>
       <description>K8s 환경에서 Nginx ingress controller 를 사용하면서 앞단의 트래픽에서 전달하는 X-forwarded 값을 넘겨받는 방법에 대해서 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Hugo에서 RSS 템플릿을 지정하는 방법</title>
       <link>https://findstar.pe.kr/2021/08/16/hugo-rss-template/</link>
       <pubDate>Mon, 16 Aug 2021 18:40:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/08/16/hugo-rss-template/</guid>
       <description>그 동안 작성된 포스트를 rss 링크에서 확인한 결과 태그가 정상적으로 노출되지 않고 있다는 것을 발견하였다. 그래서 hugo 에서 지원하는 RSS 템플릿 기능을 사용해서 RSS 에서 포스트의 태그를 확인할 수 있게 작업을 진행해보았다.</description>
     </item>
-    
     <item>
       <title>Spring 프로젝트 Maven을 사용할 때 도커라이즈 캐싱방법</title>
       <link>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</link>
       <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/08/06/dockerize-maven-project/</guid>
       <description>spring 프로젝트에서 maven 을 사용할 때 도커라이즈에서 레이어를 캐싱하여 빌드 속도를 향상시키는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>멀티 데이터소스에서 data.sql 사용하기</title>
       <link>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</link>
       <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/07/31/multi-datasource-data-sql-initialize/</guid>
       <description>데이터소스를 여러개 사용하고 있는 경우에 각각의 데이터베이스에 data.sql 을 적용하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Alpine 리눅스에서 timezone 설정하기</title>
       <link>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</link>
       <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</guid>
       <description>도커 빌드에서 자주 사용되는 &lt;code&gt;Alpine&lt;/code&gt; 리눅스에서 Timezone을 지정하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>fuse.js를 사용하여 hugo 블로그에 검색 기능 추가 하기</title>
       <link>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</link>
       <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/07/10/fuse-search-on-hugo/</guid>
       <description>그 동안 이 블로그에 검색기능이 빠져 있었다. hugo를 기반으로한 정적 사이트 생성기라서 검색을 추가하기가 어렵다고 생각했었는데, fuse.js 를 사용하면 검색기능을 추가할 수 있어서 사이트에 적용해보았다</description>
     </item>
-    
     <item>
       <title>나는 어떻게 일하는 사람인가?</title>
       <link>https://findstar.pe.kr/2021/06/30/how-do-I-work/</link>
       <pubDate>Wed, 30 Jun 2021 18:14:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/06/30/how-do-I-work/</guid>
       <description>올해 초 4년 6개월간 일했던 조직에서 이동하게 되어 회고 발표를 하게 되었는데, &lt;code&gt;나는 어떻게 일하는 사람인가?&lt;/code&gt; 를 돌아보며 내용을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
       <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
       <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
       <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
     </item>
-    
     <item>
       <title>컨플루언스 사이드바에 검색 기능 추가하기</title>
       <link>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</link>
       <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/04/21/confluence-sidebar-search/</guid>
       <description>위키(컨플루언스)에 새로운 스페이스를 생성하면서, 사이드바에 검색 기능을 추가하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>istio의 트래픽 관리 기능 살펴보기</title>
       <link>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</link>
       <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/04/14/istio-traffic-management/</guid>
       <description>istio 의 트래픽 관리 기능에 대해서 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Docker desktop 에서 istio 설치하기</title>
       <link>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</link>
       <pubDate>Thu, 25 Mar 2021 09:27:44 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/03/25/install-istio-on-docker-desktop/</guid>
       <description>mac 의 docker desktop 환경에 istio 를 설치하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
       <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
       <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
     </item>
-    
     <item>
       <title>curl 로 측정하는 dns lookup time</title>
       <link>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</link>
       <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</guid>
       <description>k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다. curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>Haproxy에서 acl을 log에 기록하기</title>
       <link>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</link>
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/09/08/haproxy-acl-logging/</guid>
       <description>Reverse Proxy 로 활용중인 haproxy 를 운영하면서 한가지 불편한 점이 있었는데, 설정을 통해서 정의한 custom variable(ACL) 을 log에 기록하는 방법을 알기가 어려웠다는 점이었다. cfg 파일에 acl 로깅을 활성화 하는 방법에 대해서 알아보았다.</description>
     </item>
-    
     <item>
       <title>[리뷰] Kmooc-Microservice 설계 및 구현 수강 후기</title>
       <link>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</link>
       <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/04/21/kmooc-review-microservice-design-and-implementation/</guid>
       <description>우연찮게 [kmooc] Microservice 설계 및 구현 강의를 신청해서 듣게 되었다. 큰 기대를 하지 않고 시작했는데 예상보다 개념을 정리하는데 도움이 되었기에, 수강 후기를 작성해보았다.</description>
     </item>
-    
     <item>
       <title>[북 리뷰] 쿠버네티스 시작하기(kubernetes up &amp; running)</title>
       <link>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</link>
       <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/03/03/book-review-kubernetes-up-running/</guid>
       <description>쿠버네티스 스터디에서 학습을 위해서 읽은 &lt;code&gt;쿠버네티스 시작하기(원서 kubernetes up &amp;amp; running)&lt;/code&gt;의 리뷰이다. 쿠버네티스 스터디로는 두번째인데, 첫번째 스터디에서 마무리까지 참가하지 못해서 못내 아쉬운 마음에 팀 동료들과 두번째 스터디를 다시 열었다. 에이콘에서 출간한 번역서로 원서는 O-REILLY가 출판사이다.</description>
     </item>
-    
     <item>
       <title>2019년에 배우고자 하는 것들</title>
       <link>https://findstar.pe.kr/2019/01/27/learning-in-2019/</link>
       <pubDate>Sun, 27 Jan 2019 23:21:34 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/27/learning-in-2019/</guid>
       <description>새해에 접어든지도 벌써 한달이 다되어 간다. 벌써 한해의 1/12이 지나가버린 것이다! 새해가 밝아오면 늘상 여러가지 다짐들을 하게 마련이지만, 작심삼일이라는 말처럼 쉽지 않은 일이다. 그런 의미에서 올 한해 배우려고 생각하는 것들을 다시금 리스트를 정리해서 스스로에게 동기부여를 해본다.</description>
     </item>
-    
     <item>
       <title>homebrew로 openjdk 설치하기 </title>
       <link>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</link>
       <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/20/install-openjdk-by-homebrew/</guid>
       <description>사용하던 노트북을 신형 맥북프로로 변경하면서 이런저런 개발 환경을 다시 구성하게 되었다. 마침 OpenJDK로 jdk 환경을 변경해보고자 하였는데 이때 homebrew로 OpenJDK 를 설치해보았다.</description>
     </item>
-    
     <item>
       <title>[북 리뷰] 시작하세요 도커</title>
       <link>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</link>
       <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/13/book-report-begining-docker/</guid>
       <description>&lt;p&gt;도커 공부를 시작 한지는 오래되었지만, 제대로 한권을 끝까지 읽은건 이책이 처음이었다. 위키북스에서 출간한 &amp;ldquo;시작하세요 도커&amp;rdquo; 책의 간략한 소감이다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy 의 Statistics 정보 모니터링 하기</title>
       <link>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</link>
       <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/05/haproxy-stat-metric/</guid>
-      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.
-간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Haproxy를 사용한 시스템을 운영중인데, 여기에서 확인할 수 있는 다양한 상태값을 모니터링 해보고 싶었다.&#xA;간단하게는 Haproxy가 살아 있는지에서 부터 현재 연결된 커넥션 갯수를 확인하는 것 까지 작업을 수행해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>2019년 새해 목표</title>
       <link>https://findstar.pe.kr/2019/01/01/2019-new-year/</link>
       <pubDate>Wed, 02 Jan 2019 21:36:07 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2019/01/01/2019-new-year/</guid>
       <description>&lt;p&gt;2019년 새해가 밝았다, 작년 중반 이후에는 뜸해진 블로그에 간만에 따뜻한(?) 온기를 불어넣어보고자, 2019년 한해의 다짐을 기록해 본다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Let&#39;s encrypt 의 인증서를 생성할 때 주의사항</title>
       <link>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</link>
       <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/09/08/lets-encrypt-certificates-rate-limit/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s encrypt를 활용해서 SSL 인증서를 생성할 때에는 몇가지 주의해야할 사항이 있다. 인증서를 무한대로 생성할수 없는 것이 당연하고, 생성에 대한 제약사항을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 다운타임 없이 재시작(reload)하기</title>
       <link>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</link>
       <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/15/seamless-reload-haproxy/</guid>
       <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail&#34;&gt;Haproxy를 reload fail 해결하기&lt;/a&gt;을 살펴보았다. 이 과정에서 Haproxy가 실제로 reload 될 때 seamless 하게 작동할 수 있는가에 대한 확인을 해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 reload fail 해결하기</title>
       <link>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</link>
       <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/14/fix-haproxy-reload-fail/</guid>
-      <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)
-Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해결하기 위해서 수행했던 몇일간의 삽질(!)아닌 삽질기를 정리해보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Haproxy를 처음 설치했을 때 로그를 위해서 rsyslog 와 logrotate 를 함께 설정했었다. 그런데 새벽만 되면 (정확히는 logrotate가 실행되고 나서)&#xA;Haproxy 프로세스가 죽은 다음에 살아나지를 않았다. 이를 해결하기 위해서 수행했던 몇일간의 삽질(!)아닌 삽질기를 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy를 활용해서 dos 공격 방어하기</title>
       <link>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</link>
       <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/08/13/block-dos-attacks-using-haproxy-rate-limit/</guid>
-      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.
-이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;앞서 &lt;a href=&#34;https://findstar.pe.kr/2018/07/27/install-haproxy&#34;&gt;Haproxy 로 로드밸런서를 구성하는 방법&lt;/a&gt;을 살펴보았다. Haproxy를 로드밸런서로 운영하면서 DOS 공격이 유입되어 서비스 운영에 장애가 발생하였다.&#xA;이번에는 Haproxy 의 기능을 이용해서 단순한 패턴의 DOS 공격을 방어하는 방법을 살펴보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Haproxy 설치해서 로드 밸런서로 활용하기</title>
       <link>https://findstar.pe.kr/2018/07/27/install-haproxy/</link>
       <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/07/27/install-haproxy/</guid>
       <description>&lt;p&gt;Load Balancer 로 활용할 수 있는 Reverse Proxy 인 Haproxy 의 설치와 설정 방법을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>ElasticSearch 에서 wildcard 쿼리 대신 ngram을 활용하는 방법</title>
       <link>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/07/14/elasticsearch-wildcard-to-ngram/</guid>
-      <description>&lt;p&gt;ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 &lt;code&gt;like &amp;quot;%keyword%&amp;quot;&lt;/code&gt; 와 같은 쿼리를 대체하기 위해서 &lt;code&gt;wildcard&lt;/code&gt; 를 사용하는 경우를 몇번 목격하였다.
-이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 &lt;code&gt;ngram&lt;/code&gt; 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;ElasticSearch를 사용하면서 DSL 을 구성할 때, RDBMS 의 &lt;code&gt;like &amp;quot;%keyword%&amp;quot;&lt;/code&gt; 와 같은 쿼리를 대체하기 위해서 &lt;code&gt;wildcard&lt;/code&gt; 를 사용하는 경우를 몇번 목격하였다.&#xA;이 경우 원하는 결과를 제대로 얻을 수도 없을 뿐더러, 성능의 문제가 발생하기 쉬운데, 이를 &lt;code&gt;ngram&lt;/code&gt; 으로 대체하여 원하는 결과를 얻는 방법을 확인해 보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>ElasticSearch 에서 reindex 을 활용하는 방법</title>
       <link>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</link>
       <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/07/07/elasticsearch-reindex/</guid>
       <description>&lt;p&gt;그럴 것 같지 않지만, ElasticSearch 에서는 &lt;code&gt;reindex&lt;/code&gt;를 수행할 일이 많이 발생한다. &lt;code&gt;reindex&lt;/code&gt;를 실행할때 사용할 수 있는 옵션을 확인해 보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>ElasticSearch 에서 template 을 활용하는 방법</title>
       <link>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</link>
       <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/06/29/elasticsearch-template/</guid>
       <description>&lt;p&gt;ElasticSearch를 로그 분석용으로 사용할 때 인덱스의 &lt;code&gt;mapping&lt;/code&gt;은 &lt;code&gt;template&lt;/code&gt;을 사용해서 생성되도록 설정하면 편리하다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>jekyll 에서 hugo 로 전환한 소감</title>
       <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
       <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
       <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 전환해보았다. 아래는 그 과정에서 느낀 점을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>nginx reverse proxy로 동일 IP 중복 요청 제한</title>
       <link>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</link>
       <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/06/24/nginx-rate-limiting/</guid>
       <description>&lt;p&gt;Nginx 로 reverse proxy를 구성할 때 과도한 요청에 대한 제한을 두기 위해서 &lt;code&gt;limit_req&lt;/code&gt; 모듈을 적용해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>logstash와 filebeat 설정하기</title>
       <link>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</link>
       <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/05/28/install-and_configuration-filebeat-logstash/</guid>
       <description>&lt;p&gt;Elasticsearch의 버전업을 지원하기 위해서 logstash 와 filebeat를 새롭게 설치하고 설정해보았다. 진행한 작업 내용을 정리 해보았다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Spring Boot 매뉴얼 뽀개기 1</title>
       <link>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</link>
       <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/05/02/start-spring-boot-1/</guid>
-      <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.
-Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;rdquo;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
+      <description>&lt;p&gt;관리하던 Spring 프로젝트를 버전업과 함께 Gradle 및 Boot 기반으로 전환하고자 하는 이슈가 있어 회사 동료분과 함께 Spring Boot 를 차근차근 학습해보기로 했다.&#xA;Spring Boot 를 좀 더 잘 이해해야겠다는 마음에 시작했는데, 야심차게 &lt;em&gt;&amp;ldquo;Spring Boot 매뉴얼 뽀개기!&amp;rdquo;&lt;/em&gt; 라고 스터디 제목을 정했다. (과연..)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Ansible AWX 를 설치해보기</title>
       <link>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
       <description>Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다.</description>
     </item>
-    
     <item>
       <title>itermocil을 사용해서 다수의 서버에 SSH 접속하기</title>
       <link>https://findstar.pe.kr/2017/01/03/itermocil/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2017/01/03/itermocil/</guid>
       <description>&lt;p&gt;얼마전 작업하는 서비스의 서버의 OS 교체를 진행했다. 이 과정에서 사용하게된 itermocil 툴을 소개해본다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>apache 2.4에서 달라진 기능 2가지</title>
       <link>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</link>
       <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2016/11/08/apache_2_4_custom_error_log_access_constrol/</guid>
       <description>&lt;p&gt;apache 2.4버전을 사용하면서 이전버전과는 달라진 두가지 부분에 대해서 알게 되었다. 하나는 ErrorLog 에서 CustomLog format이 가능해졌다는 점과, AccessControl의 문법이 달라졌다는 것이다. Custom Error Log는 잘 쓰면 에러를 추적할 때 정말 유용하다.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>컴포저의 속도를 올리는 방법</title>
       <link>https://findstar.pe.kr/2016/11/06/composer-speed-up/</link>
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2016/11/06/composer-speed-up/</guid>
-      <description>&lt;p&gt;PHP 의 의존성 관리도구인 &lt;a href=&#34;https://getcomposer.org/&#34; title=&#34;컴포저(composer) 공식 사이트&#34;&gt;컴포저&lt;/a&gt; 를 사용할 때, &lt;code&gt;composer install&lt;/code&gt; 이나 &lt;code&gt;composer update&lt;/code&gt; 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 &lt;code&gt;composer speed up&lt;/code&gt; 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.&lt;/p&gt;
-&lt;p&gt;몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.&lt;/p&gt;</description>
+      <description>&lt;p&gt;PHP 의 의존성 관리도구인 &lt;a href=&#34;https://getcomposer.org/&#34; title=&#34;컴포저(composer) 공식 사이트&#34;&gt;컴포저&lt;/a&gt; 를 사용할 때, &lt;code&gt;composer install&lt;/code&gt; 이나 &lt;code&gt;composer update&lt;/code&gt; 시에 속도가 느려서 답답함을 느낄 때가 한두번이 아니다. 구글에서 &lt;code&gt;composer speed up&lt;/code&gt; 으로 검색을 해보면 많은 사람들이 동일한 답답함을 느끼고 있다는 것을 확인할 수 있다.&lt;/p&gt;&#xA;&lt;p&gt;몇가지 방법을 통해서 조금 더 쾌적하게 사용할 수 있는 방법을 알아보자.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>블로그 플랫폼 이전 - 글쓰기에 도전하기</title>
       <link>https://findstar.pe.kr/2016/11/04/start-new-blog/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2016/11/04/start-new-blog/</guid>
       <description>&lt;p&gt;사실 나는 개발자로 살아오면서 블로그에 공을 들이지는 않아왔었다. 딱히 글을 잘 쓰는 재주도 없었거니와, 무언가를 정리하는게 번거롭고 귀찮다고 생각했기 때문이다. 그동안에 작성한 블로그들은 순간순간 필요했던 정보들을 단순하게 저장해 놓는 용도였고, 그 자체도 정리되었다고 보기가 어려웠다. 지금에 와서 다시금 살펴보니 그다지 건질 내용이 없다는 생각이 드는게 사실이다. 스스로가 글 보다는 현장감과 순간의 뉘앙스가 전달되기 쉬운 말을 선호했고, 글 쓰는 것 자체가 나에게는 많은 에너지를 소모되는 일이었기 때문이다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

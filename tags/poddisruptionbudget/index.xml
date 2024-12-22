@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PodDisruptionBudget on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/poddisruptionbudget/</link>
+    <description>Recent content in PodDisruptionBudget on Soo Story</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/poddisruptionbudget/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node Drain 작업시 주의사항</title>
+      <link>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</link>
+      <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</guid>
+      <description>K8S 클러스터를 운영할 때 Node Drain 작업을 수행해야할 때가 있다. 이 경우 특정 Node 에 pod 이 몰려 있는 경우에 문제가 발생할 수 있는데 PodDisruptionBudget 을 사용해서 이를 제어해보자</description>
+    </item>
+  </channel>
+</rss>

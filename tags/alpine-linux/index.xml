@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>alpine linux on Soo Story</title>
+    <title>Alpine Linux on Soo Story</title>
     <link>https://findstar.pe.kr/tags/alpine-linux/</link>
-    <description>Recent content in alpine linux on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Alpine Linux on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 25 Jul 2021 23:28:36 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/alpine-linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Jul 2021 23:28:36 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/alpine-linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Alpine 리눅스에서 timezone 설정하기</title>
       <link>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</link>
       <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/07/25/timezone-pkg-on-alpine-linux/</guid>
       <description>도커 빌드에서 자주 사용되는 &lt;code&gt;Alpine&lt;/code&gt; 리눅스에서 Timezone을 지정하는 방법을 살펴보았다.</description>
     </item>
-    
   </channel>
 </rss>

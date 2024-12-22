@@ -4,19 +4,16 @@
     <title>Golang on Soo Story</title>
     <link>https://findstar.pe.kr/tags/golang/</link>
     <description>Recent content in Golang on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 23 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang 에서 Mysql 데이터를 Struct 에 Scan 할 때 Null 처리 경험기</title>
       <link>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/01/23/null-scan-for-mysql-struct-golang/</guid>
-      <description>&lt;h1 id=&#34;1월-23일-화-til&#34;&gt;1월 23일 (화) TIL&lt;/h1&gt;
-&lt;p&gt;최근 ElasticSearch 에 bulk insert 를 하기 위한 golang 기반의 간단한 툴을 만들고 있다.
-mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 ElasticSearch로 bulk insert 하는 구조인데, 이 과정에서 mysql rows 를 golang 에서 scan 하면서 알게된 내용을 정리해보았다.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;1월-23일-화-til&#34;&gt;1월 23일 (화) TIL&lt;/h1&gt;&#xA;&lt;p&gt;최근 ElasticSearch 에 bulk insert 를 하기 위한 golang 기반의 간단한 툴을 만들고 있다.&#xA;mysql 에서 데이터를 가져온 다음에 이를 JSON으로 변환해서 ElasticSearch로 bulk insert 하는 구조인데, 이 과정에서 mysql rows 를 golang 에서 scan 하면서 알게된 내용을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

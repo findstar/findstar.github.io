@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>nginx regexp on Soo Story</title>
+    <title>Nginx Regexp on Soo Story</title>
     <link>https://findstar.pe.kr/tags/nginx-regexp/</link>
-    <description>Recent content in nginx regexp on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Nginx Regexp on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 21 Mar 2021 17:43:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/nginx-regexp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Mar 2021 17:43:01 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/nginx-regexp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx ingress 에서 정규표현식 경로 지정하기</title>
       <link>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</link>
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/03/21/kubernetes-nginx-ingress-controller-regexp-path/</guid>
       <description>k8s 에서 nginx ingress controller 의 경로를 지정할 때 정규표현식을 사용해서 등록하는 방법을 알아보았다.</description>
     </item>
-    
   </channel>
 </rss>

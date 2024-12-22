@@ -6,7 +6,23 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 10 Nov 2024 18:50:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>Node Drain 작업시 주의사항</title>
+            <link>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</link>
+            <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</guid>
+            <description>K8S 클러스터를 운영할 때 Node Drain 작업을 수행해야할 때가 있다. 이 경우 특정 Node 에 pod 이 몰려 있는 경우에 문제가 발생할 수 있는데 PodDisruptionBudget 을 사용해서 이를 제어해보자</description>
+            
+            <category>k8s</category>
+            
+            <category>node drain</category>
+            
+            <category>PodDisruptionBudget</category>
+            
+        </item>
+        
         <item>
             <title>내맘대로 나눠본 엔지니어 레벨의 기준</title>
             <link>https://findstar.pe.kr/2024/11/10/personal-thoughts-on-the-criteria-for-engineering-levels/</link>
@@ -1212,7 +1228,12 @@ IDE를 사용하다가 보면 열어둔 Tab이 많아지면서 슬슬 Heap memor
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             
             <guid>https://findstar.pe.kr/about/</guid>
-            <description>남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터. 새로운걸 배</description>
+            <description>&lt;p&gt;
+  &lt;img src=&#34;https://findstar.pe.kr/images/profile.jpg&#34; alt=&#34;Profile Image&#34;&gt;
+
+&lt;/p&gt;
+&lt;p&gt;남들 보다 느려도 여유있기를 좋아하는. 즐겁고 재미난 일을 좋아하고, 멘땅에 헤딩은 그만하고 싶지만, 어쩌다 보니 멘땅에 헤딩을 많이하게 되는 케릭터.&lt;/p&gt;
+&lt;p&gt;새로운걸 배우고 공부하는걸 좋아하지만, 더디게 나아가는 평범한 개발자. @findstar&lt;/p&gt;</description>
             
         </item>
         

@@ -267,75 +267,75 @@
 <p>spring boot 프로젝트에서 여러개의 데이터베이스에 연결하는 경우가 있다. 나의 경우에는 신규 프로젝트를 시작하면서 제일 처음 사용자의 계정 데이터베이스에 연결하는 데이터소스를 설정하기 위해서 다음과 같이 코드를 작성하였다.</p>
 <p>다음은 <em>AccountDataSourceConfiguration</em> 이다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>@Configuration
-</span></span><span style="display:flex;"><span>@EnableJpaRepositories<span style="color:#ff79c6">(</span>basePackages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>@EnableJpaRepositories(basePackages <span style="color:#ff79c6">=</span> {
 </span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#34;me.home.domain.account&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">},</span>
-</span></span><span style="display:flex;"><span>entityManagerFactoryRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;accountEntityManagerFactory&#34;</span><span style="color:#ff79c6">,</span>
-</span></span><span style="display:flex;"><span>transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;accountTransactionManager&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">AccountDataSourceConfig</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>},
+</span></span><span style="display:flex;"><span>entityManagerFactoryRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;accountEntityManagerFactory&#34;</span>,
+</span></span><span style="display:flex;"><span>transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;accountTransactionManager&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">AccountDataSourceConfig</span> {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> String<span style="color:#ff79c6">[]</span> packages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> String<span style="color:#ff79c6">[]{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> String<span style="color:#ff79c6">[]</span> packages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> String<span style="color:#ff79c6">[]</span>{
 </span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#34;me.home.domain.account&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">};</span>
+</span></span><span style="display:flex;"><span>    };
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> JpaProperties jpaProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> HibernateProperties hibernateProperties<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> JpaProperties jpaProperties;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> HibernateProperties hibernateProperties;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">AccountDataSourceConfig</span><span style="color:#ff79c6">(</span>JpaProperties jpaProperties<span style="color:#ff79c6">,</span> HibernateProperties hibernateProperties<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">jpaProperties</span> <span style="color:#ff79c6">=</span> jpaProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">AccountDataSourceConfig</span>(JpaProperties jpaProperties, HibernateProperties hibernateProperties) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">jpaProperties</span> <span style="color:#ff79c6">=</span> jpaProperties;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">....</span><span style="color:#50fa7b">이하</span> 생략<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>    ....<span style="color:#50fa7b">이하</span> 생략...
 </span></span></code></pre></div><p>이 상태에서 <code>data.sql</code> 을 작성한 뒤 테스트를 실행하면 바로 이 <em>AccountDataSource</em> 에 작성한 SQL 스크립트가 실행된다.</p>
 <h2 id="멀티-데이터소스-연결">멀티 데이터소스 연결</h2>
 <p>위의 상황에서 추가적으로 비지니스 로직을 구현하면서 필요한 콘텐츠를 담아두는 데이터소스를 추가한다고 생각해보자.</p>
 <p>다음은 <em>ContentDataSourceConfiguration</em> 이다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>@Configuration
-</span></span><span style="display:flex;"><span>@EnableJpaRepositories<span style="color:#ff79c6">(</span>basePackages <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;me.home.domain.post&#34;</span><span style="color:#ff79c6">,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;me.home.domain.comment&#34;</span><span style="color:#ff79c6">},</span>
-</span></span><span style="display:flex;"><span>        entityManagerFactoryRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;contentEntityManagerFactory&#34;</span><span style="color:#ff79c6">,</span>
-</span></span><span style="display:flex;"><span>        transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;contentTransactionManager&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">ContentDataSourceConfig</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>@EnableJpaRepositories(basePackages <span style="color:#ff79c6">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;me.home.domain.post&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;me.home.domain.comment&#34;</span>},
+</span></span><span style="display:flex;"><span>        entityManagerFactoryRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;contentEntityManagerFactory&#34;</span>,
+</span></span><span style="display:flex;"><span>        transactionManagerRef <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;contentTransactionManager&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">ContentDataSourceConfig</span> {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> JpaProperties jpaProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> HibernateProperties hibernateProperties<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> JpaProperties jpaProperties;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">private</span> <span style="color:#8be9fd;font-style:italic">final</span> HibernateProperties hibernateProperties;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">ContentDataSourceConfig</span><span style="color:#ff79c6">(</span>JpaProperties jpaProperties<span style="color:#ff79c6">,</span> HibernateProperties hibernateProperties<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">jpaProperties</span> <span style="color:#ff79c6">=</span> jpaProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#50fa7b">ContentDataSourceConfig</span>(JpaProperties jpaProperties, HibernateProperties hibernateProperties) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">jpaProperties</span> <span style="color:#ff79c6">=</span> jpaProperties;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">hibernateProperties</span> <span style="color:#ff79c6">=</span> hibernateProperties;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span><span style="color:#50fa7b">이하</span> 생략<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>    ...<span style="color:#50fa7b">이하</span> 생략...
 </span></span></code></pre></div><p>이 다음에는 content data source 에서 실행하고자 하는 <code>data.sql</code> 스크립트 내용을 추가로 작성해야하는데 이를 구분해서 적용하는 방법이 매뉴얼에는 안내되어 있지 않다. (매뉴얼에는 <em>While we do not recommend using multiple data source initialization technologies</em> 라고 하며 멀티 데이터소스에서 초기화 스크립트를 실행하는 것을 권장하지 않는다고 나와있다.) 이 상태에서 테스트를 실행하면 IllegalArgumentException 이 발생하거나 DataSourceInitializationConfiguration 에서 정상적으로 처리되지 않는다.
 따라서 다음의 순서대로 적용해보았다.</p>
 <h2 id="datasourceinitializer-역할-확인">DataSourceInitializer 역할 확인</h2>
 <p><code>org.springframework.boot.autoconfigure.jdbc.DataSourceInitializer</code> 파일을 확인해보면 <code>initSchema()</code> 메서드에서 <code>runScripts</code> 메서드를 호출하는 부분을 찾을 수 있는데 이부분이 바로 <code>data.sql</code> 을 실행하는 부분이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#ff79c6">&lt;</span>Resource<span style="color:#ff79c6">&gt;</span> scripts <span style="color:#ff79c6">=</span> getScripts<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;spring.datasource.data&#34;</span><span style="color:#ff79c6">,</span> <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">properties</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">getData</span><span style="color:#ff79c6">(),</span> <span style="color:#f1fa8c">&#34;data&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(!</span>scripts<span style="color:#ff79c6">.</span><span style="color:#50fa7b">isEmpty</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(!</span>isEnabled<span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        logger<span style="color:#ff79c6">.</span><span style="color:#50fa7b">debug</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;Initialization disabled (not running data scripts)&#34;</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span><span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
-</span></span><span style="display:flex;"><span>    String username <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">properties</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">getDataUsername</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    String password <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">properties</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">getDataPassword</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    runScripts<span style="color:#ff79c6">(</span>scripts<span style="color:#ff79c6">,</span> username<span style="color:#ff79c6">,</span> password<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#ff79c6">&lt;</span>Resource<span style="color:#ff79c6">&gt;</span> scripts <span style="color:#ff79c6">=</span> getScripts(<span style="color:#f1fa8c">&#34;spring.datasource.data&#34;</span>, <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">properties</span>.<span style="color:#50fa7b">getData</span>(), <span style="color:#f1fa8c">&#34;data&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>scripts.<span style="color:#50fa7b">isEmpty</span>()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>isEnabled()) {
+</span></span><span style="display:flex;"><span>        logger.<span style="color:#50fa7b">debug</span>(<span style="color:#f1fa8c">&#34;Initialization disabled (not running data scripts)&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    String username <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">properties</span>.<span style="color:#50fa7b">getDataUsername</span>();
+</span></span><span style="display:flex;"><span>    String password <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">this</span>.<span style="color:#50fa7b">properties</span>.<span style="color:#50fa7b">getDataPassword</span>();
+</span></span><span style="display:flex;"><span>    runScripts(scripts, username, password);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>따라서 각각의 datasource configuration 에 다음과 같이 bean 을 등록해주는 코드를 추가해주었다.</p>
 <h2 id="bean-등록">Bean 등록</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>@Bean
-</span></span><span style="display:flex;"><span>@Profile<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;local&#34;</span><span style="color:#ff79c6">)</span> <span style="color:#6272a4">// 테스트에서만 runScript 에 필요한 sql 스크립트이기 때문에 &#39;local&#39; profile 에서만 bean 을 등록한다.
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> DataSourceInitializer <span style="color:#50fa7b">dataSourceInitializer</span><span style="color:#ff79c6">(</span>@Qualifier<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;accountDataSource&#34;</span><span style="color:#ff79c6">)</span> DataSource datasource<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>    ResourceDatabasePopulator resourceDatabasePopulator <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> ResourceDatabasePopulator<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    resourceDatabasePopulator<span style="color:#ff79c6">.</span><span style="color:#50fa7b">addScript</span><span style="color:#ff79c6">(</span><span style="color:#ff79c6">new</span> ClassPathResource<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;account-data.sql&#34;</span><span style="color:#ff79c6">));</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// 여기에서는 data.sql 을 사용하지 않고 account-data.sql 파일을 사용하였다.
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
-</span></span><span style="display:flex;"><span>    DataSourceInitializer dataSourceInitializer <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> DataSourceInitializer<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    dataSourceInitializer<span style="color:#ff79c6">.</span><span style="color:#50fa7b">setDataSource</span><span style="color:#ff79c6">(</span>datasource<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>    dataSourceInitializer<span style="color:#ff79c6">.</span><span style="color:#50fa7b">setDatabasePopulator</span><span style="color:#ff79c6">(</span>resourceDatabasePopulator<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> dataSourceInitializer<span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>@Profile(<span style="color:#f1fa8c">&#34;local&#34;</span>) <span style="color:#6272a4">// 테스트에서만 runScript 에 필요한 sql 스크립트이기 때문에 &#39;local&#39; profile 에서만 bean 을 등록한다.</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> DataSourceInitializer <span style="color:#50fa7b">dataSourceInitializer</span>(@Qualifier(<span style="color:#f1fa8c">&#34;accountDataSource&#34;</span>) DataSource datasource) {
+</span></span><span style="display:flex;"><span>    ResourceDatabasePopulator resourceDatabasePopulator <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> ResourceDatabasePopulator();
+</span></span><span style="display:flex;"><span>    resourceDatabasePopulator.<span style="color:#50fa7b">addScript</span>(<span style="color:#ff79c6">new</span> ClassPathResource(<span style="color:#f1fa8c">&#34;account-data.sql&#34;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// 여기에서는 data.sql 을 사용하지 않고 account-data.sql 파일을 사용하였다.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    DataSourceInitializer dataSourceInitializer <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> DataSourceInitializer();
+</span></span><span style="display:flex;"><span>    dataSourceInitializer.<span style="color:#50fa7b">setDataSource</span>(datasource);
+</span></span><span style="display:flex;"><span>    dataSourceInitializer.<span style="color:#50fa7b">setDatabasePopulator</span>(resourceDatabasePopulator);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> dataSourceInitializer;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>그리고 <code>application.yml</code> 파일에 다음과 같이 설정해주었다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">datasource.account</span>:
@@ -392,7 +392,7 @@
 <div id="disqus-comment"></div>
 
 <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     
@@ -436,14 +436,14 @@
                         
                         
                         
-                        <a href="/tags/adaptive-growth" title="adaptive-growth">
-                        adaptive-growth
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
                         </a>
                         
                         
                         
-                        <a href="/tags/alpine-linux" title="alpine-linux">
-                        alpine-linux
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
                         </a>
                         
                         
@@ -454,8 +454,8 @@
                         
                         
                         
-                        <a href="/tags/ansible-tower" title="ansible-tower">
-                        ansible-tower
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
                         </a>
                         
                         
@@ -502,14 +502,14 @@
                         
                         
                         
-                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
-                        beautiful-goodbye
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
                         </a>
                         
                         
                         
-                        <a href="/tags/begining-docker" title="begining-docker">
-                        begining-docker
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
                         </a>
                         
                         
@@ -526,8 +526,8 @@
                         
                         
                         
-                        <a href="/tags/blocking-code" title="blocking-code">
-                        blocking-code
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
                         </a>
                         
                         
@@ -544,14 +544,14 @@
                         
                         
                         
-                        <a href="/tags/brew-cask" title="brew-cask">
-                        brew-cask
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
                         </a>
                         
                         
                         
-                        <a href="/tags/build-cache" title="build-cache">
-                        build-cache
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
                         </a>
                         
                         
@@ -634,8 +634,8 @@
                         
                         
                         
-                        <a href="/tags/docker-desktop" title="docker-desktop">
-                        docker-desktop
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
                         </a>
                         
                         
@@ -646,8 +646,8 @@
                         
                         
                         
-                        <a href="/tags/dos-attack" title="dos-attack">
-                        dos-attack
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
                         </a>
                         
                         
@@ -664,14 +664,14 @@
                         
                         
                         
-                        <a href="/tags/empty-string" title="empty-string">
-                        empty-string
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
                         </a>
                         
                         
                         
-                        <a href="/tags/environment-to-do-well" title="environment-to-do-well">
-                        environment-to-do-well
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
                         </a>
                         
                         
@@ -682,8 +682,8 @@
                         
                         
                         
-                        <a href="/tags/event-driven" title="event-driven">
-                        event-driven
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
                         </a>
                         
                         
@@ -694,8 +694,8 @@
                         
                         
                         
-                        <a href="/tags/file-upload" title="file-upload">
-                        file-upload
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
                         </a>
                         
                         
@@ -712,8 +712,8 @@
                         
                         
                         
-                        <a href="/tags/forwarded-option" title="forwarded-option">
-                        forwarded-option
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
                         </a>
                         
                         
@@ -736,14 +736,14 @@
                         
                         
                         
-                        <a href="/tags/graceful-deploy" title="graceful-deploy">
-                        graceful-deploy
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
                         </a>
                         
                         
                         
-                        <a href="/tags/happy-new-year" title="happy-new-year">
-                        happy-new-year
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
                         </a>
                         
                         
@@ -754,56 +754,56 @@
                         
                         
                         
-                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
-                        haproxy-1.8
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
-                        haproxy-acl-logging
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
-                        haproxy-custom-variable-logging
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-metric" title="haproxy-metric">
-                        haproxy-metric
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
-                        haproxy-reload-fail
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-stat" title="haproxy-stat">
-                        haproxy-stat
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
                         </a>
                         
                         
                         
-                        <a href="/tags/heap-memory" title="heap-memory">
-                        heap-memory
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
                         </a>
                         
                         
                         
-                        <a href="/tags/hedgehog-sharp" title="hedgehog-sharp">
-                        hedgehog-sharp
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
                         </a>
                         
                         
                         
-                        <a href="/tags/how-do-i-work" title="how-do-i-work">
-                        how-do-i-work
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
                         </a>
                         
                         
@@ -814,8 +814,8 @@
                         
                         
                         
-                        <a href="/tags/index-alias" title="index-alias">
-                        index-alias
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
                         </a>
                         
                         
@@ -832,14 +832,14 @@
                         
                         
                         
-                        <a href="/tags/instance-type" title="instance-type">
-                        instance-type
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
                         </a>
                         
                         
                         
-                        <a href="/tags/inverted-index" title="inverted-index">
-                        inverted-index
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
                         </a>
                         
                         
@@ -862,8 +862,8 @@
                         
                         
                         
-                        <a href="/tags/jdk-21" title="jdk-21">
-                        jdk-21
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
                         </a>
                         
                         
@@ -874,8 +874,8 @@
                         
                         
                         
-                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
-                        jekyll-to-hugo
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
                         </a>
                         
                         
@@ -898,8 +898,8 @@
                         
                         
                         
-                        <a href="/tags/k8s-api" title="k8s-api">
-                        k8s-api
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
                         </a>
                         
                         
@@ -922,14 +922,14 @@
                         
                         
                         
-                        <a href="/tags/learning-in-2019" title="learning-in-2019">
-                        learning-in-2019
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
                         </a>
                         
                         
                         
-                        <a href="/tags/lets-encrypt" title="lets-encrypt">
-                        lets-encrypt
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
                         </a>
                         
                         
@@ -958,8 +958,8 @@
                         
                         
                         
-                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
-                        m1-macbook-pro
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
                         </a>
                         
                         
@@ -970,8 +970,8 @@
                         
                         
                         
-                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
-                        macro-key-mapping
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
                         </a>
                         
                         
@@ -1000,8 +1000,8 @@
                         
                         
                         
-                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
-                        microservice-설계-및-구현
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
                         </a>
                         
                         
@@ -1018,8 +1018,8 @@
                         
                         
                         
-                        <a href="/tags/multi-datasource" title="multi-datasource">
-                        multi-datasource
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
                         </a>
                         
                         
@@ -1036,20 +1036,26 @@
                         
                         
                         
-                        <a href="/tags/nginx-ingress" title="nginx-ingress">
-                        nginx-ingress
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
                         </a>
                         
                         
                         
-                        <a href="/tags/nginx-regexp" title="nginx-regexp">
-                        nginx-regexp
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
                         </a>
                         
                         
                         
                         <a href="/tags/ngram" title="ngram">
                         ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
                         </a>
                         
                         
@@ -1066,8 +1072,8 @@
                         
                         
                         
-                        <a href="/tags/partial-matching" title="partial-matching">
-                        partial-matching
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
                         </a>
                         
                         
@@ -1078,20 +1084,26 @@
                         
                         
                         
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/poeaa" title="poeaa">
                         poeaa
                         </a>
                         
                         
                         
-                        <a href="/tags/portfolio-expansion" title="portfolio-expansion">
-                        portfolio-expansion
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
                         </a>
                         
                         
                         
-                        <a href="/tags/product-strategy" title="product-strategy">
-                        product-strategy
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
                         </a>
                         
                         
@@ -1102,20 +1114,20 @@
                         
                         
                         
-                        <a href="/tags/query-dsl" title="query-dsl">
-                        query-dsl
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-limit" title="rate-limit">
-                        rate-limit
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-litmiting" title="rate-litmiting">
-                        rate-litmiting
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
                         </a>
                         
                         
@@ -1132,38 +1144,38 @@
                         
                         
                         
-                        <a href="/tags/rss-template" title="rss-template">
-                        rss-template
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
                         </a>
                         
                         
                         
-                        <a href="/tags/seamless-reload" title="seamless-reload">
-                        seamless-reload
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
                         </a>
                         
                         
                         
-                        <a href="/tags/search-on-hugo" title="search-on-hugo">
-                        search-on-hugo
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
                         </a>
                         
                         
                         
-                        <a href="/tags/service-account-role" title="service-account-role">
-                        service-account-role
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
                         </a>
                         
                         
                         
-                        <a href="/tags/sidebar-search" title="sidebar-search">
-                        sidebar-search
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
                         </a>
                         
                         
                         
-                        <a href="/tags/speed-up" title="speed-up">
-                        speed-up
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
                         </a>
                         
                         
@@ -1180,26 +1192,26 @@
                         
                         
                         
-                        <a href="/tags/spring-boot" title="spring-boot">
-                        spring-boot
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp" title="spring-camp">
-                        spring-camp
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp-2023" title="spring-camp-2023">
-                        spring-camp-2023
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-event" title="spring-event">
-                        spring-event
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
                         </a>
                         
                         
@@ -1222,14 +1234,14 @@
                         
                         
                         
-                        <a href="/tags/system-manager" title="system-manager">
-                        system-manager
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
                         </a>
                         
                         
                         
-                        <a href="/tags/systemd-reload" title="systemd-reload">
-                        systemd-reload
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
                         </a>
                         
                         
@@ -1264,8 +1276,8 @@
                         
                         
                         
-                        <a href="/tags/traffic-management" title="traffic-management">
-                        traffic-management
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
                         </a>
                         
                         
@@ -1276,8 +1288,8 @@
                         
                         
                         
-                        <a href="/tags/unused-plugins" title="unused-plugins">
-                        unused-plugins
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
                         </a>
                         
                         
@@ -1288,20 +1300,20 @@
                         
                         
                         
-                        <a href="/tags/ux-consideration" title="ux-consideration">
-                        ux-consideration
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
                         </a>
                         
                         
                         
-                        <a href="/tags/virtual-thread" title="virtual-thread">
-                        virtual-thread
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
                         </a>
                         
                         
                         
-                        <a href="/tags/vm-options" title="vm-options">
-                        vm-options
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
                         </a>
                         
                         
@@ -1318,32 +1330,32 @@
                         
                         
                         
-                        <a href="/tags/zero-downtime" title="zero-downtime">
-                        zero-downtime
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
                         </a>
                         
                         
                         
-                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
-                        만들면서-배우는-클린-아키텍처
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
-                        시작하세요-도커
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
-                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
-                        쿠버네티스-시작하기
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
                         </a>
                         
                         

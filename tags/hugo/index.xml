@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>hugo on Soo Story</title>
+    <title>Hugo on Soo Story</title>
     <link>https://findstar.pe.kr/tags/hugo/</link>
-    <description>Recent content in hugo on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Hugo on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 16 Aug 2021 18:40:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Aug 2021 18:40:01 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo에서 RSS 템플릿을 지정하는 방법</title>
       <link>https://findstar.pe.kr/2021/08/16/hugo-rss-template/</link>
       <pubDate>Mon, 16 Aug 2021 18:40:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/08/16/hugo-rss-template/</guid>
       <description>그 동안 작성된 포스트를 rss 링크에서 확인한 결과 태그가 정상적으로 노출되지 않고 있다는 것을 발견하였다. 그래서 hugo 에서 지원하는 RSS 템플릿 기능을 사용해서 RSS 에서 포스트의 태그를 확인할 수 있게 작업을 진행해보았다.</description>
     </item>
-    
     <item>
       <title>jekyll 에서 hugo 로 전환한 소감</title>
       <link>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</link>
       <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/06/25/jekyll-to-hugo-thoughts/</guid>
       <description>&lt;p&gt;사용하던 github pages 기반 툴을 &lt;code&gt;jekyll&lt;/code&gt; 에서 &lt;code&gt;hugo&lt;/code&gt; 로 전환해보았다. 아래는 그 과정에서 느낀 점을 정리해보았다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

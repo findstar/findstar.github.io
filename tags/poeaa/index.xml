@@ -4,17 +4,16 @@
     <title>POEAA on Soo Story</title>
     <link>https://findstar.pe.kr/tags/poeaa/</link>
     <description>Recent content in POEAA on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 22 Jan 2022 16:01:31 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/poeaa/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Jan 2022 16:01:31 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/poeaa/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[북리뷰] 엔터프라이즈 애플리케이션 아키텍처패턴</title>
       <link>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</link>
       <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/01/22/book-review-poeaa/</guid>
       <description>&lt;p&gt;새로운 팀에서 신규 프로젝트를 작성하면서 애플리케이션의 구조에 대해서 고민하게 되었는데, 좀 더 나은 아키텍처를 위해서 참고할만한 서적을 찾던 중 책장에 사놓고 고이 모셔두었던 이 책을 찾아 읽어보았다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

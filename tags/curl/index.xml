@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>curl on Soo Story</title>
+    <title>Curl on Soo Story</title>
     <link>https://findstar.pe.kr/tags/curl/</link>
-    <description>Recent content in curl on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Curl on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/curl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Jun 2021 22:21:09 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/curl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>curl 을 사용하여 K8S(Kubernetes) 에서 cronjob 등록하기</title>
       <link>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</link>
       <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/06/13/curl-cronjob-k8s/</guid>
       <description>종종 쿠버네티스 클러스터에서 cronjob 을 활용할 일이 있는데 간단하게 curl 명령어 한번만 실행하면 되는 경우가 있다. 이럴 때 사용하기 위한 alpine 기반의 curl 이미지를 사용하는 방법에 대해서 알아보았다.</description>
     </item>
-    
     <item>
       <title>curl 로 측정하는 dns lookup time</title>
       <link>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</link>
       <pubDate>Mon, 15 Mar 2021 22:19:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2021/03/15/curl-cnd-lookup-time/</guid>
       <description>k8s 클러스터에서 서비스를 구동하던중 서비스 사이의 dns lookup time 을 확인해야할 필요가 있었다. curl 에서 dns lookup time 을 확인하는 방법을 살펴보았다.</description>
     </item>
-    
     <item>
       <title>CURL 에서 파일 업로드 하기</title>
       <link>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</link>
       <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/05/13/upload-file-on-curl/</guid>
-      <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;
-&lt;p&gt;작성한 API를 테스트 하기 위해서 &lt;a href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt; 이나 &lt;a href=&#34;https://paw.cloud/&#34;&gt;Paw&lt;/a&gt;를 주로 사용하는데,
-CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 &lt;code&gt;CURL&lt;/code&gt;을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;5월-13일-수-til&#34;&gt;5월 13일 (수) TIL&lt;/h1&gt;&#xA;&lt;p&gt;작성한 API를 테스트 하기 위해서 &lt;a href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt; 이나 &lt;a href=&#34;https://paw.cloud/&#34;&gt;Paw&lt;/a&gt;를 주로 사용하는데,&#xA;CURL을 사용해서 CLI에서 테스트해야 되는 경우도 종종 있다. 새롭게 API를 테스트 하던 중 &lt;code&gt;CURL&lt;/code&gt;을 사용해서 파일 업로드 API를 테스트 하는 방법을 확인해 봤다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

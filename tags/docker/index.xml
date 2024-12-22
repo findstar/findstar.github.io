@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>docker on Soo Story</title>
+    <title>Docker on Soo Story</title>
     <link>https://findstar.pe.kr/tags/docker/</link>
-    <description>Recent content in docker on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Docker on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 13 May 2022 20:17:32 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 May 2022 20:17:32 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gradle을 사용할 때 도커 빌드를 빠르게 하는 방법</title>
       <link>https://findstar.pe.kr/2022/05/13/gradle-docker-cache/</link>
       <pubDate>Fri, 13 May 2022 20:17:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/05/13/gradle-docker-cache/</guid>
       <description>gradle 을 사용할 때 docker 캐시 레이어를 사용해서 도커 빌드 속도를 빠르게 하는 방법을 알아보았다.</description>
     </item>
-    
   </channel>
 </rss>

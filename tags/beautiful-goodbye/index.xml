@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>beautiful goodbye on Soo Story</title>
+    <title>Beautiful Goodbye on Soo Story</title>
     <link>https://findstar.pe.kr/tags/beautiful-goodbye/</link>
-    <description>Recent content in beautiful goodbye on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Beautiful Goodbye on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 29 Apr 2022 23:39:11 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/beautiful-goodbye/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Apr 2022 23:39:11 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/beautiful-goodbye/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>서비스 종료 넋두리</title>
       <link>https://findstar.pe.kr/2022/04/29/beautiful-goodbye-mm/</link>
       <pubDate>Fri, 29 Apr 2022 23:39:11 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/04/29/beautiful-goodbye-mm/</guid>
       <description>새롭게 시작한 서비스를 1년을 채우지 못하고 종료했다.</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>installation on Soo Story</title>
+    <title>Installation on Soo Story</title>
     <link>https://findstar.pe.kr/tags/installation/</link>
-    <description>Recent content in installation on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Installation on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 04 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/installation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/installation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ansible AWX 를 설치해보기</title>
       <link>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/04/04/ansible-awx-installation/</guid>
       <description>Redhat에서 내놓은 Ansible Tower 의 오픈소스 Ansible AWX를 살펴보았다.</description>
     </item>
-    
   </channel>
 </rss>

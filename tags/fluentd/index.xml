@@ -1,45 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>fluentd on Soo Story</title>
+    <title>Fluentd on Soo Story</title>
     <link>https://findstar.pe.kr/tags/fluentd/</link>
-    <description>Recent content in fluentd on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Fluentd on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 02 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/fluentd/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/fluentd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fluentd 를 로컬에서 테스트 해보는 방법</title>
       <link>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</link>
       <pubDate>Tue, 02 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/til/2018-01-02-local-test-for-fluentd-output/</guid>
-      <description>&lt;h1 id=&#34;1월-02일-화-til&#34;&gt;1월 02일 (화) TIL&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.fluentd.org/&#34;&gt;Fluentd&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.
-&lt;code&gt;/etc/td-agent/td-agent.conf&lt;/code&gt; 가 다음과 같을 때:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;source&amp;gt;
-.....
-.....
-.....
-&amp;lt;/source&amp;gt;
-
-# 결과 값에 hostname 을 추가로 덧붙임.
-&amp;lt;filter accesslog&amp;gt;
-  @type record_transformer
-  &amp;lt;record&amp;gt;
-    source &amp;#34;#{Socket.gethostname}&amp;#34;
-    path ${record[&amp;#34;host&amp;#34;]}
-  &amp;lt;/record&amp;gt;
-&amp;lt;/filter&amp;gt;
-
-# Local 에서 테스트 해볼 때 사용할 수 있는 match
-&amp;lt;match accesslogs&amp;gt;
- type stdout
-&amp;lt;/match&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;h1 id=&#34;1월-02일-화-til&#34;&gt;1월 02일 (화) TIL&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.fluentd.org/&#34;&gt;Fluentd&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;fluentd (이하 td-agent)를 설치후에 conf를 설정하고 나면 동작을 잘 하는지 확인해야 되는 경우가 있는데 아래와 같이 테스트 해볼 수 있었다.&#xA;&lt;code&gt;/etc/td-agent/td-agent.conf&lt;/code&gt; 가 다음과 같을 때:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;source&amp;gt;&#xA;.....&#xA;.....&#xA;.....&#xA;&amp;lt;/source&amp;gt;&#xA;&#xA;# 결과 값에 hostname 을 추가로 덧붙임.&#xA;&amp;lt;filter accesslog&amp;gt;&#xA;  @type record_transformer&#xA;  &amp;lt;record&amp;gt;&#xA;    source &amp;#34;#{Socket.gethostname}&amp;#34;&#xA;    path ${record[&amp;#34;host&amp;#34;]}&#xA;  &amp;lt;/record&amp;gt;&#xA;&amp;lt;/filter&amp;gt;&#xA;&#xA;# Local 에서 테스트 해볼 때 사용할 수 있는 match&#xA;&amp;lt;match accesslogs&amp;gt;&#xA; type stdout&#xA;&amp;lt;/match&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
   </channel>
 </rss>

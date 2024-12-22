@@ -4,1385 +4,1094 @@
     <title>Tags on Soo Story</title>
     <link>https://findstar.pe.kr/tags/</link>
     <description>Recent content in Tags on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 10 Nov 2024 18:50:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>adaptive growth</title>
+      <title>K8s</title>
+      <link>https://findstar.pe.kr/tags/k8s/</link>
+      <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/k8s/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Node Drain</title>
+      <link>https://findstar.pe.kr/tags/node-drain/</link>
+      <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/node-drain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PodDisruptionBudget</title>
+      <link>https://findstar.pe.kr/tags/poddisruptionbudget/</link>
+      <pubDate>Sun, 22 Dec 2024 19:56:03 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/poddisruptionbudget/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Adaptive Growth</title>
       <link>https://findstar.pe.kr/tags/adaptive-growth/</link>
       <pubDate>Sun, 10 Nov 2024 18:50:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/adaptive-growth/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>hedgehog sharp</title>
+      <title>Hedgehog Sharp</title>
       <link>https://findstar.pe.kr/tags/hedgehog-sharp/</link>
       <pubDate>Sun, 10 Nov 2024 18:50:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/hedgehog-sharp/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>portfolio expansion</title>
+      <title>Portfolio Expansion</title>
       <link>https://findstar.pe.kr/tags/portfolio-expansion/</link>
       <pubDate>Sun, 10 Nov 2024 18:50:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/portfolio-expansion/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>product strategy</title>
+      <title>Product Strategy</title>
       <link>https://findstar.pe.kr/tags/product-strategy/</link>
       <pubDate>Sun, 10 Nov 2024 18:50:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/product-strategy/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>ASGI</title>
       <link>https://findstar.pe.kr/tags/asgi/</link>
       <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/asgi/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>framework</title>
+      <title>Framework</title>
       <link>https://findstar.pe.kr/tags/framework/</link>
       <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/framework/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>litestar</title>
+      <title>Litestar</title>
       <link>https://findstar.pe.kr/tags/litestar/</link>
       <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/litestar/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>python</title>
+      <title>Python</title>
       <link>https://findstar.pe.kr/tags/python/</link>
       <pubDate>Sun, 13 Oct 2024 18:05:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/python/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>benchmark</title>
+      <title>Benchmark</title>
       <link>https://findstar.pe.kr/tags/benchmark/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/benchmark/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>java</title>
+      <title>Java</title>
       <link>https://findstar.pe.kr/tags/java/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/java/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>jdk 21</title>
+      <title>Jdk 21</title>
       <link>https://findstar.pe.kr/tags/jdk-21/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/jdk-21/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>throughput</title>
+      <title>Throughput</title>
       <link>https://findstar.pe.kr/tags/throughput/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/throughput/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>virtual thread</title>
+      <title>Virtual Thread</title>
       <link>https://findstar.pe.kr/tags/virtual-thread/</link>
       <pubDate>Sun, 02 Jul 2023 19:29:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/virtual-thread/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>collaboration</title>
+      <title>Collaboration</title>
       <link>https://findstar.pe.kr/tags/collaboration/</link>
       <pubDate>Sun, 18 Jun 2023 15:59:23 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/collaboration/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>communication</title>
+      <title>Communication</title>
       <link>https://findstar.pe.kr/tags/communication/</link>
       <pubDate>Sun, 18 Jun 2023 15:59:23 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/communication/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>argocd</title>
+      <title>Argocd</title>
       <link>https://findstar.pe.kr/tags/argocd/</link>
       <pubDate>Sun, 04 Jun 2023 19:24:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/argocd/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>spring</title>
+      <title>Spring</title>
       <link>https://findstar.pe.kr/tags/spring/</link>
       <pubDate>Mon, 24 Apr 2023 00:26:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/spring/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>spring camp</title>
+      <title>Spring Camp</title>
       <link>https://findstar.pe.kr/tags/spring-camp/</link>
       <pubDate>Mon, 24 Apr 2023 00:26:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/spring-camp/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>spring camp 2023</title>
+      <title>Spring Camp 2023</title>
       <link>https://findstar.pe.kr/tags/spring-camp-2023/</link>
       <pubDate>Mon, 24 Apr 2023 00:26:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/spring-camp-2023/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>k8s</title>
-      <link>https://findstar.pe.kr/tags/k8s/</link>
-      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/k8s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>k8s api</title>
+      <title>K8s Api</title>
       <link>https://findstar.pe.kr/tags/k8s-api/</link>
       <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/k8s-api/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>kubernetes</title>
+      <title>Kubernetes</title>
       <link>https://findstar.pe.kr/tags/kubernetes/</link>
       <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/kubernetes/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>service account &amp; role</title>
-      <link>https://findstar.pe.kr/tags/service-account-role/</link>
+      <title>Service Account &amp; Role</title>
+      <link>https://findstar.pe.kr/tags/service-account--role/</link>
       <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      
-      <guid>https://findstar.pe.kr/tags/service-account-role/</guid>
+      <guid>https://findstar.pe.kr/tags/service-account--role/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>blockhound</title>
+      <title>Blockhound</title>
       <link>https://findstar.pe.kr/tags/blockhound/</link>
       <pubDate>Sat, 25 Mar 2023 15:49:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/blockhound/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>blocking code</title>
+      <title>Blocking Code</title>
       <link>https://findstar.pe.kr/tags/blocking-code/</link>
       <pubDate>Sat, 25 Mar 2023 15:49:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/blocking-code/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>webflux</title>
+      <title>Webflux</title>
       <link>https://findstar.pe.kr/tags/webflux/</link>
       <pubDate>Sat, 25 Mar 2023 15:49:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/webflux/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>environment to do well</title>
+      <title>Environment to Do Well</title>
       <link>https://findstar.pe.kr/tags/environment-to-do-well/</link>
       <pubDate>Sat, 25 Feb 2023 22:50:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/environment-to-do-well/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>leadership</title>
+      <title>Leadership</title>
       <link>https://findstar.pe.kr/tags/leadership/</link>
       <pubDate>Sat, 25 Feb 2023 22:50:05 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/leadership/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>architecture</title>
+      <title>Architecture</title>
       <link>https://findstar.pe.kr/tags/architecture/</link>
       <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/architecture/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>aws</title>
+      <title>Aws</title>
       <link>https://findstar.pe.kr/tags/aws/</link>
       <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/aws/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>experience</title>
+      <title>Experience</title>
       <link>https://findstar.pe.kr/tags/experience/</link>
       <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/experience/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>database</title>
+      <title>Database</title>
       <link>https://findstar.pe.kr/tags/database/</link>
       <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/database/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ulid</title>
+      <title>Ulid</title>
       <link>https://findstar.pe.kr/tags/ulid/</link>
       <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ulid/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>uuid</title>
+      <title>Uuid</title>
       <link>https://findstar.pe.kr/tags/uuid/</link>
       <pubDate>Fri, 14 Oct 2022 23:26:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/uuid/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>event driven</title>
+      <title>Event Driven</title>
       <link>https://findstar.pe.kr/tags/event-driven/</link>
       <pubDate>Sat, 17 Sep 2022 16:22:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/event-driven/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>spring event</title>
+      <title>Spring Event</title>
       <link>https://findstar.pe.kr/tags/spring-event/</link>
       <pubDate>Sat, 17 Sep 2022 16:22:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/spring-event/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>rds</title>
+      <title>Rds</title>
       <link>https://findstar.pe.kr/tags/rds/</link>
       <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/rds/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>system manager</title>
+      <title>System Manager</title>
       <link>https://findstar.pe.kr/tags/system-manager/</link>
       <pubDate>Sat, 03 Sep 2022 19:51:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/system-manager/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>eks</title>
+      <title>Eks</title>
       <link>https://findstar.pe.kr/tags/eks/</link>
       <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/eks/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>instance type</title>
+      <title>Instance Type</title>
       <link>https://findstar.pe.kr/tags/instance-type/</link>
       <pubDate>Sun, 21 Aug 2022 16:13:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/instance-type/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>m1 macbook pro</title>
+      <title>M1 Macbook Pro</title>
       <link>https://findstar.pe.kr/tags/m1-macbook-pro/</link>
       <pubDate>Sun, 31 Jul 2022 14:01:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/m1-macbook-pro/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>heap memory</title>
+      <title>Heap Memory</title>
       <link>https://findstar.pe.kr/tags/heap-memory/</link>
       <pubDate>Sun, 10 Jul 2022 13:23:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/heap-memory/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>backoffice</title>
+      <title>Backoffice</title>
       <link>https://findstar.pe.kr/tags/backoffice/</link>
       <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/backoffice/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ux consideration</title>
+      <title>Ux Consideration</title>
       <link>https://findstar.pe.kr/tags/ux-consideration/</link>
       <pubDate>Sun, 12 Jun 2022 20:46:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ux-consideration/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>graceful deploy</title>
+      <title>Graceful Deploy</title>
       <link>https://findstar.pe.kr/tags/graceful-deploy/</link>
       <pubDate>Fri, 27 May 2022 21:21:12 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/graceful-deploy/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>build cache</title>
+      <title>Build Cache</title>
       <link>https://findstar.pe.kr/tags/build-cache/</link>
       <pubDate>Fri, 13 May 2022 20:17:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/build-cache/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>docker</title>
+      <title>Docker</title>
       <link>https://findstar.pe.kr/tags/docker/</link>
       <pubDate>Fri, 13 May 2022 20:17:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/docker/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>beautiful goodbye</title>
+      <title>Beautiful Goodbye</title>
       <link>https://findstar.pe.kr/tags/beautiful-goodbye/</link>
       <pubDate>Fri, 29 Apr 2022 23:39:11 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/beautiful-goodbye/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>mm</title>
+      <title>Mm</title>
       <link>https://findstar.pe.kr/tags/mm/</link>
       <pubDate>Fri, 29 Apr 2022 23:39:11 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/mm/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>book</title>
+      <title>Book</title>
       <link>https://findstar.pe.kr/tags/book/</link>
       <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/book/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>만들면서 배우는 클린 아키텍처</title>
       <link>https://findstar.pe.kr/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/</link>
       <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>POEAA</title>
       <link>https://findstar.pe.kr/tags/poeaa/</link>
       <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/poeaa/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>엔터프라이즈 애플리케이션 아키텍처 패턴</title>
       <link>https://findstar.pe.kr/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4/</link>
       <pubDate>Sat, 22 Jan 2022 16:01:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>forwarded option</title>
+      <title>Forwarded Option</title>
       <link>https://findstar.pe.kr/tags/forwarded-option/</link>
       <pubDate>Sun, 22 Aug 2021 21:22:30 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/forwarded-option/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>nginx ingress</title>
+      <title>Nginx Ingress</title>
       <link>https://findstar.pe.kr/tags/nginx-ingress/</link>
       <pubDate>Sun, 22 Aug 2021 21:22:30 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/nginx-ingress/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>hugo</title>
+      <title>Hugo</title>
       <link>https://findstar.pe.kr/tags/hugo/</link>
       <pubDate>Mon, 16 Aug 2021 18:40:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/hugo/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>rss template</title>
+      <title>Rss Template</title>
       <link>https://findstar.pe.kr/tags/rss-template/</link>
       <pubDate>Mon, 16 Aug 2021 18:40:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/rss-template/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>dockerize</title>
+      <title>Dockerize</title>
       <link>https://findstar.pe.kr/tags/dockerize/</link>
       <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/dockerize/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>maven</title>
+      <title>Maven</title>
       <link>https://findstar.pe.kr/tags/maven/</link>
       <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/maven/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>spring boot</title>
+      <title>Spring Boot</title>
       <link>https://findstar.pe.kr/tags/spring-boot/</link>
       <pubDate>Fri, 06 Aug 2021 20:08:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/spring-boot/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>data.sql</title>
+      <title>Data.sql</title>
       <link>https://findstar.pe.kr/tags/data.sql/</link>
       <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/data.sql/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>multi datasource</title>
+      <title>Multi Datasource</title>
       <link>https://findstar.pe.kr/tags/multi-datasource/</link>
       <pubDate>Sat, 31 Jul 2021 11:54:35 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/multi-datasource/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>alpine linux</title>
+      <title>Alpine Linux</title>
       <link>https://findstar.pe.kr/tags/alpine-linux/</link>
       <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/alpine-linux/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>timezone</title>
+      <title>Timezone</title>
       <link>https://findstar.pe.kr/tags/timezone/</link>
       <pubDate>Sun, 25 Jul 2021 23:28:36 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/timezone/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>fuse.js</title>
+      <title>Fuse.js</title>
       <link>https://findstar.pe.kr/tags/fuse.js/</link>
       <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/fuse.js/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>search on hugo</title>
+      <title>Search on Hugo</title>
       <link>https://findstar.pe.kr/tags/search-on-hugo/</link>
       <pubDate>Sat, 10 Jul 2021 22:33:16 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/search-on-hugo/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>developer</title>
+      <title>Developer</title>
       <link>https://findstar.pe.kr/tags/developer/</link>
       <pubDate>Wed, 30 Jun 2021 18:14:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/developer/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>how do I work</title>
+      <title>How Do I Work</title>
       <link>https://findstar.pe.kr/tags/how-do-i-work/</link>
       <pubDate>Wed, 30 Jun 2021 18:14:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/how-do-i-work/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>cronjob</title>
+      <title>Cronjob</title>
       <link>https://findstar.pe.kr/tags/cronjob/</link>
       <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/cronjob/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>curl</title>
+      <title>Curl</title>
       <link>https://findstar.pe.kr/tags/curl/</link>
       <pubDate>Sun, 13 Jun 2021 22:21:09 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/curl/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>confluence</title>
+      <title>Confluence</title>
       <link>https://findstar.pe.kr/tags/confluence/</link>
       <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/confluence/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>customizing</title>
+      <title>Customizing</title>
       <link>https://findstar.pe.kr/tags/customizing/</link>
       <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/customizing/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>sidebar search</title>
+      <title>Sidebar Search</title>
       <link>https://findstar.pe.kr/tags/sidebar-search/</link>
       <pubDate>Wed, 21 Apr 2021 22:43:03 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/sidebar-search/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>istio</title>
+      <title>Istio</title>
       <link>https://findstar.pe.kr/tags/istio/</link>
       <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/istio/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>traffic management</title>
+      <title>Traffic Management</title>
       <link>https://findstar.pe.kr/tags/traffic-management/</link>
       <pubDate>Wed, 14 Apr 2021 20:55:12 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/traffic-management/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>docker desktop</title>
+      <title>Docker Desktop</title>
       <link>https://findstar.pe.kr/tags/docker-desktop/</link>
       <pubDate>Thu, 25 Mar 2021 09:27:44 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/docker-desktop/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>nginx regexp</title>
+      <title>Nginx Regexp</title>
       <link>https://findstar.pe.kr/tags/nginx-regexp/</link>
       <pubDate>Sun, 21 Mar 2021 17:43:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/nginx-regexp/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy</title>
+      <title>Haproxy</title>
       <link>https://findstar.pe.kr/tags/haproxy/</link>
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy acl logging</title>
+      <title>Haproxy Acl Logging</title>
       <link>https://findstar.pe.kr/tags/haproxy-acl-logging/</link>
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-acl-logging/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy custom variable logging</title>
+      <title>Haproxy Custom Variable Logging</title>
       <link>https://findstar.pe.kr/tags/haproxy-custom-variable-logging/</link>
       <pubDate>Sun, 08 Sep 2019 23:42:45 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-custom-variable-logging/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>kmooc</title>
+      <title>Kmooc</title>
       <link>https://findstar.pe.kr/tags/kmooc/</link>
       <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/kmooc/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Microservice 설계 및 구현</title>
       <link>https://findstar.pe.kr/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84/</link>
       <pubDate>Sun, 21 Apr 2019 21:33:00 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>쿠버네티스 시작하기</title>
       <link>https://findstar.pe.kr/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/</link>
       <pubDate>Sun, 03 Mar 2019 01:03:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>learning in 2019</title>
+      <title>Learning in 2019</title>
       <link>https://findstar.pe.kr/tags/learning-in-2019/</link>
       <pubDate>Sun, 27 Jan 2019 23:21:34 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/learning-in-2019/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>brew cask</title>
+      <title>Brew Cask</title>
       <link>https://findstar.pe.kr/tags/brew-cask/</link>
       <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/brew-cask/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>openjdk</title>
+      <title>Openjdk</title>
       <link>https://findstar.pe.kr/tags/openjdk/</link>
       <pubDate>Sun, 20 Jan 2019 22:07:01 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/openjdk/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>begining docker</title>
+      <title>Begining Docker</title>
       <link>https://findstar.pe.kr/tags/begining-docker/</link>
       <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/begining-docker/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>시작하세요 도커</title>
       <link>https://findstar.pe.kr/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4/</link>
       <pubDate>Sun, 13 Jan 2019 20:11:31 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy metric</title>
+      <title>Haproxy Metric</title>
       <link>https://findstar.pe.kr/tags/haproxy-metric/</link>
       <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-metric/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy stat</title>
+      <title>Haproxy Stat</title>
       <link>https://findstar.pe.kr/tags/haproxy-stat/</link>
       <pubDate>Sat, 05 Jan 2019 00:09:13 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-stat/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>happy new year</title>
+      <title>Happy New Year</title>
       <link>https://findstar.pe.kr/tags/happy-new-year/</link>
       <pubDate>Wed, 02 Jan 2019 21:36:07 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/happy-new-year/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>let&#39;s encrypt</title>
+      <title>Let&#39;s Encrypt</title>
       <link>https://findstar.pe.kr/tags/lets-encrypt/</link>
       <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/lets-encrypt/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>letsencrypt</title>
+      <title>Letsencrypt</title>
       <link>https://findstar.pe.kr/tags/letsencrypt/</link>
       <pubDate>Sat, 08 Sep 2018 15:26:07 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/letsencrypt/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy 1.8</title>
+      <title>Haproxy 1.8</title>
       <link>https://findstar.pe.kr/tags/haproxy-1.8/</link>
       <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-1.8/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>seamless reload</title>
+      <title>Seamless Reload</title>
       <link>https://findstar.pe.kr/tags/seamless-reload/</link>
       <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/seamless-reload/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>zero downtime</title>
+      <title>Zero Downtime</title>
       <link>https://findstar.pe.kr/tags/zero-downtime/</link>
       <pubDate>Wed, 15 Aug 2018 21:46:18 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/zero-downtime/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>haproxy reload fail</title>
+      <title>Haproxy Reload Fail</title>
       <link>https://findstar.pe.kr/tags/haproxy-reload-fail/</link>
       <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/haproxy-reload-fail/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>systemd reload</title>
+      <title>Systemd Reload</title>
       <link>https://findstar.pe.kr/tags/systemd-reload/</link>
       <pubDate>Tue, 14 Aug 2018 23:17:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/systemd-reload/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>dos attack</title>
+      <title>Dos Attack</title>
       <link>https://findstar.pe.kr/tags/dos-attack/</link>
       <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/dos-attack/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>rate limit</title>
+      <title>Rate Limit</title>
       <link>https://findstar.pe.kr/tags/rate-limit/</link>
       <pubDate>Mon, 13 Aug 2018 23:11:17 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/rate-limit/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>install</title>
+      <title>Install</title>
       <link>https://findstar.pe.kr/tags/install/</link>
       <pubDate>Fri, 27 Jul 2018 08:08:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/install/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>ElasticSearch</title>
       <link>https://findstar.pe.kr/tags/elasticsearch/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/elasticsearch/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>match_phrase</title>
+      <title>Match_phrase</title>
       <link>https://findstar.pe.kr/tags/match_phrase/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/match_phrase/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ngram</title>
+      <title>Ngram</title>
       <link>https://findstar.pe.kr/tags/ngram/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ngram/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Partial Matching</title>
       <link>https://findstar.pe.kr/tags/partial-matching/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/partial-matching/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>wildcard</title>
+      <title>Wildcard</title>
       <link>https://findstar.pe.kr/tags/wildcard/</link>
       <pubDate>Sat, 14 Jul 2018 10:02:32 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/wildcard/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>reindex</title>
+      <title>Reindex</title>
       <link>https://findstar.pe.kr/tags/reindex/</link>
       <pubDate>Sat, 07 Jul 2018 22:14:53 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/reindex/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>mapping</title>
+      <title>Mapping</title>
       <link>https://findstar.pe.kr/tags/mapping/</link>
       <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/mapping/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>template</title>
+      <title>Template</title>
       <link>https://findstar.pe.kr/tags/template/</link>
       <pubDate>Fri, 29 Jun 2018 20:53:20 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/template/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>jekyll to hugo</title>
+      <title>Jekyll to Hugo</title>
       <link>https://findstar.pe.kr/tags/jekyll-to-hugo/</link>
       <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/jekyll-to-hugo/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>migration</title>
+      <title>Migration</title>
       <link>https://findstar.pe.kr/tags/migration/</link>
       <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/migration/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>limit_req_zone</title>
+      <title>Limit_req_zone</title>
       <link>https://findstar.pe.kr/tags/limit_req_zone/</link>
       <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/limit_req_zone/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>nginx</title>
+      <title>Nginx</title>
       <link>https://findstar.pe.kr/tags/nginx/</link>
       <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/nginx/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>rate litmiting</title>
+      <title>Rate Litmiting</title>
       <link>https://findstar.pe.kr/tags/rate-litmiting/</link>
       <pubDate>Sun, 24 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/rate-litmiting/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>index alias</title>
+      <title>Index Alias</title>
       <link>https://findstar.pe.kr/tags/index-alias/</link>
       <pubDate>Sun, 03 Jun 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/index-alias/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>filebeat</title>
+      <title>Filebeat</title>
       <link>https://findstar.pe.kr/tags/filebeat/</link>
       <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/filebeat/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>logstash</title>
+      <title>Logstash</title>
       <link>https://findstar.pe.kr/tags/logstash/</link>
       <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/logstash/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>file upload</title>
+      <title>File Upload</title>
       <link>https://findstar.pe.kr/tags/file-upload/</link>
       <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/file-upload/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>study</title>
+      <title>Study</title>
       <link>https://findstar.pe.kr/tags/study/</link>
       <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/study/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ansible</title>
+      <title>Ansible</title>
       <link>https://findstar.pe.kr/tags/ansible/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ansible/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ansible tower</title>
+      <title>Ansible Tower</title>
       <link>https://findstar.pe.kr/tags/ansible-tower/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ansible-tower/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>awx</title>
+      <title>Awx</title>
       <link>https://findstar.pe.kr/tags/awx/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/awx/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>installation</title>
+      <title>Installation</title>
       <link>https://findstar.pe.kr/tags/installation/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/installation/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>difference</title>
+      <title>Difference</title>
       <link>https://findstar.pe.kr/tags/difference/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/difference/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>empty string</title>
+      <title>Empty String</title>
       <link>https://findstar.pe.kr/tags/empty-string/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/empty-string/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>null</title>
+      <title>Null</title>
       <link>https://findstar.pe.kr/tags/null/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/null/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Golang</title>
       <link>https://findstar.pe.kr/tags/golang/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/golang/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>json</title>
+      <title>Json</title>
       <link>https://findstar.pe.kr/tags/json/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/json/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>mysql</title>
+      <title>Mysql</title>
       <link>https://findstar.pe.kr/tags/mysql/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/mysql/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>struct</title>
+      <title>Struct</title>
       <link>https://findstar.pe.kr/tags/struct/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/struct/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>match</title>
+      <title>Match</title>
       <link>https://findstar.pe.kr/tags/match/</link>
       <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/match/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>query DSL</title>
+      <title>Query DSL</title>
       <link>https://findstar.pe.kr/tags/query-dsl/</link>
       <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/query-dsl/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>term</title>
+      <title>Term</title>
       <link>https://findstar.pe.kr/tags/term/</link>
       <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/term/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>inverted index</title>
+      <title>Inverted Index</title>
       <link>https://findstar.pe.kr/tags/inverted-index/</link>
       <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/inverted-index/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>phpstorm</title>
+      <title>Phpstorm</title>
       <link>https://findstar.pe.kr/tags/phpstorm/</link>
       <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/phpstorm/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>speed up</title>
+      <title>Speed Up</title>
       <link>https://findstar.pe.kr/tags/speed-up/</link>
       <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/speed-up/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>vm options</title>
+      <title>Vm Options</title>
       <link>https://findstar.pe.kr/tags/vm-options/</link>
       <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/vm-options/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>unused plugins</title>
+      <title>Unused Plugins</title>
       <link>https://findstar.pe.kr/tags/unused-plugins/</link>
       <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/unused-plugins/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>jetbrains</title>
+      <title>Jetbrains</title>
       <link>https://findstar.pe.kr/tags/jetbrains/</link>
       <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/jetbrains/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>macro key mapping</title>
+      <title>Macro Key Mapping</title>
       <link>https://findstar.pe.kr/tags/macro-key-mapping/</link>
       <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/macro-key-mapping/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>fluentd</title>
+      <title>Fluentd</title>
       <link>https://findstar.pe.kr/tags/fluentd/</link>
       <pubDate>Tue, 02 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/fluentd/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>iterm</title>
+      <title>Iterm</title>
       <link>https://findstar.pe.kr/tags/iterm/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/iterm/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>macro</title>
+      <title>Macro</title>
       <link>https://findstar.pe.kr/tags/macro/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/macro/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>ssh</title>
+      <title>Ssh</title>
       <link>https://findstar.pe.kr/tags/ssh/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/ssh/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>accessControl</title>
+      <title>AccessControl</title>
       <link>https://findstar.pe.kr/tags/accesscontrol/</link>
       <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/accesscontrol/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>apache2.4</title>
+      <title>Apache2.4</title>
       <link>https://findstar.pe.kr/tags/apache2.4/</link>
       <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/apache2.4/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>customLog</title>
+      <title>CustomLog</title>
       <link>https://findstar.pe.kr/tags/customlog/</link>
       <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/customlog/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>errorLogFormat</title>
+      <title>ErrorLogFormat</title>
       <link>https://findstar.pe.kr/tags/errorlogformat/</link>
       <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/errorlogformat/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>composer</title>
+      <title>Composer</title>
       <link>https://findstar.pe.kr/tags/composer/</link>
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/composer/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>speedup</title>
+      <title>Speedup</title>
       <link>https://findstar.pe.kr/tags/speedup/</link>
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/speedup/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>tips</title>
+      <title>Tips</title>
       <link>https://findstar.pe.kr/tags/tips/</link>
       <pubDate>Sun, 06 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/tips/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>blog</title>
+      <title>Blog</title>
       <link>https://findstar.pe.kr/tags/blog/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/blog/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Jekyll</title>
       <link>https://findstar.pe.kr/tags/jekyll/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/tags/jekyll/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

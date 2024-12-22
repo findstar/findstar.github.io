@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>architecture on Soo Story</title>
+    <title>Architecture on Soo Story</title>
     <link>https://findstar.pe.kr/tags/architecture/</link>
-    <description>Recent content in architecture on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Architecture on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 04 Feb 2023 15:46:22 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Feb 2023 22:50:00 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>신규 서비스 개발을 위한 AWS 사용 경험기</title>
       <link>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</link>
       <pubDate>Sat, 04 Feb 2023 15:46:22 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2023/02/04/aws-develop-experience/</guid>
       <description>지난 몇달간 신규 서비스를 개발을 위해서 AWS를 사용하여 서비스를 설계하고 개발하였다. 아쉽게도 도중에 프로젝트가 중단되어 더 이상 사용을 할 수 없지만, 개발 중 사용한 AWS를 경험을 정리해보았다.</description>
     </item>
-    
     <item>
       <title>[북리뷰] 만들면서 배우는 클린 아키텍처</title>
       <link>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</link>
       <pubDate>Wed, 26 Jan 2022 23:39:41 +0900</pubDate>
-      
       <guid>https://findstar.pe.kr/2022/01/26/book-review-get-your-hands-dirty-on-clean-architecture/</guid>
-      <description>&lt;p&gt;스프링 애플리케이션을 작성하면서 항상 아키텍처에 적합한 패키지 구조가 어떤 형태인지에 대한 의문이 있었다. 그러던중 우연찮게 이 책을 읽고나서 많은 부분에서 인사이트를 얻을 수 있었다.
-특히 DDD 에서 말하는 도메인 객체를 설계할 때의 경계에 대한 고민을, 책에서 소개하는 &amp;ldquo;Hexagonal Architecture&amp;rdquo; 를 통해서 이해할 수 있었다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;스프링 애플리케이션을 작성하면서 항상 아키텍처에 적합한 패키지 구조가 어떤 형태인지에 대한 의문이 있었다. 그러던중 우연찮게 이 책을 읽고나서 많은 부분에서 인사이트를 얻을 수 있었다.&#xA;특히 DDD 에서 말하는 도메인 객체를 설계할 때의 경계에 대한 고민을, 책에서 소개하는 &amp;ldquo;Hexagonal Architecture&amp;rdquo; 를 통해서 이해할 수 있었다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

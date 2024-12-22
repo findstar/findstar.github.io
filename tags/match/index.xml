@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>match on Soo Story</title>
+    <title>Match on Soo Story</title>
     <link>https://findstar.pe.kr/tags/match/</link>
-    <description>Recent content in match on Soo Story</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Match on Soo Story</description>
+    <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 19 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://findstar.pe.kr/tags/match/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/match/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ElasticSearch 에서 term, match, match_phrase 쿼리에 대한 이해</title>
       <link>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</link>
       <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://findstar.pe.kr/2018/01/19/understanding-query-on-elasticsearch/</guid>
-      <description>&lt;h1 id=&#34;1월-19일-금-til&#34;&gt;1월 19일 (금) TIL&lt;/h1&gt;
-&lt;p&gt;작성한 ElasticSearch 쿼리를 테스트 해보다가 정확하게 이해하지 못한 상태고 작성하고 있는 키워드를 발견했다.
-작성한 쿼리에는 &lt;code&gt;term&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt;, &lt;code&gt;match_phrase&lt;/code&gt;가 무분별하게 사용되고 있었는데, 다시금 문서를 확인해보고, 잊어먹기 전에 정리해봤다.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;1월-19일-금-til&#34;&gt;1월 19일 (금) TIL&lt;/h1&gt;&#xA;&lt;p&gt;작성한 ElasticSearch 쿼리를 테스트 해보다가 정확하게 이해하지 못한 상태고 작성하고 있는 키워드를 발견했다.&#xA;작성한 쿼리에는 &lt;code&gt;term&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt;, &lt;code&gt;match_phrase&lt;/code&gt;가 무분별하게 사용되고 있었는데, 다시금 문서를 확인해보고, 잊어먹기 전에 정리해봤다.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

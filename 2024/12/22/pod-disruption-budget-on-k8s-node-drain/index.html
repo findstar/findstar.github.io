@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="Node Drain 작업시 주의사항" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png">
+
+
+<meta property="og:title" content="Node Drain 작업시 주의사항" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png" />
+
+
+<meta property="twitter:title" content="Node Drain 작업시 주의사항" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="K8S 클러스터를 운영할 때 Node Drain 작업을 수행해야할 때가 있다. 이 경우 특정 Node 에 pod 이 몰려 있는 경우에 문제가 발생할 수 있는데 PodDisruptionBudget 을 사용해서 이를 제어해보자" />
+
+
+<meta property="article:title" content="Node Drain 작업시 주의사항" />
+
+
+
+<meta property="article:tag" content="k8s" />
+<meta property="article:tag" content="node drain" />
+<meta property="article:tag" content="PodDisruptionBudget" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8TNG4GD4NJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8TNG4GD4NJ');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7713670776638472"
+        crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>Node Drain 작업시 주의사항 - Soo Story</title>
+<link rel="canonical" href="/2024/12/22/pod-disruption-budget-on-k8s-node-drain/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        <a class="tag" href="/tags/node-drain" title="node drain">
+                        node drain
+                        </a>
+                        
+                        <a class="tag" href="/tags/poddisruptionbudget" title="PodDisruptionBudget">
+                        PodDisruptionBudget
+                        </a>
+                        
+                    </div>
+                    <h1>Node Drain 작업시 주의사항</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2024-12-22
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a>
+      <ul>
+        <li><a href="#node-drain">Node Drain?</a></li>
+        <li><a href="#poddisruptionbudget-를-사용하여-minavailable-조정하기">PodDisruptionBudget 를 사용하여 MinAvailable 조정하기</a></li>
+        <li><a href="#만약-maxunavailable-이-0-이라면">만약 <code>MaxUnavailable</code> 이 <code>0</code> 이라면?</a></li>
+        <li><a href="#결론">결론</a></li>
+        <li><a href="#참고자료">참고자료</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="개요">개요</h1>
+<p>k8s 클러스터를 운영하다보면, 종종 Node Drain 작업을 수행해야하는 경우가 발생한다. 나의 경우에는 GPU 기반의 AI Workload를 운영하는 플랫폼을 개발하고 있는데
+특정 Node 의 GPU에 장애가 발생하는 경우에 이 Node 에서 동작중인 pod 을 다른 노드로 옮긴 뒤에 노드를 재부팅하거나 물리적으로 교체하는 작업을 수행했었다.
+이 Node Drain 작업시에 종종 Pod 의 위치에 따라 Service 가 불가능한 상황이 발생하여 이를 제어하기 위해서 PodDisruptionBudget을 알아보았다.</p>
+<h2 id="node-drain">Node Drain?</h2>
+<p>노드 드레인이란 특정 노드에서 동작중인 pod를 다른 노드로 이동시키고, 해당 노드를 스케줄링에서 제외 시켜 새로운 Pod 이 배포되지 못하도록 하는 작업이다.
+일반적으로 노드의 메인터넌스 작업이 필요한 경우에 수행하는 명령어라고 할 수 있다. <code>Drain</code> 이란 단어가 &lsquo;물을 빼다&rsquo; 라는 의미가 있는데 찰랑거리는 욕조에 마개를 열어 물을 빼는 상황을 생각해보면 이해가 쉽다.
+주로 노드의 OS 업데이트, 하드웨어 장애시에 많이 사용하게 된다.</p>
+<p>나의 경우에는 AI 플랫폼을 운영하기 위한 GPU worker를 사용하고 있어서, 특정 GPU Ecc 에러가 감지되어 재부팅 해야하거나, 아예 완전히 GPU를 교체해야하는 하드웨어 장애가 발생하는 경우 많이 사용하게 되었다.</p>
+<p>명령어는 다음과 같이 노드의 이름을 입력하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>kubectl drain &lt;NODE_NAME&gt;
+</span></span></code></pre></div><p>드레인 명령어를 입력하면 해당 노드에서 수행중인 pod 이 삭제되어 다른 노드에 다시 스케줄링 된다. 이렇게 노드가 삭제되면 eviction(축출) 되었다고 표현한다
+다만 drain 명령어를 실행해도 daemonset 과 같은 pod 는 삭제되지 않는다. 만약 daemonset pod 도 함께 삭제해야한다면 다음과 같이 명령어를 입력하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zsh" data-lang="zsh"><span style="display:flex;"><span>kubectl drain &lt;NODE_NAME&gt; --ignore-daemonsets<span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">false</span>
+</span></span></code></pre></div><h3 id="node-drain-시에-service-가-단절되는-상황">Node Drain 시에 Service 가 단절되는 상황</h3>
+<p>pod 이 스케줄링 되어 있는 상황에 따라서 Service 가 단절되는 상황이 발생한다. 다음의 경우를 생각해보자.</p>
+<ul>
+<li>drain 작업을 수행하려는 node 에 pod 가 몰려 있는 경우
+<ul>
+<li>예를 들어 drain 작업을 수행하려는 node 에 replica size 가 2인 pod 가 모두 스케줄링 되어 있는 경우 drain 작업을 수행하면 서비스가 단절된다.</li>
+</ul>
+</li>
+</ul>
+<figure class="full-width caption "  >
+    <img src="/images/posts/kubernetes/node-drain/node-drain.png" alt="node drain"  />
+    
+    <figcaption class="caption-text">K8S Node Drain</figcaption>
+    
+</figure>
+<p>왜 그러한지는 pod 의 eviction 과정을 살펴보면 이해할 수 있다.</p>
+<h3 id="pod-eviction">Pod Eviction</h3>
+<ol>
+<li>드레인 명령어가 입력되면 먼저 노드는 스케줄링에서 제외어 새로운 pod 이 배치되지 못하도록 한다.</li>
+<li>그 다음 pod 가 eviction 된다.
+<ul>
+<li>pod 는 <code>terminating</code> 상태가 된다.</li>
+<li>참고로 eviction 은 pod의 TerminationGracePeriodSeconds 설정에 따라 종료과정을 거친다.</li>
+<li>preStop 이 설정되어 있다면 이 hook 을 먼저 실행하고 hook 완료시 <code>TERM</code> 시그널을 main container 에 전달한다.</li>
+<li>TerminationGracePeriodSeconds 안에 완료되지 못하면 <code>SIGKILL</code> 시그널이 main container 에 전달된다.</li>
+</ul>
+</li>
+<li>pod 가 <code>terminating</code> 상태임을 감지한 클러스터는 replica 를 유지하기 위해서 신규 pod 를 생성하는데 이미 drain 대상이 된 노드는 스케줄링 제외 되어 있기 때문에 다른 노드에 배치된다.</li>
+</ol>
+<h2 id="poddisruptionbudget-를-사용하여-minavailable-조정하기">PodDisruptionBudget 를 사용하여 MinAvailable 조정하기</h2>
+<p>노드 드레인 작업시 서비스를 유지하기 위해 최소한의 pod 수를 유지해야한다. replica size 가 2라면 1 개의 pod 씩 옮겨야 서비스가 유지된다.
+이럴 때는 <code>PodDisruptionBudget</code> 의 <code>MinAvailable</code> 을 조정하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: policy/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: PodDisruptionBudget
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-pdb
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">minAvailable</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">app</span>: my-gpu-app
+</span></span></code></pre></div><p>최소한 하나의 replica 는 유지하도록 설정하였다.</p>
+<p>이렇게 되면 최소한 하나의 pod replica 는 유지되기 때문에 서비스가 단절되는 상황을 방지할 수 있다. replica 2 의 pod 이라면 1 개의 pod 이 유지되고
+나머지 pod 이 다른 노드에 스케줄링되기 때문이다.</p>
+<p>이와 반대로 <code>MaxUnavailable</code> 을 지정할 수도 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: policy/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: PodDisruptionBudget
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-pdb
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">maxUnavailable</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">app</span>: my-gpu-app
+</span></span></code></pre></div><p>이 경우에는 하나씩 다른 노드로 새로운 pod 을 스케줄링 하게 된다.
+다만 replica size 가 크다면 하나씩 이동시키는 건 시간이 오래걸리기 때문에 <code>MaxUnavailable</code> 값은 <code>25%</code>와 같이 퍼센트 값을 지정할 수도 있다.</p>
+<h2 id="만약-maxunavailable-이-0-이라면">만약 <code>MaxUnavailable</code> 이 <code>0</code> 이라면?</h2>
+<p>pod 의 eviction 을 생각할 때 <code>MaxUnavailable</code> 이 <code>0</code> 이라면 eviction 이 차단된다. 따라서 노드 드레인 작업이 완료되지 않는다. 따라서
+해당 노드에 위치한 pod 를 옮기기 위해서 다른 방법을 사용해야한다.</p>
+<h3 id="노드에서-pod-를-제거하는-다른-방법">노드에서 pod 를 제거하는 다른 방법</h3>
+<p><code>PodDisruptionBudget</code>을 생각하지 않고 특정 노드에 스케줄링되어 동작중인 pod 를 다른 노드로 옮기는 다른 방법은 해당 노드를 먼저 스케줄링에서 제외하고
+동작중인 pod 가 포함된 deployment 를 <code>rollout restart</code> 하면 된다. 이 방법도 많이 사용한다.
+다만 이렇게 하면 deployment 의 replica count 가 많은 경우 다른 노드에 스케줄링된 모든 pod 이 새롭게 스케줄링 되어야 하므로
+node drain 보다 시간이 오래걸리고, node 에 위치한 여러 pod 모두 작업을 해주어야 해서 번거롭다.</p>
+<p>상황에 맞게 선택해서 사용하도록 하자.</p>
+<h2 id="결론">결론</h2>
+<p>K8s에서 pod를 배포하는 과정에서는
+pod 가 시작할 때 준비과정(rediness), warmup (initialDelay)에 대한 고민이 필요하고
+pod 가 종요할 때 처리하던 응답을 정상적으로 반환할 때까지 기다리기 위한 preStop 과 같은 설정이 필요하다.
+이를 잘 이해하고 사용한다면 배포과정에서 사용자가 5XX 에러를 확인하는 일은 없을꺼라고 생각한다.</p>
+<h2 id="참고자료">참고자료</h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/run-application/configure-pdb">https://kubernetes.io/docs/tasks/run-application/configure-pdb</a>.</li>
+<li><a href="https://blog.gruntwork.io/gracefully-shutting-down-pods-in-a-kubernetes-cluster-328aecec90d">https://blog.gruntwork.io/gracefully-shutting-down-pods-in-a-kubernetes-cluster-328aecec90d</a></li>
+<li><a href="https://stackoverflow.com/questions/75385965/when-using-kubectl-drain-node-node-pods-it-doesnt-wait-for-new-pods-to-get-h">https://stackoverflow.com/questions/75385965/when-using-kubectl-drain-node-node-pods-it-doesnt-wait-for-new-pods-to-get-h</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2024/11/10/personal-thoughts-on-the-criteria-for-engineering-levels/" data-toggle="tooltip" data-placement="top" title="내맘대로 나눠본 엔지니어 레벨의 기준">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/argocd" title="argocd">
+                        argocd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/asgi" title="asgi">
+                        asgi
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/benchmark" title="benchmark">
+                        benchmark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blockhound" title="blockhound">
+                        blockhound
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/collaboration" title="collaboration">
+                        collaboration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/communication" title="communication">
+                        communication
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/database" title="database">
+                        database
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/framework" title="framework">
+                        framework
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/leadership" title="leadership">
+                        leadership
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/litestar" title="litestar">
+                        litestar
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/python" title="python">
+                        python
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/throughput" title="throughput">
+                        throughput
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ulid" title="ulid">
+                        ulid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/uuid" title="uuid">
+                        uuid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/webflux" title="webflux">
+                        webflux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+</body>
+</html>

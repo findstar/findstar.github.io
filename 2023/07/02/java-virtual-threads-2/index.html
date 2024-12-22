@@ -302,20 +302,20 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">virtual</span>:
 </span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">enabled</span>: <span style="color:#ff79c6">true</span>
 </span></span></code></pre></div><p>Sprinb Boot 3.2 보다 낮은 버전 사용중이라면 아래와 같이 직접 Bean 을 등록해주면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#6272a4">// Web Request 를 처리하는 Tomcat 이 Virtual Thread를 사용하여 유입된 요청을 처리하도록 한다.
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Bean
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> TomcatProtocolHandlerCustomizer<span style="color:#ff79c6">&lt;?&gt;</span> protocolHandlerVirtualThreadExecutorCustomizer<span style="color:#ff79c6">()</span> 
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> protocolHandler <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>    protocolHandler<span style="color:#ff79c6">.</span><span style="color:#50fa7b">setExecutor</span><span style="color:#ff79c6">(</span>Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">());</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">};</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#6272a4">// Web Request 를 처리하는 Tomcat 이 Virtual Thread를 사용하여 유입된 요청을 처리하도록 한다.</span>
+</span></span><span style="display:flex;"><span>@Bean
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> TomcatProtocolHandlerCustomizer<span style="color:#ff79c6">&lt;?&gt;</span> protocolHandlerVirtualThreadExecutorCustomizer() 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> protocolHandler <span style="color:#ff79c6">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    protocolHandler.<span style="color:#50fa7b">setExecutor</span>(Executors.<span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span>());
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Async Task에 Virtual Thread 사용
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>@Bean<span style="color:#ff79c6">(</span>TaskExecutionAutoConfiguration<span style="color:#ff79c6">.</span><span style="color:#50fa7b">APPLICATION_TASK_EXECUTOR_BEAN_NAME</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> AsyncTaskExecutor <span style="color:#50fa7b">asyncTaskExecutor</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> TaskExecutorAdapter<span style="color:#ff79c6">(</span>Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// Async Task에 Virtual Thread 사용</span>
+</span></span><span style="display:flex;"><span>@Bean(TaskExecutionAutoConfiguration.<span style="color:#50fa7b">APPLICATION_TASK_EXECUTOR_BEAN_NAME</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">public</span> AsyncTaskExecutor <span style="color:#50fa7b">asyncTaskExecutor</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">new</span> TaskExecutorAdapter(Executors.<span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span>());
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>이렇게만 해주면 기존의 <strong>플랫폼 스레드</strong>를 사용하지 않고 <code>가상 스레드</code> 를 사용하게 된다.</p>
 <p>그럼 이제 실제로 처리량이 좋아지는지 한번 확인해보자.</p>
 <h2 id="성능-테스트">성능 테스트</h2>
@@ -329,25 +329,25 @@
 <li>Max heap 2G</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getThreadName</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 단순히 스레드 이름을 반환 아무런 blocking 코드 없음  
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentThread</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">toString</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    @GetMapping(<span style="color:#f1fa8c">&#34;/&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getThreadName</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 단순히 스레드 이름을 반환 아무런 blocking 코드 없음  </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> Thread.<span style="color:#50fa7b">currentThread</span>().<span style="color:#50fa7b">toString</span>();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/block&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getBlockedResponse</span><span style="color:#ff79c6">()</span> <span style="color:#8be9fd;font-style:italic">throws</span> InterruptedException <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// Thread sleep 1초
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// 비지니스 로직 처리에 thread 가 blocking 되는 환경 가정
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        Thread<span style="color:#ff79c6">.</span><span style="color:#50fa7b">sleep</span><span style="color:#ff79c6">(</span><span style="color:#bd93f9">1000</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;OK&#34;</span><span style="color:#ff79c6">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    @GetMapping(<span style="color:#f1fa8c">&#34;/block&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">getBlockedResponse</span>() <span style="color:#8be9fd;font-style:italic">throws</span> InterruptedException {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// Thread sleep 1초</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 비지니스 로직 처리에 thread 가 blocking 되는 환경 가정</span>
+</span></span><span style="display:flex;"><span>        Thread.<span style="color:#50fa7b">sleep</span>(1000);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;OK&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    @GetMapping<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/query&#34;</span><span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">queryAndReturn</span><span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 쿼리 질의가 1초 걸린다고 가정
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">return</span> jdbcTemplate<span style="color:#ff79c6">.</span><span style="color:#50fa7b">queryForList</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;select sleep(1);&#34;</span><span style="color:#ff79c6">).</span><span style="color:#50fa7b">toString</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>    @GetMapping(<span style="color:#f1fa8c">&#34;/query&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">public</span> String <span style="color:#50fa7b">queryAndReturn</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// 쿼리 질의가 1초 걸린다고 가정</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> jdbcTemplate.<span style="color:#50fa7b">queryForList</span>(<span style="color:#f1fa8c">&#34;select sleep(1);&#34;</span>).<span style="color:#50fa7b">toString</span>();
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span></code></pre></div><h3 id="시나리오">시나리오</h3>
 <ul>
@@ -360,133 +360,133 @@
 <li>
 <p>Simple response 호출</p>
 <table>
-<thead>
-<tr>
-<th>구분</th>
-<th style="text-align:center">throughput</th>
-<th style="text-align:center">virtual users</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>24360.88</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>24608.85</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>24455.14</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>36085.42</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>36396.71</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>36107.85</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>구분</th>
+          <th style="text-align: center">throughput</th>
+          <th style="text-align: center">virtual users</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Virtual Thread(1회차)</td>
+          <td style="text-align: center"><strong>24360.88</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(2회차)</td>
+          <td style="text-align: center"><strong>24608.85</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(3회차)</td>
+          <td style="text-align: center"><strong>24455.14</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(1회차)</td>
+          <td style="text-align: center"><strong>36085.42</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(2회차)</td>
+          <td style="text-align: center"><strong>36396.71</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(3회차)</td>
+          <td style="text-align: center"><strong>36107.85</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+  </tbody>
 </table>
 </li>
 <li>
 <p>Thread.sleep(1000) - Blocking 호출</p>
 <table>
-<thead>
-<tr>
-<th>구분</th>
-<th style="text-align:center">throughput</th>
-<th style="text-align:center">virtual users</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>2975.38</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>2979.87</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>2978.39</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>199.78</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>199.58</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>199.6</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>구분</th>
+          <th style="text-align: center">throughput</th>
+          <th style="text-align: center">virtual users</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Virtual Thread(1회차)</td>
+          <td style="text-align: center"><strong>2975.38</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(2회차)</td>
+          <td style="text-align: center"><strong>2979.87</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(3회차)</td>
+          <td style="text-align: center"><strong>2978.39</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(1회차)</td>
+          <td style="text-align: center"><strong>199.78</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(2회차)</td>
+          <td style="text-align: center"><strong>199.58</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(3회차)</td>
+          <td style="text-align: center"><strong>199.6</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+  </tbody>
 </table>
 </li>
 <li>
 <p>Sleep 이 걸려 있는 쿼리 호출 (Hikari connection pool - max 150)</p>
 <table>
-<thead>
-<tr>
-<th>구분</th>
-<th style="text-align:center">throughput</th>
-<th style="text-align:center">virtual users</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Virtual Thread(1회차)</td>
-<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(2회차)</td>
-<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Virtual Thread(3회차)</td>
-<td style="text-align:center"><strong>SQLTransientConnectionException</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(1회차)</td>
-<td style="text-align:center"><strong>149.26</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(2회차)</td>
-<td style="text-align:center"><strong>149.53</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-<tr>
-<td>Platform Thread(3회차)</td>
-<td style="text-align:center"><strong>149.53</strong></td>
-<td style="text-align:center">3000</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>구분</th>
+          <th style="text-align: center">throughput</th>
+          <th style="text-align: center">virtual users</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Virtual Thread(1회차)</td>
+          <td style="text-align: center"><strong>SQLTransientConnectionException</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(2회차)</td>
+          <td style="text-align: center"><strong>SQLTransientConnectionException</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Virtual Thread(3회차)</td>
+          <td style="text-align: center"><strong>SQLTransientConnectionException</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(1회차)</td>
+          <td style="text-align: center"><strong>149.26</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(2회차)</td>
+          <td style="text-align: center"><strong>149.53</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+      <tr>
+          <td>Platform Thread(3회차)</td>
+          <td style="text-align: center"><strong>149.53</strong></td>
+          <td style="text-align: center">3000</td>
+      </tr>
+  </tbody>
 </table>
 </li>
 </ul>
@@ -509,15 +509,15 @@
 <ol>
 <li>
 <p>기존 <strong>스레드 풀</strong>을 사용하지 말고, 개별 작업에 <code>가상 스레드</code> 를 할당하는 형태로 변경하자.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ourExecutor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>task1<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>ourExecutor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>task2<span style="color:#ff79c6">);</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ourExecutor.<span style="color:#50fa7b">submit</span>(task1);
+</span></span><span style="display:flex;"><span>ourExecutor.<span style="color:#50fa7b">submit</span>(task2);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">===&gt;&gt;&gt;&gt;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">try</span> <span style="color:#ff79c6">(</span>var executor <span style="color:#ff79c6">=</span> Executors<span style="color:#ff79c6">.</span><span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span><span style="color:#ff79c6">())</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>	executor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>task1<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span>	executor<span style="color:#ff79c6">.</span><span style="color:#50fa7b">submit</span><span style="color:#ff79c6">(</span>task2<span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">try</span> (<span style="color:#8be9fd;font-style:italic">var</span> executor <span style="color:#ff79c6">=</span> Executors.<span style="color:#50fa7b">newVirtualThreadPerTaskExecutor</span>()) {
+</span></span><span style="display:flex;"><span>	executor.<span style="color:#50fa7b">submit</span>(task1);
+</span></span><span style="display:flex;"><span>	executor.<span style="color:#50fa7b">submit</span>(task2);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></li>
 <li>
 <p><strong>ThreadLocals</strong> 에 값비싼 객체를 캐싱하지 말자</p>
@@ -531,17 +531,17 @@
 <li>오히려 <code>가상 스레드</code>가 예상보다 더 많은 메모리를 사용하게 만드는 주범이 된다.</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> ThreadLocal<span style="color:#ff79c6">&lt;</span>SimpleDateFormat<span style="color:#ff79c6">&gt;</span> cachedFormatter <span style="color:#ff79c6">=</span> 
-</span></span><span style="display:flex;"><span>	ThreadLocal<span style="color:#ff79c6">.</span><span style="color:#50fa7b">withInitial</span><span style="color:#ff79c6">(</span>SimpleDateFormat<span style="color:#ff79c6">::</span><span style="color:#ff79c6">new</span><span style="color:#ff79c6">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>	ThreadLocal.<span style="color:#50fa7b">withInitial</span>(SimpleDateFormat::<span style="color:#ff79c6">new</span>);
+</span></span><span style="display:flex;"><span>...
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cachedFormatter<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">().</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(...);</span>
+</span></span><span style="display:flex;"><span>cachedFormatter.<span style="color:#50fa7b">get</span>().<span style="color:#50fa7b">format</span>(...);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">=====&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> DateTimeFormatter formatter <span style="color:#ff79c6">=</span> DateTimeFormatter<span style="color:#ff79c6">....;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">...</span>
-</span></span><span style="display:flex;"><span>formatter<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(...);</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> DateTimeFormatter formatter <span style="color:#ff79c6">=</span> DateTimeFormatter....;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>formatter.<span style="color:#50fa7b">format</span>(...);
 </span></span></code></pre></div></li>
 <li>
 <p><strong>synchronized</strong> 키워드 사용시 주의가 필요하다. (Pinning 이슈)</p>
@@ -552,18 +552,18 @@
 <li>이런 제약은 현재 개선작업이 진행중이긴 하지만 JDK21에서는 이를 주의해야한다. (JEP 425 에서 <strong>synchronized</strong> 키워드를 사용해도 쓰레드가 pinning 되지 않도록 개선하고 있다.)</li>
 <li>pinning 이 발생하는지 탐지하려면 JFR을 사용하거나 <code>-Djdk.tracePinnedThread</code> 옵션을 사용하면 pinning을 탐지할 수 있다.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">synchronized</span><span style="color:#ff79c6">(</span>lockObj<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>	frequentIO<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">synchronized</span>(lockObj) {
+</span></span><span style="display:flex;"><span>	frequentIO();
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#ff79c6">=====&gt;&gt;&gt;&gt;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>lock<span style="color:#ff79c6">.</span><span style="color:#50fa7b">lock</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">try</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>	frequentIO<span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span> <span style="color:#ff79c6">finally</span> <span style="color:#ff79c6">{</span>
-</span></span><span style="display:flex;"><span>	lock<span style="color:#ff79c6">.</span><span style="color:#50fa7b">unlock</span><span style="color:#ff79c6">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>lock.<span style="color:#50fa7b">lock</span>();
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">try</span> {
+</span></span><span style="display:flex;"><span>	frequentIO();
+</span></span><span style="display:flex;"><span>} <span style="color:#ff79c6">finally</span> {
+</span></span><span style="display:flex;"><span>	lock.<span style="color:#50fa7b">unlock</span>();
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></li>
 </ol>
 <h2 id="정리">정리</h2>
@@ -627,7 +627,7 @@
 <div id="disqus-comment"></div>
 
 <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     
@@ -671,14 +671,14 @@
                         
                         
                         
-                        <a href="/tags/adaptive-growth" title="adaptive-growth">
-                        adaptive-growth
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
                         </a>
                         
                         
                         
-                        <a href="/tags/alpine-linux" title="alpine-linux">
-                        alpine-linux
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
                         </a>
                         
                         
@@ -689,8 +689,8 @@
                         
                         
                         
-                        <a href="/tags/ansible-tower" title="ansible-tower">
-                        ansible-tower
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
                         </a>
                         
                         
@@ -737,14 +737,14 @@
                         
                         
                         
-                        <a href="/tags/beautiful-goodbye" title="beautiful-goodbye">
-                        beautiful-goodbye
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
                         </a>
                         
                         
                         
-                        <a href="/tags/begining-docker" title="begining-docker">
-                        begining-docker
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
                         </a>
                         
                         
@@ -761,8 +761,8 @@
                         
                         
                         
-                        <a href="/tags/blocking-code" title="blocking-code">
-                        blocking-code
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
                         </a>
                         
                         
@@ -779,14 +779,14 @@
                         
                         
                         
-                        <a href="/tags/brew-cask" title="brew-cask">
-                        brew-cask
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
                         </a>
                         
                         
                         
-                        <a href="/tags/build-cache" title="build-cache">
-                        build-cache
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
                         </a>
                         
                         
@@ -869,8 +869,8 @@
                         
                         
                         
-                        <a href="/tags/docker-desktop" title="docker-desktop">
-                        docker-desktop
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
                         </a>
                         
                         
@@ -881,8 +881,8 @@
                         
                         
                         
-                        <a href="/tags/dos-attack" title="dos-attack">
-                        dos-attack
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
                         </a>
                         
                         
@@ -899,14 +899,14 @@
                         
                         
                         
-                        <a href="/tags/empty-string" title="empty-string">
-                        empty-string
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
                         </a>
                         
                         
                         
-                        <a href="/tags/environment-to-do-well" title="environment-to-do-well">
-                        environment-to-do-well
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
                         </a>
                         
                         
@@ -917,8 +917,8 @@
                         
                         
                         
-                        <a href="/tags/event-driven" title="event-driven">
-                        event-driven
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
                         </a>
                         
                         
@@ -929,8 +929,8 @@
                         
                         
                         
-                        <a href="/tags/file-upload" title="file-upload">
-                        file-upload
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
                         </a>
                         
                         
@@ -947,8 +947,8 @@
                         
                         
                         
-                        <a href="/tags/forwarded-option" title="forwarded-option">
-                        forwarded-option
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
                         </a>
                         
                         
@@ -971,14 +971,14 @@
                         
                         
                         
-                        <a href="/tags/graceful-deploy" title="graceful-deploy">
-                        graceful-deploy
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
                         </a>
                         
                         
                         
-                        <a href="/tags/happy-new-year" title="happy-new-year">
-                        happy-new-year
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
                         </a>
                         
                         
@@ -989,56 +989,56 @@
                         
                         
                         
-                        <a href="/tags/haproxy-1.8" title="haproxy-1.8">
-                        haproxy-1.8
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-acl-logging" title="haproxy-acl-logging">
-                        haproxy-acl-logging
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy-custom-variable-logging">
-                        haproxy-custom-variable-logging
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-metric" title="haproxy-metric">
-                        haproxy-metric
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-reload-fail" title="haproxy-reload-fail">
-                        haproxy-reload-fail
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
                         </a>
                         
                         
                         
-                        <a href="/tags/haproxy-stat" title="haproxy-stat">
-                        haproxy-stat
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
                         </a>
                         
                         
                         
-                        <a href="/tags/heap-memory" title="heap-memory">
-                        heap-memory
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
                         </a>
                         
                         
                         
-                        <a href="/tags/hedgehog-sharp" title="hedgehog-sharp">
-                        hedgehog-sharp
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
                         </a>
                         
                         
                         
-                        <a href="/tags/how-do-i-work" title="how-do-i-work">
-                        how-do-i-work
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
                         </a>
                         
                         
@@ -1049,8 +1049,8 @@
                         
                         
                         
-                        <a href="/tags/index-alias" title="index-alias">
-                        index-alias
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
                         </a>
                         
                         
@@ -1067,14 +1067,14 @@
                         
                         
                         
-                        <a href="/tags/instance-type" title="instance-type">
-                        instance-type
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
                         </a>
                         
                         
                         
-                        <a href="/tags/inverted-index" title="inverted-index">
-                        inverted-index
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
                         </a>
                         
                         
@@ -1097,8 +1097,8 @@
                         
                         
                         
-                        <a href="/tags/jdk-21" title="jdk-21">
-                        jdk-21
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
                         </a>
                         
                         
@@ -1109,8 +1109,8 @@
                         
                         
                         
-                        <a href="/tags/jekyll-to-hugo" title="jekyll-to-hugo">
-                        jekyll-to-hugo
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
                         </a>
                         
                         
@@ -1133,8 +1133,8 @@
                         
                         
                         
-                        <a href="/tags/k8s-api" title="k8s-api">
-                        k8s-api
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
                         </a>
                         
                         
@@ -1157,14 +1157,14 @@
                         
                         
                         
-                        <a href="/tags/learning-in-2019" title="learning-in-2019">
-                        learning-in-2019
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
                         </a>
                         
                         
                         
-                        <a href="/tags/lets-encrypt" title="lets-encrypt">
-                        lets-encrypt
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
                         </a>
                         
                         
@@ -1193,8 +1193,8 @@
                         
                         
                         
-                        <a href="/tags/m1-macbook-pro" title="m1-macbook-pro">
-                        m1-macbook-pro
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
                         </a>
                         
                         
@@ -1205,8 +1205,8 @@
                         
                         
                         
-                        <a href="/tags/macro-key-mapping" title="macro-key-mapping">
-                        macro-key-mapping
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
                         </a>
                         
                         
@@ -1235,8 +1235,8 @@
                         
                         
                         
-                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice-설계-및-구현">
-                        microservice-설계-및-구현
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
                         </a>
                         
                         
@@ -1253,8 +1253,8 @@
                         
                         
                         
-                        <a href="/tags/multi-datasource" title="multi-datasource">
-                        multi-datasource
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
                         </a>
                         
                         
@@ -1271,20 +1271,26 @@
                         
                         
                         
-                        <a href="/tags/nginx-ingress" title="nginx-ingress">
-                        nginx-ingress
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
                         </a>
                         
                         
                         
-                        <a href="/tags/nginx-regexp" title="nginx-regexp">
-                        nginx-regexp
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
                         </a>
                         
                         
                         
                         <a href="/tags/ngram" title="ngram">
                         ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
                         </a>
                         
                         
@@ -1301,8 +1307,8 @@
                         
                         
                         
-                        <a href="/tags/partial-matching" title="partial-matching">
-                        partial-matching
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
                         </a>
                         
                         
@@ -1313,20 +1319,26 @@
                         
                         
                         
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/poeaa" title="poeaa">
                         poeaa
                         </a>
                         
                         
                         
-                        <a href="/tags/portfolio-expansion" title="portfolio-expansion">
-                        portfolio-expansion
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
                         </a>
                         
                         
                         
-                        <a href="/tags/product-strategy" title="product-strategy">
-                        product-strategy
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
                         </a>
                         
                         
@@ -1337,20 +1349,20 @@
                         
                         
                         
-                        <a href="/tags/query-dsl" title="query-dsl">
-                        query-dsl
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-limit" title="rate-limit">
-                        rate-limit
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
                         </a>
                         
                         
                         
-                        <a href="/tags/rate-litmiting" title="rate-litmiting">
-                        rate-litmiting
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
                         </a>
                         
                         
@@ -1367,38 +1379,38 @@
                         
                         
                         
-                        <a href="/tags/rss-template" title="rss-template">
-                        rss-template
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
                         </a>
                         
                         
                         
-                        <a href="/tags/seamless-reload" title="seamless-reload">
-                        seamless-reload
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
                         </a>
                         
                         
                         
-                        <a href="/tags/search-on-hugo" title="search-on-hugo">
-                        search-on-hugo
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
                         </a>
                         
                         
                         
-                        <a href="/tags/service-account-role" title="service-account-role">
-                        service-account-role
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
                         </a>
                         
                         
                         
-                        <a href="/tags/sidebar-search" title="sidebar-search">
-                        sidebar-search
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
                         </a>
                         
                         
                         
-                        <a href="/tags/speed-up" title="speed-up">
-                        speed-up
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
                         </a>
                         
                         
@@ -1415,26 +1427,26 @@
                         
                         
                         
-                        <a href="/tags/spring-boot" title="spring-boot">
-                        spring-boot
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp" title="spring-camp">
-                        spring-camp
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-camp-2023" title="spring-camp-2023">
-                        spring-camp-2023
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
                         </a>
                         
                         
                         
-                        <a href="/tags/spring-event" title="spring-event">
-                        spring-event
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
                         </a>
                         
                         
@@ -1457,14 +1469,14 @@
                         
                         
                         
-                        <a href="/tags/system-manager" title="system-manager">
-                        system-manager
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
                         </a>
                         
                         
                         
-                        <a href="/tags/systemd-reload" title="systemd-reload">
-                        systemd-reload
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
                         </a>
                         
                         
@@ -1499,8 +1511,8 @@
                         
                         
                         
-                        <a href="/tags/traffic-management" title="traffic-management">
-                        traffic-management
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
                         </a>
                         
                         
@@ -1511,8 +1523,8 @@
                         
                         
                         
-                        <a href="/tags/unused-plugins" title="unused-plugins">
-                        unused-plugins
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
                         </a>
                         
                         
@@ -1523,20 +1535,20 @@
                         
                         
                         
-                        <a href="/tags/ux-consideration" title="ux-consideration">
-                        ux-consideration
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
                         </a>
                         
                         
                         
-                        <a href="/tags/virtual-thread" title="virtual-thread">
-                        virtual-thread
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
                         </a>
                         
                         
                         
-                        <a href="/tags/vm-options" title="vm-options">
-                        vm-options
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
                         </a>
                         
                         
@@ -1553,32 +1565,32 @@
                         
                         
                         
-                        <a href="/tags/zero-downtime" title="zero-downtime">
-                        zero-downtime
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
                         </a>
                         
                         
                         
-                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서-배우는-클린-아키텍처">
-                        만들면서-배우는-클린-아키텍처
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요-도커">
-                        시작하세요-도커
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈-애플리케이션-아키텍처-패턴">
-                        엔터프라이즈-애플리케이션-아키텍처-패턴
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
                         </a>
                         
                         
                         
-                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스-시작하기">
-                        쿠버네티스-시작하기
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
                         </a>
                         
                         
