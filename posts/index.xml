@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2025 20:53:23 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2024 회고 - 건강, 기록, 행동</title>
+      <link>https://findstar.pe.kr/2025/01/13/2024-year-review/</link>
+      <pubDate>Mon, 13 Jan 2025 20:53:23 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2025/01/13/2024-year-review/</guid>
+      <description>2024 한 해가 저물었다. 연초에 생각했었던 집중할 키워드 3가지가 있었는데 2024년이 끝나는 시점에 나 자신 스스로에 대한 결과를 점검해 보고, 작은 소회를 남겨보았다.</description>
+    </item>
     <item>
       <title>Node Drain 작업시 주의사항</title>
       <link>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</link>
