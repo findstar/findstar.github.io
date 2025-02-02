@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="http://localhost:1313/images/posts/python/python-logo.png">
+
+
+<meta property="og:title" content="파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="http://localhost:1313/images/posts/python/python-logo.png" />
+
+
+<meta property="twitter:title" content="파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="Java를 주력 언어로 사용하다가, python 을 주력 언어로 사용하면서 프레임워크 레벨에서 쓸만한 IoC 기능이 부족하다고 느꼈는데, 언어레벨에서 왜 IoC가 일반적이지 않은지 찾아보았다." />
+
+
+<meta property="article:title" content="파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법" />
+
+
+
+<meta property="article:tag" content="ioc" />
+<meta property="article:tag" content="python framework" />
+<meta property="article:tag" content="dependency management" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8TNG4GD4NJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8TNG4GD4NJ');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7713670776638472"
+        crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법 - Soo Story</title>
+<link rel="canonical" href="/2025/02/02/why-is-ioc-not-common-in-python/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://localhost:1313/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/ioc" title="ioc">
+                        ioc
+                        </a>
+                        
+                        <a class="tag" href="/tags/python-framework" title="python framework">
+                        python framework
+                        </a>
+                        
+                        <a class="tag" href="/tags/dependency-management" title="dependency management">
+                        dependency management
+                        </a>
+                        
+                    </div>
+                    <h1>파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2025-02-02
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#파이썬에서는-왜-ioc가-일반적이지-않을까">파이썬에서는 왜 IoC가 일반적이지 않을까?</a>
+      <ul>
+        <li></li>
+        <li><a href="#파이썬의-유연성과-설계-철학의-차이">파이썬의 유연성과 설계 철학의 차이</a></li>
+        <li><a href="#ioc-대신-직접-주입과-모듈-사용">IoC 대신 직접 주입과 모듈 사용</a></li>
+        <li><a href="#현재-사용하는-방식">현재 사용하는 방식</a></li>
+        <li><a href="#결론-언어의-철학을-이해하고-파이써닉하게-접근하자">결론: 언어의 철학을 이해하고 파이써닉하게 접근하자.</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="파이썬에서는-왜-ioc가-일반적이지-않을까">파이썬에서는 왜 IoC가 일반적이지 않을까?</h1>
+<p>나의 경우 경력의 많은 시간동안 Java와 Spring 을 주력 언어로 사용해왔기 때문에, IoC(Inversion of Control)와 DI(Dependency Injection)를 기반으로 하는 애플리케이션 설계 방식이 익숙했다.
+스프링에서는 프레임워크레벨에서 애플리케이션 작성에 필요한 전반적인 의존성 관리를 손쉽게 등록할 수 있고, 제일 처음 배우는 것들이 이러한 의존성을 등록하는 방법인 만큼, IoC 와 DI는 가장 익숙한 개념이었다.</p>
+<p>그러다가 python 기반으로 애플리케이션을 개발하면서 프레임워크 레벨에서 IoC 컨테이너를 제공해주지 않아 불편함을 느꼈었다.</p>
+<p>그러던 중 스택오버플로우에서 <a href="https://stackoverflow.com/questions/2461702/why-is-ioc-di-not-common-in-python">&ldquo;왜 파이썬에서는 IoC가 일반적이지 않느냐&rdquo;</a>는 오래된 글을 읽게되었고, 이를 통해서 언어의 차이를 좀 더 명확하게 이해할 수 있게 되어 이를 정리해보았다.</p>
+<h3 id="fastapi-litestar-프레임워크들의-ioc-컨테이너">FastAPI, Litestar 프레임워크들의 IoC 컨테이너</h3>
+<p>제작년 부터 python 기반으로 애플리케이션을 개발하면서 <a href="https://fastapi.tiangolo.com/ko/">FastAPI</a>, <a href="https://litestar.dev/">Litestar</a> 와 같은 파이썬 프레임워크를 사용하고 있다.
+FastAPI는 빠르게 시작하기 쉬워서, Litestar는 빠르고 현대적인 웹 프레임워크로, 비동기 처리와 간결한 API 설계에 강점을 가지고 있다고 느끼고 있어서 적극적으로 사용하고 있다.</p>
+<p>하지만 이 두 개의 프레임워크에서는 IoC 컨테이너와 같은 기능을 내장하고 있지 않기 때문에, 애플리케이션 전반의 의존성 관리를 위해서는 개발자가 스스로 해결책을 찾아야 하는 상황이 발생한다.
+이 프레임워크들이 내가 이전에 경험했던 스프링과 같은 &lsquo;애플리케이션의 모든 영역을 커버하는 컨셉&rsquo;이 아닌 일종의 Micro 프레임워크라서 차이가 있음을 이해하고는 있었지만,
+그럼에도 IoC 컨테이너와 같은 중앙 집중식 의존성 관리 기능이 제공되지 않아 불편함을 느꼈었다.</p>
+<p>처음에는 조직원들과 함께 프레임워크 자체적인 의존성 관리방식만을 사용하거나 Java/스프링 스타일의 중앙 집중식 IoC 컨테이너를 직접 구현해서 사용해보고 이를 프레임워크에 접목시켜보고자 노력했었다.
+하지만 결국 파이썬의 설계 철학을 고려할 때 이런 접근 방법은 오히려 복잡하다는 의견을 확인했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 애플리케이션 bootstrapping 시점에 도메인별 ServiceProvider 를 사용하여 dependency 를 등록하고 사용했었었다.</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyServiceProvider</span>(ServiceProvider):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 의존성을 정의하는 영역입니다.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">_dependencies</span>(self) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">dict</span>[<span style="color:#8be9fd;font-style:italic">str</span>, Provide <span style="color:#ff79c6">|</span> AnyCallable] : 
+</span></span><span style="display:flex;"><span>        dependencies: <span style="color:#8be9fd;font-style:italic">dict</span>[<span style="color:#8be9fd;font-style:italic">str</span>, Provide <span style="color:#ff79c6">|</span> AnyCallable] <span style="color:#ff79c6">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#34;my_domain_store_output&#34;</span>: MyProvide(
+</span></span><span style="display:flex;"><span>                self<span style="color:#ff79c6">.</span>provide_my_domain_store_output_port
+</span></span><span style="display:flex;"><span>            ),
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#34;my_domain_input&#34;</span>: MyProvide(self<span style="color:#ff79c6">.</span>provide_my_domain_input_port),
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#34;my_domain_query_in&#34;</span>: MyProvide(self<span style="color:#ff79c6">.</span>provide_my_domain_query_input_port),
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#34;_my_domain_service&#34;</span>: MyProvide(self<span style="color:#ff79c6">.</span>_provide_my_domain_service),
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> dependencies
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">provide_my_domain_input_port</span>(
+</span></span><span style="display:flex;"><span>        _my_domain_service: MyDomainService,
+</span></span><span style="display:flex;"><span>    ) <span style="color:#ff79c6">-&gt;</span> MyDomainInputPort:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> _my_domain_service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">provide_my_domain_store_output_port</span>(
+</span></span><span style="display:flex;"><span>        db_engine: AsyncEngine,
+</span></span><span style="display:flex;"><span>    ) <span style="color:#ff79c6">-&gt;</span> MyDomainStoreOutputPort:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> MyDomainStoreOutputAdaptor(engine<span style="color:#ff79c6">=</span>async_engine)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span></code></pre></div><h2 id="파이썬의-유연성과-설계-철학의-차이">파이썬의 유연성과 설계 철학의 차이</h2>
+<p>먼저 파이썬은 동적 타이핑과 간결한 문법 덕분에, 객체 생성 및 의존성 관리가 매우 자유롭다. Java 에서는 <code>implement</code> 키워드를 필수로 사용하는 방식이지만, Python 에서는 Protocol을 사용할 수도 있다.
+또 IoC 컨테이너를 따로 두기 보다 직접 의존성을 주입하는 방식을 선호하고 있고 이 방식이 오히려 가독성을 높이게끔 유도하고 있다고 느껴졌다.</p>
+<p>이러한 차이가 파이썬답게 “파이써닉하다”라는 표현이 딱 맞는, 단순하고 직관적인 접근 방식으로 이해되었다.</p>
+<h2 id="ioc-대신-직접-주입과-모듈-사용">IoC 대신 직접 주입과 모듈 사용</h2>
+<p>그럼 Java 와 다르게 의존성 관리를 어떻게 하게 될까?</p>
+<p>먼저 Java/스프링 에서는 정적 타이핑과 엄격한 구조로 인해 IoC 컨테이너를 통한 의존성 관리가 필수적이었지만, 파이썬에서는 그런 접근 보다는 직접 의존성을 주입하거나 모듈로써 <code>import</code> 시점에 생성된 객체를 직접 사용하는 방식을 선호했다.</p>
+<p>생각해보면, 스프링에서의 대부분의 의존성은 싱글톤(singleton)으로 정의되는데(물론 아닌 경우도 있지만),
+애플리케이션에서 필요로 하는 의존성이 싱글톤뿐이라면 애플리케이션 bootstrapping 시점에 이를 미리 생성해두고 연결해서 사용하는 방식도 충분히 합리적이라고 생각되었다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>java spring
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">1.</span> 프레임워크 booting
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">2.</span> component scan 을 통한 의존성 등록
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">3.</span> 의존 객체 생성 후 주입
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">1.</span> 필요한 의존성 미리 생성 
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">2.</span> 프레임워크 booting (w/의존객체 주입)
+</span></span></code></pre></div><p>따라서 이렇게 되면 프레임워크가 구동되는 라이프사이클이 애플리케이션 전체를 커버하는 것이 아니라 특정 영역(restapi backend)만 담당하는 방식으로 동작하기 때문에 의존성에 대한 관리는 개발자가 직접 처리하면 된다.</p>
+<p>그리고 아예 별도 모듈로 정의해서 <code>import</code> 하는 순간 모듈 자체에서 제공하는 의존성을 바로 가져다가 사용하도록 코드를 구성할 수도 있다.</p>
+<h2 id="현재-사용하는-방식">현재 사용하는 방식</h2>
+<p>Litestar 를 기준으로만 하는 의존성 관리 방식도 사용해보았지만, 한계점들을 마주하고 나서 현재는 프레임워크와는 별개로 직접 의존 성을 관리하고 이를 직접 주입하는 방식으로 방식을 변경하였다.</p>
+<p>그리고 Litestar 가 제공하는 의존성 주입과는 연결고리를 두어서 프레임워크의 라이프사이클에서도 의존성이 필요한 경우 손쉽게 사용할 수 있도록 일종의 &ldquo;브릿지&quot;를 제공하는 방식으로 변경하였다.</p>
+<p>이렇게 함으로써 파이썬 언어의 방식에 좀 더 익숙해지고, 나아가 프레임워크의 유용성은 살리면서도 직접 의존성을 관리하는 방식의 간결함도 가져올 수 있었다.
+물론 이 과정에서 어려움이 없었던 것은 아니다. (아주 많은 팀원들과의 아키텍처 설계 논의들 &hellip;)</p>
+<p>결국 자체적인 의존성 관리를 직접 수행하고 이를 프레임워크와 연결하는 방식을 최종 선택해서 사용하고 있다.</p>
+<h2 id="결론-언어의-철학을-이해하고-파이써닉하게-접근하자">결론: 언어의 철학을 이해하고 파이써닉하게 접근하자.</h2>
+<p>결국, 각 언어가 추구하는 철학과 설계 방향을 이해하는 것이 중요하다는 것을 다시금 깨달았다. Java에서는 정적 타입과 대규모 애플리케이션을 위한 복잡한 IoC 컨테이너가 필요하지만, 파이썬은 그 자체의 유연성과 단순함, 그리고 파이써닉한 철학을 기반으로 명시적이고 간결한 의존성 관리를 선호한다.</p>
+<p>Litestar와 함께 파이썬 애플리케이션을 개발할 때는, 굳이 Java/스프링 스타일의 중앙 집중식 IoC 컨테이너를 구현하기보다는 파이썬이 제공하는 직관적인 패턴과 기능들을 최대한 활용하는 것이 현명한 방법이다.
+이를 통해 불필요한 복잡도를 피하고, 보다 파이써닉한 방식으로 문제를 해결할 수 있을 것입니다.</p>
+<p>이 글이 Java에서 파이썬으로 전향하신 분들, 혹은 두 언어의 차이에 대해 고민 중인 분들께 작은 도움이 되길 바라며, 여러분의 경험과 의견도 함께 나눠주시면 감사하겠습니다.</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="http://localhost:1313/2025/01/13/2024-year-review/" data-toggle="tooltip" data-placement="top" title="2024 회고 - 건강, 기록, 행동">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/2024" title="2024">
+                        2024
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/3-keywords" title="3 keywords">
+                        3 keywords
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/argocd" title="argocd">
+                        argocd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/asgi" title="asgi">
+                        asgi
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/benchmark" title="benchmark">
+                        benchmark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blockhound" title="blockhound">
+                        blockhound
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/collaboration" title="collaboration">
+                        collaboration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/communication" title="communication">
+                        communication
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/database" title="database">
+                        database
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dependency-management" title="dependency management">
+                        dependency management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/framework" title="framework">
+                        framework
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ioc" title="ioc">
+                        ioc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/leadership" title="leadership">
+                        leadership
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/litestar" title="litestar">
+                        litestar
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/python" title="python">
+                        python
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/python-framework" title="python framework">
+                        python framework
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/throughput" title="throughput">
+                        throughput
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ulid" title="ulid">
+                        ulid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/uuid" title="uuid">
+                        uuid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/webflux" title="webflux">
+                        webflux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/year-review" title="year review">
+                        year review
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2025
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+</body>
+</html>

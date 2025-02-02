@@ -1,5 +1,61 @@
 [
 {
+	"permalink": "https://findstar.pe.kr/tags/dependency-management/",
+	"title": "Dependency Management",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/ioc/",
+	"title": "Ioc",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/posts/",
+	"title": "Posts",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/python-framework/",
+	"title": "Python Framework",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/",
+	"title": "Soo Story",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/",
+	"title": "파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법",
+	"tags": ["ioc", "python framework", "dependency management"],
+	"description": "",
+	"type": "post",
+	"contents": "의문점 - 파이썬에서는 왜 IoC가 일반적이지 않을까? 나의 경우 경력의 많은 시간동안 Java와 Spring 을 주력 언어로 사용해왔기 때문에, IoC(Inversion of Control)와 DI(Dependency Injection)를 기반으로 하는 애플리케이션 설계 방식이 익숙했다. 스프링에서는 프레임워크레벨에서 애플리케이션 작성에 필요한 전반적인 의존성 관리를 손쉽게 등록할 수 있고, 제일 처음 배우는 것들이 이러한 의존성을 등록하는 방법인 만큼, IoC 와 DI는 가장 익숙한 개념이었다.\n애플리케이션의 코드가 늘어나면서 필요한 의존성을 체계적으로 관리하고 싶어졌는데, 이런 필요에 비해서 python 프레임워크 레벨에서는 IoC 컨테이너를 제공해주지 않아 불편함을 느꼈었다.\n그러던 중 스택오버플로우에서 \u0026ldquo;왜 파이썬에서는 IoC가 일반적이지 않느냐\u0026rdquo;는 오래된 글을 읽게되었고, 이를 통해서 언어의 차이를 좀 더 명확하게 이해할 수 있게 되어 의존성 관리 방식을 개선해나가게 되었다.\nFastAPI, Litestar 프레임워크들의 IoC 컨테이너 제작년 부터 python 기반으로 애플리케이션을 개발하면서 FastAPI, Litestar 와 같은 파이썬 프레임워크를 사용하고 있다. FastAPI는 빠르게 시작하기 쉬워서, Litestar는 빠르고 현대적인 웹 프레임워크로, 비동기 처리와 간결한 API 설계에 강점을 가지고 있다고 느끼고 있어서 적극적으로 사용하고 있다.\n하지만 이 두 개의 프레임워크에서는 IoC 컨테이너와 같은 기능을 내장하고 있지 않기 때문에, 애플리케이션 전반의 의존성 관리를 위해서는 개발자가 스스로 해결책을 찾아야 하는 상황이 발생한다. 이 프레임워크들이 내가 이전에 경험했던 스프링과 같은 \u0026lsquo;애플리케이션의 모든 영역을 커버하는 컨셉\u0026rsquo;이 아닌 일종의 Micro 프레임워크라서 차이가 있음을 이해하고는 있었지만, 그럼에도 IoC 컨테이너와 같은 중앙 집중식 의존성 관리 기능이 제공되지 않아 불편함을 느꼈었다.\n처음에는 조직원들과 함께 프레임워크 자체적인 의존성 관리방식만을 사용하거나 Java/Spring 스타일의 중앙 집중식 IoC 컨테이너를 직접 구현해서 사용해보고 이를 프레임워크에 접목시켜보고자 노력했었다. 하지만 결국 파이썬의 설계 철학을 고려할 때 이런 접근 방법은 오히려 복잡하다는 의견을 확인했다.\n# 초기에는 애플리케이션 bootstrapping 시점에 도메인별 ServiceProvider 를 사용하여 dependency 를 등록하고 사용했었었다. class MyServiceProvider(ServiceProvider): # 의존성을 정의하는 영역입니다. def _dependencies(self) -\u0026gt; dict[str, Provide | AnyCallable] : dependencies: dict[str, Provide | AnyCallable] = { \u0026#34;my_domain_store_output\u0026#34;: MyProvide( self.provide_my_domain_store_output_port ), \u0026#34;my_domain_input\u0026#34;: MyProvide(self.provide_my_domain_input_port), \u0026#34;my_domain_query_in\u0026#34;: MyProvide(self.provide_my_domain_query_input_port), \u0026#34;_my_domain_service\u0026#34;: MyProvide(self._provide_my_domain_service), } return dependencies @staticmethod def provide_my_domain_input_port( _my_domain_service: MyDomainService, ) -\u0026gt; MyDomainInputPort: return _my_domain_service @staticmethod def provide_my_domain_store_output_port( db_engine: AsyncEngine, ) -\u0026gt; MyDomainStoreOutputPort: return MyDomainStoreOutputAdaptor(engine=async_engine) ... 파이썬의 유연성과 설계 철학의 차이 먼저 파이썬은 동적 타이핑과 간결한 문법 덕분에, 객체 생성 및 의존성 관리가 매우 자유롭다. Java 에서는 implement 키워드를 필수로 사용하는 방식이지만, Python 에서는 Protocol을 사용할 수도 있다.\n또 파이썬에서는 IoC 컨테이너를 따로 두기 보다 직접 의존성을 주입하는 방식을 선호하고 있고 이 방식이 오히려 가독성을 높이게끔 유도하고 있다고 느껴졌다.\n이러한 차이가 파이썬답게 “파이써닉하다”라는 표현이 딱 맞는, 단순하고 직관적인 접근 방식으로 이해되었다.\nIoC 대신 직접 주입과 모듈 사용 그럼 의존성 관리를 어떻게 하는 것이 좋을까? 이부분은 팀원들과 함께 여러차례 아키텍처 논의를 하면서 우리만의 자체적인 대안을 마련하게 되었다.\n먼저 Java/Spring 에서는 정적 타이핑과 엄격한 구조로 인해 IoC 컨테이너를 통한 의존성 관리가 필수적이었지만, 파이썬에서는 그런 접근 보다는 직접 의존성을 주입하거나 모듈로써 import 시점에 생성된 객체를 직접 사용하는 방식을 선호했다. 그래서 우리도 파이썬 스타일을 유지하는 방향으로 접근하였다.\n생각해보면, 스프링에서의 대부분의 의존성은 싱글톤(singleton)으로 정의되는데(물론 아닌 경우도 있지만), 애플리케이션에서 필요로 하는 의존성이 싱글톤뿐이라면 애플리케이션 bootstrapping 시점에 이를 미리 생성해두고 연결해서 사용하는 방식도 충분히 합리적이라고 생각되었다.\njava spring 1. 프레임워크 booting 2. component scan 을 통한 의존성 등록 3. 의존 객체 생성 후 주입 python 1. 필요한 의존성 미리 생성 2. 프레임워크 booting (w/의존객체 주입) 따라서 이렇게 되면 프레임워크가 구동되는 라이프사이클이 애플리케이션 전체를 커버하는 것이 아니라 특정 영역(restapi backend)만 담당하는 방식으로 동작하기 때문에 의존성에 대한 관리는 개발자가 직접 처리하면 된다.\n그리고 아예 별도 모듈로 정의해서 import 하는 순간 모듈 자체에서 제공하는 의존성을 바로 가져다가 사용하도록 코드를 구성할 수도 있다.\n현재 사용하는 방식 Litestar와 같이 프레임워크 체제 하에서 의존성 관리를 아예 맡겨버리는 방식도 사용해보았지만, 한계점들을 마주한 뒤로 프레임워크와는 별개로 직접 의존 성을 관리하고 이를 직접 주입하는 방식으로 방식을 변경하였다.\n대신 Litestar와 같은 프레임워크가 제공하는 의존성 등록의 연결고리를 두어서 프레임워크의 라이프사이클에서도 의존성이 필요한 경우 손쉽게 사용할 수 있도록 일종의 \u0026ldquo;브릿지\u0026quot;를 제공하는 방식으로 변경하였다.\n# 1. 자체적으로 의존 객체 생성 관리 my_domain_store_output: MyDomainStoreOutputPort = MyDomainStoreOutputAdaptor( async_session_factory=async_session_factory ) my_domain_input: MyDomainInputPort = MyDomainService( store_output=my_domain_store_output ) ... # 2. 프레임워크와 연결고리 생성 def litestar_provide(dependencies: Depedencies) -\u0026gt; dict[str, Provide]: def bind(val) -\u0026gt; Callable[[], Any]: return lambda: val res: dict[str, Provide] = { key: Provide(bind(val), use_cache=True, sync_to_thread=True) for key, val in dependencies.items() } return res ... # 3. 필요한 부분에서는 자유롭게 사용 class MyDomainController(Controller): @get(\u0026#34;/v1/my-domain/\u0026#34;, tags=[\u0026#34;My Domain\u0026#34;], summary=\u0026#34;Item 목록 반환\u0026#34;, ) async def list_my_domain_items( self, my_domain_input: MyDomainInputPort, ) -\u0026gt; list[ListMyDomainResponse]: item_list = await my_domain_input.list_items() return [ListMyDomainResponse.from_domain(item) for item in item_list] ... 이렇게 함으로써 파이썬 언어의 방식에 좀 더 익숙해지고, 나아가 프레임워크의 유용성은 살리면서도 직접 의존성을 관리하는 방식의 간결함도 가져올 수 있었다. 물론 이 과정에서 어려움이 없었던 것은 아니다. (아주 많은 팀원들과의 아키텍처 설계 논의들 \u0026hellip;)\n결국 자체적인 의존성 관리를 직접 수행하고 이를 프레임워크와 연결하는 방식을 최종 선택해서 사용하고 있다.\n결론: 언어의 철학을 이해하고 접근하자. 결국, 각 언어가 추구하는 철학과 설계 방향을 이해하는 것이 중요하다는 것을 다시금 깨달았다. Java에서는 정적 타입과 대규모 애플리케이션을 위한 복잡한 IoC 컨테이너가 필요하지만, 파이썬은 그 자체의 유연성과 단순함, 그리고 파이써닉한 철학을 기반으로 명시적이고 간결한 의존성 관리를 선호한다.\nLitestar과 같은 파이썬 프레임워크를 사용할 때는, 굳이 Java/Srping 스타일의 중앙 집중식 IoC 컨테이너를 구현하기보다는 파이썬이 제공하는 직관적인 패턴과 기능들을 최대한 활용하는 것이 현명한 방법이다. 이를 통해 불필요한 복잡도를 피하고, 보다 파이써닉한 방식으로 문제를 해결할 수 있다.\n여러차례 고민하면서 논의를 거듭해서 현재의 방식을 선택했지만, 문제가 아예 없는 것은 아니다. 앞으로 또 여러차례 고민하고 논의하면서 우리만의 좋은 설계에 대한 고민을 이어나갈것 같다.\n어찌보면, 틀이 정해져 있지 않아서 어떻게 해야할지 모르겠다는 느낌도 들지만, 오히려 그 안에서 팀원들과 논의하면서 더 단단해지는 방향으로 나아가고 있는게 아닐까?\n참고자료 https://stackoverflow.com/questions/2461702/why-is-ioc-di-not-common-in-python https://drive.google.com/file/d/1u5nF6vmCgZGE3rnoGQlGYVks9QFJoIDF/view "
+},
+{
 	"permalink": "https://findstar.pe.kr/tags/2024/",
 	"title": "2024",
 	"tags": [],
@@ -18,30 +74,6 @@
 {
 	"permalink": "https://findstar.pe.kr/tags/3-keywords/",
 	"title": "3 Keywords",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/posts/",
-	"title": "Posts",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/",
-	"title": "Soo Story",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/",
-	"title": "Tags",
 	"tags": [],
 	"description": "",
 	"type": "base",

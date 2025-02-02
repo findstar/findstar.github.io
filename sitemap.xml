@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/dependency-management/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/ioc/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/python-framework/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/</loc>
+    <lastmod>2025-02-02T17:51:55+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/2024/</loc>
     <lastmod>2025-01-13T20:53:23+09:00</lastmod>
   </url><url>
@@ -9,15 +30,6 @@
     <lastmod>2025-01-13T20:53:23+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/3-keywords/</loc>
-    <lastmod>2025-01-13T20:53:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2025-01-13T20:53:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2025-01-13T20:53:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2025-01-13T20:53:23+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/year-review/</loc>

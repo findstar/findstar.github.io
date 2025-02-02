@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ioc on Soo Story</title>
+    <link>https://findstar.pe.kr/tags/ioc/</link>
+    <description>Recent content in Ioc on Soo Story</description>
+    <generator>Hugo</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 02 Feb 2025 17:51:55 +0900</lastBuildDate>
+    <atom:link href="https://findstar.pe.kr/tags/ioc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법</title>
+      <link>https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/</link>
+      <pubDate>Sun, 02 Feb 2025 17:51:55 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/</guid>
+      <description>Java를 주력 언어로 사용하다가, python 을 주력 언어로 사용하면서 프레임워크 레벨에서 쓸만한 IoC 기능이 부족하다고 느꼈는데, 언어레벨에서 왜 IoC가 일반적이지 않은지 찾아보고, 대안을 고민해보았다.</description>
+    </item>
+  </channel>
+</rss>
