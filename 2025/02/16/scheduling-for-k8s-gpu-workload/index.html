@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="title" content="GPU 워크로드를 위한 K8S 스케줄링 전략" />
+
+
+<meta name="description" content="Software Developer, I love code.">
+
+<meta name="keyword"  content="blog | developer | personal">
+
+<meta property="og:site_name" content="Soo Story">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png">
+
+
+<meta property="og:title" content="GPU 워크로드를 위한 K8S 스케줄링 전략" />
+
+
+<meta property="og:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:image" content="https://findstar.pe.kr/images/posts/kubernetes/Kubernetes-logo.png" />
+
+
+<meta property="twitter:title" content="GPU 워크로드를 위한 K8S 스케줄링 전략" />
+
+
+<meta property="twitter:description" content="Software Developer, I love code." />
+
+
+<meta property="twitter:card" content="GPU 워크로드를 위한 K8S 클러스터를 운영할 때에 GPU 파편화 문제로 리소스를 효율적으로 사용할 수 없다. 이를 해결하기 위한 고민들을 정리해보았다." />
+
+
+<meta property="article:title" content="GPU 워크로드를 위한 K8S 스케줄링 전략" />
+
+
+
+<meta property="article:tag" content="kubernetes" />
+<meta property="article:tag" content="GPU workload" />
+<meta property="article:tag" content="custom scheduler" />
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/images/favicon/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="Soo Story"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8TNG4GD4NJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8TNG4GD4NJ');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7713670776638472"
+        crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/img/favicon.ico">
+<title>GPU 워크로드를 위한 K8S 스케줄링 전략 - Soo Story</title>
+<link rel="canonical" href="/2025/02/16/scheduling-for-k8s-gpu-workload/">
+<link rel="stylesheet" href="/css/iDisqus.min.css"/>
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+<link rel="stylesheet" href="/css/zanshang.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://findstar.pe.kr/css/findstar-custom.css?version=20210816">
+
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div id="search">
+                <form method="get" action="/search">
+                <fieldset >
+                    <div class="field">
+                        <label><span class="hide">검색</span>
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="searchtext" class="input_text" name="q" value="" size="15" >
+                        </label>
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                    
+                    
+		    
+                        <li><a href="/about/">ABOUT</a></li>
+                    
+                        <li><a href="/tags/">ARCHIVES</a></li>
+                    
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+    var $search = document.querySelector('#searchtext');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        <i class="fa fa-tags" title="태그"></i>
+                        
+                        <a class="tag" href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        <a class="tag" href="/tags/gpu-workload" title="GPU workload">
+                        GPU workload
+                        </a>
+                        
+                        <a class="tag" href="/tags/custom-scheduler" title="custom scheduler">
+                        custom scheduler
+                        </a>
+                        
+                    </div>
+                    <h1>GPU 워크로드를 위한 K8S 스케줄링 전략</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        2025-02-16
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <div class="toc">
+                    <details open="">
+                        <summary accesskey="c" title="(Alt + C)">
+                            <div class="details">Table of Contents</div>
+                        </summary>
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gpu-워크로드를-위한-k8s-스케줄링-전략">GPU 워크로드를 위한 K8S 스케줄링 전략</a>
+      <ul>
+        <li><a href="#문제점---gpu-파편화">문제점 - GPU 파편화</a></li>
+        <li><a href="#대안">대안</a></li>
+        <li><a href="#결론">결론</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                    </details>
+                </div>
+                
+                <h1 id="gpu-워크로드를-위한-k8s-스케줄링-전략">GPU 워크로드를 위한 K8S 스케줄링 전략</h1>
+<p>K8S 클러스터에서 GPU 워크로드를 운영하다보면, 기존의 vCPU, Memory 와 다르게 GPU 리소스의 특수성 때문에 리소스에 대한 관리방식을 다르게 고민해야한다.
+특히 일반적인 리소스와 다르게 GPU 파편화문제가 제일 이슈가 되는데, 이를 해결하기 위한 고민들을 정리해보았다.</p>
+<h2 id="문제점---gpu-파편화">문제점 - GPU 파편화</h2>
+<ol>
+<li>
+<p>하나의 GPU Worker Node 에 할당되는 GPU 리소스의 제한이 있다. - 일반적으로 하나의 GPU Worker Node 에는 NVIDIA GPU 기준 4에서 8 GPU가 최대로 가질 수 있는 리소스 갯수가 된다. (V, A, H 시리즈)</p>
+</li>
+<li>
+<p>GPU Workload 는 이 리소스를 특정 사이즈 만큼 필요로 한다. - GPU Worker Node 에 배치되는 GPU Workload 는 이 리소스를 1/2/4/8 과 같이 2의 배수만큼 필요로 한다.</p>
+</li>
+<li>
+<p>기본 스케줄러는 가능한 골고루 분산 - 만약 GPU Worker Node 가 5개가 있고, GPU 리소스 요구량이 1 GPU이면서 Replica 가 5인 GPU Workload 가 배치된다면, 기본 스케줄러는 이를 골고루 분산하여 개별 Worker Node 가 하나씩의 GPU Pod 을 가지도록 배치한다. (scoring 계산에 따른다.)</p>
+</li>
+<li>
+<p>이제 추가로 GPU 리소스가 8 이 필요한 workload 가 배치되려고 하는 경우, 리소스 8이 비어 있는 노드가 없기 때문에 스케줄링에 실패하게 된다. 하지만 GPU Worker 전체로 보면 아직 여유 리소스 35가 남아 있다.</p>
+</li>
+<li>
+<p>이를 도식화 하면 다음과 같다.</p>
+</li>
+</ol>
+<figure class="full-width caption "  style="border: 1px solid #ededed;" >
+    <img src="/images/posts/kubernetes/gpu-scheduling/gpu_worker_scheduler.png" alt="GPU 파편화"  />
+    
+</figure>
+<h2 id="대안">대안</h2>
+<p>이를 해소하기 위해서는 스케줄링을 다르게 하는 대안을 생각해 볼 수 있다.</p>
+<h3 id="1-bin-packing-스케줄러-도입">1. Bin Packing 스케줄러 도입</h3>
+<h4 id="bin-packing-이란">Bin Packing 이란?</h4>
+<p>Bin Packing은 제한된 자원을 최적화하여 사용하는 스케줄링 전략이다. GPU와 같은 제한된 자원을 다룰 때, Pod을 배치할 Node를 가능한 빈틈없이 채워 리소스 사용률을 극대화하기 위해서 사용한다. (bin 은 말 통, 상자라는 의미이다. bin packing은 상자에 물건을 담을 때 차곡차곡 쌓아서 빈공간이 없도록 하는 경우를 떠올려보자.) <del>쓰레기통이 가득 차면 발로 꾹꾹 눌러 담는 걸 생각하면..</del></p>
+<h4 id="k8s-custom-스케줄러-적용하기">K8S Custom 스케줄러 적용하기</h4>
+<p>K8S는 별도로 지정하지 않는 경우 <code>default-scheduler</code> 를 사용하여 Pod을 배치한다. k8s 클러스터에 구동중인 기본 pod 중에 하나를 describe 해보면 다음과 같은 내용을 확인할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Pod
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-sample-pod
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">schedulerName</span>: default-scheduler <span style="color:#6272a4"># 지정하지 않아도 default-scheduler 가 선택된다.</span>
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span></code></pre></div><p>필요하다면, pod 에 scheduler 를 지정할 수 있다는 의미다. 기본 스케줄러가 아닌 별도의 custom scheduler 사용하려면 스케줄링을 결정하는 KubeSchedulerConfiguration 를 등록하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: kubescheduler.config.k8s.io/v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: KubeSchedulerConfiguration
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">leaderElection</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">leaderElect</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">resourceName</span>: bin-packing-scheduler
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">resourceNamespace</span>: my-system
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">profiles</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">schedulerName</span>: bin-packing-scheduler
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pluginConfig</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff79c6">name</span>: NodeResourcesFit
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">args</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">scoringStrategy</span>: <span style="color:#6272a4"># 어떤 노드에 배치할지 결정하기 위한 scoring 계산 전략을 결정할 수 있다.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">type</span>: MostAllocated  <span style="color:#6272a4"># MostAllocated 를 선택했다면 가장 많이 사용하고 있는 노드를 선택하라는 의미가 된다.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">resources</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#ff79c6">name</span>: cpu
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>              - <span style="color:#ff79c6">name</span>: memory
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>              - <span style="color:#ff79c6">name</span>: nvidia.com/gpu
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">weight</span>: <span style="color:#bd93f9">100</span>  <span style="color:#6272a4"># 스케줄링을 위한 score 를 계산할 때 nvidia.com/gpu 타입의 리소스에 대해서 가중치를 100으로 줬다. (cpu/memory 에 비해서 100배 더 중요하게 보겠다는 의미)</span>
+</span></span></code></pre></div><p>이제 <code>bin-packing-scheduler</code>을 등록하고 새로운 pod 를 배치할 때 schedulerName 을 지정하면 ModeAllocated 가 적용된 스케줄링 알고리즘이 적용되어 노드에 배치된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Pod
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-sample-pod-new
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">schedulerName</span>: bin-packing-scheduler
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span></code></pre></div><h3 id="2-node-그룹-분리-전략">2. Node 그룹 분리 전략</h3>
+<p>custom scheduler 를 적용하면 문제가 해결될 것 같지만, 그럼에도 빈 공간이 남아서 큰 사이즈의 pod가 배치에 실패하는 경우가 발생한다. 파편화로 스케줄링이 실패하는 케이스는 줄어 들지만, 아예 없어지지는 않는다.</p>
+<ol>
+<li>여러가지 gpu resource request size 를 가지는 워크로드를 혼합해서 사용하는 경우</li>
+<li>시간이 지나면서 워크로드가 eviction 되는 시점이 각기 다르기 때문에</li>
+<li>결국 지나면서 빈 공간이 어중간 하게 남게 되어 사이즈가 큰 pod 이 들어갈 자리가 부족해진다.</li>
+<li>이를 도식화 하면 다음과 같다.</li>
+</ol>
+<figure class="full-width caption "  style="border: 1px solid #ededed;" >
+    <img src="/images/posts/kubernetes/gpu-scheduling/gpu_workload_schedulering2.png" alt="GPU 파편화 2"  />
+    
+</figure>
+<p>우리는 한정된 자원만 가지고 있고, 파편화를 완전히 막을 수 없다면 예측 가능성이라도 높이는 추가 전략이 필요하다.</p>
+<p>size 가 여러개인 워크로드를 혼합해서 배치하는 경우 특정 size 의 워크로드가 배치되기 쉬운지 어려운지 예측하기가 어렵게 되어 제때 추가 GPU 자원을 수급하기 어렵다. 따라서 아예 사이즈별로 노드그룹을 분리하는 전략을 고민해보았다.</p>
+<h4 id="node-label을-활용해서-그룹-분리">Node Label을 활용해서 그룹 분리</h4>
+<p>GPU Worker Node에 아예 다음과 같이 custom 한 Nodel label을 부여하여 slot 별로 배치할 수 있는 노드의 종류를 구분했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Node
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: gpu-cluster-v100-worker001
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">my.gpu.cluster/gpu-type</span>: NVIDIA-V100-32GB
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">my.gpu.cluster/nvidia-gpu-support</span>: <span style="color:#f1fa8c">&#39;true&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">my.gpu.cluster/node-group</span>: SLOT-4
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span></code></pre></div><p>pod 에서는 node label 을 선택하도록 정의하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Pod
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: my-new-slot-4-pod-sample-1
+</span></span><span style="display:flex;"><span>  ...생략...
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">affinity</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">nodeAffinity</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">requiredDuringSchedulingIgnoredDuringExecution</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">nodeSelectorTerms</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ff79c6">matchExpressions</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#ff79c6">key</span>: my.gpu.cluster/gpu-type
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">operator</span>: In
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">values</span>:
+</span></span><span style="display:flex;"><span>                  - NVIDIA-V100-32GB
+</span></span><span style="display:flex;"><span>              - <span style="color:#ff79c6">key</span>: my.gpu.cluster/node-group
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">operator</span>: In
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">values</span>:
+</span></span><span style="display:flex;"><span>                  - SLOT-4
+</span></span><span style="display:flex;"><span>...생략...
+</span></span></code></pre></div><p>분리된 Node Group 을 운영하는 방식을 도식화 하면 다음과 같다.</p>
+<figure class="full-width caption "  style="border: 1px solid #ededed;" >
+    <img src="/images/posts/kubernetes/gpu-scheduling/gpu_node_slot.png" alt="Node Group 분리"  />
+    
+</figure>
+<p>이 전략을 요약하고 장단점을 정리해보면 다음과 같다.</p>
+<ul>
+<li>Slot 별로 남은 자원을 관리한다.</li>
+<li>장점으로 고정된 사이즈로만 운영하기 때문에 자원 파편화를 막기 수월하다.</li>
+<li>이에 따라 배치되는 워크로드에 따라 노드 자원의 소비량을 예측하기 쉬워진다.</li>
+<li>단점으로는 다른 종류의 Slot 으로 운영되는 노드 그룹에 자원이 남아 있더라도 해당 자원을 사용할 수는 없다.</li>
+</ul>
+<p><del>(이 전략을 고려할 때, 재활용 쓰레기를 분리수거할 때 유리는 유리에, 종이는 종이에, 플라스틱은 플라스틱에 버리는 상황이 떠올랐다)</del></p>
+<h2 id="결론">결론</h2>
+<p>무한의 GPU Worker Node 가 존재한다면 문제는 발생하지 않는다. 하지만 우리의 자원은 유한하고 결국 상황에 맞게 custom scheduler 를 사용하기도 하고, 아예 노드 그룹을 분리해서 사용하기도 한다.</p>
+<p>GPU와 같은 리소스를 다루기 전까지는 Custom Scheduler 의 존재조차 인식하지 못했는데, 이런 고민을 하면서 조금 더 K8S에 대해서 알게되었다. 모든 상황의 선택지는 결국 각각의 트레이드오프가 있음을 다시한번 깨닫게 된다.</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/" data-toggle="tooltip" data-placement="top" title="파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "findstar" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/2024" title="2024">
+                        2024
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/3-keywords" title="3 keywords">
+                        3 keywords
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/accesscontrol" title="accesscontrol">
+                        accesscontrol
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/adaptive-growth" title="adaptive growth">
+                        adaptive growth
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/alpine-linux" title="alpine linux">
+                        alpine linux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible" title="ansible">
+                        ansible
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ansible-tower" title="ansible tower">
+                        ansible tower
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/apache2.4" title="apache2.4">
+                        apache2.4
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/architecture" title="architecture">
+                        architecture
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/argocd" title="argocd">
+                        argocd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/asgi" title="asgi">
+                        asgi
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/aws" title="aws">
+                        aws
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/awx" title="awx">
+                        awx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/backoffice" title="backoffice">
+                        backoffice
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/beautiful-goodbye" title="beautiful goodbye">
+                        beautiful goodbye
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/begining-docker" title="begining docker">
+                        begining docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/benchmark" title="benchmark">
+                        benchmark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blockhound" title="blockhound">
+                        blockhound
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blocking-code" title="blocking code">
+                        blocking code
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/blog" title="blog">
+                        blog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/book" title="book">
+                        book
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/brew-cask" title="brew cask">
+                        brew cask
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/build-cache" title="build cache">
+                        build cache
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/collaboration" title="collaboration">
+                        collaboration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/communication" title="communication">
+                        communication
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/composer" title="composer">
+                        composer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/confluence" title="confluence">
+                        confluence
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/cronjob" title="cronjob">
+                        cronjob
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/curl" title="curl">
+                        curl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/custom-scheduler" title="custom scheduler">
+                        custom scheduler
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customizing" title="customizing">
+                        customizing
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/customlog" title="customlog">
+                        customlog
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data.sql" title="data.sql">
+                        data.sql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/database" title="database">
+                        database
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dependency-management" title="dependency management">
+                        dependency management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/developer" title="developer">
+                        developer
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/difference" title="difference">
+                        difference
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                        docker
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/docker-desktop" title="docker desktop">
+                        docker desktop
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dockerize" title="dockerize">
+                        dockerize
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/dos-attack" title="dos attack">
+                        dos attack
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/eks" title="eks">
+                        eks
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/elasticsearch" title="elasticsearch">
+                        elasticsearch
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/empty-string" title="empty string">
+                        empty string
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/environment-to-do-well" title="environment to do well">
+                        environment to do well
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/errorlogformat" title="errorlogformat">
+                        errorlogformat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/event-driven" title="event driven">
+                        event driven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/experience" title="experience">
+                        experience
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/file-upload" title="file upload">
+                        file upload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/filebeat" title="filebeat">
+                        filebeat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fluentd" title="fluentd">
+                        fluentd
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/forwarded-option" title="forwarded option">
+                        forwarded option
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/framework" title="framework">
+                        framework
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/fuse.js" title="fuse.js">
+                        fuse.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/golang" title="golang">
+                        golang
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/gpu-workload" title="gpu workload">
+                        gpu workload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/graceful-deploy" title="graceful deploy">
+                        graceful deploy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/happy-new-year" title="happy new year">
+                        happy new year
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy" title="haproxy">
+                        haproxy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-1.8" title="haproxy 1.8">
+                        haproxy 1.8
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-acl-logging" title="haproxy acl logging">
+                        haproxy acl logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-custom-variable-logging" title="haproxy custom variable logging">
+                        haproxy custom variable logging
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-metric" title="haproxy metric">
+                        haproxy metric
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-reload-fail" title="haproxy reload fail">
+                        haproxy reload fail
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/haproxy-stat" title="haproxy stat">
+                        haproxy stat
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/heap-memory" title="heap memory">
+                        heap memory
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hedgehog-sharp" title="hedgehog sharp">
+                        hedgehog sharp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/how-do-i-work" title="how do i work">
+                        how do i work
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/hugo" title="hugo">
+                        hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/index-alias" title="index alias">
+                        index alias
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/install" title="install">
+                        install
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/installation" title="installation">
+                        installation
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/instance-type" title="instance type">
+                        instance type
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/inverted-index" title="inverted index">
+                        inverted index
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ioc" title="ioc">
+                        ioc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                        istio
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/iterm" title="iterm">
+                        iterm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/java" title="java">
+                        java
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jdk-21" title="jdk 21">
+                        jdk 21
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll" title="jekyll">
+                        jekyll
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jekyll-to-hugo" title="jekyll to hugo">
+                        jekyll to hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/jetbrains" title="jetbrains">
+                        jetbrains
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/json" title="json">
+                        json
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s" title="k8s">
+                        k8s
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/k8s-api" title="k8s api">
+                        k8s api
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kmooc" title="kmooc">
+                        kmooc
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/leadership" title="leadership">
+                        leadership
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/learning-in-2019" title="learning in 2019">
+                        learning in 2019
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/lets-encrypt" title="let&#39;s encrypt">
+                        let&#39;s encrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/letsencrypt" title="letsencrypt">
+                        letsencrypt
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/limit_req_zone" title="limit_req_zone">
+                        limit_req_zone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/litestar" title="litestar">
+                        litestar
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/logstash" title="logstash">
+                        logstash
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/m1-macbook-pro" title="m1 macbook pro">
+                        m1 macbook pro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro" title="macro">
+                        macro
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/macro-key-mapping" title="macro key mapping">
+                        macro key mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mapping" title="mapping">
+                        mapping
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match" title="match">
+                        match
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/match_phrase" title="match_phrase">
+                        match_phrase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/maven" title="maven">
+                        maven
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice-%EC%84%A4%EA%B3%84-%EB%B0%8F-%EA%B5%AC%ED%98%84" title="microservice 설계 및 구현">
+                        microservice 설계 및 구현
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/migration" title="migration">
+                        migration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mm" title="mm">
+                        mm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/multi-datasource" title="multi datasource">
+                        multi datasource
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/mysql" title="mysql">
+                        mysql
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                        nginx
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-ingress" title="nginx ingress">
+                        nginx ingress
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/nginx-regexp" title="nginx regexp">
+                        nginx regexp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ngram" title="ngram">
+                        ngram
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/node-drain" title="node drain">
+                        node drain
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/null" title="null">
+                        null
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/openjdk" title="openjdk">
+                        openjdk
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/partial-matching" title="partial matching">
+                        partial matching
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/phpstorm" title="phpstorm">
+                        phpstorm
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poddisruptionbudget" title="poddisruptionbudget">
+                        poddisruptionbudget
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/poeaa" title="poeaa">
+                        poeaa
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/portfolio-expansion" title="portfolio expansion">
+                        portfolio expansion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/product-strategy" title="product strategy">
+                        product strategy
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/python" title="python">
+                        python
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/python-framework" title="python framework">
+                        python framework
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/query-dsl" title="query dsl">
+                        query dsl
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-limit" title="rate limit">
+                        rate limit
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rate-litmiting" title="rate litmiting">
+                        rate litmiting
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rds" title="rds">
+                        rds
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/reindex" title="reindex">
+                        reindex
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/rss-template" title="rss template">
+                        rss template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/seamless-reload" title="seamless reload">
+                        seamless reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/search-on-hugo" title="search on hugo">
+                        search on hugo
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/service-account-role" title="service account &amp; role">
+                        service account &amp; role
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/sidebar-search" title="sidebar search">
+                        sidebar search
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speed-up" title="speed up">
+                        speed up
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/speedup" title="speedup">
+                        speedup
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring" title="spring">
+                        spring
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-boot" title="spring boot">
+                        spring boot
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp" title="spring camp">
+                        spring camp
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-camp-2023" title="spring camp 2023">
+                        spring camp 2023
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/spring-event" title="spring event">
+                        spring event
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ssh" title="ssh">
+                        ssh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/struct" title="struct">
+                        struct
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/study" title="study">
+                        study
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/system-manager" title="system manager">
+                        system manager
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/systemd-reload" title="systemd reload">
+                        systemd reload
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/template" title="template">
+                        template
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/term" title="term">
+                        term
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/throughput" title="throughput">
+                        throughput
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/timezone" title="timezone">
+                        timezone
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                        tips
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/traffic-management" title="traffic management">
+                        traffic management
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ulid" title="ulid">
+                        ulid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/unused-plugins" title="unused plugins">
+                        unused plugins
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/uuid" title="uuid">
+                        uuid
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/ux-consideration" title="ux consideration">
+                        ux consideration
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/virtual-thread" title="virtual thread">
+                        virtual thread
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/vm-options" title="vm options">
+                        vm options
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/webflux" title="webflux">
+                        webflux
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/wildcard" title="wildcard">
+                        wildcard
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/year-review" title="year review">
+                        year review
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/zero-downtime" title="zero downtime">
+                        zero downtime
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%81%B4%EB%A6%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" title="만들면서 배우는 클린 아키텍처">
+                        만들면서 배우는 클린 아키텍처
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%8B%9C%EC%9E%91%ED%95%98%EC%84%B8%EC%9A%94-%EB%8F%84%EC%BB%A4" title="시작하세요 도커">
+                        시작하세요 도커
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%97%94%ED%84%B0%ED%94%84%EB%9D%BC%EC%9D%B4%EC%A6%88-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%ED%8C%A8%ED%84%B4" title="엔터프라이즈 애플리케이션 아키텍처 패턴">
+                        엔터프라이즈 애플리케이션 아키텍처 패턴
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" title="쿠버네티스 시작하기">
+                        쿠버네티스 시작하기
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Soo Story" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+
+                    
+                    <li>
+                        <a href="https://twitter.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+                    <li>
+                        <a target="_blank" href="https://facebook.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/findstar">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Soo Story &copy; 2025
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+</body>
+</html>

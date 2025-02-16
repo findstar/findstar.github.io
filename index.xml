@@ -6,7 +6,23 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 02 Feb 2025 17:51:55 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 16 Feb 2025 20:51:11 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>GPU 워크로드를 위한 K8S 스케줄링 전략</title>
+            <link>https://findstar.pe.kr/2025/02/16/scheduling-for-k8s-gpu-workload/</link>
+            <pubDate>Sun, 16 Feb 2025 20:51:11 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2025/02/16/scheduling-for-k8s-gpu-workload/</guid>
+            <description>GPU 워크로드를 위한 K8S 클러스터를 운영할 때에 GPU 파편화 문제로 리소스를 효율적으로 사용할 수 없다. 이를 해결하기 위한 고민들을 정리해보았다.</description>
+            
+            <category>kubernetes</category>
+            
+            <category>GPU workload</category>
+            
+            <category>custom scheduler</category>
+            
+        </item>
+        
         <item>
             <title>파이썬 프레임워크를 사용하면서 의존성을 관리하는 방법</title>
             <link>https://findstar.pe.kr/2025/02/02/how-to-manage-dependencies-while-using-python-frameworks/</link>

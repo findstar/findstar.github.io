@@ -6,8 +6,29 @@
     <description>Recent content in Tags on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 02 Feb 2025 17:51:55 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Feb 2025 20:51:11 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Custom Scheduler</title>
+      <link>https://findstar.pe.kr/tags/custom-scheduler/</link>
+      <pubDate>Sun, 16 Feb 2025 20:51:11 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/custom-scheduler/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GPU Workload</title>
+      <link>https://findstar.pe.kr/tags/gpu-workload/</link>
+      <pubDate>Sun, 16 Feb 2025 20:51:11 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/gpu-workload/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://findstar.pe.kr/tags/kubernetes/</link>
+      <pubDate>Sun, 16 Feb 2025 20:51:11 +0900</pubDate>
+      <guid>https://findstar.pe.kr/tags/kubernetes/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Dependency Management</title>
       <link>https://findstar.pe.kr/tags/dependency-management/</link>
@@ -209,13 +230,6 @@
       <link>https://findstar.pe.kr/tags/k8s-api/</link>
       <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
       <guid>https://findstar.pe.kr/tags/k8s-api/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Kubernetes</title>
-      <link>https://findstar.pe.kr/tags/kubernetes/</link>
-      <pubDate>Thu, 06 Apr 2023 21:03:22 +0900</pubDate>
-      <guid>https://findstar.pe.kr/tags/kubernetes/</guid>
       <description></description>
     </item>
     <item>
