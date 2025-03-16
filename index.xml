@@ -6,7 +6,23 @@
         <description>Recent content on Soo Story</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-kr</language>
-        <lastBuildDate>Sun, 02 Mar 2025 20:27:11 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 16 Mar 2025 20:02:01 +0900</lastBuildDate><atom:link href="https://findstar.pe.kr/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+            <title>멘토링에서 자주 이야기 하는 이력서 피드백</title>
+            <link>https://findstar.pe.kr/2025/03/16/mentoring-insight-for-software-engineer/</link>
+            <pubDate>Sun, 16 Mar 2025 20:02:01 +0900</pubDate>
+            
+            <guid>https://findstar.pe.kr/2025/03/16/mentoring-insight-for-software-engineer/</guid>
+            <description>일년에 몇 차례 멘토링을 진행할 때가 있다. 주로 주니어 개발자 분들과 이야기를 나누게 되는데, 종종 요청받는 내용이 이력서에 대한 피드백이다. 그 중에서 자주 이야기 하게 되는 피드백에 대해서 정리해보았다.</description>
+            
+            <category>mentoring</category>
+            
+            <category>software engineer career</category>
+            
+            <category>resume feedback</category>
+            
+        </item>
+        
         <item>
             <title>팀이 함께 가면서도 빨리가는 방법</title>
             <link>https://findstar.pe.kr/2025/03/02/moving-fast-together/</link>
