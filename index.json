@@ -1,7 +1,15 @@
 [
 {
-	"permalink": "https://findstar.pe.kr/tags/mentoring/",
-	"title": "Mentoring",
+	"permalink": "https://findstar.pe.kr/tags/accelerating-team-success/",
+	"title": "Accelerating Team Success",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/fast-team/",
+	"title": "Fast Team",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -10,22 +18,6 @@
 {
 	"permalink": "https://findstar.pe.kr/posts/",
 	"title": "Posts",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/resume-feedback/",
-	"title": "Resume Feedback",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/software-engineer-career/",
-	"title": "Software Engineer Career",
 	"tags": [],
 	"description": "",
 	"type": "base",
@@ -48,36 +40,52 @@
 	"contents": ""
 },
 {
-	"permalink": "https://findstar.pe.kr/2025/03/16/mentoring-insight-for-software-engineer/",
-	"title": "멘토링에서 자주 이야기 하는 이력서 피드백",
-	"tags": ["mentoring", "software engineer career", "resume feedback"],
-	"description": "",
-	"type": "post",
-	"contents": "멘토링에서 자주 이야기 하는 이력서 피드백 일년에 몇 차례 멘토링을 진행할 때가 있다. 대학교 후배들 부터 직장 또는 커뮤니티에서 만나는 다양한 개발자 분들과 이야기를 나누게 되는데, 종종 이력서 피드백을 요청받고는 한다. 현업 면접관으로 참여한 경험도 있고 해서, 그 순간 \u0026lsquo;우리팀에 함께 했으면 하는 분은 누구일까?\u0026rsquo; 라는 컨셉으로 이력서를 살펴보고 피드백을 드렸다.\n그러다가 경험이 쌓이다 보니, 자주 이야기 하게 되는 내용들이 있어 이를 정리해보았다.\n생각해 볼 것 이력서에 대한 피드백을 정리해보면, 결국 글을 어떻게 작성해야하는 가에 대한 질문으로 정리된다. 다음과 같은 주제를 고려해보자.\n생각해 볼 것 1 - 이력서는 누가 읽을까? 이력서를 작성하는 순서는 대략 다음과 같다.\n지원자는 자기 소개, 개발 스킬셋, 프로젝트 경험에 대한 내용을 이력서에 작성한다. 자신이 생각하는 어필할 수 있는 내용들을 채워넣기 시작한다. 여러차례 반복하며 이력서의 형태를 다듬는다. 마지막으로 빠진 부분이 없는지 체크하고 오타가 없는지 확인한다. 여기서 생각해볼 것은 \u0026ldquo;이력서도 하나의 글\u0026rdquo; 이라는 점이다.\n따라서 독자가 있으며, 그 독자는 일차적으로 서류검토자, 나아가서 내가 일하게 될 팀의 리더가 될 확률이 높다.\n생각해 볼 것 2 - 나는 누구인가? 이력서를 작성할 때 결국 나라는 사람이 드러나야 한다. 왜냐하면 결국 최종적으로 이력서를 통해서 결정하고자 하는 것은 나의 동료가 될 사람을 찾는 것 이기 때문이다.\n따라서 자신이 문제 상황에서 어떤 점을 고려했고, 어떤 점을 중요하게 생각했는지 드러내는 것이 좋다. 자신의 가치관을 표현하는 것이다.\n단순히 내가 수행한 이력들을 나열하는 것은 정보의 목록에 그칠 뿐이다. 이력서를 통해서 그 사람을 궁금하게 만드는 것이 필요하지 않을까?\n문제점 요약 - 읽는 사람 입장에서 읽기 쉬운 이력서 결국 내가 공통으로 피드백하는 내용은 다음과 같다.\n읽는 사람 입장에서 읽기 쉬운 이력서를 작성하자\n내가 피드백한 대부분의 경우 이력서가 담고 있는 내용이 지원자의 관점에서만 고려되어 \u0026ldquo;나는 무엇무엇을 해보았다.\u0026ldquo;의 나열인 경우가 많아, 읽는 사람 입장에서 궁금증이 해소되기 어려운 경우가 많았다.\n작성한 이력서를 지원자 입장이 아니라, 글을 읽는 독자의 관점에서 바라보자면, 결국 최종적으로 \u0026lsquo;나와 같이 일하게 될 팀의 리더\u0026rsquo; 가 이 이력서를 바탕으로 나의 면접 통과 여부를 결정하게 된다.\n그렇다면, 이력서라는 글은 독자의 입장에서 읽기 쉽게 작성되어야 하는 것이 좋지 않을까? 따라서 동료가 될 사람을 찾고 있는 팀의 리더 입장에서 궁금한 것들을 잘 정리해놓고, 지원자가 어떤 사람인지 무엇을 중요하게 생각하는지 생각이 잘 드러나는 내용이 있으면 좋겠다고 생각한다.\n주요 점검 사항 문제점을 해결하기 위해서 다음과 같은 점검 사항을 요약해보았다.\n읽는 사람을 위해 작성시 고려할 부분들 지원 포지션과 관련있는 내용으로 통일하기 이력서 전반에 걸쳐 경력 기간, 업무 내용, 경험해본 기술 스펙등이 일관되기를 기대한다. 종종 지원 포지션과는 무관한 경험이 분량을 위해서 채워져 있는 인상을 받을 때가 있는데 불필요한 내용을 읽는 느낌을 줄 수 있다. 불필요한 정보 제거하기 포지션과 무관한 학력정보(고등학교), 자격증(정보처리기사, 운전면허증), 연관성이 낮은 정보(다른 계통의 인턴경험)는 생략해서 핵심 내용을 부각시키는게 좋다. 스킬셋은 나열형식 보다는 조금 더 구체적으로 단순히 기술을 다룰 수 있다는 나열 대신에 사용한 최신 버전이나 실제 활용 경험, 본인이 다룰 수 있는 숙련도를 구체적으로 언급하는 것이 좋다. 프로젝트 경험 프로젝트 경험을 작성할 때는 팀의 규모, 본인의 위치와 역할을 추가하면 좋다. 실제 면접에서 주로 질문하는 내용들을 이력서 단계에서 파악할 수 있도록 작성하기 꼬리 질문을 생각해보고, 이 내용들을 이력서에 담아보자. \u0026lsquo;이 프로젝트는 몇명이 진행한 프로젝트인가요?(이력서에는 기간만 있고 인원이 잘 표시되지 않아 질문하게 됨)\u0026rsquo; \u0026lsquo;이 중에서 어떤 역할을 주로 담당하셨나요?(프로젝트의 전체 내용 위주로 작성되어 있고 어떤 역할을 중점적으로 수행했는지 잘 드러나지 않아 질문하게 됨)\u0026rsquo; \u0026lsquo;프로젝트 진행중에 어떤 점이 가장 어려웠었나요?(트러블 슈팅 경험이 궁금함, 어떤 부분을 힘들어 하는지 알고 싶음)\u0026rsquo; \u0026lsquo;그 과정에서 새롭게 알게 되었거나 배운점은 무엇이었나요?(경험을 통해서 어떤 부분을 성장시켜나갔는지 알고 싶음)\u0026rsquo; 정성적인 내용과 함께 정량적인 내용을 함께 작성하자. \u0026ldquo;무엇무엇을 통해서 성능을 개선했습니다.\u0026rdquo; 보다, \u0026ldquo;무엇무엇을 통해서 성능을 30% 개선했습니다.\u0026rdquo; 라는 문장이 더 매력적이다. 정량적인 내용이 어렵다면, 주위의 정성적인 의견 취합도 좋다. (ex) 이 작업 이후 동료들이 모두 긍정적인 효과를 체험했다고 이야기 해주었습니다.) 자신의 정체성을 드러내기 위해서 경험을 작성할 때 이야기를 쓰듯이 작성해보자. 내가 추천하는 방식은 S.T.A.R. 스토리텔링 기법이다.\nS : 상황(Situation) - 경험의 배경을 소개한다. T : 과제(Task) - 해결하고자 했던 문제를 구체적으로 작성한다. A : 행동(Action) - 문제 해결을 위해 구체적으로 어떤 행동을 했었는지 상세하기 작성한다. R : 결과(Result) - 도출된 결과를 정량적 데이터(예: 매출 20% 증가, 사용자 만족도 15% 상승 등)나 동료의 피드백을 통해 표현하면, 기여도를 효과적으로 어필할 수 있다. 소개에서 자신이 중요하게 생각하는 것들을 작성하자.\n\u0026lsquo;공유\u0026rsquo;, \u0026lsquo;생산성\u0026rsquo;, \u0026lsquo;커뮤니케이션\u0026rsquo;, \u0026lsquo;협업\u0026rsquo;, \u0026lsquo;UI/UX\u0026rsquo; 무수히 많은 키워드 중에서 내가 핵심적으로 관심있고 중요하게 생각하는 가치를 뽑아서 드러내보자. 그러한 내용들을 실제 업무에서 어떻게 적용했는지 사례가 있으면 좋다. 경험에서 배운 점 강조 : 단순히 ‘무엇을 했다’가 아니라, ‘어떤 교훈을 얻었고 어떻게 성장했는지’를 작성해보면 좋다. 결국 이러한 내용들은 나중에 조직에서 어떤 시너지를 발휘할 수 있는지를 명확하게 보여주게 된다. 마무리하며 내가 피드백 하는 내용들이 항상 상황에 딱 들어 내용이라고 생각하지는 않는다. 다만, 여러번 경험하면서 검토자 입장에서 읽기 쉽도록 정리되어 있는 이력서가 좋은 이력서가 아닐까 생각한다.\n결국 팀의 동료가 될 누군가를 찾고 있는 수많은 팀장들에게 \u0026lsquo;나 자신의 경험과 그 안에서 성장한 내용, 그리고 중요하게 생각하는 가치들\u0026rsquo;에 대해서 잘 설명할 수 있다면 초고속으로 합격통보를 보내지 않을까 한다.\n"
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/accelerating-team-success/",
-	"title": "Accelerating Team Success",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
-	"permalink": "https://findstar.pe.kr/tags/fast-team/",
-	"title": "Fast Team",
-	"tags": [],
-	"description": "",
-	"type": "base",
-	"contents": ""
-},
-{
 	"permalink": "https://findstar.pe.kr/tags/teamwork/",
 	"title": "Teamwork",
 	"tags": [],
 	"description": "",
 	"type": "base",
 	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2025/03/30/introduce-aibrix/",
+	"title": "비용효율적인 LLM Inference 환경을 위한 AIBrix (1)",
+	"tags": ["fast team", "teamwork", "accelerating team success"],
+	"description": "",
+	"type": "post",
+	"contents": "비용효율적인 LLM Inference 환경을 위한 AIBrix LLM(Large Language Model) 활용한 서비스를 구축하려고 하면 다양한 비용에 대한 고민을 할 수 밖에 없다. 안정적인 추론(Inference) 환경을 위해서 고비용의 GPU 인스턴스를 마련하는 것도 일이지만, 안정적인 추론환경을 제공하는 것도 쉽지 않다. 대부분 K8S 클러스터를 기반으로 이런 환경들을 구성하는데 이쪽 분야가 빠르게 발전하고 있다보니 아직 표준이라고 할만한 프레임워크도 없어서 여러가지 시행착오를 거치고있다.\n그러던중 vLLM 에서 소개한 AIBrix를 알게되어 이를 간단하게 살펴보았다. 특히 내가 눈여겨 보고 있는 부분은 추론 성능을 극대화 하기 위한 분산 KV Cache 부분인데, 이부분은 내용이 방대해서 별도의 포스트를 추가하기로 하고 오늘은 간단하게 개념만 살펴보았다.\n비싼 GPU 인스턴스 대규모 LLM 모델의 추론환경을 구성하려면 GPU 인스턴스의 비용도 높고, 만약 자체 모델을 준비한다면 모델 학습 비용또한 적지 않다.\nAWS 도쿄리전 기준 H200 8 GPU 1 Node (p5.48xlarge) 비용은 시간당 $123.19496 이다.\n이를 한달 기준으로 하면 $88700.3712 / 환율 1450으로 계산하면 원화 기준 한달 요금 128,615,538.24 원 (약 1.28억)이다.\nAWS 도쿄리전 기준 A100 8 GPU 1 Node (p4d.24xlarge) 비용은 시간당 $44.92215 이다.\n이를 한달 기준으로 하면 $32343.948 / 환율 1450으로 계산하면 원화 기준 한달 요금 46,898,724.6 원 (약 4700만원)이다.\nLlama 3.3 70B 모델을 구동하려면 A100 4 GPU가 필요하다. p4d.24xlarge 1 Node 에 2 Replica 만 구동가능하다는 의미이다.\n이 때문에 추론을 서빙하면서 비용을 절감하기 위한 노력들이 다양하게 이어진다.\nvLLM vLLM은 오픈소스로 다양한 모델들에 대한 추론(Inference)환경을 제공해주는 서빙 라이브러리다. GPU 메모리 오버헤드를 줄이는 \u0026ldquo;PagedAttention\u0026rdquo; 덕분에 기본적인 Hugging Face 파이프라인보다 훨씬 높은 성능(Accuracy 가 아닌 Transaction Per Second / Token Per Secode)을 보여준다.\nHF (Hugging Face Transformer) TGI (HuggingFace Text Generation Inference) 오픈소스 프로젝트로 매우 빠른 버전업이 진행중이고, 신규 모델들에 대한 번들을 제공하고 있어서 누구나 쉽게 모델 추론 환경을 구성할 수 있게 도와준다.\n그래서 일단 가장 먼저 vLLM으로 추론 환경을 구성하고, 만약 필요하다면 추가적으로 TensorRT-LLM과 같은 NVIDIA에서 제공해주는 서빙 프레임워크를 사용해서 최적화를 추가로 진행하기도 한다.\n하지만 대규모 LLM 추론 환경을 구성하려면 vLLM을 단일 노드에서 구동하는 것만으로는 부족함이 있다.\nAIBrix AIBrix는 클라우드 네이티브 기반의 오픈소스 프레임워크로, 대규모 LLM 배포를 최적화하고 간단하게 제공하는 것을 목표로 한다. ByteDance에서 vLLM을 사용하는 아키첵처를 AIBrix 라는 이름으로 오픈한 것으로 보인다.\n쉽게 말해, AIBrix는 K8S 환경에서 LLM 추론 서버를 효율적으로 운영하기 위해 필요한 다양한 기능들을 제공하는 하나의 통합 솔루션이다.\n주요 기능 주요 기능은 다음과 같다.\n고밀도 LoRA 관리 : LoRA 레이어를 사용하는 경우 이를 손쉽게 관리할 수 있게 도와준다. LLM 게이트웨이 및 라우팅 : 여러 모델에 대한 게이트웨이와 라우딩을 제공한다. 오픈 AI API 처름 다양한 모델들을 서빙하는 경우 필요하다. LLM 앱 맞춤형 오토스케일러 : CPU 워크로드와 다른 LLM 특유의 실시간 수요에 따라 추론 리소스를 동적으로 확장한다. 통합 AI 런타임 : 표준화된 메트릭 관리, 모델 다운로드 및 관리를 가능하게 하는 사이드카 제공 분산 추론 : 여러 노드에서 대규모 작업 부하를 처리할 수 있는 확장 기능 제공 분산형 KV 캐시 : 대용량, 여러 엔진 간 KV 재사용이 가능하게 한다. (이것 때문에 살펴보기 시작했다.) 비용 효율적인 이기종 서비스 : SLO 보장을 통해 혼합 GPU 추론을 활성화하여 비용 절감 GPU 하드웨어 오류 감지 : GPU 하드웨어 문제 감지 이렇게만 보면 만능 솔루션으로 보이지만, 아직은 따끈따끈한(?) 0.2.1 버전이다. 그래서 가볍게만 둘러보기만 했고, 관심있는 분산형 KV 캐시 부분은 좀 더 깊게 파보기로 했다.\nKV Cache Transformer 아키텍처 기반의 LLM은 텍스트를 생성할 때 이전 토큰들의 정보를 기억하기 위해 KV(Key-Value) Cache를 사용한다.\n특히 챗봇과 같이 이전 대화 내용을 기억해야 하는 다중 턴(multi-turn) 애플리케이션에서는 유사한 토큰 시퀀스가 반복되어 불필요한 연산이 발생하고, 이는 리소스 낭비와 처리량 감소로 이어질 수 있다.\n이러한 문제를 해결하기 위해서 AIBrix 에서는 이 KV Cache 를 위한 분산 KV Cache을 제공한다.\n고용량, 노드간 KV Cache 재사용: 여러 노드에 KV 캐시를 분산하여 저장하고 공유할 수 있도록 기능을 제공한다. 네트워크 및 메모리 효율성 최적화: 자주 사용되는(hot) KV 텐서를 우선적으로 유지하고, 메타데이터 업데이트를 비동기로 수행하여 오버헤드를 최소화한다. 그리고 캐시와 vLLM 워크로드를 동일한 노드에 배치해 share memory 기반의 빠른 데이터 교환을 지원한다. 동일한 노드에 배치하기 위해서 사이드카 형태로 개별 GPU 노드에 셋업되며 그 기반은 vineyard 라는 솔루션을 커스텀해서 사용하고 있는 것으로 보인다. (그리고 또 그 vineyard는 캐시 스토리지로 redis를 사용하는 것으로 보인다.)\n성능 향상 효과 실험 결과에 따르면 분산 KV 캐시는 vLLM의 기본 캐싱 방식과 함께 사용할 때 최대 처리량이 약 50% 증가하며, 평균 및 P99 TTFT(Time To First Token)가 각각 약 60%, 70% 감소하는 성능 향상이 있었다고 한다.\n요약하자면, AIBrix의 분산 KV Cache는 LLM 추론 과정에서 발생하는 중복 연산을 줄이고 메모리 효율성을 높여, 처리량 증가와 지연 시간 감소를 동시에 달성하는 핵심 기술이다.\n설치 방법 install # 의존 컴포넌트 설치 # envoy 와 kuberay가 설치된다. # \u0026#39;aibrix-system\u0026#39; 라는 namespace 가 추가된다. kubectl create -f https://github.com/vllm-project/aibrix/releases/download/v0.2.1/aibrix-dependency-v0.2.1.yaml # aibrix 컴포넌트 설치 # aibrix operator 와 각종 플러그인 그리고 redis 가 설치된다. kubectl create -f https://github.com/vllm-project/aibrix/releases/download/v0.2.1/aibrix-core-v0.2.1.yaml 기본 모델 배포 deepseek 에서 제공하는 llama 8b 증류 모델을 구동해본다. 최소한 A100 40G 이상 GPU 노드가 필요하다.\napiVersion: apps/v1 kind: Deployment metadata: labels: model.aibrix.ai/name: deepseek-r1-distill-llama-8b # Note: The label value `model.aibrix.ai/name` here must match with the service name. model.aibrix.ai/port: \u0026#34;8000\u0026#34; name: deepseek-r1-distill-llama-8b namespace: default spec: replicas: 1 selector: matchLabels: model.aibrix.ai/name: deepseek-r1-distill-llama-8b template: metadata: labels: model.aibrix.ai/name: deepseek-r1-distill-llama-8b spec: containers: - command: - python3 - -m - vllm.entrypoints.openai.api_server - --host - \u0026#34;0.0.0.0\u0026#34; - --port - \u0026#34;8000\u0026#34; - --uvicorn-log-level - warning - --model - deepseek-ai/DeepSeek-R1-Distill-Llama-8B - --served-model-name # Note: The `--served-model-name` argument value must also match the Service name and the Deployment label `model.aibrix.ai/name` - deepseek-r1-distill-llama-8b - --max-model-len - \u0026#34;12288\u0026#34; # 24k length, this is to avoid \u0026#34;The model\u0026#39;s max seq len (131072) is larger than the maximum number of tokens that can be stored in KV cache\u0026#34; issue. image: vllm/vllm-openai:v0.7.1 imagePullPolicy: IfNotPresent name: vllm-openai ports: - containerPort: 8000 protocol: TCP resources: limits: nvidia.com/gpu: \u0026#34;1\u0026#34; requests: nvidia.com/gpu: \u0026#34;1\u0026#34; livenessProbe: httpGet: path: /health port: 8000 scheme: HTTP failureThreshold: 3 periodSeconds: 5 successThreshold: 1 timeoutSeconds: 1 readinessProbe: httpGet: path: /health port: 8000 scheme: HTTP failureThreshold: 5 periodSeconds: 5 successThreshold: 1 timeoutSeconds: 1 startupProbe: httpGet: path: /health port: 8000 scheme: HTTP failureThreshold: 30 periodSeconds: 5 successThreshold: 1 timeoutSeconds: 1 --- apiVersion: v1 kind: Service metadata: labels: model.aibrix.ai/name: deepseek-r1-distill-llama-8b prometheus-discovery: \u0026#34;true\u0026#34; annotations: prometheus.io/scrape: \u0026#34;true\u0026#34; prometheus.io/port: \u0026#34;8080\u0026#34; name: deepseek-r1-distill-llama-8b # Note: The Service name must match the label value `model.aibrix.ai/name` in the Deployment namespace: default spec: ports: - name: serve port: 8000 protocol: TCP targetPort: 8000 - name: http port: 8080 protocol: TCP targetPort: 8080 selector: model.aibrix.ai/name: deepseek-r1-distill-llama-8b type: ClusterIP 모델 gateway 호출 # kubectl 포트 포워딩으로 해당 서비스 접근 kubectl -n envoy-gateway-system port-forward service/envoy-aibrix-system-aibrix-ak-6n54f 8888:80 \u0026amp; ENDPOINT=\u0026#34;localhost:8888\u0026#34; # curl 호출 curl -X \u0026#34;POST\u0026#34; \u0026#34;http://localhost:8888/v1/chat/completions\u0026#34; \\ -H \u0026#39;Content-Type: application/json\u0026#39; \\ -d $\u0026#39;{ \u0026#34;model\u0026#34;: \u0026#34;deepseek-r1-distill-llama-8b\u0026#34;, \u0026#34;temperature\u0026#34;: 0.7, \u0026#34;messages\u0026#34;: [ { \u0026#34;content\u0026#34;: \u0026#34;안녕하세요!\u0026#34;, \u0026#34;role\u0026#34;: \u0026#34;user\u0026#34; } ] }\u0026#39; # 응답 { \u0026#34;id\u0026#34;: \u0026#34;chatcmpl-82418164f0d24c60bf6ef8ad763111b6\u0026#34;, \u0026#34;object\u0026#34;: \u0026#34;chat.completion\u0026#34;, \u0026#34;created\u0026#34;: 1742809954, \u0026#34;model\u0026#34;: \u0026#34;deepseek-r1-distill-llama-8b\u0026#34;, \u0026#34;choices\u0026#34;: [ { \u0026#34;index\u0026#34;: 0, \u0026#34;message\u0026#34;: { \u0026#34;role\u0026#34;: \u0026#34;assistant\u0026#34;, \u0026#34;content\u0026#34;: \u0026#34;안녕하세요! 반가워요! 저는 사용자와 대화하는 인공지능입니다. 오늘은 어떻게 도와드릴까요?\u0026#34;, \u0026#34;tool_calls\u0026#34;: [] }, \u0026#34;logprobs\u0026#34;: null, \u0026#34;finish_reason\u0026#34;: \u0026#34;stop\u0026#34;, \u0026#34;stop_reason\u0026#34;: null } ], \u0026#34;usage\u0026#34;: { \u0026#34;prompt_tokens\u0026#34;: 38, \u0026#34;total_tokens\u0026#34;: 69, \u0026#34;completion_tokens\u0026#34;: 31, \u0026#34;prompt_tokens_details\u0026#34;: null }, \u0026#34;prompt_logprobs\u0026#34;: null } 마치며 AIBrix는 K8S 환경에서 대규모 LLM 추론 환경을 구성하고 운영하고자 하는 MLOps 엔지니어에게 적합한 통합 솔루션이다. 특히 Vineyard 기반의 분산 KV Cache는 LLM 기반 서비스의 성능과 효율성을 획기적으로 개선할 수 있는 기능이라 많은 분석이 필요해보인다.\n추론은 GPU / Model / Serving 환경 3가지를 잘 조합해야 적절한 성능이 나온다. 개인적으로 많이 사용하는 vLLM 에서 이런 통합 솔루션을 제공해줘서 연구해볼거리가 늘어나 너무나 기쁘고(?!) 고마운 마음이다.\n당장은 설치하는 것만 진행해보았지만(이것도 일이 작지 않다..), vineyard 연결 부분과 실제 추론의 성능 향상 효과를 측정하기 위한 평가 데이터셋도 고민해보려고 한다.\n참고 vLLM AIBrix AIBrix Github vLLM Office Hour - February 27, 2025 vLLM Office Hour Slides vineyard "
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/mentoring/",
+	"title": "Mentoring",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/resume-feedback/",
+	"title": "Resume Feedback",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/tags/software-engineer-career/",
+	"title": "Software Engineer Career",
+	"tags": [],
+	"description": "",
+	"type": "base",
+	"contents": ""
+},
+{
+	"permalink": "https://findstar.pe.kr/2025/03/16/mentoring-insight-for-software-engineer/",
+	"title": "멘토링에서 자주 이야기 하는 이력서 피드백",
+	"tags": ["mentoring", "software engineer career", "resume feedback"],
+	"description": "",
+	"type": "post",
+	"contents": "멘토링에서 자주 이야기 하는 이력서 피드백 일년에 몇 차례 멘토링을 진행할 때가 있다. 대학교 후배들 부터 직장 또는 커뮤니티에서 만나는 다양한 개발자 분들과 이야기를 나누게 되는데, 종종 이력서 피드백을 요청받고는 한다. 현업 면접관으로 참여한 경험도 있고 해서, 그 순간 \u0026lsquo;우리팀에 함께 했으면 하는 분은 누구일까?\u0026rsquo; 라는 컨셉으로 이력서를 살펴보고 피드백을 드렸다.\n그러다가 경험이 쌓이다 보니, 자주 이야기 하게 되는 내용들이 있어 이를 정리해보았다.\n생각해 볼 것 이력서에 대한 피드백을 정리해보면, 결국 글을 어떻게 작성해야하는 가에 대한 질문으로 정리된다. 다음과 같은 주제를 고려해보자.\n생각해 볼 것 1 - 이력서는 누가 읽을까? 이력서를 작성하는 순서는 대략 다음과 같다.\n지원자는 자기 소개, 개발 스킬셋, 프로젝트 경험에 대한 내용을 이력서에 작성한다. 자신이 생각하는 어필할 수 있는 내용들을 채워넣기 시작한다. 여러차례 반복하며 이력서의 형태를 다듬는다. 마지막으로 빠진 부분이 없는지 체크하고 오타가 없는지 확인한다. 여기서 생각해볼 것은 \u0026ldquo;이력서도 하나의 글\u0026rdquo; 이라는 점이다.\n따라서 독자가 있으며, 그 독자는 일차적으로 서류검토자, 나아가서 내가 일하게 될 팀의 리더가 될 확률이 높다.\n생각해 볼 것 2 - 나는 누구인가? 이력서를 작성할 때 결국 나라는 사람이 드러나야 한다. 왜냐하면 결국 최종적으로 이력서를 통해서 결정하고자 하는 것은 나의 동료가 될 사람을 찾는 것 이기 때문이다.\n따라서 자신이 문제 상황에서 어떤 점을 고려했고, 어떤 점을 중요하게 생각했는지 드러내는 것이 좋다. 자신의 가치관을 표현하는 것이다.\n단순히 내가 수행한 이력들을 나열하는 것은 정보의 목록에 그칠 뿐이다. 이력서를 통해서 그 사람을 궁금하게 만드는 것이 필요하지 않을까?\n문제점 요약 - 읽는 사람 입장에서 읽기 쉬운 이력서 결국 내가 공통으로 피드백하는 내용은 다음과 같다.\n읽는 사람 입장에서 읽기 쉬운 이력서를 작성하자\n내가 피드백한 대부분의 경우 이력서가 담고 있는 내용이 지원자의 관점에서만 고려되어 \u0026ldquo;나는 무엇무엇을 해보았다.\u0026ldquo;의 나열인 경우가 많아, 읽는 사람 입장에서 궁금증이 해소되기 어려운 경우가 많았다.\n작성한 이력서를 지원자 입장이 아니라, 글을 읽는 독자의 관점에서 바라보자면, 결국 최종적으로 \u0026lsquo;나와 같이 일하게 될 팀의 리더\u0026rsquo; 가 이 이력서를 바탕으로 나의 면접 통과 여부를 결정하게 된다.\n그렇다면, 이력서라는 글은 독자의 입장에서 읽기 쉽게 작성되어야 하는 것이 좋지 않을까? 따라서 동료가 될 사람을 찾고 있는 팀의 리더 입장에서 궁금한 것들을 잘 정리해놓고, 지원자가 어떤 사람인지 무엇을 중요하게 생각하는지 생각이 잘 드러나는 내용이 있으면 좋겠다고 생각한다.\n주요 점검 사항 문제점을 해결하기 위해서 다음과 같은 점검 사항을 요약해보았다.\n읽는 사람을 위해 작성시 고려할 부분들 지원 포지션과 관련있는 내용으로 통일하기 이력서 전반에 걸쳐 경력 기간, 업무 내용, 경험해본 기술 스펙등이 일관되기를 기대한다. 종종 지원 포지션과는 무관한 경험이 분량을 위해서 채워져 있는 인상을 받을 때가 있는데 불필요한 내용을 읽는 느낌을 줄 수 있다. 불필요한 정보 제거하기 포지션과 무관한 학력정보(고등학교), 자격증(정보처리기사, 운전면허증), 연관성이 낮은 정보(다른 계통의 인턴경험)는 생략해서 핵심 내용을 부각시키는게 좋다. 스킬셋은 나열형식 보다는 조금 더 구체적으로 단순히 기술을 다룰 수 있다는 나열 대신에 사용한 최신 버전이나 실제 활용 경험, 본인이 다룰 수 있는 숙련도를 구체적으로 언급하는 것이 좋다. 프로젝트 경험 프로젝트 경험을 작성할 때는 팀의 규모, 본인의 위치와 역할을 추가하면 좋다. 실제 면접에서 주로 질문하는 내용들을 이력서 단계에서 파악할 수 있도록 작성하기 꼬리 질문을 생각해보고, 이 내용들을 이력서에 담아보자. \u0026lsquo;이 프로젝트는 몇명이 진행한 프로젝트인가요?(이력서에는 기간만 있고 인원이 잘 표시되지 않아 질문하게 됨)\u0026rsquo; \u0026lsquo;이 중에서 어떤 역할을 주로 담당하셨나요?(프로젝트의 전체 내용 위주로 작성되어 있고 어떤 역할을 중점적으로 수행했는지 잘 드러나지 않아 질문하게 됨)\u0026rsquo; \u0026lsquo;프로젝트 진행중에 어떤 점이 가장 어려웠었나요?(트러블 슈팅 경험이 궁금함, 어떤 부분을 힘들어 하는지 알고 싶음)\u0026rsquo; \u0026lsquo;그 과정에서 새롭게 알게 되었거나 배운점은 무엇이었나요?(경험을 통해서 어떤 부분을 성장시켜나갔는지 알고 싶음)\u0026rsquo; 정성적인 내용과 함께 정량적인 내용을 함께 작성하자. \u0026ldquo;무엇무엇을 통해서 성능을 개선했습니다.\u0026rdquo; 보다, \u0026ldquo;무엇무엇을 통해서 성능을 30% 개선했습니다.\u0026rdquo; 라는 문장이 더 매력적이다. 정량적인 내용이 어렵다면, 주위의 정성적인 의견 취합도 좋다. (ex) 이 작업 이후 동료들이 모두 긍정적인 효과를 체험했다고 이야기 해주었습니다.) 자신의 정체성을 드러내기 위해서 경험을 작성할 때 이야기를 쓰듯이 작성해보자. 내가 추천하는 방식은 S.T.A.R. 스토리텔링 기법이다.\nS : 상황(Situation) - 경험의 배경을 소개한다. T : 과제(Task) - 해결하고자 했던 문제를 구체적으로 작성한다. A : 행동(Action) - 문제 해결을 위해 구체적으로 어떤 행동을 했었는지 상세하기 작성한다. R : 결과(Result) - 도출된 결과를 정량적 데이터(예: 매출 20% 증가, 사용자 만족도 15% 상승 등)나 동료의 피드백을 통해 표현하면, 기여도를 효과적으로 어필할 수 있다. 소개에서 자신이 중요하게 생각하는 것들을 작성하자.\n\u0026lsquo;공유\u0026rsquo;, \u0026lsquo;생산성\u0026rsquo;, \u0026lsquo;커뮤니케이션\u0026rsquo;, \u0026lsquo;협업\u0026rsquo;, \u0026lsquo;UI/UX\u0026rsquo; 무수히 많은 키워드 중에서 내가 핵심적으로 관심있고 중요하게 생각하는 가치를 뽑아서 드러내보자. 그러한 내용들을 실제 업무에서 어떻게 적용했는지 사례가 있으면 좋다. 경험에서 배운 점 강조 : 단순히 ‘무엇을 했다’가 아니라, ‘어떤 교훈을 얻었고 어떻게 성장했는지’를 작성해보면 좋다. 결국 이러한 내용들은 나중에 조직에서 어떤 시너지를 발휘할 수 있는지를 명확하게 보여주게 된다. 마무리하며 내가 피드백 하는 내용들이 항상 상황에 딱 들어 내용이라고 생각하지는 않는다. 다만, 여러번 경험하면서 검토자 입장에서 읽기 쉽도록 정리되어 있는 이력서가 좋은 이력서가 아닐까 생각한다.\n결국 팀의 동료가 될 누군가를 찾고 있는 수많은 팀장들에게 \u0026lsquo;나 자신의 경험과 그 안에서 성장한 내용, 그리고 중요하게 생각하는 가치들\u0026rsquo;에 대해서 잘 설명할 수 있다면 초고속으로 합격통보를 보내지 않을까 한다.\n"
 },
 {
 	"permalink": "https://findstar.pe.kr/2025/03/02/moving-fast-together/",

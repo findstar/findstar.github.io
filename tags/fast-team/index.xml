@@ -6,8 +6,15 @@
     <description>Recent content in Fast Team on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 02 Mar 2025 20:27:11 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 30 Mar 2025 21:12:07 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/tags/fast-team/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>비용효율적인 LLM Inference 환경을 위한 AIBrix (1)</title>
+      <link>https://findstar.pe.kr/2025/03/30/introduce-aibrix/</link>
+      <pubDate>Sun, 30 Mar 2025 21:12:07 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2025/03/30/introduce-aibrix/</guid>
+      <description>대규모 LLM 모델의 추론(Inference) 환경에서 비용을 절약하기 위한 다양한 방법들이 시도되는데, 최근 알게된 AIBrix 에서 추론 비용을 낮추기 위한 방법을 어떻게 접근하는지 살펴보았다.</description>
+    </item>
     <item>
       <title>팀이 함께 가면서도 빨리가는 방법</title>
       <link>https://findstar.pe.kr/2025/03/02/moving-fast-together/</link>

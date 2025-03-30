@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 16 Mar 2025 20:02:01 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 30 Mar 2025 21:12:07 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>비용효율적인 LLM Inference 환경을 위한 AIBrix (1)</title>
+      <link>https://findstar.pe.kr/2025/03/30/introduce-aibrix/</link>
+      <pubDate>Sun, 30 Mar 2025 21:12:07 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2025/03/30/introduce-aibrix/</guid>
+      <description>대규모 LLM 모델의 추론(Inference) 환경에서 비용을 절약하기 위한 다양한 방법들이 시도되는데, 최근 알게된 AIBrix 에서 추론 비용을 낮추기 위한 방법을 어떻게 접근하는지 살펴보았다.</description>
+    </item>
     <item>
       <title>멘토링에서 자주 이야기 하는 이력서 피드백</title>
       <link>https://findstar.pe.kr/2025/03/16/mentoring-insight-for-software-engineer/</link>
