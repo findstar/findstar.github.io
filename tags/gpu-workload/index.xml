@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GPU Workload on Soo Story</title>
+    <title>Gpu Workload on Soo Story</title>
     <link>https://findstar.pe.kr/tags/gpu-workload/</link>
-    <description>Recent content in GPU Workload on Soo Story</description>
+    <description>Recent content in Gpu Workload on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 16 Feb 2025 20:51:11 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 00:02:11 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/tags/gpu-workload/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gen AI시대, GPU 워크로드가 어려운 이유</title>
+      <link>https://findstar.pe.kr/2026/02/21/why-gpu-workloads-are-hard-in-the-gen-ai-era/</link>
+      <pubDate>Sat, 21 Feb 2026 00:02:11 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2026/02/21/why-gpu-workloads-are-hard-in-the-gen-ai-era/</guid>
+      <description>MLOps 를 위한 GPU 기반 워크로드 처리가 어려운 이유를 정리해보았다.</description>
+    </item>
     <item>
       <title>GPU 워크로드를 위한 K8S 스케줄링 전략</title>
       <link>https://findstar.pe.kr/2025/02/16/scheduling-for-k8s-gpu-workload/</link>

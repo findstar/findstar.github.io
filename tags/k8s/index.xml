@@ -6,8 +6,15 @@
     <description>Recent content in K8s on Soo Story</description>
     <generator>Hugo</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 22 Dec 2024 19:56:03 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 00:02:11 +0900</lastBuildDate>
     <atom:link href="https://findstar.pe.kr/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gen AI시대, GPU 워크로드가 어려운 이유</title>
+      <link>https://findstar.pe.kr/2026/02/21/why-gpu-workloads-are-hard-in-the-gen-ai-era/</link>
+      <pubDate>Sat, 21 Feb 2026 00:02:11 +0900</pubDate>
+      <guid>https://findstar.pe.kr/2026/02/21/why-gpu-workloads-are-hard-in-the-gen-ai-era/</guid>
+      <description>MLOps 를 위한 GPU 기반 워크로드 처리가 어려운 이유를 정리해보았다.</description>
+    </item>
     <item>
       <title>Node Drain 작업시 주의사항</title>
       <link>https://findstar.pe.kr/2024/12/22/pod-disruption-budget-on-k8s-node-drain/</link>

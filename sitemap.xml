@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://findstar.pe.kr/tags/ai-workload/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/2026/02/21/why-gpu-workloads-are-hard-in-the-gen-ai-era/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/gpu-workload/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/k8s/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/posts/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
+    <loc>https://findstar.pe.kr/tags/</loc>
+    <lastmod>2026-02-21T00:02:11+09:00</lastmod>
+  </url><url>
     <loc>https://findstar.pe.kr/tags/accelerating-team-success/</loc>
     <lastmod>2025-03-30T21:12:07+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/fast-team/</loc>
-    <lastmod>2025-03-30T21:12:07+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/posts/</loc>
-    <lastmod>2025-03-30T21:12:07+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/</loc>
-    <lastmod>2025-03-30T21:12:07+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/</loc>
     <lastmod>2025-03-30T21:12:07+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/teamwork/</loc>
@@ -39,9 +51,6 @@
     <lastmod>2025-03-02T20:27:11+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/custom-scheduler/</loc>
-    <lastmod>2025-02-16T20:51:11+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/gpu-workload/</loc>
     <lastmod>2025-02-16T20:51:11+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/2025/02/16/scheduling-for-k8s-gpu-workload/</loc>
@@ -73,9 +82,6 @@
   </url><url>
     <loc>https://findstar.pe.kr/tags/year-review/</loc>
     <lastmod>2025-01-13T20:53:23+09:00</lastmod>
-  </url><url>
-    <loc>https://findstar.pe.kr/tags/k8s/</loc>
-    <lastmod>2024-12-22T19:56:03+09:00</lastmod>
   </url><url>
     <loc>https://findstar.pe.kr/tags/node-drain/</loc>
     <lastmod>2024-12-22T19:56:03+09:00</lastmod>
